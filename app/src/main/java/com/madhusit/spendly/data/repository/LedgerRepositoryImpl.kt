@@ -79,10 +79,7 @@ class LedgerRepositoryImpl(
 
     override suspend fun updateTransaction(transaction: LedgerTransaction) {
         LedgerValidation.validateTransaction(transaction)
-        require(transaction.status != TransactionStatus.FAILED) {
-            "Failed transactions cannot be persisted as ledger transactions."
-        }
-        database.withTransaction {
+database.withTransaction {
             transactionDao.update(transaction.toEntity())
             auditDao.insert(
                 AuditEventEntity(
