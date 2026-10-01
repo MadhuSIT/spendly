@@ -27,6 +27,7 @@ class FoundationViewModelTest {
 
         assertFalse(viewModel.uiState.value.loading)
         assertEquals("Spendly foundation is ready.", viewModel.uiState.value.message)
+        assertEquals(null, viewModel.uiState.value.error)
         assertEquals(1, repository.saveCount)
     }
 
@@ -43,7 +44,31 @@ class FoundationViewModelTest {
         assertTrue(viewModel.uiState.value.message != null)
     }
 
-    private class FakeRepository : FoundationRepository {
+    @Test
+    fun persistenceFailureExposesRetryableError() = runTest {
+        val repository = FakeRepository(failFirstSave = true)
+        val viewModel = FoundationViewModel(repository)
+
+        viewModel.initialize()
+        advanceUntilIdle()
+
+        assertFalse(viewModel.uiState.value.loading)
+        assertEquals("database unavailable", viewModel.uiState.value.error)
+        assertEquals(null, viewModel.uiState.value.message)
+        assertEquals(1, repository.saveCount)
+
+        viewModel.initialize()
+        advanceUntilIdle()
+
+        assertFalse(viewModel.uiState.value.loading)
+        assertEquals(null, viewModel.uiState.value.error)
+        assertEquals("Spendly foundation is ready.", viewModel.uiState.value.message)
+        assertEquals(2, repository.saveCount)
+    }
+
+    private class FakeRepository(
+        private val failFirstSave: Boolean = false
+    ) : FoundationRepository {
         private val state = MutableStateFlow<FoundationState?>(null)
         var saveCount = 0
 
@@ -51,6 +76,9 @@ class FoundationViewModelTest {
 
         override suspend fun save(message: String) {
             saveCount++
+            if (failFirstSave && saveCount == 1) {
+                throw IllegalStateException("database unavailable")
+            }
             state.value = FoundationState(message)
         }
     }
