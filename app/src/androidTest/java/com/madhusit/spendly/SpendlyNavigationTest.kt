@@ -36,4 +36,19 @@ class SpendlyNavigationTest {
         composeRule.waitForIdle()
         composeRule.onNodeWithTag("screen_home").assertIsDisplayed()
     }
+
+    @Test
+    fun bottomNavigationDoesNotBuildASecondaryBackStack() {
+        composeRule.onNodeWithTag("bottom_nav_transactions").performClick()
+        composeRule.onNodeWithTag("bottom_nav_accounts").performClick()
+        composeRule.onNodeWithTag("bottom_nav_insights").performClick()
+        composeRule.onNodeWithTag("screen_insights").assertIsDisplayed()
+
+        composeRule.activityRule.scenario.onActivity { activity ->
+            activity.onBackPressedDispatcher.onBackPressed()
+        }
+        composeRule.waitForIdle()
+
+        composeRule.onNodeWithTag("screen_home").assertIsDisplayed()
+    }
 }
