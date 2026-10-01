@@ -15,7 +15,7 @@ class FoundationPersistenceE2ETest {
     @get:Rule val composeRule = createAndroidComposeRule<MainActivity>()
 
     @Test
-    fun launchNavigateRecreateAndVerifyPersistedFoundationState() {
+    fun launchNavigateRecreateAndVerifyPersistedLedgerShell() {
         composeRule.onNodeWithTag("screen_home").assertIsDisplayed()
         composeRule.onNodeWithTag("bottom_nav_transactions").performClick()
         composeRule.onNodeWithTag("screen_transactions").assertIsDisplayed()
@@ -26,6 +26,7 @@ class FoundationPersistenceE2ETest {
         composeRule.onNodeWithTag("screen_transactions").assertIsDisplayed()
         composeRule.onNodeWithTag("bottom_nav_home").performClick()
         composeRule.onNodeWithTag("screen_home").assertIsDisplayed()
-        composeRule.onNodeWithText("Spendly foundation is ready.").assertIsDisplayed()
+        composeRule.onNodeWithText("Spendly").assertIsDisplayed()
+        composeRule.onNodeWithText("Net spending").assertIsDisplayed()
     }
 }
