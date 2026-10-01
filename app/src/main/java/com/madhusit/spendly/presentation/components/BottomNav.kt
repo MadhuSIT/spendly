@@ -30,7 +30,13 @@ fun BottomNav(navController: NavHostController) {
             NavigationBarItem(
                 modifier = Modifier.testTag("bottom_nav_$route"),
                 selected = currentRoute == route,
-                onClick = { navController.navigate(route) { launchSingleTop = true; restoreState = true } },
+                onClick = {
+                    navController.navigate(route) {
+                        popUpTo("home") { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
                 icon = { Icon(item.second, contentDescription = item.first) },
                 label = { Text(item.first) }
             )
