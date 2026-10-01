@@ -1353,3 +1353,246 @@ Return to Home
 The first milestone should be a complete navigable UI using deterministic local/mock ledger data.
 
 No screen should be implemented as a disconnected visual mockup. Every screen must participate in the navigation and state flows described in this document.
+
+
+---
+
+# 24. VERY IMPORTANT — UX quality bar, smoothness and review metrics
+
+This section is a **mandatory product requirement**, not a nice-to-have.
+
+Spendly is a mobile application. The UI must feel **soothing, smooth, fast and effortless**. A functionally correct screen is not complete if it feels sluggish, cluttered, confusing or unnecessarily demanding.
+
+> **Target UX: Calm financial control, with almost no friction.**
+
+## 24.1 Mobile-first UX principles
+
+1. Instant first impression.
+2. Fast perceived response with immediate feedback.
+3. Smooth transitions for navigation, sheets, lists and state changes.
+4. One-thumb usability for frequent actions.
+5. Progressive disclosure: important information first, complexity only when needed.
+6. Minimal typing through remembered choices and suggestions.
+7. Smart defaults where safe.
+8. Low cognitive load.
+9. Subtle micro-feedback after successful actions.
+10. No unnecessary waiting for local data.
+11. Graceful degraded/error states.
+12. Accessibility by default.
+
+## 24.2 SQLite / local-first UI architecture
+
+The first production UI milestone should use an on-device SQLite database, accessed through the Android persistence layer (for example Room), as the authoritative local ledger.
+
+No backend is required for the core ledger experience.
+
+~~~text
+             SMS / Manual action
+                     │
+                     ▼
+             ┌───────────────┐
+             │ Domain /      │
+             │ Use Cases     │
+             └───────┬───────┘
+                     │
+                     ▼
+             ┌───────────────┐
+             │ SQLite / Room │
+             │ Ledger        │
+             └───────┬───────┘
+                     │
+             observable state
+                     │
+                     ▼
+             ┌───────────────┐
+             │ ViewModel /   │
+             │ UI state      │
+             └───────┬───────┘
+                     │
+                     ▼
+             ┌───────────────┐
+             │ Spendly UI    │
+             └───────────────┘
+~~~
+
+The UI must not contain independent copies of financial truth.
+
+A ledger mutation should follow one domain path and update every affected screen:
+
+~~~text
+Ledger mutation
+      ↓
+SQLite transaction
+      ↓
+Observable state changes
+      ↓
+Home / Transactions / Accounts / Cards / Insights
+~~~
+
+## 24.3 UX review metrics
+
+Every UI milestone must be reviewed against measurable criteria, not visual preference alone.
+
+### A. Responsiveness
+
+Review:
+
+- Time from tap to visible feedback.
+- Time from navigation to useful content.
+- Unnecessary loading states when local data is already available.
+- Scrolling smoothness with realistic transaction volumes.
+- Smoothness of bottom sheets and transitions.
+- Search/filter/input responsiveness.
+
+Target: user actions receive immediate visual acknowledgement and database/parsing work never blocks the main UI thread.
+
+### B. Task efficiency
+
+| Task | UX goal |
+|---|---|
+| View current financial position | One screen |
+| Open recent transaction | One tap |
+| Correct unknown account | One focused decision + confirm |
+| Correct category | One selection + save |
+| Process review queue | Resolve → automatically advance |
+| Add common expense | Minimal steps with remembered defaults |
+| View card obligation | One tap from Accounts/Home |
+| Match card payment | Suggested match → confirm |
+| Search transaction | Search → result |
+| Inspect monthly spending | One screen before drill-down |
+
+The goal is to remove unnecessary cognitive and physical effort, not mechanically minimize every tap.
+
+### C. Review friction
+
+Track:
+
+- Review items created.
+- Average actions required to resolve an item.
+- Percentage resolved without leaving the review workflow.
+- Percentage requiring repeated corrections.
+- Time from opening a review item to resolution.
+- Whether the reason for review is understandable without technical knowledge.
+
+The review queue should feel like clearing a small inbox, not debugging an automated system.
+
+### D. Navigation quality
+
+Review:
+
+- Can users predict where a tap leads?
+- Is back navigation consistent?
+- Are important destinations reachable from context?
+- Do notifications deep-link to the exact action?
+- Are users forced through unrelated screens?
+- Does the four-tab structure remain understandable as features grow?
+
+### E. Visual calmness
+
+Review every screen for:
+
+- Information density.
+- Typography hierarchy.
+- Excessive borders/cards.
+- Excessive colors.
+- Unnecessary badges.
+- Competing primary actions.
+- Visual noise.
+- Inconsistent spacing.
+- Inconsistent component behavior.
+
+Financial importance should be communicated through hierarchy, spacing and typography before decoration.
+
+### F. Accessibility
+
+Review:
+
+- Minimum 48dp touch targets.
+- Screen-reader labels.
+- Meaningful content descriptions.
+- Dynamic font scaling.
+- Sufficient contrast.
+- No color-only meaning.
+- Predictable focus order.
+- Meaningful announcement of transaction amounts and statuses.
+
+### G. Trust and explainability
+
+The user should be able to answer:
+
+- Why was this transaction added?
+- Which account was used?
+- Why was this category selected?
+- Is this a purchase or a payment?
+- Why is this item asking for review?
+- Was it linked to a refund/reversal/payment?
+- What changed after correction?
+
+### H. Financial correctness in the UI
+
+~~~text
+Purchase
+   ↓
+Spending increases
+
+Card payment
+   ↓
+Card outstanding decreases
+   ↓
+Spending unchanged
+
+Own-account transfer
+   ↓
+Balances move
+   ↓
+Spending unchanged
+
+Refund
+   ↓
+Net spending decreases
+
+Duplicate SMS
+   ↓
+No second financial impact
+~~~
+
+A beautiful screen that communicates the wrong financial meaning is a UX failure.
+
+## 24.4 UX acceptance gate
+
+A screen/flow is not ready for implementation sign-off until it has:
+
+- Clear purpose.
+- Clear primary action.
+- Clear navigation path.
+- Loading state.
+- Empty state.
+- Error state.
+- Partial/degraded state where applicable.
+- Accessibility behavior.
+- Smooth interaction behavior.
+- Correct financial semantics.
+- No unnecessary user input.
+- No unexplained technical terminology.
+- Consistent behavior with Spendly.
+- Testing with realistic local/mock ledger data.
+
+**UI review must evaluate both what the screen looks like and how it feels to use. Visual polish alone is insufficient.**
+
+## 24.5 Review mindset
+
+~~~text
+Can I understand it immediately?
+          ↓
+Can I complete the intended task effortlessly?
+          ↓
+Did the UI respond immediately?
+          ↓
+Do I understand what happened?
+          ↓
+Can I trust the financial result?
+          ↓
+Can I recover easily if something is wrong?
+~~~
+
+If any answer is "no", the screen requires UX iteration before completion.
