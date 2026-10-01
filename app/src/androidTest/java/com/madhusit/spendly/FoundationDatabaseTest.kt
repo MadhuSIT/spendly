@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.madhusit.spendly.data.local.FoundationEntity
 import com.madhusit.spendly.data.local.MIGRATION_1_2
+import com.madhusit.spendly.data.local.MIGRATION_2_3
 import com.madhusit.spendly.data.local.SpendlyDatabase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -52,7 +53,7 @@ class FoundationDatabaseTest {
             first.foundationDao().save(FoundationEntity(message = "persisted"))
             first.close()
             val second = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
-                .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                 .build()
             assertEquals("persisted", second.foundationDao().observe().first()?.message)
             second.close()
@@ -61,7 +62,7 @@ class FoundationDatabaseTest {
     }
 
     @Test
-    fun versionOneDatabaseMigratesToVersionTwo() {
+    fun versionOneDatabaseMigratesToCurrentSchema() {
         val dbName = "foundation-migration-test.db"
         context.deleteDatabase(dbName)
         val path = context.getDatabasePath(dbName)
@@ -71,14 +72,15 @@ class FoundationDatabaseTest {
         sqlite.execSQL("INSERT INTO foundation_state (id, message) VALUES (1, 'legacy')")
         sqlite.execSQL("PRAGMA user_version = 1")
         sqlite.close()
+
         val migrated = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
         val entity = runBlocking { migrated.foundationDao().observe().first() }
         assertNotNull(entity)
         assertEquals("legacy", entity?.message)
         assertEquals(0L, entity?.updatedAtEpochMillis)
-        assertEquals(2, migrated.openHelper.readableDatabase.version)
+        assertEquals(3, migrated.openHelper.readableDatabase.version)
         migrated.close()
         context.deleteDatabase(dbName)
     }
