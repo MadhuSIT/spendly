@@ -18,7 +18,7 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
         if (initialized) return
         initialized = true
         viewModelScope.launch {
-            if (repository.observeEntities().first().isEmpty()) createEntity(FinancialEntityType.CASH, "Spendly", "Cash Wallet", null, null, "INR", System.currentTimeMillis())
+            if (repository.observeEntities().first().isEmpty()) createEntity(type = FinancialEntityType.CASH, name = "Cash Wallet", provider = "Spendly", currency = "INR", nowEpochMillis = System.currentTimeMillis())
         }
     }
 
@@ -28,7 +28,7 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
                 val amountMinor = amountRupees.toBigDecimal().movePointRight(2).longValueExact()
                 require(amountMinor > 0) { "Enter an amount greater than zero." }
                 val entity = repository.observeEntities().first().firstOrNull() ?: createEntity(FinancialEntityType.CASH, "Spendly", "Cash Wallet", null, null, "INR", System.currentTimeMillis()).let { repository.observeEntities().first().first() }
-                createTransaction(entity.id, TransactionType.EXPENSE, amountMinor, "INR", System.currentTimeMillis(), merchant.ifBlank { null }, System.currentTimeMillis())
+                createTransaction(sourceEntityId = entity.id, type = TransactionType.EXPENSE, amountMinor = amountMinor, currency = "INR", transactionTimestamp = System.currentTimeMillis(), merchantName = merchant.ifBlank { null }, nowEpochMillis = System.currentTimeMillis())
                 onComplete(null)
             } catch (e: Exception) { onComplete(e.message ?: "Could not save transaction.") }
         }
