@@ -21,7 +21,7 @@ class FoundationViewModel(private val repository: FoundationRepository) : ViewMo
     private var initializationRequested = false
     val uiState: StateFlow<FoundationUiState> = repository.observe()
         .map { FoundationUiState(loading = false, message = it?.message) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), FoundationUiState())
+        .stateIn(viewModelScope, SharingStarted.Eagerly, FoundationUiState())
 
     fun initialize() {
         if (initializationRequested || uiState.value.message != null) return
