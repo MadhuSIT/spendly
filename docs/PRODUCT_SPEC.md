@@ -296,23 +296,19 @@ Financial invariants:
 
 ## 18. Delivery phases
 
-Phase 1: SMS ingestion.
+The GitHub master execution contract (#3) is the authoritative implementation sequence:
 
-Phase 2: parser engine.
+1. **Phase 1 — Android foundation**
+2. **Phase 2 — Ledger and financial domain correctness**
+3. **Phase 3 — SMS ingestion and parsing**
+4. **Phase 4 — Core mobile UX**
+5. **Phase 5 — Reconciliation and lifecycle resilience**
+6. **Phase 6 — Credit cards, statements and payments**
+7. **Phase 7 — Categorization and insights**
+8. **Phase 8 — Production hardening**
+9. **Phase 9 — Release candidate and production validation**
 
-Phase 3: ledger and Room persistence.
-
-Phase 4: categorization and merchant rules.
-
-Phase 5: reconciliation with WorkManager.
-
-Phase 6: credit cards, statements, payments and reminders.
-
-Phase 7: financial correctness, invariants and auditability.
-
-Phase 8: monthly insights.
-
-Phase 9: privacy, performance, migrations, failure recovery and release hardening.
+Capability requirements in this specification remain unchanged; this section only aligns their delivery order with the master execution contract.
 
 ## 19. Definition of done
 
