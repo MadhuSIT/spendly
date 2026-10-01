@@ -20,17 +20,18 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class FoundationDatabaseTest {
-    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private lateinit var context: Context
     private lateinit var database: SpendlyDatabase
 
     @Before
     fun setUp() {
+        context = ApplicationProvider.getApplicationContext()
         database = Room.inMemoryDatabaseBuilder(context, SpendlyDatabase::class.java).build()
     }
 
     @After
     fun tearDown() {
-        database.close()
+        if (::database.isInitialized) database.close()
     }
 
     @Test
