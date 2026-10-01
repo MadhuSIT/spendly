@@ -4,7 +4,6 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.madhusit.spendly.data.local.FoundationEntity
 import com.madhusit.spendly.data.local.MIGRATION_1_2
 import com.madhusit.spendly.data.local.SpendlyDatabase
@@ -16,9 +15,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
 class FoundationDatabaseTest {
     private lateinit var context: Context
     private lateinit var database: SpendlyDatabase
