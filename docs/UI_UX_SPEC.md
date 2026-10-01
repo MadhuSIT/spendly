@@ -133,3 +133,7 @@ Avoid ambiguous null values as UI state.
 12. Accessibility and UI tests
 
 The first UI milestone should feel complete with local/mock ledger data. Real SMS ingestion should plug into the same screens without requiring navigation redesign.
+
+## Detailed screen and flow specification
+
+The precise screen-by-screen behavior, states, navigation, ASCII flow diagrams, and end-to-end UX flows are maintained in [`docs/UI_UX_FLOWS.md`](./UI_UX_FLOWS.md). This document is the implementation-oriented source of truth; this foundation document remains the higher-level UX direction and design-system reference.
