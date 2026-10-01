@@ -2,6 +2,7 @@ package com.madhusit.spendly
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -16,13 +17,13 @@ class SpendlyNavigationTest {
     @Test
     fun bottomNavigationReachesAllPrimaryDestinations() {
         composeRule.onNodeWithText("Home").assertIsDisplayed()
-        composeRule.onNodeWithText("Transactions").performClick()
+        composeRule.onNodeWithContentDescription("Transactions").performClick()
         composeRule.onNodeWithText("Transactions", useUnmergedTree = true).assertIsDisplayed()
-        composeRule.onNodeWithText("Accounts").performClick()
+        composeRule.onNodeWithContentDescription("Accounts").performClick()
         composeRule.onNodeWithText("Accounts", useUnmergedTree = true).assertIsDisplayed()
-        composeRule.onNodeWithText("Insights").performClick()
+        composeRule.onNodeWithContentDescription("Insights").performClick()
         composeRule.onNodeWithText("Insights", useUnmergedTree = true).assertIsDisplayed()
-        composeRule.onNodeWithText("Home").performClick()
+        composeRule.onNodeWithContentDescription("Home").performClick()
         composeRule.onNodeWithText("Spendly").assertIsDisplayed()
     }
 }
