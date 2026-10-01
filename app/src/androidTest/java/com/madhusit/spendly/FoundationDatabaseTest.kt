@@ -1,0 +1,89 @@
+package com.madhusit.spendly
+
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.madhusit.spendly.data.local.FoundationEntity
+import com.madhusit.spendly.data.local.MIGRATION_1_2
+import com.madhusit.spendly.data.local.SpendlyDatabase
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@RunWith(AndroidJUnit4::class)
+class FoundationDatabaseTest {
+    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private lateinit var database: SpendlyDatabase
+
+    @Before
+    fun setUp() {
+        database = Room.inMemoryDatabaseBuilder(context, SpendlyDatabase::class.java).build()
+    }
+
+    @After
+    fun tearDown() {
+        database.close()
+    }
+
+    @Test
+    fun daoReadsWritesAndUpdatesSingleFoundationState() = runBlocking {
+        val dao = database.foundationDao()
+        assertNull(dao.observe().first())
+
+        dao.save(FoundationEntity(message = "first"))
+        assertEquals("first", dao.observe().first()?.message)
+
+        dao.save(FoundationEntity(message = "second"))
+        assertEquals("second", dao.observe().first()?.message)
+    }
+
+    @Test
+    fun dataSurvivesDatabaseReopen() = runBlocking {
+        val dbName = "foundation-reopen-test.db"
+        context.deleteDatabase(dbName)
+        val first = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName).build()
+        first.foundationDao().save(FoundationEntity(message = "persisted"))
+        first.close()
+
+        val second = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
+            .addMigrations(MIGRATION_1_2)
+            .build()
+        assertEquals("persisted", second.foundationDao().observe().first()?.message)
+        second.close()
+        context.deleteDatabase(dbName)
+    }
+
+    @Test
+    fun versionOneDatabaseMigratesToVersionTwo() {
+        val dbName = "foundation-migration-test.db"
+        context.deleteDatabase(dbName)
+        val path = context.getDatabasePath(dbName)
+        path.parentFile?.mkdirs()
+        val sqlite = SQLiteDatabase.openOrCreateDatabase(path, null)
+        sqlite.execSQL("CREATE TABLE foundation_state (id INTEGER NOT NULL, message TEXT NOT NULL, PRIMARY KEY(id))")
+        sqlite.execSQL("INSERT INTO foundation_state (id, message) VALUES (1, 'legacy')")
+        sqlite.execSQL("PRAGMA user_version = 1")
+        sqlite.close()
+
+        val migrated = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
+            .addMigrations(MIGRATION_1_2)
+            .build()
+        val entity = runBlocking { migrated.foundationDao().observe().first() }
+
+        assertNotNull(entity)
+        assertEquals("legacy", entity?.message)
+        assertEquals(0L, entity?.updatedAtEpochMillis)
+        assertEquals(2, migrated.openHelper.readableDatabase.version)
+
+        migrated.close()
+        context.deleteDatabase(dbName)
+    }
+}
