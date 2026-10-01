@@ -3,6 +3,7 @@ package com.madhusit.spendly
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
@@ -21,6 +22,6 @@ class FoundationPersistenceE2ETest {
         composeRule.activityRule.scenario.recreate()
         composeRule.waitForIdle()
         composeRule.onNodeWithTag("screen_home").assertIsDisplayed()
-        composeRule.onNodeWithTag("screen_home").assertTextContains("Spendly foundation is ready.")
+        composeRule.onNodeWithText("Spendly foundation is ready.").assertIsDisplayed()
     }
 }
