@@ -16,9 +16,12 @@ jobs:
           distribution: temurin
           java-version: "17"
           cache: gradle
-      - uses: android-actions/setup-android@v3
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses > /dev/null || true
       - name: Install Android SDK
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Make Gradle bootstrap executable
+        run: chmod +x gradlew
       - name: Build debug
         run: ./gradlew assembleDebug
       - name: Unit tests
