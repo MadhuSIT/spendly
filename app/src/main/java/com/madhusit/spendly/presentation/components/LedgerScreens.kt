@@ -13,7 +13,14 @@ import com.madhusit.spendly.domain.ledger.LedgerTransaction
 
 @Composable
 fun LedgerHome(padding: PaddingValues, totals: LedgerTotals, onAddExpense: () -> Unit) {
-    Column(Modifier.fillMaxSize().padding(padding).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(padding)
+            .padding(20.dp)
+            .testTag("screen_home"),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
         Text("Spendly")
         Card(Modifier.fillMaxWidth()) {
             Column(Modifier.padding(20.dp)) {
@@ -47,7 +54,14 @@ fun AddExpenseScreen(padding: PaddingValues, onSave: (String, String, (String?) 
 
 @Composable
 fun LedgerTransactions(padding: PaddingValues, transactions: List<LedgerTransaction>) {
-    LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    LazyColumn(
+        Modifier
+            .fillMaxSize()
+            .padding(padding)
+            .testTag("screen_transactions"),
+        contentPadding = PaddingValues(20.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
         item { Text("Transactions", Modifier.testTag("transactions-title")) }
         items(transactions, key = { it.id }) { transaction ->
             Card(Modifier.fillMaxWidth()) { Row(Modifier.fillMaxWidth().padding(16.dp)) {
