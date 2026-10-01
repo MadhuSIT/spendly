@@ -84,4 +84,47 @@ class FoundationDatabaseTest {
         migrated.close()
         context.deleteDatabase(dbName)
     }
+
+    @Test
+    fun versionTwoDatabaseMigratesToLedgerSchemaVersionThree() {
+        val dbName = "ledger-migration-test.db"
+        context.deleteDatabase(dbName)
+        val path = context.getDatabasePath(dbName)
+        path.parentFile?.mkdirs()
+        val sqlite = SQLiteDatabase.openOrCreateDatabase(path, null)
+        sqlite.execSQL(
+            "CREATE TABLE foundation_state (id INTEGER NOT NULL, message TEXT NOT NULL, updatedAtEpochMillis INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(id))"
+        )
+        sqlite.execSQL("INSERT INTO foundation_state (id, message, updatedAtEpochMillis) VALUES (1, 'v2', 123)")
+        sqlite.execSQL("PRAGMA user_version = 2")
+        sqlite.close()
+
+        val migrated = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
+            .addMigrations(MIGRATION_2_3)
+            .build()
+
+        assertEquals(3, migrated.openHelper.readableDatabase.version)
+        val entity = runBlocking { migrated.foundationDao().observe().first() }
+        assertEquals("v2", entity?.message)
+        assertEquals(123L, entity?.updatedAtEpochMillis)
+
+        val ledgerTables = listOf(
+            "financial_entities",
+            "ledger_transactions",
+            "transaction_relationships",
+            "audit_events"
+        )
+        ledgerTables.forEach { table ->
+            migrated.openHelper.readableDatabase.query(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+                arrayOf(table)
+            ).use { cursor ->
+                assertEquals("Missing migrated table: $table", true, cursor.moveToFirst())
+            }
+        }
+
+        migrated.close()
+        context.deleteDatabase(dbName)
+    }
+
 }
