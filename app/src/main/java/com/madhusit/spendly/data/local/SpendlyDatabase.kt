@@ -3,6 +3,8 @@ package com.madhusit.spendly.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.madhusit.spendly.data.local.ledger.AuditEventDao
+import com.madhusit.spendly.data.local.ledger.AuditEventEntity
 import com.madhusit.spendly.data.local.ledger.FinancialEntityDao
 import com.madhusit.spendly.data.local.ledger.FinancialEntityEntity
 import com.madhusit.spendly.data.local.ledger.LedgerConverters
@@ -16,7 +18,8 @@ import com.madhusit.spendly.data.local.ledger.TransactionRelationshipEntity
         FoundationEntity::class,
         FinancialEntityEntity::class,
         LedgerTransactionEntity::class,
-        TransactionRelationshipEntity::class
+        TransactionRelationshipEntity::class,
+        AuditEventEntity::class
     ],
     version = 3,
     exportSchema = true
@@ -27,4 +30,5 @@ abstract class SpendlyDatabase : RoomDatabase() {
     abstract fun financialEntityDao(): FinancialEntityDao
     abstract fun ledgerTransactionDao(): LedgerTransactionDao
     abstract fun transactionRelationshipDao(): TransactionRelationshipDao
+    abstract fun auditEventDao(): AuditEventDao
 }
