@@ -5,29 +5,52 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.madhusit.spendly.domain.FoundationRepository
 import com.madhusit.spendly.domain.SaveFoundationState
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 data class FoundationUiState(
     val loading: Boolean = true,
-    val message: String? = null
+    val message: String? = null,
+    val error: String? = null
 )
 
 class FoundationViewModel(private val repository: FoundationRepository) : ViewModel() {
     private val saveState = SaveFoundationState(repository)
+    private val _uiState = MutableStateFlow(FoundationUiState())
+    val uiState: StateFlow<FoundationUiState> = _uiState.asStateFlow()
     private var initializationRequested = false
-    val uiState: StateFlow<FoundationUiState> = repository.observe()
-        .map { FoundationUiState(loading = false, message = it?.message) }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, FoundationUiState())
+
+    init {
+        viewModelScope.launch {
+            repository.observe().collect { state ->
+                if (state != null) {
+                    _uiState.value = FoundationUiState(
+                        loading = false,
+                        message = state.message
+                    )
+                    initializationRequested = true
+                }
+            }
+        }
+    }
 
     fun initialize() {
-        if (initializationRequested || uiState.value.message != null) return
+        if (initializationRequested) return
         initializationRequested = true
-        if (uiState.value.message == null) {
-            viewModelScope.launch { saveState("Spendly foundation is ready.") }
+        _uiState.value = FoundationUiState(loading = true)
+
+        viewModelScope.launch {
+            runCatching {
+                saveState("Spendly foundation is ready.")
+            }.onFailure { error ->
+                initializationRequested = false
+                _uiState.value = FoundationUiState(
+                    loading = false,
+                    error = error.message ?: "Unable to save Spendly state."
+                )
+            }
         }
     }
 
