@@ -75,5 +75,19 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
         database.execSQL("CREATE INDEX IF NOT EXISTS index_transaction_relationships_fromTransactionId_relationshipType ON transaction_relationships(fromTransactionId, relationshipType)")
         database.execSQL("CREATE INDEX IF NOT EXISTS index_transaction_relationships_toTransactionId_relationshipType ON transaction_relationships(toTransactionId, relationshipType)")
         database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS index_transaction_relationships_fromTransactionId_toTransactionId_relationshipType ON transaction_relationships(fromTransactionId, toTransactionId, relationshipType)")
+        database.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS audit_events (
+                id TEXT NOT NULL PRIMARY KEY,
+                entityType TEXT NOT NULL,
+                entityId TEXT NOT NULL,
+                action TEXT NOT NULL,
+                actor TEXT NOT NULL,
+                details TEXT,
+                createdAtEpochMillis INTEGER NOT NULL
+            )
+            """.trimIndent()
+        )
+        database.execSQL("CREATE INDEX IF NOT EXISTS index_audit_events_entityType_entityId_createdAtEpochMillis ON audit_events(entityType, entityId, createdAtEpochMillis)")
     }
 }
