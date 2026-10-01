@@ -11,9 +11,12 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun BottomNav(navController: NavHostController) {
+    val backStackEntry = navController.currentBackStackEntryAsState().value
+    val currentRoute = backStackEntry?.destination?.route
     val items = listOf(
         "home" to ("Home" to Icons.Default.Home),
         "transactions" to ("Transactions" to Icons.Default.ReceiptLong),
@@ -23,7 +26,7 @@ fun BottomNav(navController: NavHostController) {
     NavigationBar {
         items.forEach { (route, item) ->
             NavigationBarItem(
-                selected = navController.currentDestination?.route == route,
+                selected = currentRoute == route,
                 onClick = { navController.navigate(route) { launchSingleTop = true; restoreState = true } },
                 icon = { Icon(item.second, contentDescription = item.first) },
                 label = { Text(item.first) }
