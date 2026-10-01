@@ -25,4 +25,15 @@ class SpendlyNavigationTest {
         composeRule.onNodeWithTag("bottom_nav_home").performClick()
         composeRule.onNodeWithTag("screen_home").assertIsDisplayed()
     }
+
+    @Test
+    fun systemBackReturnsFromSecondaryDestination() {
+        composeRule.onNodeWithTag("bottom_nav_transactions").performClick()
+        composeRule.onNodeWithTag("screen_transactions").assertIsDisplayed()
+        composeRule.activityRule.scenario.onActivity { activity ->
+            activity.onBackPressedDispatcher.onBackPressed()
+        }
+        composeRule.waitForIdle()
+        composeRule.onNodeWithTag("screen_home").assertIsDisplayed()
+    }
 }
