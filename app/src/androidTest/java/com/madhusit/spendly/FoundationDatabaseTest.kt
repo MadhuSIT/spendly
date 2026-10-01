@@ -32,31 +32,32 @@ class FoundationDatabaseTest {
     }
 
     @Test
-    fun daoReadsWritesAndUpdatesSingleFoundationState() = runBlocking {
-        val dao = database.foundationDao()
-        assertNull(dao.observe().first())
-
-        dao.save(FoundationEntity(message = "first"))
-        assertEquals("first", dao.observe().first()?.message)
-
-        dao.save(FoundationEntity(message = "second"))
-        assertEquals("second", dao.observe().first()?.message)
+    fun daoReadsWritesAndUpdatesSingleFoundationState() {
+        runBlocking {
+            val dao = database.foundationDao()
+            assertNull(dao.observe().first())
+            dao.save(FoundationEntity(message = "first"))
+            assertEquals("first", dao.observe().first()?.message)
+            dao.save(FoundationEntity(message = "second"))
+            assertEquals("second", dao.observe().first()?.message)
+        }
     }
 
     @Test
-    fun dataSurvivesDatabaseReopen() = runBlocking {
-        val dbName = "foundation-reopen-test.db"
-        context.deleteDatabase(dbName)
-        val first = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName).build()
-        first.foundationDao().save(FoundationEntity(message = "persisted"))
-        first.close()
-
-        val second = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
-            .addMigrations(MIGRATION_1_2)
-            .build()
-        assertEquals("persisted", second.foundationDao().observe().first()?.message)
-        second.close()
-        context.deleteDatabase(dbName)
+    fun dataSurvivesDatabaseReopen() {
+        runBlocking {
+            val dbName = "foundation-reopen-test.db"
+            context.deleteDatabase(dbName)
+            val first = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName).build()
+            first.foundationDao().save(FoundationEntity(message = "persisted"))
+            first.close()
+            val second = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
+                .addMigrations(MIGRATION_1_2)
+                .build()
+            assertEquals("persisted", second.foundationDao().observe().first()?.message)
+            second.close()
+            context.deleteDatabase(dbName)
+        }
     }
 
     @Test
@@ -70,17 +71,14 @@ class FoundationDatabaseTest {
         sqlite.execSQL("INSERT INTO foundation_state (id, message) VALUES (1, 'legacy')")
         sqlite.execSQL("PRAGMA user_version = 1")
         sqlite.close()
-
         val migrated = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
             .addMigrations(MIGRATION_1_2)
             .build()
         val entity = runBlocking { migrated.foundationDao().observe().first() }
-
         assertNotNull(entity)
         assertEquals("legacy", entity?.message)
         assertEquals(0L, entity?.updatedAtEpochMillis)
         assertEquals(2, migrated.openHelper.readableDatabase.version)
-
         migrated.close()
         context.deleteDatabase(dbName)
     }
