@@ -18,11 +18,14 @@ data class FoundationUiState(
 
 class FoundationViewModel(private val repository: FoundationRepository) : ViewModel() {
     private val saveState = SaveFoundationState(repository)
+    private var initializationRequested = false
     val uiState: StateFlow<FoundationUiState> = repository.observe()
         .map { FoundationUiState(loading = false, message = it?.message) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), FoundationUiState())
 
     fun initialize() {
+        if (initializationRequested || uiState.value.message != null) return
+        initializationRequested = true
         if (uiState.value.message == null) {
             viewModelScope.launch { saveState("Spendly foundation is ready.") }
         }
