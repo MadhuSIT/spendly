@@ -19,8 +19,12 @@ class FoundationPersistenceE2ETest {
         composeRule.onNodeWithTag("screen_home").assertIsDisplayed()
         composeRule.onNodeWithTag("bottom_nav_transactions").performClick()
         composeRule.onNodeWithTag("screen_transactions").assertIsDisplayed()
+
         composeRule.activityRule.scenario.recreate()
         composeRule.waitForIdle()
+
+        composeRule.onNodeWithTag("screen_transactions").assertIsDisplayed()
+        composeRule.onNodeWithTag("bottom_nav_home").performClick()
         composeRule.onNodeWithTag("screen_home").assertIsDisplayed()
         composeRule.onNodeWithText("Spendly foundation is ready.").assertIsDisplayed()
     }
