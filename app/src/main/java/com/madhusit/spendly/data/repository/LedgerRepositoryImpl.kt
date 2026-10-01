@@ -55,9 +55,6 @@ class LedgerRepositoryImpl(
 
     override suspend fun createTransaction(transaction: LedgerTransaction) {
         LedgerValidation.validateTransaction(transaction)
-        require(transaction.status != TransactionStatus.FAILED) {
-            "Failed transactions cannot be persisted as ledger transactions."
-        }
         require(entityDao.findById(transaction.sourceEntityId) != null) {
             "Source entity does not exist."
         }
