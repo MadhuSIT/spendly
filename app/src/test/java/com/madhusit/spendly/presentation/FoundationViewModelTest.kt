@@ -1,5 +1,6 @@
 package com.madhusit.spendly.presentation
 
+import com.madhusit.spendly.MainDispatcherRule
 import com.madhusit.spendly.domain.FoundationRepository
 import com.madhusit.spendly.domain.FoundationState
 import kotlinx.coroutines.flow.Flow
@@ -9,9 +10,13 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import org.junit.Rule
 import org.junit.Test
 
 class FoundationViewModelTest {
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
+
     @Test
     fun initializePersistsStateAndExposesContent() = runTest {
         val repository = FakeRepository()
