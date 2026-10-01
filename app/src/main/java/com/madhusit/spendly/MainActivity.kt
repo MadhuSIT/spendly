@@ -10,7 +10,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SpendlyTheme { SpendlyApp((application as SpendlyApplication).repository) }
+            SpendlyTheme {
+                val app = application as SpendlyApplication
+                SpendlyApp(app.repository, app.ledgerRepository)
+            }
         }
     }
 }
