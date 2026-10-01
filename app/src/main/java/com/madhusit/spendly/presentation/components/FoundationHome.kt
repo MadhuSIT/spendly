@@ -16,7 +16,11 @@ import androidx.compose.ui.unit.dp
 import com.madhusit.spendly.presentation.FoundationUiState
 
 @Composable
-fun FoundationHome(padding: PaddingValues, state: FoundationUiState) {
+fun FoundationHome(
+    padding: PaddingValues,
+    state: FoundationUiState,
+    onRetry: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -26,10 +30,34 @@ fun FoundationHome(padding: PaddingValues, state: FoundationUiState) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text("Spendly", style = MaterialTheme.typography.headlineLarge)
-        if (state.loading) CircularProgressIndicator()
-        else {
-            Text(state.message ?: "Ready", style = MaterialTheme.typography.bodyLarge)
-            Button(onClick = {}, enabled = false) { Text("Foundation verified") }
+        when {
+            state.loading -> CircularProgressIndicator()
+            state.error != null -> {
+                Text(
+                    "We couldn't save the local Spendly state.",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Text(
+                    state.error,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Button(
+                    onClick = onRetry,
+                    modifier = Modifier.testTag("foundation_retry")
+                ) {
+                    Text("Retry")
+                }
+            }
+            else -> {
+                Text(
+                    state.message ?: "Ready",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Text(
+                    "Your local foundation is ready.",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     }
 }
