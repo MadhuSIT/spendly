@@ -2,7 +2,6 @@ package com.madhusit.spendly.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -34,7 +33,7 @@ fun SpendlyApp(repository: FoundationRepository) {
         modifier = Modifier.fillMaxSize()
     ) { padding ->
         NavHost(navController, startDestination = HOME, modifier = Modifier) {
-            composable(HOME) { FoundationHome(padding, state) }
+            composable(HOME) { FoundationHome(padding, state, vm::initialize) }
             composable(TRANSACTIONS) { PlaceholderScreen("Transactions", padding) }
             composable(ACCOUNTS) { PlaceholderScreen("Accounts", padding) }
             composable(INSIGHTS) { PlaceholderScreen("Insights", padding) }
