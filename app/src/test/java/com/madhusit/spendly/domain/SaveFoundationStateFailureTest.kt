@@ -2,7 +2,7 @@ package com.madhusit.spendly.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertThrows
 import org.junit.Test
 
@@ -17,7 +17,7 @@ class SaveFoundationStateFailureTest {
         }
 
         assertThrows(IllegalStateException::class.java) {
-            runTest { SaveFoundationState(repository)("test") }
+            runBlocking { SaveFoundationState(repository)("test") }
         }
     }
 }
