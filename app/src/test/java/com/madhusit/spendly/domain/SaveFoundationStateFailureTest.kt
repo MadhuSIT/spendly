@@ -8,7 +8,7 @@ import org.junit.Test
 
 class SaveFoundationStateFailureTest {
     @Test
-    fun repositoryFailureIsPropagated() = runTest {
+    fun repositoryFailureIsPropagated() {
         val repository = object : FoundationRepository {
             override fun observe(): Flow<FoundationState?> = emptyFlow()
             override suspend fun save(message: String) {
