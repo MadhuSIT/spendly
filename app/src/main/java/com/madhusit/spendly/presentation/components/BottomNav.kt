@@ -10,6 +10,8 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
@@ -26,6 +28,7 @@ fun BottomNav(navController: NavHostController) {
     NavigationBar {
         items.forEach { (route, item) ->
             NavigationBarItem(
+                modifier = Modifier.testTag("bottom_nav_$route"),
                 selected = currentRoute == route,
                 onClick = { navController.navigate(route) { launchSingleTop = true; restoreState = true } },
                 icon = { Icon(item.second, contentDescription = item.first) },

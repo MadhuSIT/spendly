@@ -6,5 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "foundation_state")
 data class FoundationEntity(
     @PrimaryKey val id: Int = 1,
-    val message: String
+    val message: String,
+    val updatedAtEpochMillis: Long = 0L
 )
