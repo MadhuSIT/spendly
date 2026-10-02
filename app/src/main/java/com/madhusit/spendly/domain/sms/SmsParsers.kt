@@ -37,7 +37,7 @@ class ProviderSmsParser(
             .find(text)?.groupValues?.get(1)
         val upi = Regex("""(?:upi|ref(?:erence)?|txn(?: id)?)[\s:#-]*([A-Za-z0-9]{6,})""", RegexOption.IGNORE_CASE)
             .find(text)?.groupValues?.get(1)
-        val merchant = Regex("""(?:at|to|from)\s+([A-Za-z][A-Za-z0-9 .&'-]{2,40})""", RegexOption.IGNORE_CASE)
+        val merchant = Regex("""(?:at|to|from)\s+([A-Za-z][A-Za-z0-9 &'-]{2,40})""", RegexOption.IGNORE_CASE)
             .find(text)?.groupValues?.get(1)?.trim()?.trimEnd('.', ',')
         return NormalizedSmsTransaction(
             type = type,
