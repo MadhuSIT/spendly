@@ -4,10 +4,8 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import androidx.compose.ui.test.waitUntil
 import org.junit.Rule
 import org.junit.Test
 
@@ -22,10 +20,9 @@ class LedgerVerticalSliceTest {
         rule.onNodeWithTag("expense-merchant").performTextInput("Test Merchant")
         rule.onNodeWithTag("save-expense").performClick()
 
-        // Saving is asynchronous; wait for the save callback to return to Home before navigating.
-        rule.waitUntil(timeoutMillis = 5_000) {
-            rule.onAllNodesWithTag("screen_home").fetchSemanticsNodes().isNotEmpty()
-        }
+        // Saving is asynchronous; settle the Compose/UI coroutine work before navigating.
+        rule.waitForIdle()
+        rule.onNodeWithTag("screen_home").assertIsDisplayed()
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
         rule.onNodeWithText("Test Merchant").assertIsDisplayed()
         rule.onNodeWithText("EXPENSE ·", substring = true).assertIsDisplayed()
