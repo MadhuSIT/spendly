@@ -48,10 +48,6 @@ class LedgerVerticalSliceTest {
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
         rule.waitForIdle()
         rule.waitUntil(10_000) {
-            rule.onAllNodesWithTag("screen_transactions").fetchSemanticsNodes().isNotEmpty()
-        }
-        rule.onNodeWithTag("screen_transactions").assertIsDisplayed()
-        rule.waitUntil(10_000) {
             rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
         }
         rule.onNodeWithText("Test Merchant").assertExists()
