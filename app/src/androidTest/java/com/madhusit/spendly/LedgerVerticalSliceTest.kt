@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import org.junit.Rule
 import org.junit.Test
@@ -36,8 +37,8 @@ class LedgerVerticalSliceTest {
 
         rule.onNodeWithText("Test Merchant").performClick()
         rule.onNodeWithTag("screen_transaction_detail").assertIsDisplayed()
-        rule.onNodeWithText("Cash Wallet").assertIsDisplayed()
-        rule.onNodeWithText("Added manually through Spendly.").assertIsDisplayed()
+        rule.onNodeWithText("Cash Wallet").performScrollTo().assertIsDisplayed()
+        rule.onNodeWithText("Added manually through Spendly.").performScrollTo().assertIsDisplayed()
 
         rule.activityRule.scenario.recreate()
         rule.waitForIdle()
