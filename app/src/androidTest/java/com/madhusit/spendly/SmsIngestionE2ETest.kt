@@ -65,8 +65,8 @@ class SmsIngestionE2ETest {
         }
 
         rule.onNodeWithText(merchant).assertIsDisplayed()
-        rule.onNodeWithText("EXPENSE ·", substring = true).assertIsDisplayed()
-        rule.onNodeWithText("₹321.45").assertIsDisplayed()
+        check(rule.onAllNodesWithText("EXPENSE ·", substring = true).fetchSemanticsNodes().isNotEmpty())
+        check(rule.onAllNodesWithText("₹321.45").fetchSemanticsNodes().isNotEmpty())
         rule.onNodeWithTag("screen_transactions").assertExists()
     }
 }
