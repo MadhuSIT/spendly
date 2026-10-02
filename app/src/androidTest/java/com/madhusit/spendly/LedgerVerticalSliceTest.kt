@@ -46,10 +46,14 @@ class LedgerVerticalSliceTest {
         rule.activityRule.scenario.recreate()
         rule.waitForIdle()
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
+        rule.waitForIdle()
+        rule.waitUntil(10_000) {
+            rule.onAllNodesWithTag("screen_transactions").fetchSemanticsNodes().isNotEmpty()
+        }
+        rule.onNodeWithTag("screen_transactions").assertIsDisplayed()
         rule.waitUntil(10_000) {
             rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
         }
-        rule.onNodeWithTag("screen_transactions").assertExists()
         rule.onNodeWithText("Test Merchant").assertExists()
         rule.onNodeWithText("EXPENSE ·", substring = true).assertExists()
         rule.onNodeWithText("₹125.50").assertExists()
