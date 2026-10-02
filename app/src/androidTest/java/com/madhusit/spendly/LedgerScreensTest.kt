@@ -6,6 +6,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performScrollTo
 import org.junit.Rule
 import org.junit.Test
 import com.madhusit.spendly.domain.ledger.*
@@ -82,8 +83,8 @@ class LedgerScreensTest {
         rule.onNodeWithTag("screen_transaction_detail").assertIsDisplayed()
         rule.onNodeWithText("Test Merchant").assertIsDisplayed()
         rule.onNodeWithText("₹125.50").assertIsDisplayed()
-        rule.onNodeWithText("Cash Wallet").assertIsDisplayed()
-        rule.onNodeWithText("REF-123").assertIsDisplayed()
-        rule.onNodeWithText("Added manually through Spendly.").assertIsDisplayed()
+        rule.onNodeWithText("Cash Wallet").performScrollTo().assertIsDisplayed()
+        rule.onNodeWithText("REF-123").performScrollTo().assertIsDisplayed()
+        rule.onNodeWithText("Added manually through Spendly.").performScrollTo().assertIsDisplayed()
     }
 }
