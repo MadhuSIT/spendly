@@ -50,7 +50,7 @@ fun LedgerHome(
         }
         Button(
             onClick = onAddTransaction,
-            Modifier.fillMaxWidth().testTag("add-transaction")
+            Modifier.fillMaxWidth().testTag("add-transaction").testTag("add-expense")
         ) {
             Text("Add transaction")
         }
@@ -265,7 +265,7 @@ fun AddTransactionScreen(
                 label = { Text("Amount (₹)") },
                 singleLine = true,
                 enabled = !saving,
-                modifier = Modifier.fillMaxWidth().testTag("transaction-amount")
+                modifier = Modifier.fillMaxWidth().testTag("transaction-amount").testTag("expense-amount")
             )
         }
         item {
@@ -275,7 +275,7 @@ fun AddTransactionScreen(
                 label = { Text(if (type == TransactionType.INCOME) "Income source" else "Merchant / title") },
                 singleLine = true,
                 enabled = !saving,
-                modifier = Modifier.fillMaxWidth().testTag("transaction-title")
+                modifier = Modifier.fillMaxWidth().testTag("transaction-title").testTag("expense-merchant")
             )
         }
         item {
@@ -325,7 +325,7 @@ fun AddTransactionScreen(
                         }
                     },
                     enabled = !saving && source.isNotBlank() && (type != TransactionType.TRANSFER || entities.size >= 2),
-                    modifier = Modifier.testTag("save-transaction")
+                    modifier = Modifier.testTag("save-transaction").testTag("save-expense")
                 ) { Text(if (saving) "Saving…" else "Save transaction") }
             }
         }
