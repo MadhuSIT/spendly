@@ -26,7 +26,7 @@ class SmsIngestionRepositoryImpl(
                 createdAtEpochMillis = message.receivedAtEpochMillis
             )
         )
-        if (claimed == 0L) {
+        if (claimed == -1L) {
             return@withTransaction SmsParseResult(
                 SmsClassification.FINANCIAL,
                 failureReason = SmsFailureReason.DUPLICATE
