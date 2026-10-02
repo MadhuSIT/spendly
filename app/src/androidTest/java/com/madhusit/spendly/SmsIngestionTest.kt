@@ -23,7 +23,7 @@ class SmsIngestionTest {
     private lateinit var ingestion: SmsIngestionRepositoryImpl
 
     @Before
-    fun setUp() {
+    fun setUp() = kotlinx.coroutines.runBlocking {
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(context, SpendlyDatabase::class.java).build()
         val ledger = LedgerRepositoryImpl(
