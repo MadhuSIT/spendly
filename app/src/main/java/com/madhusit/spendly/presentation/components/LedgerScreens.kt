@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.madhusit.spendly.domain.ledger.LedgerTotals
 import com.madhusit.spendly.domain.ledger.LedgerTransaction
+import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -24,10 +25,10 @@ fun LedgerHome(padding: PaddingValues, totals: LedgerTotals, onAddExpense: () ->
         Card(Modifier.fillMaxWidth()) {
             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text("Net spending", style = MaterialTheme.typography.labelLarge)
-                Text("₹" + (totals.netSpendingMinor / 100), style = MaterialTheme.typography.headlineMedium)
-                Text("Income ₹" + (totals.incomeMinor / 100))
-                Text("Spending ₹" + (totals.grossSpendingMinor / 100))
-                Text("Refunds ₹" + (totals.refundsMinor / 100))
+                Text(formatInr(totals.netSpendingMinor), style = MaterialTheme.typography.headlineMedium)
+                Text("Income " + formatInr(totals.incomeMinor))
+                Text("Spending " + formatInr(totals.grossSpendingMinor))
+                Text("Refunds " + formatInr(totals.refundsMinor))
             }
         }
         Button(onClick = onAddExpense, Modifier.fillMaxWidth().testTag("add-expense")) {
@@ -126,7 +127,10 @@ private fun TransactionRow(transaction: LedgerTransaction) {
                     Text(transaction.status.name, style = MaterialTheme.typography.labelMedium)
                 }
             }
-            Text("₹" + (transaction.amountMinor / 100), style = MaterialTheme.typography.titleMedium)
+            Text(formatInr(transaction.amountMinor), style = MaterialTheme.typography.titleMedium)
         }
     }
 }
+
+private fun formatInr(amountMinor: Long): String =
+    "₹" + BigDecimal(amountMinor).movePointLeft(2).setScale(2).toPlainString()
