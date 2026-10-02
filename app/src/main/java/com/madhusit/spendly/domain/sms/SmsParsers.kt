@@ -33,11 +33,11 @@ class ProviderSmsParser(
             "failed" in lower || "declined" in lower || "rejected" in lower -> TransactionType.EXPENSE
             else -> TransactionType.EXPENSE
         }
-        val lastFour = Regex("""(?:a/c|card|xx|x{2,})\D*(\d{4})""", RegexOption.IGNORE_CASE)
+        val lastFour = Regex("""(?:a/c|card|xx|x{2,})[^0-9]{0,8}(\d{4})""", RegexOption.IGNORE_CASE)
             .find(text)?.groupValues?.get(1)
         val upi = Regex("""(?:upi|ref(?:erence)?|txn(?: id)?)[\s:#-]*([A-Za-z0-9]{6,})""", RegexOption.IGNORE_CASE)
             .find(text)?.groupValues?.get(1)
-        val merchant = Regex("""(?:at|to|from)\s+([A-Za-z][A-Za-z0-9 .&'-]{2,40})""", RegexOption.IGNORE_CASE)
+        val merchant = Regex("""(?:at|to|from)\s+([A-Za-z][A-Za-z0-9 &'-]{2,40})""", RegexOption.IGNORE_CASE)
             .find(text)?.groupValues?.get(1)?.trim()?.trimEnd('.', ',')
         return NormalizedSmsTransaction(
             type = type,

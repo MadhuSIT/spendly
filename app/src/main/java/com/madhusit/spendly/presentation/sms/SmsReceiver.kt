@@ -20,7 +20,8 @@ class SmsReceiver : BroadcastReceiver() {
             try {
                 val messages = Telephony.Sms.Intents.getMessagesFromIntent(intent)
                 messages.forEach { sms ->
-                    app.smsIngestionRepository.process(
+                    processMessage(
+                        app,
                         SmsMessage(
                             sender = sms.originatingAddress.orEmpty(),
                             body = sms.messageBody.orEmpty(),
@@ -32,5 +33,12 @@ class SmsReceiver : BroadcastReceiver() {
                 pendingResult.finish()
             }
         }
+    }
+
+    internal suspend fun processMessage(
+        app: SpendlyApplication,
+        message: SmsMessage
+    ) {
+        app.smsIngestionRepository.process(message)
     }
 }
