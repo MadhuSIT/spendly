@@ -34,6 +34,11 @@ class LedgerVerticalSliceTest {
         rule.onNodeWithText("EXPENSE ·", substring = true).assertIsDisplayed()
         rule.onNodeWithText("₹125.50").assertIsDisplayed()
 
+        rule.onNodeWithText("Test Merchant").performClick()
+        rule.onNodeWithTag("screen_transaction_detail").assertIsDisplayed()
+        rule.onNodeWithText("Cash Wallet").assertIsDisplayed()
+        rule.onNodeWithText("Added manually through Spendly.").assertIsDisplayed()
+
         rule.activityRule.scenario.recreate()
         rule.waitForIdle()
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
