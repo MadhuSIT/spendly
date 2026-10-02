@@ -4,6 +4,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import org.junit.Rule
@@ -23,7 +24,7 @@ class LedgerVerticalSliceTest {
         // Wait for the persisted ledger entry to appear after the asynchronous save.
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
         rule.waitUntil(10_000) {
-            rule.onNodeWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
+            rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
         }
         rule.onNodeWithText("Test Merchant").assertIsDisplayed()
         rule.onNodeWithText("EXPENSE ·", substring = true).assertIsDisplayed()
