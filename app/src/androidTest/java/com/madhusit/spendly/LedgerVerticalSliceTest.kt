@@ -20,12 +20,11 @@ class LedgerVerticalSliceTest {
         rule.onNodeWithTag("expense-merchant").performTextInput("Test Merchant")
         rule.onNodeWithTag("save-expense").performClick()
 
-        // Persistence runs in a ViewModel coroutine; wait for the actual navigation state.
-        rule.waitUntil(10_000) {
-            rule.onNodeWithTag("screen_home").isDisplayed()
-        }
-        rule.onNodeWithTag("screen_home").assertIsDisplayed()
+        // Wait for the persisted ledger entry to appear after the asynchronous save.
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
+        rule.waitUntil(10_000) {
+            rule.onNodeWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
+        }
         rule.onNodeWithText("Test Merchant").assertIsDisplayed()
         rule.onNodeWithText("EXPENSE ·", substring = true).assertIsDisplayed()
         rule.onNodeWithText("₹125.50").assertIsDisplayed()
