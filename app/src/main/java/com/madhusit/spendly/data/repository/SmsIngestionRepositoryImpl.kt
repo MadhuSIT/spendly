@@ -16,39 +16,46 @@ class SmsIngestionRepositoryImpl(
     private val parserEngine: SmsParserEngine = SmsParserEngine()
 ) : SmsIngestionRepository {
 
-    override suspend fun process(message: SmsMessage): SmsParseResult {
+    override suspend fun process(message: SmsMessage): SmsParseResult = database.withTransaction {
         val fingerprint = fingerprint(message)
-        if (eventDao.find(fingerprint) != null) {
-            return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.DUPLICATE)
+        val claimed = eventDao.claim(
+            ProcessedSmsEventEntity(
+                fingerprint = fingerprint,
+                transactionId = null,
+                status = "PROCESSING",
+                createdAtEpochMillis = message.receivedAtEpochMillis
+            )
+        )
+        if (claimed == 0L) {
+            return@withTransaction SmsParseResult(
+                SmsClassification.FINANCIAL,
+                failureReason = SmsFailureReason.DUPLICATE
+            )
         }
 
         val result = parserEngine.parse(message)
         val normalized = result.normalized
         if (normalized == null) {
-            eventDao.insert(
-                ProcessedSmsEventEntity(
-                    fingerprint,
-                    null,
-                    result.failureReason?.name ?: "NON_FINANCIAL",
-                    message.receivedAtEpochMillis
-                )
+            eventDao.updateResult(
+                fingerprint,
+                null,
+                result.failureReason?.name ?: "NON_FINANCIAL"
             )
-            return result
+            return@withTransaction result
         }
 
         // A parser can successfully extract fields while still lacking enough
         // certainty to post money-moving data. Review-required results stay out
         // of the authoritative ledger until a later review/reconciliation flow.
         if (normalized.reviewRequired) {
-            eventDao.insert(
-                ProcessedSmsEventEntity(
-                    fingerprint,
-                    null,
-                    SmsFailureReason.AMBIGUOUS_TRANSACTION.name,
-                    message.receivedAtEpochMillis
-                )
+            eventDao.updateResult(
+                fingerprint,
+                null,
+                SmsFailureReason.AMBIGUOUS_TRANSACTION.name
             )
-            return result.copy(failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION)
+            return@withTransaction result.copy(
+                failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION
+            )
         }
 
         // Transfer/card-payment/reversal semantics require a destination or
@@ -58,27 +65,37 @@ class SmsIngestionRepositoryImpl(
             normalized.type == TransactionType.CARD_PAYMENT ||
             normalized.type == TransactionType.REVERSAL
         ) {
-            eventDao.insert(
-                ProcessedSmsEventEntity(
-                    fingerprint,
-                    null,
-                    SmsFailureReason.AMBIGUOUS_TRANSACTION.name,
-                    message.receivedAtEpochMillis
-                )
+            eventDao.updateResult(
+                fingerprint,
+                null,
+                SmsFailureReason.AMBIGUOUS_TRANSACTION.name
             )
-            return result.copy(failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION)
+            return@withTransaction result.copy(
+                failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION
+            )
         }
 
         val entity = resolveEntity(normalized)
         if (entity == null) {
-            eventDao.insert(ProcessedSmsEventEntity(fingerprint, null, SmsFailureReason.AMBIGUOUS_ENTITY.name, message.receivedAtEpochMillis))
-            return result.copy(failureReason = SmsFailureReason.AMBIGUOUS_ENTITY)
+            eventDao.updateResult(
+                fingerprint,
+                null,
+                SmsFailureReason.AMBIGUOUS_ENTITY.name
+            )
+            return@withTransaction result.copy(
+                failureReason = SmsFailureReason.AMBIGUOUS_ENTITY
+            )
         }
 
         val transactionId = UUID.randomUUID().toString()
-        val status = if (message.body.contains(Regex("failed|declined|rejected", RegexOption.IGNORE_CASE))) {
+        val status = if (message.body.contains(
+                Regex("failed|declined|rejected", RegexOption.IGNORE_CASE)
+            )
+        ) {
             TransactionStatus.FAILED
-        } else TransactionStatus.CONFIRMED
+        } else {
+            TransactionStatus.CONFIRMED
+        }
 
         val transaction = LedgerTransaction(
             id = transactionId,
@@ -102,19 +119,22 @@ class SmsIngestionRepositoryImpl(
             updatedAtEpochMillis = message.receivedAtEpochMillis
         )
         ledgerRepository.createTransaction(transaction)
-        eventDao.insert(ProcessedSmsEventEntity(fingerprint, transactionId, "PROCESSED", message.receivedAtEpochMillis))
-        return result
+        eventDao.updateResult(fingerprint, transactionId, "PROCESSED")
+        result
     }
 
     private suspend fun resolveEntity(normalized: NormalizedSmsTransaction): FinancialEntity? {
         val entities = ledgerRepository.observeEntities().first().filter { it.active }
         val exact = entities.filter {
-            normalized.provider != null && it.provider.equals(normalized.provider, ignoreCase = true) &&
-                normalized.lastFour != null && it.lastFour == normalized.lastFour
+            normalized.provider != null &&
+                it.provider.equals(normalized.provider, ignoreCase = true) &&
+                normalized.lastFour != null &&
+                it.lastFour == normalized.lastFour
         }
         if (exact.size == 1) return exact.single()
         val providerOnly = entities.filter {
-            normalized.provider != null && it.provider.equals(normalized.provider, ignoreCase = true)
+            normalized.provider != null &&
+                it.provider.equals(normalized.provider, ignoreCase = true)
         }
         if (providerOnly.size == 1) return providerOnly.single()
         if (entities.size == 1) return entities.single()
