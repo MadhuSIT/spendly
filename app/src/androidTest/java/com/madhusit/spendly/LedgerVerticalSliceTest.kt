@@ -1,6 +1,7 @@
 package com.madhusit.spendly
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -23,9 +24,8 @@ class LedgerVerticalSliceTest {
 
         // Persistence runs in a ViewModel coroutine; wait for the actual navigation state.
         rule.waitUntil(10_000) {
-            rule.onAllNodesWithTag("screen_home").fetchSemanticsNodes().isNotEmpty()
+            rule.onNodeWithTag("screen_home").isDisplayed()
         }
-        rule.onNodeWithTag("screen_home").assertIsDisplayed()
         rule.onNodeWithTag("screen_home").assertIsDisplayed()
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
         rule.onNodeWithText("Test Merchant").assertIsDisplayed()
