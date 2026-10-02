@@ -104,7 +104,7 @@ class FoundationDatabaseTest {
             .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
             .build()
 
-        assertEquals(3, migrated.openHelper.readableDatabase.version)
+        assertEquals(4, migrated.openHelper.readableDatabase.version)
         val entity = runBlocking { migrated.foundationDao().observe().first() }
         assertEquals("v2", entity?.message)
         assertEquals(123L, entity?.updatedAtEpochMillis)
