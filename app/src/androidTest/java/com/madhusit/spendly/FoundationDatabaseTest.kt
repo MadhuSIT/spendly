@@ -7,6 +7,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.madhusit.spendly.data.local.FoundationEntity
 import com.madhusit.spendly.data.local.MIGRATION_1_2
 import com.madhusit.spendly.data.local.MIGRATION_2_3
+import com.madhusit.spendly.data.local.MIGRATION_3_4
 import com.madhusit.spendly.data.local.SpendlyDatabase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -53,7 +54,7 @@ class FoundationDatabaseTest {
             first.foundationDao().save(FoundationEntity(message = "persisted"))
             first.close()
             val second = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                 .build()
             assertEquals("persisted", second.foundationDao().observe().first()?.message)
             second.close()
@@ -74,19 +75,19 @@ class FoundationDatabaseTest {
         sqlite.close()
 
         val migrated = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
             .build()
         val entity = runBlocking { migrated.foundationDao().observe().first() }
         assertNotNull(entity)
         assertEquals("legacy", entity?.message)
         assertEquals(0L, entity?.updatedAtEpochMillis)
-        assertEquals(3, migrated.openHelper.readableDatabase.version)
+        assertEquals(4, migrated.openHelper.readableDatabase.version)
         migrated.close()
         context.deleteDatabase(dbName)
     }
 
     @Test
-    fun versionTwoDatabaseMigratesToLedgerSchemaVersionThree() {
+    fun versionTwoDatabaseMigratesToCurrentSchema() {
         val dbName = "ledger-migration-test.db"
         context.deleteDatabase(dbName)
         val path = context.getDatabasePath(dbName)
@@ -100,10 +101,10 @@ class FoundationDatabaseTest {
         sqlite.close()
 
         val migrated = Room.databaseBuilder(context, SpendlyDatabase::class.java, dbName)
-            .addMigrations(MIGRATION_2_3)
+            .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
             .build()
 
-        assertEquals(3, migrated.openHelper.readableDatabase.version)
+        assertEquals(4, migrated.openHelper.readableDatabase.version)
         val entity = runBlocking { migrated.foundationDao().observe().first() }
         assertEquals("v2", entity?.message)
         assertEquals(123L, entity?.updatedAtEpochMillis)
@@ -112,7 +113,8 @@ class FoundationDatabaseTest {
             "financial_entities",
             "ledger_transactions",
             "transaction_relationships",
-            "audit_events"
+            "audit_events",
+            "processed_sms_events"
         )
         ledgerTables.forEach { table ->
             migrated.openHelper.readableDatabase.query(
