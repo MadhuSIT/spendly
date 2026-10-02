@@ -33,6 +33,8 @@ class LedgerVerticalSliceTest {
         rule.activityRule.scenario.recreate()
         rule.waitForIdle()
 
+        // Recreation restores the activity from its start destination; explicitly return to the ledger.
+        rule.onNodeWithTag("bottom_nav_transactions").performClick()
         rule.onNodeWithTag("screen_transactions").assertIsDisplayed()
         rule.onNodeWithText("Test Merchant").assertIsDisplayed()
         rule.onNodeWithText("EXPENSE ·").assertIsDisplayed()
