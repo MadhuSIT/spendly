@@ -25,8 +25,48 @@ class SmsIngestionRepositoryImpl(
         val result = parserEngine.parse(message)
         val normalized = result.normalized
         if (normalized == null) {
-            eventDao.insert(ProcessedSmsEventEntity(fingerprint, null, result.failureReason?.name ?: "NON_FINANCIAL", message.receivedAtEpochMillis))
+            eventDao.insert(
+                ProcessedSmsEventEntity(
+                    fingerprint,
+                    null,
+                    result.failureReason?.name ?: "NON_FINANCIAL",
+                    message.receivedAtEpochMillis
+                )
+            )
             return result
+        }
+
+        // A parser can successfully extract fields while still lacking enough
+        // certainty to post money-moving data. Review-required results stay out
+        // of the authoritative ledger until a later review/reconciliation flow.
+        if (normalized.reviewRequired) {
+            eventDao.insert(
+                ProcessedSmsEventEntity(
+                    fingerprint,
+                    null,
+                    SmsFailureReason.AMBIGUOUS_TRANSACTION.name,
+                    message.receivedAtEpochMillis
+                )
+            )
+            return result.copy(failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION)
+        }
+
+        // Transfer/card-payment/reversal semantics require a destination or
+        // relationship that this ingestion foundation does not resolve yet.
+        // Do not silently turn them into ordinary expenses.
+        if (normalized.type == TransactionType.TRANSFER ||
+            normalized.type == TransactionType.CARD_PAYMENT ||
+            normalized.type == TransactionType.REVERSAL
+        ) {
+            eventDao.insert(
+                ProcessedSmsEventEntity(
+                    fingerprint,
+                    null,
+                    SmsFailureReason.AMBIGUOUS_TRANSACTION.name,
+                    message.receivedAtEpochMillis
+                )
+            )
+            return result.copy(failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION)
         }
 
         val entity = resolveEntity(normalized)
