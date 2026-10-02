@@ -100,7 +100,7 @@ private fun TransactionRow(transaction: LedgerTransaction, onClick: () -> Unit) 
         .format(Date(transaction.transactionTimestamp))
     Card(
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth().testTag("transaction-\${transaction.id}")
+        modifier = Modifier.fillMaxWidth().testTag("transaction-${transaction.id}")
     ) {
         Row(Modifier.fillMaxWidth().padding(16.dp)) {
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
