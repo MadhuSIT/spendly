@@ -35,6 +35,9 @@ class LedgerVerticalSliceTest {
 
         // Recreation restores the activity from its start destination; explicitly return to the ledger.
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
+        rule.waitUntil(10_000) {
+            rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
+        }
         rule.onNodeWithTag("screen_transactions").assertIsDisplayed()
         rule.onNodeWithText("Test Merchant").assertIsDisplayed()
         rule.onNodeWithText("EXPENSE ·").assertIsDisplayed()
