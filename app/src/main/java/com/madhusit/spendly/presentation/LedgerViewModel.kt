@@ -10,9 +10,12 @@ import kotlinx.coroutines.launch
 class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
     val transactions: StateFlow<List<LedgerTransaction>> = repository.observeTransactions()
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+    val entities: StateFlow<List<FinancialEntity>> = repository.observeEntities()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
     val totals: StateFlow<LedgerTotals> = repository.observeTransactions()
         .map { repository.calculateTotals() }
         .stateIn(viewModelScope, SharingStarted.Eagerly, LedgerTotals(0, 0, 0, 0))
+
     private val createEntity = CreateFinancialEntity(repository)
     private val createTransaction = CreateManualTransaction(repository)
     private var initialized = false
@@ -20,13 +23,11 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
     fun ensureDefaultEntity() {
         if (initialized) return
         initialized = true
-        viewModelScope.launch {
-            ensureCashWallet()
-        }
+        viewModelScope.launch { ensureCashWallet() }
     }
 
-    private suspend fun ensureCashWallet(): FinancialEntity {
-        return repository.observeEntities().first().firstOrNull()
+    private suspend fun ensureCashWallet(): FinancialEntity =
+        repository.observeEntities().first().firstOrNull()
             ?: createEntity(
                 type = FinancialEntityType.CASH,
                 name = "Cash Wallet",
@@ -34,22 +35,34 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
                 provider = "Spendly",
                 nowEpochMillis = System.currentTimeMillis()
             )
-    }
 
-    fun addExpense(amountRupees: String, merchant: String, onComplete: (String?) -> Unit) {
+    fun addTransaction(
+        type: TransactionType,
+        amountRupees: String,
+        title: String,
+        sourceEntityId: String,
+        destinationEntityId: String?,
+        onComplete: (String?) -> Unit
+    ) {
         viewModelScope.launch {
             try {
                 val amountMinor = amountRupees.toBigDecimal().movePointRight(2).longValueExact()
                 require(amountMinor > 0) { "Enter an amount greater than zero." }
-                val entity = ensureCashWallet()
+                require(sourceEntityId.isNotBlank()) { "Choose a source." }
+                if (type == TransactionType.TRANSFER) {
+                    require(!destinationEntityId.isNullOrBlank()) { "Choose a destination." }
+                    require(destinationEntityId != sourceEntityId) { "Source and destination must be different." }
+                }
+                val now = System.currentTimeMillis()
                 createTransaction(
-                    sourceEntityId = entity.id,
-                    type = TransactionType.EXPENSE,
+                    sourceEntityId = sourceEntityId,
+                    destinationEntityId = destinationEntityId,
+                    type = type,
                     amountMinor = amountMinor,
                     currency = "INR",
-                    transactionTimestamp = System.currentTimeMillis(),
-                    merchantName = merchant.ifBlank { null },
-                    nowEpochMillis = System.currentTimeMillis()
+                    transactionTimestamp = now,
+                    merchantName = title.ifBlank { null },
+                    nowEpochMillis = now
                 )
                 onComplete(null)
             } catch (e: Exception) {
