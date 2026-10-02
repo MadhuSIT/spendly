@@ -8,8 +8,19 @@ import androidx.room.Query
 @Dao
 interface ProcessedSmsEventDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(event: ProcessedSmsEventEntity): Long
+    suspend fun claim(event: ProcessedSmsEventEntity): Long
 
     @Query("SELECT * FROM processed_sms_events WHERE fingerprint = :fingerprint LIMIT 1")
     suspend fun find(fingerprint: String): ProcessedSmsEventEntity?
+
+    @Query(
+        "UPDATE processed_sms_events " +
+            "SET transactionId = :transactionId, status = :status " +
+            "WHERE fingerprint = :fingerprint"
+    )
+    suspend fun updateResult(
+        fingerprint: String,
+        transactionId: String?,
+        status: String
+    )
 }
