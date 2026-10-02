@@ -17,16 +17,13 @@ class LedgerVerticalSliceTest {
 
     @Test
     fun manualExpenseFlowsFromEntryToPersistedLedgerAndSurvivesRecreation() {
-        rule.onNodeWithTag("add-expense").performClick()
-        rule.onNodeWithTag("expense-amount").performTextInput("125.50")
-        rule.onNodeWithTag("expense-merchant").performTextInput("Test Merchant")
-        rule.onNodeWithTag("save-expense").performClick()
+        rule.onNodeWithTag("add-transaction").performClick()
+        rule.onNodeWithTag("transaction-amount").performTextInput("125.50")
+        rule.onNodeWithTag("transaction-title").performTextInput("Test Merchant")
+        rule.onNodeWithTag("save-transaction").performClick()
 
-        // The save callback pops the Add Expense route after persistence completes.
-        // Wait for that completion before navigating elsewhere, otherwise the callback can
-        // pop the Transactions route that the test just opened.
         rule.waitUntil(10_000) {
-            rule.onAllNodesWithTag("save-expense").fetchSemanticsNodes().isEmpty()
+            rule.onAllNodesWithTag("save-transaction").fetchSemanticsNodes().isEmpty()
         }
 
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
@@ -39,14 +36,10 @@ class LedgerVerticalSliceTest {
 
         rule.activityRule.scenario.recreate()
         rule.waitForIdle()
-
-        // Recreation restores the activity from its start destination; explicitly return to the ledger.
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
         rule.waitUntil(10_000) {
             rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
         }
-        // After recreation, verify the Room-backed ledger state is restored without depending on
-        // emulator rendering/bounds at that exact frame.
         rule.onNodeWithTag("screen_transactions").assertExists()
         rule.onNodeWithText("Test Merchant").assertExists()
         rule.onNodeWithText("EXPENSE ·", substring = true).assertExists()
