@@ -25,8 +25,8 @@ class LedgerVerticalSliceTest {
 
         // Persistence runs in a ViewModel coroutine, so synchronize on the resulting UI state rather than sleeping.
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        check(device.wait(androidx.test.uiautomator.Until.hasObject(By.text("Test Merchant")), 5_000)) {
-            "Saved transaction did not become visible within 5 seconds."
+        check(device.wait(androidx.test.uiautomator.Until.hasObject(By.text("Spendly")), 5_000)) {
+            "Add Expense did not return to Home within 5 seconds."
         }
         rule.waitForIdle()
         rule.onNodeWithTag("screen_home").assertIsDisplayed()
