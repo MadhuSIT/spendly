@@ -110,7 +110,8 @@ class LedgerViewModelTest {
         )
 
         assertEquals(TransactionStatus.CONFIRMED, transaction.status)
-        assertEquals(1.0, transaction.confidence, 0.0)
+        assertNotNull(transaction.confidence)
+        assertEquals(1.0, transaction.confidence!!, 0.0)
         assertEquals(false, transaction.reviewRequired)
         assertEquals(null, transaction.rawEventReference)
         assertEquals(null, transaction.parserSource)
