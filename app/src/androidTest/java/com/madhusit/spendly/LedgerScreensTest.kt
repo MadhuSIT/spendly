@@ -14,12 +14,32 @@ import org.junit.Rule
 import org.junit.Test
 import com.madhusit.spendly.domain.ledger.*
 import com.madhusit.spendly.presentation.components.AddTransactionScreen
+import com.madhusit.spendly.presentation.components.LedgerHome
 import com.madhusit.spendly.presentation.components.LedgerTransactions
 import com.madhusit.spendly.presentation.components.TransactionDetailScreen
 
 class LedgerScreensTest {
     @get:Rule
     val rule = createComposeRule()
+
+    @Test
+    fun home_emptyState_isVisible() {
+        rule.setContent {
+            MaterialTheme {
+                LedgerHome(
+                    padding = PaddingValues(),
+                    totals = LedgerTotals(0L, 0L, 0L, 0L),
+                    recentTransactions = emptyList(),
+                    onAddTransaction = {},
+                    onOpenTransaction = {}
+                )
+            }
+        }
+
+        rule.onNodeWithTag("screen_home").assertIsDisplayed()
+        rule.onNodeWithTag("home-empty").assertIsDisplayed()
+        rule.onNodeWithText("No transactions yet. Add your first transaction to start your ledger.").assertIsDisplayed()
+    }
 
     @Test
     fun transactions_emptyState_isVisible() {
@@ -36,6 +56,68 @@ class LedgerScreensTest {
 
         rule.onNodeWithTag("screen_transactions").assertIsDisplayed()
         rule.onNodeWithText("No transactions yet. Add a transaction to start your ledger.").assertIsDisplayed()
+    }
+
+    @Test
+    fun transactionDetail_missingTransaction_displaysRecoveryState() {
+        rule.setContent {
+            MaterialTheme {
+                TransactionDetailScreen(
+                    padding = PaddingValues(),
+                    transaction = null,
+                    entities = emptyList(),
+                    onBack = {}
+                )
+            }
+        }
+
+        rule.onNodeWithText("Transaction not found").assertIsDisplayed()
+        rule.onNodeWithText("This transaction may have been removed or is no longer available.").assertIsDisplayed()
+        rule.onNodeWithText("Back").assertIsDisplayed()
+    }
+
+    @Test
+    fun transactionDetail_automatedProvenance_displaysParserExplanation() {
+        val transaction = LedgerTransaction(
+            id = "tx-automated",
+            sourceEntityId = "cash",
+            destinationEntityId = null,
+            type = TransactionType.EXPENSE,
+            amountMinor = 12550L,
+            currency = "INR",
+            merchantName = "Parsed Merchant",
+            description = null,
+            transactionTimestamp = 1_000L,
+            status = TransactionStatus.CONFIRMED,
+            referenceNumber = null,
+            upiReference = null,
+            rawEventReference = "sms-1",
+            parserSource = "bank-sms",
+            parserVersion = "v1",
+            confidence = 0.93,
+            reviewRequired = false,
+            createdAtEpochMillis = 1_000L,
+            updatedAtEpochMillis = 1_000L
+        )
+
+        rule.setContent {
+            MaterialTheme {
+                TransactionDetailScreen(
+                    padding = PaddingValues(),
+                    transaction = transaction,
+                    entities = emptyList(),
+                    onBack = {}
+                )
+            }
+        }
+
+        rule.onNodeWithTag("screen_transaction_detail").assertIsDisplayed()
+        rule.onNodeWithText(
+            "Financial activity was parsed from an automated source, validated and persisted in the ledger."
+        ).performScrollTo().assertIsDisplayed()
+        rule.onNodeWithText("bank-sms").performScrollTo().assertIsDisplayed()
+        rule.onNodeWithText("v1").performScrollTo().assertIsDisplayed()
+        rule.onNodeWithText("93%").performScrollTo().assertIsDisplayed()
     }
 
     @Test
