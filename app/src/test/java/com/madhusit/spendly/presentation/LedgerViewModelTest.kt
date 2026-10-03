@@ -71,7 +71,7 @@ class LedgerViewModelTest {
         testScheduler.advanceUntilIdle()
 
         assertEquals(listOf(transaction), viewModel.transactions.value)
-        assertEquals(12550L, viewModel.totals.value.spendingMinor)
+        assertEquals(12550L, viewModel.totals.value.grossSpendingMinor)
         assertEquals(12550L, viewModel.totals.value.netSpendingMinor)
     }
 
