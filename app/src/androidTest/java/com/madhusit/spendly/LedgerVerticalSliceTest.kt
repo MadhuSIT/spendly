@@ -27,10 +27,10 @@ class LedgerVerticalSliceTest {
         rule.onNodeWithTag("screen_home").assertIsDisplayed()
         rule.waitUntil(15_000) {
             rule.onAllNodesWithText("Net spending").fetchSemanticsNodes().isNotEmpty() &&
-                rule.onAllNodesWithText("₹125.50").fetchSemanticsNodes().isNotEmpty()
+                rule.onAllNodesWithText("Spending ₹125.50").fetchSemanticsNodes().isNotEmpty()
         }
         rule.onNodeWithText("Net spending").assertIsDisplayed()
-        rule.onNodeWithText("₹125.50").assertIsDisplayed()
+        rule.onNodeWithText("Spending ₹125.50").assertIsDisplayed()
 
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
         rule.waitUntil(15_000) {
