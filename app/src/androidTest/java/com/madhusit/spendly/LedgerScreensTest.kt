@@ -3,6 +3,7 @@ package com.madhusit.spendly
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onNodeWithTag
@@ -124,5 +125,73 @@ class LedgerScreensTest {
 
         rule.onNodeWithTag("transaction-error").assertIsDisplayed()
         rule.onNodeWithText("Enter an amount greater than zero.").assertIsDisplayed()
+    }
+
+    @Test
+    fun addTransaction_displaysSavingStateUntilCompletion() {
+        val entity = FinancialEntity(
+            id = "cash",
+            type = FinancialEntityType.CASH,
+            provider = "Spendly",
+            name = "Cash Wallet",
+            maskedIdentifier = null,
+            lastFour = null,
+            currency = "INR",
+            createdAtEpochMillis = 1L,
+            updatedAtEpochMillis = 1L
+        )
+        var complete: ((String?) -> Unit)? = null
+
+        rule.setContent {
+            MaterialTheme {
+                AddTransactionScreen(
+                    padding = PaddingValues(),
+                    entities = listOf(entity),
+                    onSave = { _, _, _, _, _, onComplete -> complete = onComplete },
+                    onCancel = {}
+                )
+            }
+        }
+
+        rule.onNodeWithTag("transaction-amount").performTextInput("100")
+        rule.onNodeWithTag("save-transaction").performClick()
+
+        rule.onNodeWithText("Saving…").assertIsDisplayed()
+        complete?.invoke(null)
+
+        rule.onNodeWithText("Save transaction").assertIsDisplayed()
+    }
+
+    @Test
+    fun addTransaction_showsTransferRequirementWithSingleEntity() {
+        val entity = FinancialEntity(
+            id = "cash",
+            type = FinancialEntityType.CASH,
+            provider = "Spendly",
+            name = "Cash Wallet",
+            maskedIdentifier = null,
+            lastFour = null,
+            currency = "INR",
+            createdAtEpochMillis = 1L,
+            updatedAtEpochMillis = 1L
+        )
+
+        rule.setContent {
+            MaterialTheme {
+                AddTransactionScreen(
+                    padding = PaddingValues(),
+                    entities = listOf(entity),
+                    onSave = { _, _, _, _, _, _ -> },
+                    onCancel = {}
+                )
+            }
+        }
+
+        rule.onNodeWithText("Transfer").performClick()
+
+        rule.onNodeWithText(
+            "Transfers need two different financial entities. Add another account in the Accounts flow."
+        ).assertIsDisplayed()
+        rule.onNodeWithTag("save-transaction").assertIsNotEnabled()
     }
 }
