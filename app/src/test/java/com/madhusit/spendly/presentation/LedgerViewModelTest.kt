@@ -96,6 +96,55 @@ class LedgerViewModelTest {
     }
 
     @Test
+    fun createManualTransaction_setsConfirmedManualProvenanceAndPersists() = runTest {
+        val repository = FakeLedgerRepository()
+
+        val transaction = CreateManualTransaction(repository)(
+            sourceEntityId = "cash",
+            type = TransactionType.EXPENSE,
+            amountMinor = 12550L,
+            currency = "INR",
+            transactionTimestamp = 2_000L,
+            merchantName = "Manual Merchant",
+            nowEpochMillis = 3_000L
+        )
+
+        assertEquals(TransactionStatus.CONFIRMED, transaction.status)
+        assertEquals(1.0, transaction.confidence, 0.0)
+        assertEquals(false, transaction.reviewRequired)
+        assertEquals(null, transaction.rawEventReference)
+        assertEquals(null, transaction.parserSource)
+        assertEquals(null, transaction.parserVersion)
+        assertEquals(listOf(transaction), repository.transactions.value)
+    }
+
+    @Test
+    fun createManualTransaction_rejectsReversalWithoutWritingLedger() = runTest {
+        val repository = FakeLedgerRepository()
+        var failed = false
+
+        try {
+            CreateManualTransaction(repository)(
+                sourceEntityId = "cash",
+                type = TransactionType.REVERSAL,
+                amountMinor = 100L,
+                currency = "INR",
+                transactionTimestamp = 2_000L,
+                nowEpochMillis = 3_000L
+            )
+        } catch (error: IllegalArgumentException) {
+            failed = true
+            assertEquals(
+                "Create the reversal transaction and link it explicitly to the original.",
+                error.message
+            )
+        }
+
+        assertEquals(true, failed)
+        assertEquals(0, repository.transactions.value.size)
+    }
+
+    @Test
     fun addTransaction_rejectsTransferToSameEntityWithoutWritingLedger() = runTest {
         val repository = FakeLedgerRepository()
         val viewModel = LedgerViewModel(repository)
