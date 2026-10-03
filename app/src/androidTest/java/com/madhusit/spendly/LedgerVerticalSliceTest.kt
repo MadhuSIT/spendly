@@ -55,4 +55,5 @@ class LedgerVerticalSliceTest {
         rule.onNodeWithText("Test Merchant").assertExists()
         rule.onNodeWithText("EXPENSE ·", substring = true).assertExists()
         rule.onNodeWithText("₹125.50").assertExists()
+    }
 }
