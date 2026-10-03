@@ -180,7 +180,7 @@ fun TransactionDetailScreen(
         }
         item {
             DetailSection("Why Spendly added this") {
-                if (transaction.parserSource != null) {
+                if (transaction.parserSource != null && transaction.parserSource != "manual") {
                     Text(
                         "Financial activity was parsed from an automated source, validated and persisted in the ledger.",
                         style = MaterialTheme.typography.bodyMedium

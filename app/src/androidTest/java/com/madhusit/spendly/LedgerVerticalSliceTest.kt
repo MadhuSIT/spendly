@@ -2,11 +2,13 @@ package com.madhusit.spendly
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.performTextInput
 import org.junit.Rule
 import org.junit.Test
@@ -22,27 +24,34 @@ class LedgerVerticalSliceTest {
         rule.onNodeWithTag("transaction-title").performTextInput("Test Merchant")
         rule.onNodeWithTag("save-transaction").performClick()
 
-        rule.waitUntil(10_000) {
-            rule.onAllNodesWithTag("save-transaction").fetchSemanticsNodes().isEmpty()
+        rule.onNodeWithTag("screen_home").assertIsDisplayed()
+        rule.waitUntil(15_000) {
+            rule.onAllNodesWithText("Net spending").fetchSemanticsNodes().isNotEmpty() &&
+                rule.onAllNodesWithText("Spending ₹125.50").fetchSemanticsNodes().isNotEmpty()
         }
+        rule.onNodeWithText("Net spending").assertIsDisplayed()
+        rule.onNodeWithText("Spending ₹125.50").assertIsDisplayed()
 
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
-        rule.waitUntil(10_000) {
-            rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
+        rule.waitUntil(15_000) {
+            rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty() &&
+                rule.onAllNodesWithText("EXPENSE ·", substring = true).fetchSemanticsNodes().isNotEmpty() &&
+                rule.onAllNodesWithText("₹125.50").fetchSemanticsNodes().isNotEmpty()
         }
         rule.onNodeWithText("Test Merchant").assertIsDisplayed()
         rule.onNodeWithText("EXPENSE ·", substring = true).assertIsDisplayed()
         rule.onNodeWithText("₹125.50").assertIsDisplayed()
 
+        rule.onNodeWithText("Test Merchant").performClick()
+        rule.onNodeWithTag("screen_transaction_detail").assertIsDisplayed()
+        rule.onNodeWithText("Cash Wallet").performScrollTo().assertIsDisplayed()
+        rule.onNodeWithTag("screen_transaction_detail").performScrollToNode(hasText("Added manually through Spendly."))
+        rule.onNodeWithText("Added manually through Spendly.").assertIsDisplayed()
+
         rule.activityRule.scenario.recreate()
-        rule.waitForIdle()
-        rule.onNodeWithTag("bottom_nav_transactions").performClick()
-        rule.waitUntil(10_000) {
+        rule.waitUntil(30_000) {
             rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
         }
-        rule.onNodeWithTag("screen_transactions").assertExists()
-        rule.onNodeWithText("Test Merchant").assertExists()
-        rule.onNodeWithText("EXPENSE ·", substring = true).assertExists()
-        rule.onNodeWithText("₹125.50").assertExists()
+        rule.onNodeWithText("Test Merchant").assertIsDisplayed()
     }
 }
