@@ -91,6 +91,7 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
                 AccountsScreen(
                     padding = padding,
                     entities = entities,
+                    transactions = transactions,
                     onAddEntity = { navController.navigate(ADD_ENTITY) },
                     onOpenEntity = { navController.navigate("entity/$it") }
                 )

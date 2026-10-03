@@ -13,10 +13,27 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.madhusit.spendly.domain.ledger.*
 
+fun entityBalance(entity: FinancialEntity, transactions: List<LedgerTransaction>): Long {
+    val confirmed = transactions.filter { it.status == TransactionStatus.CONFIRMED }
+    val inflow = confirmed.filter { it.destinationEntityId == entity.id || it.sourceEntityId == entity.id }.let { txns ->
+        txns.filter {
+            (it.type == TransactionType.INCOME && it.sourceEntityId == entity.id) ||
+            (it.type == TransactionType.TRANSFER && it.destinationEntityId == entity.id)
+        }.sumOf { it.amountMinor } -
+        txns.filter {
+            (it.type == TransactionType.EXPENSE && it.sourceEntityId == entity.id) ||
+            (it.type == TransactionType.TRANSFER && it.sourceEntityId == entity.id) ||
+            (it.type == TransactionType.CARD_PAYMENT && it.sourceEntityId == entity.id)
+        }.sumOf { it.amountMinor }
+    }
+    return inflow
+}
+
 @Composable
 fun AccountsScreen(
     padding: PaddingValues,
     entities: List<FinancialEntity>,
+    transactions: List<LedgerTransaction>,
     onAddEntity: () -> Unit,
     onOpenEntity: (String) -> Unit
 ) {
@@ -60,19 +77,19 @@ fun AccountsScreen(
                 }
                 if (banks.isNotEmpty()) {
                     item { EntityGroupHeader("Bank accounts") }
-                    items(banks, key = { it.id }) { EntityCard(it, onOpenEntity) }
+                    items(banks, key = { it.id }) { EntityCard(it, entityBalance(it, transactions), onOpenEntity) }
                 }
                 if (cards.isNotEmpty()) {
                     item { EntityGroupHeader("Credit & debit cards") }
-                    items(cards, key = { it.id }) { EntityCard(it, onOpenEntity) }
+                    items(cards, key = { it.id }) { EntityCard(it, entityBalance(it, transactions), onOpenEntity) }
                 }
                 if (cash.isNotEmpty()) {
                     item { EntityGroupHeader("Cash") }
-                    items(cash, key = { it.id }) { EntityCard(it, onOpenEntity) }
+                    items(cash, key = { it.id }) { EntityCard(it, entityBalance(it, transactions), onOpenEntity) }
                 }
                 if (other.isNotEmpty()) {
                     item { EntityGroupHeader("Other") }
-                    items(other, key = { it.id }) { EntityCard(it, onOpenEntity) }
+                    items(other, key = { it.id }) { EntityCard(it, entityBalance(it, transactions), onOpenEntity) }
                 }
             }
         }
@@ -102,7 +119,7 @@ private fun EntityGroupHeader(title: String) {
 }
 
 @Composable
-private fun EntityCard(entity: FinancialEntity, onClick: (String) -> Unit) {
+private fun EntityCard(entity: FinancialEntity, balance: Long, onClick: (String) -> Unit) {
     Card(
         onClick = { onClick(entity.id) },
         modifier = Modifier
@@ -117,7 +134,7 @@ private fun EntityCard(entity: FinancialEntity, onClick: (String) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text(entity.name, style = MaterialTheme.typography.titleMedium)
                 val sub = buildString {
                     append(entity.type.displayLabel())
@@ -125,8 +142,11 @@ private fun EntityCard(entity: FinancialEntity, onClick: (String) -> Unit) {
                 }
                 Text(sub, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            if (!entity.active) {
-                Badge { Text("Inactive") }
+            Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(formatInr(balance), style = MaterialTheme.typography.titleMedium)
+                if (!entity.active) {
+                    Badge { Text("Inactive") }
+                }
             }
         }
     }
