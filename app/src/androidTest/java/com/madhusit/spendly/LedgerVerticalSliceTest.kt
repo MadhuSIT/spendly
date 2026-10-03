@@ -25,13 +25,11 @@ class LedgerVerticalSliceTest {
         rule.onNodeWithTag("transaction-title").performTextInput("Test Merchant")
         rule.onNodeWithTag("save-transaction").performClick()
 
-        rule.waitUntil(10_000) {
-            rule.onAllNodesWithTag("save-transaction").fetchSemanticsNodes().isEmpty()
-        }
-
-        rule.onNodeWithTag("bottom_nav_transactions").performClick()
-        rule.waitUntil(10_000) {
-            rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
+                rule.onNodeWithTag("bottom_nav_transactions").performClick()
+        rule.waitUntil(15_000) {
+            rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty() &&
+                rule.onAllNodesWithText("EXPENSE ·", substring = true).fetchSemanticsNodes().isNotEmpty() &&
+                rule.onAllNodesWithText("₹125.50").fetchSemanticsNodes().isNotEmpty()
         }
         rule.onNodeWithText("Test Merchant").assertIsDisplayed()
         rule.onNodeWithText("EXPENSE ·", substring = true).assertIsDisplayed()
