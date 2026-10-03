@@ -36,6 +36,34 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
                 nowEpochMillis = System.currentTimeMillis()
             )
 
+    fun addEntity(
+        type: FinancialEntityType,
+        name: String,
+        maskedIdentifier: String?,
+        lastFour: String?,
+        onComplete: (String?) -> Unit
+    ) {
+        viewModelScope.launch {
+            try {
+                require(name.isNotBlank()) { "Enter a name for this account." }
+                require(lastFour == null || lastFour.matches(Regex("\\d{4}"))) {
+                    "Last four digits must be exactly four digits."
+                }
+                createEntity(
+                    type = type,
+                    name = name,
+                    currency = "INR",
+                    maskedIdentifier = maskedIdentifier?.ifBlank { null },
+                    lastFour = lastFour?.ifBlank { null },
+                    nowEpochMillis = System.currentTimeMillis()
+                )
+                onComplete(null)
+            } catch (e: Exception) {
+                onComplete(e.message ?: "Could not save account.")
+            }
+        }
+    }
+
     fun addTransaction(
         type: TransactionType,
         amountRupees: String,

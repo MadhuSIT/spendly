@@ -15,7 +15,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.madhusit.spendly.domain.FoundationRepository
 import com.madhusit.spendly.domain.ledger.LedgerRepository
-import com.madhusit.spendly.domain.ledger.TransactionType
 import com.madhusit.spendly.presentation.components.*
 
 private const val HOME = "home"
@@ -24,6 +23,8 @@ private const val ACCOUNTS = "accounts"
 private const val INSIGHTS = "insights"
 private const val ADD_TRANSACTION = "add_transaction"
 private const val TRANSACTION_DETAIL = "transaction/{id}"
+private const val ADD_ENTITY = "add_entity"
+private const val ENTITY_DETAIL = "entity/{id}"
 
 @Composable
 fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerRepository) {
@@ -86,7 +87,41 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
                     onCancel = { navController.popBackStack() }
                 )
             }
-            composable(ACCOUNTS) { PlaceholderScreen("Accounts", padding) }
+            composable(ACCOUNTS) {
+                AccountsScreen(
+                    padding = padding,
+                    entities = entities,
+                    transactions = transactions,
+                    onAddEntity = { navController.navigate(ADD_ENTITY) },
+                    onOpenEntity = { navController.navigate("entity/$it") }
+                )
+            }
+            composable(ADD_ENTITY) {
+                AddEntityScreen(
+                    padding = padding,
+                    onSave = { type, name, identifier, lastFour, done ->
+                        ledgerVm.addEntity(type, name, identifier, lastFour) { error ->
+                            done(error)
+                            if (error == null) navController.popBackStack()
+                        }
+                    },
+                    onCancel = { navController.popBackStack() }
+                )
+            }
+            composable(
+                ENTITY_DETAIL,
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { entry ->
+                val entity = entities.firstOrNull { it.id == entry.arguments?.getString("id") }
+                EntityDetailScreen(
+                    padding = padding,
+                    entity = entity,
+                    transactions = transactions,
+                    entities = entities,
+                    onBack = { navController.popBackStack() },
+                    onAddTransaction = { navController.navigate(ADD_TRANSACTION) }
+                )
+            }
             composable(INSIGHTS) { PlaceholderScreen("Insights", padding) }
         }
     }
