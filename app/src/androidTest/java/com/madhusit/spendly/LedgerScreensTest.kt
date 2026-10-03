@@ -6,10 +6,13 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTextInput
 import org.junit.Rule
 import org.junit.Test
 import com.madhusit.spendly.domain.ledger.*
+import com.madhusit.spendly.presentation.components.AddTransactionScreen
 import com.madhusit.spendly.presentation.components.LedgerTransactions
 import com.madhusit.spendly.presentation.components.TransactionDetailScreen
 
@@ -86,5 +89,40 @@ class LedgerScreensTest {
         rule.onNodeWithText("Cash Wallet").performScrollTo().assertIsDisplayed()
         rule.onNodeWithText("REF-123").performScrollTo().assertIsDisplayed()
         rule.onNodeWithText("Added manually through Spendly.").performScrollTo().assertIsDisplayed()
+    }
+
+    @Test
+    fun addTransaction_displaysSaveError() {
+        val entity = FinancialEntity(
+            id = "cash",
+            type = FinancialEntityType.CASH,
+            provider = "Spendly",
+            name = "Cash Wallet",
+            maskedIdentifier = null,
+            lastFour = null,
+            currency = "INR",
+            createdAtEpochMillis = 1L,
+            updatedAtEpochMillis = 1L
+        )
+
+        rule.setContent {
+            MaterialTheme {
+                AddTransactionScreen(
+                    padding = PaddingValues(),
+                    entities = listOf(entity),
+                    onSave = { _, _, _, _, _, onComplete ->
+                        onComplete("Enter an amount greater than zero.")
+                    },
+                    onCancel = {}
+                )
+            }
+        }
+
+        rule.onNodeWithTag("transaction-amount").performTextInput("0")
+        rule.onNodeWithTag("transaction-title").performTextInput("Test Merchant")
+        rule.onNodeWithTag("save-transaction").performClick()
+
+        rule.onNodeWithTag("transaction-error").assertIsDisplayed()
+        rule.onNodeWithText("Enter an amount greater than zero.").assertIsDisplayed()
     }
 }
