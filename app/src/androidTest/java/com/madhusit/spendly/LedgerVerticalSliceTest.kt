@@ -2,7 +2,6 @@ package com.madhusit.spendly
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -43,12 +42,11 @@ class LedgerVerticalSliceTest {
 
         rule.activityRule.scenario.recreate()
         rule.waitUntil(30_000) {
-            rule.onAllNodesWithTag("bottom_nav_transactions").fetchSemanticsNodes().isNotEmpty()
+            rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
         }
+        rule.onNodeWithText("Test Merchant").assertIsDisplayed()
+
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
-        rule.waitUntil(30_000) {
-            rule.onAllNodesWithTag("screen_transactions").fetchSemanticsNodes().isNotEmpty()
-        }
         rule.waitUntil(30_000) {
             rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty() &&
                 rule.onAllNodesWithText("EXPENSE ·", substring = true).fetchSemanticsNodes().isNotEmpty() &&
