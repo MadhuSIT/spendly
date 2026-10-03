@@ -40,6 +40,42 @@ class LedgerViewModelTest {
     }
 
     @Test
+    fun observedLedgerMutation_propagatesToViewModelStateAndTotals() = runTest {
+        val repository = FakeLedgerRepository()
+        val viewModel = LedgerViewModel(repository)
+        testScheduler.advanceUntilIdle()
+
+        val transaction = LedgerTransaction(
+            id = "tx-1",
+            sourceEntityId = "cash",
+            destinationEntityId = null,
+            type = TransactionType.EXPENSE,
+            amountMinor = 12550L,
+            currency = "INR",
+            merchantName = "Observed Merchant",
+            description = null,
+            transactionTimestamp = 1_000L,
+            status = TransactionStatus.CONFIRMED,
+            referenceNumber = null,
+            upiReference = null,
+            rawEventReference = null,
+            parserSource = null,
+            parserVersion = null,
+            confidence = null,
+            reviewRequired = false,
+            createdAtEpochMillis = 1_000L,
+            updatedAtEpochMillis = 1_000L
+        )
+
+        repository.transactions.value = listOf(transaction)
+        testScheduler.advanceUntilIdle()
+
+        assertEquals(listOf(transaction), viewModel.transactions.value)
+        assertEquals(12550L, viewModel.totals.value.spendingMinor)
+        assertEquals(12550L, viewModel.totals.value.netSpendingMinor)
+    }
+
+    @Test
     fun addTransaction_rejectsZeroAmountWithoutWritingLedger() = runTest {
         val repository = FakeLedgerRepository()
         val viewModel = LedgerViewModel(repository)
