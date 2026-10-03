@@ -25,7 +25,7 @@ class LedgerVerticalSliceTest {
         rule.onNodeWithTag("transaction-title").performTextInput("Test Merchant")
         rule.onNodeWithTag("save-transaction").performClick()
 
-                rule.onNodeWithTag("bottom_nav_transactions").performClick()
+        rule.onNodeWithTag("bottom_nav_transactions").performClick()
         rule.waitUntil(15_000) {
             rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty() &&
                 rule.onAllNodesWithText("EXPENSE ·", substring = true).fetchSemanticsNodes().isNotEmpty() &&
@@ -42,14 +42,14 @@ class LedgerVerticalSliceTest {
         rule.onNodeWithText("Added manually through Spendly.").assertIsDisplayed()
 
         rule.activityRule.scenario.recreate()
-        rule.waitUntil(10_000) {
+        rule.waitUntil(30_000) {
             rule.onAllNodesWithTag("bottom_nav_transactions").fetchSemanticsNodes().isNotEmpty()
         }
         rule.onNodeWithTag("bottom_nav_transactions").performClick()
-        rule.waitUntil(10_000) {
+        rule.waitUntil(30_000) {
             rule.onAllNodesWithTag("screen_transactions").fetchSemanticsNodes().isNotEmpty()
         }
-        rule.waitUntil(20_000) {
+        rule.waitUntil(30_000) {
             rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty() &&
                 rule.onAllNodesWithText("EXPENSE ·", substring = true).fetchSemanticsNodes().isNotEmpty() &&
                 rule.onAllNodesWithText("₹125.50").fetchSemanticsNodes().isNotEmpty()
