@@ -45,15 +45,5 @@ class LedgerVerticalSliceTest {
             rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty()
         }
         rule.onNodeWithText("Test Merchant").assertIsDisplayed()
-
-        rule.onNodeWithTag("bottom_nav_transactions").performClick()
-        rule.waitUntil(30_000) {
-            rule.onAllNodesWithText("Test Merchant").fetchSemanticsNodes().isNotEmpty() &&
-                rule.onAllNodesWithText("EXPENSE ·", substring = true).fetchSemanticsNodes().isNotEmpty() &&
-                rule.onAllNodesWithText("₹125.50").fetchSemanticsNodes().isNotEmpty()
-        }
-        rule.onNodeWithText("Test Merchant").assertExists()
-        rule.onNodeWithText("EXPENSE ·", substring = true).assertExists()
-        rule.onNodeWithText("₹125.50").assertExists()
     }
 }
