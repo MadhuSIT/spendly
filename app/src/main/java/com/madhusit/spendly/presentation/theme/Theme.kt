@@ -7,30 +7,40 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-private val tealPrimary = Color(0xFF1A6B4A)
-private val tealOnPrimary = Color(0xFFFFFFFF)
-private val tealPrimaryContainer = Color(0xFFB7F0D4)
-private val tealOnPrimaryContainer = Color(0xFF002114)
-private val tealSecondary = Color(0xFF4E6358)
-private val tealBackground = Color(0xFFF5FAF6)
-private val tealSurface = Color(0xFFF5FAF6)
-
 private val LightColors = lightColorScheme(
-    primary = tealPrimary,
-    onPrimary = tealOnPrimary,
-    primaryContainer = tealPrimaryContainer,
-    onPrimaryContainer = tealOnPrimaryContainer,
-    secondary = tealSecondary,
-    background = tealBackground,
-    surface = tealSurface,
+    primary = Color(0xFF1B3A6B),
+    onPrimary = Color(0xFFFFFFFF),
+    primaryContainer = Color(0xFFD6E3FF),
+    onPrimaryContainer = Color(0xFF001849),
+    secondary = Color(0xFF2E5BBA),
+    onSecondary = Color(0xFFFFFFFF),
+    secondaryContainer = Color(0xFFDAE2FF),
+    onSecondaryContainer = Color(0xFF001356),
+    background = Color(0xFFF8F9FF),
+    onBackground = Color(0xFF1A1C23),
+    surface = Color(0xFFF8F9FF),
+    onSurface = Color(0xFF1A1C23),
+    surfaceVariant = Color(0xFFE2E5F0),
+    onSurfaceVariant = Color(0xFF44474F),
+    outline = Color(0xFF74778A),
 )
 
 private val DarkColors = darkColorScheme(
-    primary = Color(0xFF9CD4B8),
-    onPrimary = Color(0xFF003826),
-    primaryContainer = Color(0xFF005138),
-    onPrimaryContainer = Color(0xFFB7F0D4),
-    secondary = Color(0xFFB3CCBE),
+    primary = Color(0xFFADC6FF),
+    onPrimary = Color(0xFF002A78),
+    primaryContainer = Color(0xFF003EA8),
+    onPrimaryContainer = Color(0xFFD6E3FF),
+    secondary = Color(0xFFB5C4FF),
+    onSecondary = Color(0xFF00258B),
+    secondaryContainer = Color(0xFF1B3FC3),
+    onSecondaryContainer = Color(0xFFDAE2FF),
+    background = Color(0xFF1A1C23),
+    onBackground = Color(0xFFE3E5EE),
+    surface = Color(0xFF1A1C23),
+    onSurface = Color(0xFFE3E5EE),
+    surfaceVariant = Color(0xFF44474F),
+    onSurfaceVariant = Color(0xFFC4C6D0),
+    outline = Color(0xFF8E9099),
 )
 
 @Composable
@@ -38,9 +48,8 @@ fun SpendlyTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if (darkTheme) DarkColors else LightColors
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = if (darkTheme) DarkColors else LightColors,
         typography = androidx.compose.material3.Typography(),
         content = content
     )
