@@ -43,6 +43,7 @@ private const val REVIEW_QUEUE = "review_queue"
 private const val REVIEW_ITEM = "review_item/{id}"
 private const val EDIT_TRANSACTION = "edit_transaction/{id}"
 private const val BULK_MANAGE = "bulk_manage"
+private const val SMS_IMPORT = "sms_import"
 
 @Composable
 fun SpendlyApp(
@@ -150,20 +151,7 @@ fun SpendlyApp(
                     onAddTransaction = { navController.navigate(ADD_TRANSACTION) },
                     onOpenTransaction = { navController.navigate("transaction/$it") },
                     onOpenQueue = { navController.navigate(REVIEW_QUEUE) },
-                    onScanSms = {
-                        if (readSmsGranted) {
-                            scope.launch(kotlinx.coroutines.Dispatchers.IO) {
-                                try {
-                                    val summary = smsIngestionRepository.scanInbox(context)
-                                    SpendlyNotificationHelper.notifyBatchImport(context, summary.total, summary.saved, summary.review)
-                                } catch (e: Exception) {
-                                    android.util.Log.e("Spendly.App", "manual scan failed: ${e.message}", e)
-                                }
-                            }
-                        } else {
-                            readSmsLauncher.launch(Manifest.permission.READ_SMS)
-                        }
-                    }
+                    onScanSms = { navController.navigate(SMS_IMPORT) }
                 )
             }
             composable(TRANSACTIONS) {
@@ -186,6 +174,26 @@ fun SpendlyApp(
                     onDeleteSelected = { ids, done ->
                         ledgerVm.bulkDeleteTransactions(ids, done)
                     }
+                )
+            }
+            composable(SMS_IMPORT) {
+                ImportSmsScreen(
+                    padding = padding,
+                    smsPermissionGranted = readSmsGranted,
+                    onRequestPermission = { readSmsLauncher.launch(Manifest.permission.READ_SMS) },
+                    onScan = { fromMs, toMs, onResult ->
+                        scope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                            try {
+                                val summary = smsIngestionRepository.scanInbox(context, fromMs, toMs)
+                                SpendlyNotificationHelper.notifyBatchImport(context, summary.total, summary.saved, summary.review)
+                                onResult(summary, null)
+                            } catch (e: Exception) {
+                                onResult(null, e.message ?: "Scan failed")
+                            }
+                        }
+                    },
+                    onBack = { navController.popBackStack() },
+                    onOpenQueue = { navController.navigate(REVIEW_QUEUE) }
                 )
             }
             composable(

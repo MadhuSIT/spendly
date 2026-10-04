@@ -199,14 +199,13 @@ class SmsIngestionRepositoryImpl(
         Log.i(TAG, "clearProcessedEvents: table cleared")
     }
 
-    override suspend fun scanInbox(context: Context, lookbackMs: Long): SmsInboxScanSummary {
-        Log.i(TAG, "scanInbox: starting, lookback=${lookbackMs / 3600000}h")
-        val cutoff = System.currentTimeMillis() - lookbackMs
+    override suspend fun scanInbox(context: Context, fromMs: Long, toMs: Long): SmsInboxScanSummary {
+        Log.i(TAG, "scanInbox: starting, from=$fromMs to=$toMs")
         val cursor = try {
             context.contentResolver.query(
                 Uri.parse("content://sms/inbox"),
                 arrayOf("address", "body", "date"),
-                "date > ?", arrayOf(cutoff.toString()), "date DESC"
+                "date >= ? AND date <= ?", arrayOf(fromMs.toString(), toMs.toString()), "date DESC"
             )
         } catch (e: Exception) {
             Log.e(TAG, "scanInbox: query failed: ${e.message}", e)
