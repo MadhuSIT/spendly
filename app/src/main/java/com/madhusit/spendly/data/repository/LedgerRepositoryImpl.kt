@@ -142,6 +142,14 @@ database.withTransaction {
         }
     }
 
+    override suspend fun clearAllData() {
+        database.withTransaction {
+            relationshipDao.deleteAll()
+            transactionDao.deleteAll()
+            entityDao.deleteAll()
+        }
+    }
+
     override suspend fun calculateTotals(): LedgerTotals {
         val transactions = transactionDao.findAll()
         val relationships = relationshipDao.findAll()

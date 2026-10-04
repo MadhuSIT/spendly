@@ -91,6 +91,8 @@ fun SpendlyApp(
             composable(HOME) {
                 LedgerHome(
                     padding = padding,
+                    user = user,
+                    onSignOut = { authVm.signOut() },
                     totals = totals,
                     recentTransactions = transactions.filter { !it.reviewRequired }.take(8),
                     reviewQueueCount = reviewQueue.size,

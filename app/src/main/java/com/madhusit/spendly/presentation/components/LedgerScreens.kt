@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -26,6 +27,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.madhusit.spendly.domain.auth.AuthUser
 import com.madhusit.spendly.domain.ledger.*
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
@@ -55,9 +57,12 @@ internal val SEED_MERCHANTS = listOf(
     "Indian Oil", "HP Petrol", "BPCL", "Shell"
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LedgerHome(
     padding: PaddingValues,
+    user: AuthUser? = null,
+    onSignOut: () -> Unit = {},
     totals: LedgerTotals,
     recentTransactions: List<LedgerTransaction>,
     reviewQueueCount: Int = 0,
@@ -65,22 +70,75 @@ fun LedgerHome(
     onOpenTransaction: (String) -> Unit,
     onOpenQueue: () -> Unit = {}
 ) {
-    LazyColumn(
-        Modifier.fillMaxSize().padding(padding).testTag("screen_home"),
-        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        // Greeting header
-        item {
-            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(
-                    greeting(),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+    var showProfileMenu by remember { mutableStateOf(false) }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        "Spendly",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.W600
+                    )
+                },
+                actions = {
+                    Box {
+                        IconButton(onClick = { showProfileMenu = true }) {
+                            ProfileAvatar(user = user)
+                        }
+                        DropdownMenu(
+                            expanded = showProfileMenu,
+                            onDismissRequest = { showProfileMenu = false }
+                        ) {
+                            if (user != null && user.uid != "guest") {
+                                DropdownMenuItem(
+                                    text = {
+                                        Column {
+                                            Text(
+                                                user.displayName ?: "Account",
+                                                style = MaterialTheme.typography.bodyMedium,
+                                                fontWeight = FontWeight.W500
+                                            )
+                                            if (user.email != null) {
+                                                Text(
+                                                    user.email,
+                                                    style = MaterialTheme.typography.bodySmall,
+                                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                                )
+                                            }
+                                        }
+                                    },
+                                    onClick = {}
+                                )
+                                HorizontalDivider()
+                            }
+                            DropdownMenuItem(
+                                text = { Text(if (user?.uid == "guest") "Sign in with Google" else "Sign out") },
+                                onClick = {
+                                    showProfileMenu = false
+                                    onSignOut()
+                                }
+                            )
+                        }
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface
                 )
-                Text("Spendly", style = MaterialTheme.typography.headlineMedium)
-            }
+            )
         }
+    ) { innerPadding ->
+        LazyColumn(
+            Modifier.fillMaxSize().padding(bottom = padding.calculateBottomPadding()).testTag("screen_home"),
+            contentPadding = PaddingValues(
+                top = innerPadding.calculateTopPadding() + 8.dp,
+                bottom = 24.dp,
+                start = 20.dp,
+                end = 20.dp
+            ),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
 
         // Review banner
         if (reviewQueueCount > 0) {
@@ -186,6 +244,37 @@ fun LedgerHome(
                 TransactionRow(transaction) { onOpenTransaction(transaction.id) }
             }
         }
+    }
+    }
+}
+
+@Composable
+private fun ProfileAvatar(user: AuthUser?) {
+    val initial = user?.displayName?.firstOrNull()?.uppercaseChar()
+        ?: user?.email?.firstOrNull()?.uppercaseChar()
+    if (initial != null && user?.uid != "guest") {
+        Box(
+            modifier = Modifier
+                .size(32.dp)
+                .background(
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = androidx.compose.foundation.shape.CircleShape
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = initial.toString(),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onPrimary,
+                fontWeight = FontWeight.W600
+            )
+        }
+    } else {
+        Icon(
+            Icons.Default.Person,
+            contentDescription = "Profile",
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }
 

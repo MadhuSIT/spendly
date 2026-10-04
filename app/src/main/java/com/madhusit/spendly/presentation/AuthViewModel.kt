@@ -35,6 +35,7 @@ class AuthViewModel(
         viewModelScope.launch {
             val result = authRepository.signInWithGoogle(idToken)
             result.onSuccess { user ->
+                ledgerRepository.clearAllData()
                 pullFromCloud(user.uid)
             }.onFailure {
                 syncError = it.message
