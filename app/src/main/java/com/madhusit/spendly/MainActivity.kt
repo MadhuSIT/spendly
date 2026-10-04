@@ -12,7 +12,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             SpendlyTheme {
                 val app = application as SpendlyApplication
-                SpendlyApp(app.repository, app.ledgerRepository)
+                SpendlyApp(
+                    repository = app.repository,
+                    ledgerRepository = app.ledgerRepository,
+                    authRepository = app.authRepository,
+                    syncRepository = app.syncRepository
+                )
             }
         }
     }

@@ -2,6 +2,7 @@ package com.madhusit.spendly
 
 import android.app.Application
 import androidx.room.Room
+import com.madhusit.spendly.data.auth.FirebaseAuthRepository
 import com.madhusit.spendly.data.local.MIGRATION_1_2
 import com.madhusit.spendly.data.local.MIGRATION_2_3
 import com.madhusit.spendly.data.local.MIGRATION_3_4
@@ -9,9 +10,12 @@ import com.madhusit.spendly.data.local.SpendlyDatabase
 import com.madhusit.spendly.data.repository.FoundationRepositoryImpl
 import com.madhusit.spendly.data.repository.LedgerRepositoryImpl
 import com.madhusit.spendly.data.repository.SmsIngestionRepositoryImpl
+import com.madhusit.spendly.data.sync.FirestoreSyncRepository
 import com.madhusit.spendly.domain.FoundationRepository
+import com.madhusit.spendly.domain.auth.AuthRepository
 import com.madhusit.spendly.domain.ledger.LedgerRepository
 import com.madhusit.spendly.domain.sms.SmsIngestionRepository
+import com.madhusit.spendly.domain.sync.SyncRepository
 
 class SpendlyApplication : Application() {
     val database: SpendlyDatabase by lazy {
@@ -31,4 +35,7 @@ class SpendlyApplication : Application() {
     val smsIngestionRepository: SmsIngestionRepository by lazy {
         SmsIngestionRepositoryImpl(database, ledgerRepository, database.processedSmsEventDao())
     }
+
+    val authRepository: AuthRepository by lazy { FirebaseAuthRepository() }
+    val syncRepository: SyncRepository by lazy { FirestoreSyncRepository() }
 }
