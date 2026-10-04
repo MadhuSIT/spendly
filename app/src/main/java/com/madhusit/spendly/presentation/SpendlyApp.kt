@@ -9,6 +9,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
@@ -19,9 +22,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import kotlinx.coroutines.launch
 import com.madhusit.spendly.domain.FoundationRepository
 import com.madhusit.spendly.domain.auth.AuthRepository
 import com.madhusit.spendly.domain.ledger.LedgerRepository
+import com.madhusit.spendly.domain.sms.SmsIngestionRepository
 import com.madhusit.spendly.domain.sync.SyncRepository
 import com.madhusit.spendly.presentation.components.*
 
@@ -42,10 +47,11 @@ fun SpendlyApp(
     repository: FoundationRepository,
     ledgerRepository: LedgerRepository,
     authRepository: AuthRepository,
-    syncRepository: SyncRepository
+    syncRepository: SyncRepository,
+    smsIngestionRepository: SmsIngestionRepository
 ) {
     val authVm: AuthViewModel = viewModel(
-        factory = AuthViewModel.factory(authRepository, syncRepository, ledgerRepository)
+        factory = AuthViewModel.factory(authRepository, syncRepository, ledgerRepository, smsIngestionRepository)
     )
     val user by authVm.user.collectAsStateWithLifecycle()
 
@@ -59,14 +65,43 @@ fun SpendlyApp(
     }
 
     val context = LocalContext.current
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    var readSmsGranted by remember {
+        mutableStateOf(
+            ContextCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) ==
+                PackageManager.PERMISSION_GRANTED
+        )
+    }
     val smsPermissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { /* user chose; receiver activates on grant */ }
+    ) { /* RECEIVE_SMS: receiver activates on grant */ }
+    val readSmsLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        readSmsGranted = granted
+        if (granted) {
+            scope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                try { smsIngestionRepository.scanInbox(context) }
+                catch (e: Exception) { android.util.Log.e("Spendly.App", "scanInbox failed: ${e.message}", e) }
+            }
+        }
+    }
+
     LaunchedEffect(Unit) {
+        android.util.Log.i("Spendly.App", "LaunchedEffect: readSmsGranted=$readSmsGranted")
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS)
             != PackageManager.PERMISSION_GRANTED
-        ) {
-            smsPermissionLauncher.launch(Manifest.permission.RECEIVE_SMS)
+        ) smsPermissionLauncher.launch(Manifest.permission.RECEIVE_SMS)
+        if (!readSmsGranted) {
+            readSmsLauncher.launch(Manifest.permission.READ_SMS)
+        } else {
+            try {
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                    smsIngestionRepository.scanInbox(context)
+                }
+            } catch (e: Exception) {
+                android.util.Log.e("Spendly.App", "scanInbox failed: ${e.message}", e)
+            }
         }
     }
 
@@ -91,12 +126,23 @@ fun SpendlyApp(
             composable(HOME) {
                 LedgerHome(
                     padding = padding,
+                    user = user,
+                    onSignOut = { authVm.signOut() },
                     totals = totals,
                     recentTransactions = transactions.filter { !it.reviewRequired }.take(8),
                     reviewQueueCount = reviewQueue.size,
                     onAddTransaction = { navController.navigate(ADD_TRANSACTION) },
                     onOpenTransaction = { navController.navigate("transaction/$it") },
-                    onOpenQueue = { navController.navigate(REVIEW_QUEUE) }
+                    onOpenQueue = { navController.navigate(REVIEW_QUEUE) },
+                    onScanSms = {
+                        if (readSmsGranted) {
+                            scope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                                smsIngestionRepository.scanInbox(context)
+                            }
+                        } else {
+                            readSmsLauncher.launch(Manifest.permission.READ_SMS)
+                        }
+                    }
                 )
             }
             composable(TRANSACTIONS) {
@@ -119,7 +165,14 @@ fun SpendlyApp(
                     transaction = transaction,
                     entities = entities,
                     onBack = { navController.popBackStack() },
-                    onEdit = transaction?.let { { navController.navigate("edit_transaction/${it.id}") } }
+                    onEdit = transaction?.let { { navController.navigate("edit_transaction/${it.id}") } },
+                    onDelete = transaction?.let { txn ->
+                        {
+                            ledgerVm.deleteTransaction(txn.id) { error ->
+                                if (error == null) navController.popBackStack()
+                            }
+                        }
+                    }
                 )
             }
             composable(

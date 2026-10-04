@@ -15,4 +15,7 @@ interface TransactionRelationshipDao {
 
     @Query("SELECT * FROM transaction_relationships")
     suspend fun findAll(): List<TransactionRelationshipEntity>
+
+    @Query("DELETE FROM transaction_relationships")
+    suspend fun deleteAll()
 }

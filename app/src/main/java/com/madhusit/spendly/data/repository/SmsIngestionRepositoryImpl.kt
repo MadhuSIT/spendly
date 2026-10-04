@@ -1,5 +1,8 @@
 package com.madhusit.spendly.data.repository
 
+import android.content.Context
+import android.net.Uri
+import android.util.Log
 import androidx.room.withTransaction
 import com.madhusit.spendly.data.local.SpendlyDatabase
 import com.madhusit.spendly.data.local.sms.ProcessedSmsEventEntity
@@ -8,6 +11,8 @@ import com.madhusit.spendly.domain.sms.*
 import java.security.MessageDigest
 import java.util.UUID
 import kotlinx.coroutines.flow.first
+
+private const val TAG = "Spendly.SmsIngest"
 
 class SmsIngestionRepositoryImpl(
     private val database: SpendlyDatabase,
@@ -139,6 +144,53 @@ class SmsIngestionRepositoryImpl(
         if (providerOnly.size == 1) return providerOnly.single()
         if (entities.size == 1) return entities.single()
         return null
+    }
+
+    override suspend fun clearProcessedEvents() {
+        eventDao.deleteAll()
+        Log.i(TAG, "clearProcessedEvents: processed_sms_events cleared")
+    }
+
+    override suspend fun scanInbox(context: Context, lookbackMs: Long) {
+        Log.i(TAG, "scanInbox: starting, lookbackMs=$lookbackMs")
+        val cutoff = System.currentTimeMillis() - lookbackMs
+        val uri = Uri.parse("content://sms/inbox")
+        val cursor = try {
+            context.contentResolver.query(
+                uri,
+                arrayOf("address", "body", "date"),
+                "date > ?",
+                arrayOf(cutoff.toString()),
+                "date DESC"
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "scanInbox: ContentResolver.query failed: ${e.message}", e)
+            return
+        }
+        if (cursor == null) {
+            Log.w(TAG, "scanInbox: cursor null — READ_SMS denied or provider unavailable")
+            return
+        }
+        Log.i(TAG, "scanInbox: cursor opened, rowCount=${cursor.count}")
+        var count = 0
+        var processed = 0
+        cursor.use {
+            while (it.moveToNext()) {
+                val sender = it.getString(0).orEmpty()
+                val body = it.getString(1).orEmpty()
+                val date = it.getLong(2)
+                count++
+                try {
+                    val msg = SmsMessage(sender = sender, body = body, receivedAtEpochMillis = date)
+                    val result = process(msg)
+                    Log.i(TAG, "Inbox[$count]: from=$sender cls=${result.classification} fail=${result.failureReason}")
+                    processed++
+                } catch (e: Exception) {
+                    Log.e(TAG, "Inbox[$count]: process() threw for sender=$sender: ${e.message}", e)
+                }
+            }
+        }
+        Log.i(TAG, "scanInbox complete: $count messages read, $processed processed without error")
     }
 
     private fun fingerprint(message: SmsMessage): String {

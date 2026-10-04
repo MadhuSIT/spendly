@@ -16,4 +16,7 @@ interface FinancialEntityDao {
 
     @Query("SELECT * FROM financial_entities WHERE id = :id")
     suspend fun findById(id: String): FinancialEntityEntity?
+
+    @Query("DELETE FROM financial_entities")
+    suspend fun deleteAll()
 }
