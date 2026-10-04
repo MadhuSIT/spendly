@@ -125,6 +125,24 @@ database.withTransaction {
     override suspend fun findTransaction(id: String): LedgerTransaction? =
         transactionDao.findById(id)?.toDomain()
 
+    override suspend fun deleteTransactions(ids: List<String>) {
+        if (ids.isEmpty()) return
+        database.withTransaction {
+            transactionDao.deleteByIds(ids)
+            auditDao.insert(
+                AuditEventEntity(
+                    id = java.util.UUID.randomUUID().toString(),
+                    entityType = "TRANSACTION",
+                    entityId = ids.joinToString(","),
+                    action = "BULK_DELETED",
+                    actor = "USER",
+                    details = "${ids.size} transactions",
+                    createdAtEpochMillis = System.currentTimeMillis()
+                )
+            )
+        }
+    }
+
     override suspend fun deleteTransaction(id: String) {
         database.withTransaction {
             transactionDao.deleteById(id)

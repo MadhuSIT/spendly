@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -336,7 +337,8 @@ fun LedgerTransactions(
     reviewQueueCount: Int = 0,
     onOpenTransaction: (String) -> Unit,
     onAddTransaction: () -> Unit,
-    onOpenQueue: () -> Unit = {}
+    onOpenQueue: () -> Unit = {},
+    onManage: () -> Unit = {}
 ) {
     var query by remember { mutableStateOf("") }
     var searchActive by remember { mutableStateOf(false) }
@@ -371,6 +373,10 @@ fun LedgerTransactions(
                 IconButton(onClick = { searchActive = !searchActive; if (!searchActive) query = "" }) {
                     Icon(Icons.Default.Search, contentDescription = "Search",
                         tint = if (searchActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                IconButton(onClick = onManage) {
+                    Icon(Icons.Default.Tune, contentDescription = "Manage transactions",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 IconButton(onClick = onAddTransaction) {
                     Icon(Icons.Default.Add, contentDescription = "Add transaction",

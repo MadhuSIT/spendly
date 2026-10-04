@@ -12,6 +12,7 @@ interface LedgerRepository {
     suspend fun findEntity(id: String): FinancialEntity?
     suspend fun findTransaction(id: String): LedgerTransaction?
     suspend fun deleteTransaction(id: String)
+    suspend fun deleteTransactions(ids: List<String>)
     suspend fun clearAllData()
     suspend fun calculateTotals(): LedgerTotals
 }

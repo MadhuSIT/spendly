@@ -42,6 +42,7 @@ private const val ENTITY_DETAIL = "entity/{id}"
 private const val REVIEW_QUEUE = "review_queue"
 private const val REVIEW_ITEM = "review_item/{id}"
 private const val EDIT_TRANSACTION = "edit_transaction/{id}"
+private const val BULK_MANAGE = "bulk_manage"
 
 @Composable
 fun SpendlyApp(
@@ -172,7 +173,19 @@ fun SpendlyApp(
                     reviewQueueCount = reviewQueue.size,
                     onOpenTransaction = { navController.navigate("transaction/$it") },
                     onAddTransaction = { navController.navigate(ADD_TRANSACTION) },
-                    onOpenQueue = { navController.navigate(REVIEW_QUEUE) }
+                    onOpenQueue = { navController.navigate(REVIEW_QUEUE) },
+                    onManage = { navController.navigate(BULK_MANAGE) }
+                )
+            }
+            composable(BULK_MANAGE) {
+                BulkManageScreen(
+                    padding = padding,
+                    transactions = transactions.filter { !it.reviewRequired },
+                    entities = entities,
+                    onBack = { navController.popBackStack() },
+                    onDeleteSelected = { ids, done ->
+                        ledgerVm.bulkDeleteTransactions(ids, done)
+                    }
                 )
             }
             composable(

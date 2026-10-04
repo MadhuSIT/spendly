@@ -211,6 +211,17 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
         }
     }
 
+    fun bulkDeleteTransactions(ids: List<String>, onDone: (String?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                repository.deleteTransactions(ids)
+                onDone(null)
+            } catch (e: Exception) {
+                onDone(e.message ?: "Could not delete transactions.")
+            }
+        }
+    }
+
     companion object {
         fun factory(repository: LedgerRepository) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
