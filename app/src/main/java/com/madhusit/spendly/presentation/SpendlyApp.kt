@@ -15,7 +15,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.madhusit.spendly.domain.FoundationRepository
 import com.madhusit.spendly.domain.ledger.LedgerRepository
-import com.madhusit.spendly.domain.ledger.TransactionType
 import com.madhusit.spendly.presentation.components.*
 
 private const val HOME = "home"
@@ -24,6 +23,10 @@ private const val ACCOUNTS = "accounts"
 private const val INSIGHTS = "insights"
 private const val ADD_TRANSACTION = "add_transaction"
 private const val TRANSACTION_DETAIL = "transaction/{id}"
+private const val ADD_ENTITY = "add_entity"
+private const val ENTITY_DETAIL = "entity/{id}"
+private const val REVIEW_QUEUE = "review_queue"
+private const val REVIEW_ITEM = "review_item/{id}"
 
 @Composable
 fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerRepository) {
@@ -33,6 +36,7 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
     val transactions by ledgerVm.transactions.collectAsStateWithLifecycle()
     val entities by ledgerVm.entities.collectAsStateWithLifecycle()
     val totals by ledgerVm.totals.collectAsStateWithLifecycle()
+    val reviewQueue by ledgerVm.reviewQueue.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         foundationVm.initialize()
@@ -48,17 +52,21 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
                 LedgerHome(
                     padding = padding,
                     totals = totals,
-                    recentTransactions = transactions.take(8),
+                    recentTransactions = transactions.filter { !it.reviewRequired }.take(8),
+                    reviewQueueCount = reviewQueue.size,
                     onAddTransaction = { navController.navigate(ADD_TRANSACTION) },
-                    onOpenTransaction = { navController.navigate("transaction/$it") }
+                    onOpenTransaction = { navController.navigate("transaction/$it") },
+                    onOpenQueue = { navController.navigate(REVIEW_QUEUE) }
                 )
             }
             composable(TRANSACTIONS) {
                 LedgerTransactions(
                     padding = padding,
-                    transactions = transactions,
+                    transactions = transactions.filter { !it.reviewRequired },
+                    reviewQueueCount = reviewQueue.size,
                     onOpenTransaction = { navController.navigate("transaction/$it") },
-                    onAddTransaction = { navController.navigate(ADD_TRANSACTION) }
+                    onAddTransaction = { navController.navigate(ADD_TRANSACTION) },
+                    onOpenQueue = { navController.navigate(REVIEW_QUEUE) }
                 )
             }
             composable(
@@ -86,7 +94,75 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
                     onCancel = { navController.popBackStack() }
                 )
             }
-            composable(ACCOUNTS) { PlaceholderScreen("Accounts", padding) }
+            composable(ACCOUNTS) {
+                AccountsScreen(
+                    padding = padding,
+                    entities = entities,
+                    transactions = transactions,
+                    onAddEntity = { navController.navigate(ADD_ENTITY) },
+                    onOpenEntity = { navController.navigate("entity/$it") }
+                )
+            }
+            composable(ADD_ENTITY) {
+                AddEntityScreen(
+                    padding = padding,
+                    onSave = { type, name, identifier, lastFour, done ->
+                        ledgerVm.addEntity(type, name, identifier, lastFour) { error ->
+                            done(error)
+                            if (error == null) navController.popBackStack()
+                        }
+                    },
+                    onCancel = { navController.popBackStack() }
+                )
+            }
+            composable(
+                ENTITY_DETAIL,
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { entry ->
+                val entity = entities.firstOrNull { it.id == entry.arguments?.getString("id") }
+                EntityDetailScreen(
+                    padding = padding,
+                    entity = entity,
+                    transactions = transactions,
+                    entities = entities,
+                    onBack = { navController.popBackStack() },
+                    onAddTransaction = { navController.navigate(ADD_TRANSACTION) }
+                )
+            }
+            composable(REVIEW_QUEUE) {
+                ReviewQueueScreen(
+                    padding = padding,
+                    queue = reviewQueue,
+                    entities = entities,
+                    onOpenItem = { navController.navigate("review_item/$it") },
+                    onDone = { navController.popBackStack() },
+                    onSeedItem = { entities.firstOrNull()?.let { e -> ledgerVm.seedReviewItem(e.id) } }
+                )
+            }
+            composable(
+                REVIEW_ITEM,
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { entry ->
+                val txn = reviewQueue.firstOrNull { it.id == entry.arguments?.getString("id") }
+                ReviewItemScreen(
+                    padding = padding,
+                    transaction = txn,
+                    entities = entities,
+                    onConfirm = { merchantName, type, sourceEntityId, done ->
+                        ledgerVm.confirmQueueItem(
+                            transactionId = txn?.id ?: "",
+                            merchantName = merchantName,
+                            type = type,
+                            sourceEntityId = sourceEntityId
+                        ) { error ->
+                            done(error)
+                            if (error == null) navController.popBackStack()
+                        }
+                    },
+                    onLater = { navController.popBackStack() },
+                    onBack = { navController.popBackStack() }
+                )
+            }
             composable(INSIGHTS) { PlaceholderScreen("Insights", padding) }
         }
     }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -19,14 +20,47 @@ fun LedgerHome(
     padding: PaddingValues,
     totals: LedgerTotals,
     recentTransactions: List<LedgerTransaction>,
+    reviewQueueCount: Int = 0,
     onAddTransaction: () -> Unit,
-    onOpenTransaction: (String) -> Unit
+    onOpenTransaction: (String) -> Unit,
+    onOpenQueue: () -> Unit = {}
 ) {
     Column(
         Modifier.fillMaxSize().padding(padding).padding(20.dp).testTag("screen_home"),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text("Spendly", style = MaterialTheme.typography.headlineMedium)
+        if (reviewQueueCount > 0) {
+            Card(
+                onClick = onOpenQueue,
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                modifier = Modifier.fillMaxWidth().testTag("queue-attention-card")
+            ) {
+                Row(
+                    Modifier.padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                        Text(
+                            "$reviewQueueCount transaction${if (reviewQueueCount == 1) "" else "s"} need review",
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                        Text(
+                            "Tap to resolve",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onErrorContainer
+                        )
+                    }
+                    Text(
+                        "→",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onErrorContainer
+                    )
+                }
+            }
+        }
         Card(Modifier.fillMaxWidth()) {
             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text("Net spending", style = MaterialTheme.typography.labelLarge)
@@ -61,16 +95,24 @@ fun LedgerHome(
 fun LedgerTransactions(
     padding: PaddingValues,
     transactions: List<LedgerTransaction>,
+    reviewQueueCount: Int = 0,
     onOpenTransaction: (String) -> Unit,
-    onAddTransaction: () -> Unit
+    onAddTransaction: () -> Unit,
+    onOpenQueue: () -> Unit = {}
 ) {
     Column(Modifier.fillMaxSize().padding(padding).testTag("screen_transactions")) {
         Row(
             Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text("Transactions", style = MaterialTheme.typography.headlineSmall)
-            TextButton(onClick = onAddTransaction) { Text("Add") }
+            Row {
+                TextButton(onClick = onOpenQueue) {
+                    Text(if (reviewQueueCount > 0) "Review ($reviewQueueCount)" else "Review queue")
+                }
+                TextButton(onClick = onAddTransaction) { Text("Add") }
+            }
         }
         if (transactions.isEmpty()) {
             Box(Modifier.fillMaxSize().padding(20.dp)) {
