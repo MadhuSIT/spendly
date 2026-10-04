@@ -29,6 +29,7 @@ private const val ADD_ENTITY = "add_entity"
 private const val ENTITY_DETAIL = "entity/{id}"
 private const val REVIEW_QUEUE = "review_queue"
 private const val REVIEW_ITEM = "review_item/{id}"
+private const val EDIT_TRANSACTION = "edit_transaction/{id}"
 
 @Composable
 fun SpendlyApp(
@@ -99,7 +100,37 @@ fun SpendlyApp(
                     padding = padding,
                     transaction = transaction,
                     entities = entities,
-                    onBack = { navController.popBackStack() }
+                    onBack = { navController.popBackStack() },
+                    onEdit = transaction?.let { { navController.navigate("edit_transaction/${it.id}") } }
+                )
+            }
+            composable(
+                EDIT_TRANSACTION,
+                arguments = listOf(navArgument("id") { type = NavType.StringType })
+            ) { entry ->
+                val transaction = transactions.firstOrNull { it.id == entry.arguments?.getString("id") }
+                EditTransactionScreen(
+                    padding = padding,
+                    transaction = transaction,
+                    entities = entities,
+                    transactions = transactions,
+                    onSave = { type, amount, title, source, destination, done ->
+                        ledgerVm.editTransaction(
+                            transactionId = transaction?.id ?: "",
+                            type = type,
+                            amountRupees = amount,
+                            title = title,
+                            sourceEntityId = source,
+                            destinationEntityId = destination
+                        ) { error, updated ->
+                            done(error)
+                            if (error == null && updated != null) {
+                                authVm.pushTransaction(updated)
+                                navController.popBackStack()
+                            }
+                        }
+                    },
+                    onCancel = { navController.popBackStack() }
                 )
             }
             composable(ADD_TRANSACTION) {

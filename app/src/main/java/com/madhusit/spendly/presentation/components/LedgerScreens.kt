@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -419,7 +420,8 @@ fun TransactionDetailScreen(
     padding: PaddingValues,
     transaction: LedgerTransaction?,
     entities: List<FinancialEntity>,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onEdit: (() -> Unit)? = null
 ) {
     if (transaction == null) {
         Column(
@@ -451,7 +453,7 @@ fun TransactionDetailScreen(
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back",
                         tint = MaterialTheme.colorScheme.primary)
                 }
-                Column {
+                Column(Modifier.weight(1f)) {
                     Text(
                         transaction.merchantName ?: transaction.type.displayName(),
                         style = MaterialTheme.typography.headlineSmall
@@ -461,6 +463,12 @@ fun TransactionDetailScreen(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                }
+                if (onEdit != null) {
+                    IconButton(onClick = onEdit) {
+                        Icon(Icons.Default.Edit, contentDescription = "Edit",
+                            tint = MaterialTheme.colorScheme.primary)
+                    }
                 }
             }
             Spacer(Modifier.height(4.dp))
@@ -683,6 +691,149 @@ fun AddTransactionScreen(
                     enabled = !saving && source.isNotBlank() && (type != TransactionType.TRANSFER || entities.size >= 2),
                     modifier = Modifier.fillMaxWidth().testTag("save-transaction")
                 ) { Text(if (saving) "Saving…" else "Save transaction") }
+            }
+        }
+    }
+}
+
+@Composable
+fun EditTransactionScreen(
+    padding: PaddingValues,
+    transaction: LedgerTransaction?,
+    entities: List<FinancialEntity>,
+    transactions: List<LedgerTransaction> = emptyList(),
+    onSave: (TransactionType, String, String, String, String?, (String?) -> Unit) -> Unit,
+    onCancel: () -> Unit
+) {
+    if (transaction == null) {
+        Column(Modifier.fillMaxSize().padding(padding).padding(20.dp)) {
+            IconButton(onClick = onCancel) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+            }
+            Text("Transaction not found.", style = MaterialTheme.typography.headlineSmall)
+        }
+        return
+    }
+
+    var type by remember { mutableStateOf(transaction.type) }
+    var amount by remember {
+        mutableStateOf(
+            BigDecimal(transaction.amountMinor).movePointLeft(2).stripTrailingZeros().toPlainString()
+        )
+    }
+    var title by remember { mutableStateOf(transaction.merchantName.orEmpty()) }
+    var source by remember { mutableStateOf(transaction.sourceEntityId) }
+    var destination by remember { mutableStateOf(transaction.destinationEntityId) }
+    var error by remember { mutableStateOf<String?>(null) }
+    var saving by remember { mutableStateOf(false) }
+
+    val knownMerchants = remember(transactions) {
+        val fromTxns = transactions.mapNotNull { it.merchantName }
+        (fromTxns + SEED_MERCHANTS)
+            .groupBy { it.lowercase() }
+            .map { (_, names) -> names.first() }
+            .sortedBy { it.lowercase() }
+    }
+
+    Column(Modifier.fillMaxSize().padding(padding)) {
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onCancel) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back",
+                    tint = MaterialTheme.colorScheme.primary)
+            }
+            Text("Edit transaction", style = MaterialTheme.typography.titleMedium)
+        }
+        LazyColumn(
+            Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(20.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            item {
+                Text("TYPE", style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 1.sp)
+                Spacer(Modifier.height(4.dp))
+                SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+                    listOf(TransactionType.EXPENSE, TransactionType.INCOME, TransactionType.TRANSFER).forEachIndexed { index, item ->
+                        SegmentedButton(
+                            selected = type == item,
+                            onClick = { type = item; error = null },
+                            shape = SegmentedButtonDefaults.itemShape(index, 3),
+                            modifier = Modifier.weight(1f)
+                        ) { Text(item.displayName()) }
+                    }
+                }
+            }
+            item {
+                Text("AMOUNT", style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 1.sp)
+                Spacer(Modifier.height(4.dp))
+                OutlinedTextField(
+                    amount,
+                    { amount = it; error = null },
+                    label = { Text("Amount (₹)") },
+                    singleLine = true,
+                    enabled = !saving,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            item {
+                Text("MERCHANT / TITLE", style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 1.sp)
+                Spacer(Modifier.height(4.dp))
+                MerchantField(
+                    value = title,
+                    onValueChange = { title = it; error = null },
+                    label = if (type == TransactionType.INCOME) "Income source" else "Merchant / title",
+                    suggestions = knownMerchants,
+                    enabled = !saving
+                )
+            }
+            item {
+                Text("SOURCE ACCOUNT", style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 1.sp)
+                Spacer(Modifier.height(4.dp))
+                EntityDropdown(
+                    label = "Source",
+                    entities = entities,
+                    selectedId = source,
+                    onSelected = { source = it; error = null },
+                    enabled = !saving
+                )
+            }
+            if (type == TransactionType.TRANSFER) {
+                item {
+                    Text("DESTINATION ACCOUNT", style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 1.sp)
+                    Spacer(Modifier.height(4.dp))
+                    EntityDropdown(
+                        label = "Destination",
+                        entities = entities,
+                        selectedId = destination,
+                        onSelected = { destination = it; error = null },
+                        enabled = !saving,
+                        excludedId = source
+                    )
+                }
+            }
+            error?.let { msg ->
+                item { Text(msg, color = MaterialTheme.colorScheme.error) }
+            }
+            item {
+                FilledTonalButton(
+                    onClick = {
+                        saving = true
+                        error = null
+                        onSave(type, amount, title, source, destination) { result ->
+                            saving = false
+                            if (result != null) error = result
+                        }
+                    },
+                    enabled = !saving && source.isNotBlank() && (type != TransactionType.TRANSFER || entities.size >= 2),
+                    modifier = Modifier.fillMaxWidth()
+                ) { Text(if (saving) "Saving…" else "Save changes") }
             }
         }
     }

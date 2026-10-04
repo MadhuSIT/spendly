@@ -127,6 +127,43 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
         }
     }
 
+    fun editTransaction(
+        transactionId: String,
+        type: TransactionType,
+        amountRupees: String,
+        title: String,
+        sourceEntityId: String,
+        destinationEntityId: String?,
+        onComplete: (String?, LedgerTransaction?) -> Unit
+    ) {
+        viewModelScope.launch {
+            try {
+                val existing = repository.findTransaction(transactionId)
+                    ?: error("Transaction not found.")
+                val amountMinor = amountRupees.toBigDecimal().movePointRight(2).longValueExact()
+                require(amountMinor > 0) { "Enter an amount greater than zero." }
+                require(sourceEntityId.isNotBlank()) { "Choose a source." }
+                if (type == TransactionType.TRANSFER) {
+                    require(!destinationEntityId.isNullOrBlank()) { "Choose a destination." }
+                    require(destinationEntityId != sourceEntityId) { "Source and destination must be different." }
+                }
+                val now = System.currentTimeMillis()
+                val updated = existing.copy(
+                    type = type,
+                    amountMinor = amountMinor,
+                    merchantName = title.ifBlank { null },
+                    sourceEntityId = sourceEntityId,
+                    destinationEntityId = if (type == TransactionType.TRANSFER) destinationEntityId else null,
+                    updatedAtEpochMillis = now
+                )
+                updateTransaction(updated, nowEpochMillis = now)
+                onComplete(null, updated)
+            } catch (e: Exception) {
+                onComplete(e.message ?: "Could not update transaction.", null)
+            }
+        }
+    }
+
     fun addTransaction(
         type: TransactionType,
         amountRupees: String,
