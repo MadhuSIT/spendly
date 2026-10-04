@@ -14,7 +14,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.madhusit.spendly.domain.FoundationRepository
+import com.madhusit.spendly.domain.auth.AuthRepository
 import com.madhusit.spendly.domain.ledger.LedgerRepository
+import com.madhusit.spendly.domain.sync.SyncRepository
 import com.madhusit.spendly.presentation.components.*
 
 private const val HOME = "home"
@@ -29,7 +31,25 @@ private const val REVIEW_QUEUE = "review_queue"
 private const val REVIEW_ITEM = "review_item/{id}"
 
 @Composable
-fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerRepository) {
+fun SpendlyApp(
+    repository: FoundationRepository,
+    ledgerRepository: LedgerRepository,
+    authRepository: AuthRepository,
+    syncRepository: SyncRepository
+) {
+    val authVm: AuthViewModel = viewModel(
+        factory = AuthViewModel.factory(authRepository, syncRepository, ledgerRepository)
+    )
+    val user by authVm.user.collectAsStateWithLifecycle()
+
+    if (user == null) {
+        LoginScreen(
+            onGoogleSignIn = { authVm.signInWithGoogle(it) },
+            error = authVm.syncError
+        )
+        return
+    }
+
     val navController = rememberNavController()
     val foundationVm: FoundationViewModel = viewModel(factory = FoundationViewModel.factory(repository))
     val ledgerVm: LedgerViewModel = viewModel(factory = LedgerViewModel.factory(ledgerRepository))
@@ -87,9 +107,12 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
                     entities = entities,
                     transactions = transactions,
                     onSave = { type, amount, title, source, destination, done ->
-                        ledgerVm.addTransaction(type, amount, title, source, destination) { error ->
+                        ledgerVm.addTransaction(type, amount, title, source, destination) { error, txn ->
                             done(error)
-                            if (error == null) navController.popBackStack()
+                            if (error == null && txn != null) {
+                                authVm.pushTransaction(txn)
+                                navController.popBackStack()
+                            }
                         }
                     },
                     onCancel = { navController.popBackStack() }
@@ -108,9 +131,12 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
                 AddEntityScreen(
                     padding = padding,
                     onSave = { type, name, identifier, lastFour, done ->
-                        ledgerVm.addEntity(type, name, identifier, lastFour) { error ->
+                        ledgerVm.addEntity(type, name, identifier, lastFour) { error, entity ->
                             done(error)
-                            if (error == null) navController.popBackStack()
+                            if (error == null && entity != null) {
+                                authVm.pushEntity(entity)
+                                navController.popBackStack()
+                            }
                         }
                     },
                     onCancel = { navController.popBackStack() }
@@ -156,9 +182,12 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
                             merchantName = merchantName,
                             type = type,
                             sourceEntityId = sourceEntityId
-                        ) { error ->
+                        ) { error, updated ->
                             done(error)
-                            if (error == null) navController.popBackStack()
+                            if (error == null && updated != null) {
+                                authVm.pushTransaction(updated)
+                                navController.popBackStack()
+                            }
                         }
                     },
                     onLater = { navController.popBackStack() },

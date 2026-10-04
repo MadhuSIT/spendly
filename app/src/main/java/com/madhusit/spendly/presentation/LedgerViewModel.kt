@@ -45,7 +45,7 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
         name: String,
         maskedIdentifier: String?,
         lastFour: String?,
-        onComplete: (String?) -> Unit
+        onComplete: (String?, FinancialEntity?) -> Unit
     ) {
         viewModelScope.launch {
             try {
@@ -53,7 +53,7 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
                 require(lastFour == null || lastFour.matches(Regex("\\d{4}"))) {
                     "Last four digits must be exactly four digits."
                 }
-                createEntity(
+                val entity = createEntity(
                     type = type,
                     name = name,
                     currency = "INR",
@@ -61,9 +61,9 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
                     lastFour = lastFour?.ifBlank { null },
                     nowEpochMillis = System.currentTimeMillis()
                 )
-                onComplete(null)
+                onComplete(null, entity)
             } catch (e: Exception) {
-                onComplete(e.message ?: "Could not save account.")
+                onComplete(e.message ?: "Could not save account.", null)
             }
         }
     }
@@ -73,7 +73,7 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
         merchantName: String?,
         type: TransactionType,
         sourceEntityId: String,
-        onComplete: (String?) -> Unit
+        onComplete: (String?, LedgerTransaction?) -> Unit
     ) {
         viewModelScope.launch {
             try {
@@ -81,20 +81,18 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
                     ?: error("Transaction not found.")
                 require(sourceEntityId.isNotBlank()) { "Choose an account." }
                 val now = System.currentTimeMillis()
-                updateTransaction(
-                    txn.copy(
-                        merchantName = merchantName?.ifBlank { null } ?: txn.merchantName,
-                        type = type,
-                        sourceEntityId = sourceEntityId,
-                        status = TransactionStatus.CONFIRMED,
-                        reviewRequired = false,
-                        updatedAtEpochMillis = now
-                    ),
-                    nowEpochMillis = now
+                val updated = txn.copy(
+                    merchantName = merchantName?.ifBlank { null } ?: txn.merchantName,
+                    type = type,
+                    sourceEntityId = sourceEntityId,
+                    status = TransactionStatus.CONFIRMED,
+                    reviewRequired = false,
+                    updatedAtEpochMillis = now
                 )
-                onComplete(null)
+                updateTransaction(updated, nowEpochMillis = now)
+                onComplete(null, updated)
             } catch (e: Exception) {
-                onComplete(e.message ?: "Could not confirm transaction.")
+                onComplete(e.message ?: "Could not confirm transaction.", null)
             }
         }
     }
@@ -135,7 +133,7 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
         title: String,
         sourceEntityId: String,
         destinationEntityId: String?,
-        onComplete: (String?) -> Unit
+        onComplete: (String?, LedgerTransaction?) -> Unit
     ) {
         viewModelScope.launch {
             try {
@@ -147,7 +145,7 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
                     require(destinationEntityId != sourceEntityId) { "Source and destination must be different." }
                 }
                 val now = System.currentTimeMillis()
-                createTransaction(
+                val txn = createTransaction(
                     sourceEntityId = sourceEntityId,
                     destinationEntityId = destinationEntityId,
                     type = type,
@@ -157,9 +155,9 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
                     merchantName = title.ifBlank { null },
                     nowEpochMillis = now
                 )
-                onComplete(null)
+                onComplete(null, txn)
             } catch (e: Exception) {
-                onComplete(e.message ?: "Could not save transaction.")
+                onComplete(e.message ?: "Could not save transaction.", null)
             }
         }
     }

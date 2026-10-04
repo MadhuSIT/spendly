@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Spendly</string>
+    <!-- Replaced automatically by google-services plugin once Google Sign-In is enabled in Firebase console -->
+    <string name="default_web_client_id">REPLACE_AFTER_ENABLING_GOOGLE_SIGNIN</string>
+</resources>
