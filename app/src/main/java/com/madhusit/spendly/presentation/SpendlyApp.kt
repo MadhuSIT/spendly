@@ -45,6 +45,7 @@ fun SpendlyApp(
     if (user == null) {
         LoginScreen(
             onGoogleSignIn = { authVm.signInWithGoogle(it) },
+            onSkip = { authVm.signInAsGuest() },
             error = authVm.syncError
         )
         return

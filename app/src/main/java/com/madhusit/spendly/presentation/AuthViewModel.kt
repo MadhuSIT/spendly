@@ -7,10 +7,14 @@ import com.madhusit.spendly.domain.auth.AuthRepository
 import com.madhusit.spendly.domain.auth.AuthUser
 import com.madhusit.spendly.domain.ledger.LedgerRepository
 import com.madhusit.spendly.domain.sync.SyncRepository
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+
+private val GUEST_USER = AuthUser(uid = "guest", email = null, displayName = "Guest", photoUrl = null)
 
 class AuthViewModel(
     private val authRepository: AuthRepository,
@@ -18,8 +22,11 @@ class AuthViewModel(
     private val ledgerRepository: LedgerRepository
 ) : ViewModel() {
 
-    val user: StateFlow<AuthUser?> = authRepository.currentUser
-        .stateIn(viewModelScope, SharingStarted.Eagerly, authRepository.getCurrentUser())
+    private val _guestMode = MutableStateFlow(false)
+
+    val user: StateFlow<AuthUser?> = combine(authRepository.currentUser, _guestMode) { fbUser, isGuest ->
+        fbUser ?: if (isGuest) GUEST_USER else null
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, authRepository.getCurrentUser())
 
     var syncError: String? = null
         private set
@@ -35,19 +42,24 @@ class AuthViewModel(
         }
     }
 
+    fun signInAsGuest() {
+        _guestMode.value = true
+    }
+
     fun signOut() {
+        _guestMode.value = false
         viewModelScope.launch { authRepository.signOut() }
     }
 
     fun pushTransaction(txn: com.madhusit.spendly.domain.ledger.LedgerTransaction) {
-        val uid = user.value?.uid ?: return
+        val uid = user.value?.uid?.takeIf { it != "guest" } ?: return
         viewModelScope.launch {
             runCatching { syncRepository.pushTransaction(uid, txn) }
         }
     }
 
     fun pushEntity(entity: com.madhusit.spendly.domain.ledger.FinancialEntity) {
-        val uid = user.value?.uid ?: return
+        val uid = user.value?.uid?.takeIf { it != "guest" } ?: return
         viewModelScope.launch {
             runCatching { syncRepository.pushEntity(uid, entity) }
         }

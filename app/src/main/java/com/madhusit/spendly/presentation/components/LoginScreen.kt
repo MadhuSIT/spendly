@@ -23,6 +23,7 @@ import com.madhusit.spendly.R
 @Composable
 fun LoginScreen(
     onGoogleSignIn: (idToken: String) -> Unit,
+    onSkip: () -> Unit = {},
     error: String? = null
 ) {
     val context = LocalContext.current
@@ -106,5 +107,13 @@ fun LoginScreen(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
         )
+        Spacer(Modifier.height(32.dp))
+        TextButton(onClick = onSkip) {
+            Text(
+                "Skip for now",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
     }
 }
