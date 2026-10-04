@@ -28,6 +28,7 @@ class LedgerRepositoryImpl(
 ) : LedgerRepository {
 
     private val auditDao = database.auditEventDao()
+    private val smsEventDao = database.processedSmsEventDao()
 
     override fun observeEntities(): Flow<List<FinancialEntity>> =
         entityDao.observeAll().map { entities -> entities.map { it.toDomain() } }
@@ -129,6 +130,7 @@ database.withTransaction {
         if (ids.isEmpty()) return
         database.withTransaction {
             transactionDao.deleteByIds(ids)
+            smsEventDao.deleteByTransactionIds(ids)
             auditDao.insert(
                 AuditEventEntity(
                     id = java.util.UUID.randomUUID().toString(),
@@ -146,6 +148,7 @@ database.withTransaction {
     override suspend fun deleteTransaction(id: String) {
         database.withTransaction {
             transactionDao.deleteById(id)
+            smsEventDao.deleteByTransactionIds(listOf(id))
             auditDao.insert(
                 AuditEventEntity(
                     id = java.util.UUID.randomUUID().toString(),

@@ -24,6 +24,9 @@ interface ProcessedSmsEventDao {
         status: String
     )
 
+    @Query("DELETE FROM processed_sms_events WHERE transactionId IN (:transactionIds)")
+    suspend fun deleteByTransactionIds(transactionIds: List<String>)
+
     @Query("DELETE FROM processed_sms_events")
     suspend fun deleteAll()
 }
