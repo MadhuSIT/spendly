@@ -68,7 +68,7 @@ fun ReviewQueueScreen(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Button(onClick = onDone, modifier = Modifier.testTag("queue-done")) {
+                FilledTonalButton(onClick = onDone, modifier = Modifier.testTag("queue-done")) {
                     Text("Done")
                 }
             }
@@ -293,7 +293,7 @@ fun ReviewItemScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TextButton(onClick = onLater, enabled = !saving) { Text("Later") }
-                Button(
+                FilledTonalButton(
                     onClick = {
                         saving = true
                         error = null

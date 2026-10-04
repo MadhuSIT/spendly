@@ -239,7 +239,7 @@ fun AddEntityScreen(
         item {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 TextButton(onClick = onCancel, enabled = !saving) { Text("Cancel") }
-                Button(
+                FilledTonalButton(
                     onClick = {
                         saving = true
                         error = null

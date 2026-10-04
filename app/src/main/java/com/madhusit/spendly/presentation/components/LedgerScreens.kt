@@ -82,7 +82,7 @@ fun LedgerHome(
                 TransactionRow(transaction) { onOpenTransaction(transaction.id) }
             }
         }
-        Button(
+        FilledTonalButton(
             onClick = onAddTransaction,
             Modifier.fillMaxWidth().testTag("add-transaction")
         ) {
@@ -357,7 +357,7 @@ fun AddTransactionScreen(
         item {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 TextButton(onClick = onCancel, enabled = !saving) { Text("Cancel") }
-                Button(
+                FilledTonalButton(
                     onClick = {
                         saving = true
                         error = null
