@@ -44,47 +44,47 @@ class SmsIngestionRepositoryImpl(
             return@withTransaction result
         }
 
-        // A parser can successfully extract fields while still lacking enough
-        // certainty to post money-moving data. Review-required results stay out
-        // of the authoritative ledger until a later review/reconciliation flow.
-        if (normalized.reviewRequired) {
-            eventDao.updateResult(
-                fingerprint,
-                null,
-                SmsFailureReason.AMBIGUOUS_TRANSACTION.name
-            )
-            return@withTransaction result.copy(
-                failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION
-            )
-        }
-
         // Transfer/card-payment/reversal semantics require a destination or
-        // relationship that this ingestion foundation does not resolve yet.
-        // Do not silently turn them into ordinary expenses.
-        if (normalized.type == TransactionType.TRANSFER ||
+        // relationship that this ingestion foundation does not resolve yet —
+        // send to review queue rather than silently dropping.
+        val needsReview = normalized.reviewRequired ||
+            normalized.type == TransactionType.TRANSFER ||
             normalized.type == TransactionType.CARD_PAYMENT ||
             normalized.type == TransactionType.REVERSAL
-        ) {
-            eventDao.updateResult(
-                fingerprint,
-                null,
-                SmsFailureReason.AMBIGUOUS_TRANSACTION.name
-            )
-            return@withTransaction result.copy(
-                failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION
-            )
-        }
 
         val entity = resolveEntity(normalized)
-        if (entity == null) {
-            eventDao.updateResult(
-                fingerprint,
-                null,
-                SmsFailureReason.AMBIGUOUS_ENTITY.name
+            ?: ledgerRepository.observeEntities().first().firstOrNull { it.active }
+
+        if (needsReview || entity == null) {
+            if (entity == null) {
+                eventDao.updateResult(fingerprint, null, SmsFailureReason.AMBIGUOUS_ENTITY.name)
+                return@withTransaction result.copy(failureReason = SmsFailureReason.AMBIGUOUS_ENTITY)
+            }
+            val reviewId = UUID.randomUUID().toString()
+            val reviewTxn = LedgerTransaction(
+                id = reviewId,
+                sourceEntityId = entity.id,
+                destinationEntityId = null,
+                type = normalized.type,
+                amountMinor = normalized.amountMinor,
+                currency = normalized.currency,
+                merchantName = normalized.merchantName,
+                description = "Parsed from SMS – needs review",
+                transactionTimestamp = normalized.transactionTimestamp,
+                status = TransactionStatus.PENDING,
+                referenceNumber = normalized.referenceNumber,
+                upiReference = normalized.upiReference,
+                rawEventReference = fingerprint,
+                parserSource = normalized.parserSource,
+                parserVersion = normalized.parserVersion,
+                confidence = normalized.confidence,
+                reviewRequired = true,
+                createdAtEpochMillis = message.receivedAtEpochMillis,
+                updatedAtEpochMillis = message.receivedAtEpochMillis
             )
-            return@withTransaction result.copy(
-                failureReason = SmsFailureReason.AMBIGUOUS_ENTITY
-            )
+            ledgerRepository.createTransaction(reviewTxn)
+            eventDao.updateResult(fingerprint, reviewId, "REVIEW_PENDING")
+            return@withTransaction result
         }
 
         val transactionId = UUID.randomUUID().toString()
