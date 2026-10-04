@@ -131,6 +131,7 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
                     parserVersion = "1",
                     confidence = 0.6,
                     reviewRequired = true,
+                    category = null,
                     createdAtEpochMillis = now,
                     updatedAtEpochMillis = now
                 )

@@ -16,7 +16,7 @@ import com.madhusit.spendly.data.local.sms.ProcessedSmsEventEntity
         AuditEventEntity::class,
         ProcessedSmsEventEntity::class
     ],
-    version = 4,
+    version = 5,
     exportSchema = true
 )
 @TypeConverters(LedgerConverters::class)

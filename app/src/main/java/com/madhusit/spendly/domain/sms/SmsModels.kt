@@ -1,5 +1,7 @@
 package com.madhusit.spendly.domain.sms
 
+import com.madhusit.spendly.domain.ledger.FinancialEntityType
+import com.madhusit.spendly.domain.ledger.TransactionCategory
 import com.madhusit.spendly.domain.ledger.TransactionType
 
 enum class SmsClassification { FINANCIAL, NON_FINANCIAL, AMBIGUOUS }
@@ -28,6 +30,8 @@ data class NormalizedSmsTransaction(
     val parserSource: String,
     val parserVersion: String,
     val confidence: Double,
+    val category: TransactionCategory,
+    val entityType: FinancialEntityType,
     val reviewRequired: Boolean = false
 )
 

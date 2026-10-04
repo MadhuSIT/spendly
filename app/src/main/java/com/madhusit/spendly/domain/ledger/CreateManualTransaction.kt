@@ -38,6 +38,7 @@ class CreateManualTransaction(private val repository: LedgerRepository) {
             parserVersion = null,
             confidence = 1.0,
             reviewRequired = reviewRequired,
+            category = null,
             createdAtEpochMillis = nowEpochMillis,
             updatedAtEpochMillis = nowEpochMillis
         )

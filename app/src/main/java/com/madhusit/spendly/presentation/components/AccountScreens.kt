@@ -447,6 +447,7 @@ private fun FinancialEntityType.displayLabel(): String = when (this) {
     FinancialEntityType.CREDIT_CARD -> "Credit card"
     FinancialEntityType.DEBIT_CARD -> "Debit card"
     FinancialEntityType.CASH -> "Cash"
+    FinancialEntityType.MERCHANT -> "Merchant"
     FinancialEntityType.OTHER -> "Other"
 }
 

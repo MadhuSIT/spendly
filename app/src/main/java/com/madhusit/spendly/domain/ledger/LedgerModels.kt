@@ -31,6 +31,7 @@ data class LedgerTransaction(
     val parserVersion: String?,
     val confidence: Double?,
     val reviewRequired: Boolean,
+    val category: TransactionCategory?,
     val createdAtEpochMillis: Long,
     val updatedAtEpochMillis: Long
 )

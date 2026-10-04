@@ -196,14 +196,14 @@ database.withTransaction {
         id, sourceEntityId, destinationEntityId, type, amountMinor, currency,
         merchantName, description, transactionTimestamp, status, referenceNumber,
         upiReference, rawEventReference, parserSource, parserVersion, confidence,
-        reviewRequired, createdAtEpochMillis, updatedAtEpochMillis
+        reviewRequired, category, createdAtEpochMillis, updatedAtEpochMillis
     )
 
     private fun LedgerTransaction.toEntity() = LedgerTransactionEntity(
         id, sourceEntityId, destinationEntityId, type, amountMinor, currency,
         merchantName, description, transactionTimestamp, status, referenceNumber,
         upiReference, rawEventReference, parserSource, parserVersion, confidence,
-        reviewRequired, createdAtEpochMillis, updatedAtEpochMillis
+        reviewRequired, category, createdAtEpochMillis, updatedAtEpochMillis
     )
 
     private fun TransactionRelationship.toEntity() = TransactionRelationshipEntity(

@@ -24,6 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import kotlinx.coroutines.launch
 import com.madhusit.spendly.domain.FoundationRepository
+import com.madhusit.spendly.presentation.notification.SpendlyNotificationHelper
 import com.madhusit.spendly.domain.auth.AuthRepository
 import com.madhusit.spendly.domain.ledger.LedgerRepository
 import com.madhusit.spendly.domain.sms.SmsIngestionRepository
@@ -81,14 +82,27 @@ fun SpendlyApp(
         readSmsGranted = granted
         if (granted) {
             scope.launch(kotlinx.coroutines.Dispatchers.IO) {
-                try { smsIngestionRepository.scanInbox(context) }
-                catch (e: Exception) { android.util.Log.e("Spendly.App", "scanInbox failed: ${e.message}", e) }
+                try {
+                    val summary = smsIngestionRepository.scanInbox(context)
+                    SpendlyNotificationHelper.notifyBatchImport(context, summary.total, summary.saved, summary.review)
+                } catch (e: Exception) {
+                    android.util.Log.e("Spendly.App", "scanInbox failed: ${e.message}", e)
+                }
             }
         }
     }
 
+    val notifLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { /* channel created; permission decision is theirs */ }
+
     LaunchedEffect(Unit) {
+        SpendlyNotificationHelper.createChannels(context)
         android.util.Log.i("Spendly.App", "LaunchedEffect: readSmsGranted=$readSmsGranted")
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED
+        ) notifLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS)
             != PackageManager.PERMISSION_GRANTED
         ) smsPermissionLauncher.launch(Manifest.permission.RECEIVE_SMS)
@@ -97,7 +111,8 @@ fun SpendlyApp(
         } else {
             try {
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                    smsIngestionRepository.scanInbox(context)
+                    val summary = smsIngestionRepository.scanInbox(context)
+                    SpendlyNotificationHelper.notifyBatchImport(context, summary.total, summary.saved, summary.review)
                 }
             } catch (e: Exception) {
                 android.util.Log.e("Spendly.App", "scanInbox failed: ${e.message}", e)
@@ -137,7 +152,12 @@ fun SpendlyApp(
                     onScanSms = {
                         if (readSmsGranted) {
                             scope.launch(kotlinx.coroutines.Dispatchers.IO) {
-                                smsIngestionRepository.scanInbox(context)
+                                try {
+                                    val summary = smsIngestionRepository.scanInbox(context)
+                                    SpendlyNotificationHelper.notifyBatchImport(context, summary.total, summary.saved, summary.review)
+                                } catch (e: Exception) {
+                                    android.util.Log.e("Spendly.App", "manual scan failed: ${e.message}", e)
+                                }
                             }
                         } else {
                             readSmsLauncher.launch(Manifest.permission.READ_SMS)

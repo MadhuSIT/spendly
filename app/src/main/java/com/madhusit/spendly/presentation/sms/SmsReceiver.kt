@@ -7,6 +7,7 @@ import android.provider.Telephony
 import android.util.Log
 import com.madhusit.spendly.SpendlyApplication
 import com.madhusit.spendly.domain.sms.SmsMessage
+import com.madhusit.spendly.presentation.notification.SpendlyNotificationHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -25,15 +26,29 @@ class SmsReceiver : BroadcastReceiver() {
                 val messages = Telephony.Sms.Intents.getMessagesFromIntent(intent)
                 Log.d(TAG, "SMS count=${messages.size}")
                 messages.forEach { sms ->
-                    Log.d(TAG, "Processing SMS from=${sms.originatingAddress} body=${sms.messageBody.take(60)}")
+                    val body = sms.messageBody.orEmpty()
+                    Log.d(TAG, "Processing from=${sms.originatingAddress} body=${body.take(60)}")
                     val result = app.smsIngestionRepository.process(
                         SmsMessage(
                             sender = sms.originatingAddress.orEmpty(),
-                            body = sms.messageBody.orEmpty(),
+                            body = body,
                             receivedAtEpochMillis = sms.timestampMillis
                         )
                     )
-                    Log.d(TAG, "Result classification=${result.classification} failure=${result.failureReason} normalized=${result.normalized != null}")
+                    Log.d(TAG, "Result cls=${result.classification} fail=${result.failureReason}")
+                    // Notify for every successfully parsed real-time transaction
+                    val norm = result.normalized ?: return@forEach
+                    if (result.failureReason == null) {
+                        SpendlyNotificationHelper.notifyTransaction(
+                            context = context,
+                            amountMinor = norm.amountMinor,
+                            currency = norm.currency,
+                            merchantName = norm.merchantName,
+                            type = norm.type,
+                            category = norm.category,
+                            transactionId = null
+                        )
+                    }
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error processing SMS", e)
@@ -42,5 +57,4 @@ class SmsReceiver : BroadcastReceiver() {
             }
         }
     }
-
 }

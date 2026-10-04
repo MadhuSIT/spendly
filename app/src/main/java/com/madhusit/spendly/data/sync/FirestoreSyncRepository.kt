@@ -52,6 +52,7 @@ class FirestoreSyncRepository : SyncRepository {
         "parserVersion" to parserVersion,
         "confidence" to confidence,
         "reviewRequired" to reviewRequired,
+        "category" to category?.name,
         "createdAtEpochMillis" to createdAtEpochMillis,
         "updatedAtEpochMillis" to updatedAtEpochMillis
     )
@@ -88,6 +89,9 @@ class FirestoreSyncRepository : SyncRepository {
             parserVersion = getString("parserVersion"),
             confidence = getDouble("confidence"),
             reviewRequired = getBoolean("reviewRequired") ?: false,
+            category = getString("category")?.let {
+                try { com.madhusit.spendly.domain.ledger.TransactionCategory.valueOf(it) } catch (_: Exception) { null }
+            },
             createdAtEpochMillis = getLong("createdAtEpochMillis") ?: 0L,
             updatedAtEpochMillis = getLong("updatedAtEpochMillis") ?: 0L
         )

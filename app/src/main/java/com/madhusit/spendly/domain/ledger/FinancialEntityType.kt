@@ -5,5 +5,6 @@ enum class FinancialEntityType {
     CREDIT_CARD,
     DEBIT_CARD,
     CASH,
+    MERCHANT,
     OTHER
 }

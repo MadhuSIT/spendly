@@ -2,6 +2,7 @@ package com.madhusit.spendly.data.local.ledger
 
 import androidx.room.TypeConverter
 import com.madhusit.spendly.domain.ledger.FinancialEntityType
+import com.madhusit.spendly.domain.ledger.TransactionCategory
 import com.madhusit.spendly.domain.ledger.TransactionStatus
 import com.madhusit.spendly.domain.ledger.TransactionType
 
@@ -12,4 +13,8 @@ class LedgerConverters {
     @TypeConverter fun stringToTransactionType(value: String): TransactionType = TransactionType.valueOf(value)
     @TypeConverter fun transactionStatusToString(value: TransactionStatus): String = value.name
     @TypeConverter fun stringToTransactionStatus(value: String): TransactionStatus = TransactionStatus.valueOf(value)
+    @TypeConverter fun categoryToString(value: TransactionCategory?): String? = value?.name
+    @TypeConverter fun stringToCategory(value: String?): TransactionCategory? = value?.let {
+        try { TransactionCategory.valueOf(it) } catch (_: IllegalArgumentException) { null }
+    }
 }

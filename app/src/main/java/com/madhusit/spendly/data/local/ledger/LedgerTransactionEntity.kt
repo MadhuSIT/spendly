@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.madhusit.spendly.domain.ledger.TransactionCategory
 import com.madhusit.spendly.domain.ledger.TransactionStatus
 import com.madhusit.spendly.domain.ledger.TransactionType
 
@@ -49,6 +50,7 @@ data class LedgerTransactionEntity(
     val parserVersion: String?,
     val confidence: Double?,
     val reviewRequired: Boolean,
+    val category: TransactionCategory?,
     val createdAtEpochMillis: Long,
     val updatedAtEpochMillis: Long
 )

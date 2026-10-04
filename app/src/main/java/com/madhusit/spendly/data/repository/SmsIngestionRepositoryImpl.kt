@@ -42,156 +42,203 @@ class SmsIngestionRepositoryImpl(
         val normalized = result.normalized
         if (normalized == null) {
             eventDao.updateResult(
-                fingerprint,
-                null,
+                fingerprint, null,
                 result.failureReason?.name ?: "NON_FINANCIAL"
             )
             return@withTransaction result
         }
 
-        // Transfer/card-payment/reversal semantics require a destination or
-        // relationship that this ingestion foundation does not resolve yet —
-        // send to review queue rather than silently dropping.
+        val sourceEntity = resolveSourceEntity(normalized)
+        if (sourceEntity == null) {
+            eventDao.updateResult(fingerprint, null, SmsFailureReason.AMBIGUOUS_ENTITY.name)
+            return@withTransaction result.copy(failureReason = SmsFailureReason.AMBIGUOUS_ENTITY)
+        }
+
+        val destinationEntity = resolveDestinationEntity(normalized)
+
         val needsReview = normalized.reviewRequired ||
             normalized.type == TransactionType.TRANSFER ||
             normalized.type == TransactionType.CARD_PAYMENT ||
             normalized.type == TransactionType.REVERSAL
 
-        val entity = resolveEntity(normalized)
-            ?: ledgerRepository.observeEntities().first().firstOrNull { it.active }
-
-        if (needsReview || entity == null) {
-            if (entity == null) {
-                eventDao.updateResult(fingerprint, null, SmsFailureReason.AMBIGUOUS_ENTITY.name)
-                return@withTransaction result.copy(failureReason = SmsFailureReason.AMBIGUOUS_ENTITY)
-            }
+        if (needsReview) {
             val reviewId = UUID.randomUUID().toString()
-            val reviewTxn = LedgerTransaction(
+            val reviewTxn = buildTransaction(
                 id = reviewId,
-                sourceEntityId = entity.id,
-                destinationEntityId = null,
-                type = normalized.type,
-                amountMinor = normalized.amountMinor,
-                currency = normalized.currency,
-                merchantName = normalized.merchantName,
-                description = "Parsed from SMS – needs review",
-                transactionTimestamp = normalized.transactionTimestamp,
+                normalized = normalized,
+                sourceEntityId = sourceEntity.id,
+                destinationEntityId = destinationEntity?.id,
+                fingerprint = fingerprint,
                 status = TransactionStatus.PENDING,
-                referenceNumber = normalized.referenceNumber,
-                upiReference = normalized.upiReference,
-                rawEventReference = fingerprint,
-                parserSource = normalized.parserSource,
-                parserVersion = normalized.parserVersion,
-                confidence = normalized.confidence,
+                description = "Parsed from SMS – needs review",
                 reviewRequired = true,
-                createdAtEpochMillis = message.receivedAtEpochMillis,
-                updatedAtEpochMillis = message.receivedAtEpochMillis
+                receivedAt = message.receivedAtEpochMillis
             )
             ledgerRepository.createTransaction(reviewTxn)
             eventDao.updateResult(fingerprint, reviewId, "REVIEW_PENDING")
             return@withTransaction result
         }
 
-        val transactionId = UUID.randomUUID().toString()
-        val status = if (message.body.contains(
-                Regex("failed|declined|rejected", RegexOption.IGNORE_CASE)
-            )
-        ) {
-            TransactionStatus.FAILED
-        } else {
-            TransactionStatus.CONFIRMED
-        }
+        val status = if (Regex("failed|declined|rejected", RegexOption.IGNORE_CASE).containsMatchIn(message.body))
+            TransactionStatus.FAILED else TransactionStatus.CONFIRMED
 
-        val transaction = LedgerTransaction(
-            id = transactionId,
-            sourceEntityId = entity.id,
-            destinationEntityId = null,
-            type = normalized.type,
-            amountMinor = normalized.amountMinor,
-            currency = normalized.currency,
-            merchantName = normalized.merchantName,
-            description = "Imported from SMS",
-            transactionTimestamp = normalized.transactionTimestamp,
+        val txnId = UUID.randomUUID().toString()
+        val txn = buildTransaction(
+            id = txnId,
+            normalized = normalized,
+            sourceEntityId = sourceEntity.id,
+            destinationEntityId = destinationEntity?.id,
+            fingerprint = fingerprint,
             status = status,
-            referenceNumber = normalized.referenceNumber,
-            upiReference = normalized.upiReference,
-            rawEventReference = fingerprint,
-            parserSource = normalized.parserSource,
-            parserVersion = normalized.parserVersion,
-            confidence = normalized.confidence,
-            reviewRequired = normalized.reviewRequired,
-            createdAtEpochMillis = message.receivedAtEpochMillis,
-            updatedAtEpochMillis = message.receivedAtEpochMillis
+            description = "Imported from SMS",
+            reviewRequired = false,
+            receivedAt = message.receivedAtEpochMillis
         )
-        ledgerRepository.createTransaction(transaction)
-        eventDao.updateResult(fingerprint, transactionId, "PROCESSED")
+        ledgerRepository.createTransaction(txn)
+        eventDao.updateResult(fingerprint, txnId, "PROCESSED")
         result
     }
 
-    private suspend fun resolveEntity(normalized: NormalizedSmsTransaction): FinancialEntity? {
-        val entities = ledgerRepository.observeEntities().first().filter { it.active }
-        val exact = entities.filter {
+    // ── Entity resolution ────────────────────────────────────────────────────
+
+    private suspend fun resolveSourceEntity(normalized: NormalizedSmsTransaction): FinancialEntity? {
+        val all = ledgerRepository.observeEntities().first().filter { it.active }
+        // Filter by entity type hint (CREDIT_CARD / DEBIT_CARD / BANK_ACCOUNT) but exclude MERCHANTs
+        val typed = all.filter { it.type == normalized.entityType }.takeIf { it.isNotEmpty() }
+            ?: all.filter { it.type != FinancialEntityType.MERCHANT }
+
+        // 1. Exact: provider + last-four
+        typed.filter {
             normalized.provider != null &&
                 it.provider.equals(normalized.provider, ignoreCase = true) &&
-                normalized.lastFour != null &&
-                it.lastFour == normalized.lastFour
-        }
-        if (exact.size == 1) return exact.single()
-        val providerOnly = entities.filter {
+                normalized.lastFour != null && it.lastFour == normalized.lastFour
+        }.singleOrNull()?.let { return it }
+
+        // 2. Provider-only
+        typed.filter {
             normalized.provider != null &&
                 it.provider.equals(normalized.provider, ignoreCase = true)
-        }
-        if (providerOnly.size == 1) return providerOnly.single()
-        if (entities.size == 1) return entities.single()
+        }.singleOrNull()?.let { return it }
+
+        // 3. Single non-merchant entity
+        val nonMerchant = all.filter { it.type != FinancialEntityType.MERCHANT }
+        if (nonMerchant.size == 1) return nonMerchant.single()
         return null
     }
 
-    override suspend fun clearProcessedEvents() {
-        eventDao.deleteAll()
-        Log.i(TAG, "clearProcessedEvents: processed_sms_events cleared")
+    private suspend fun resolveDestinationEntity(normalized: NormalizedSmsTransaction): FinancialEntity? {
+        val merchant = normalized.merchantName?.takeIf { it.isNotBlank() } ?: return null
+        return when (normalized.type) {
+            TransactionType.EXPENSE -> findOrCreateMerchant(merchant)
+            TransactionType.INCOME  -> null // source of income — not a merchant
+            else -> null
+        }
     }
 
-    override suspend fun scanInbox(context: Context, lookbackMs: Long) {
-        Log.i(TAG, "scanInbox: starting, lookbackMs=$lookbackMs")
+    private suspend fun findOrCreateMerchant(name: String): FinancialEntity {
+        val existing = ledgerRepository.observeEntities().first()
+            .firstOrNull { it.type == FinancialEntityType.MERCHANT && it.name.equals(name, ignoreCase = true) }
+        if (existing != null) return existing
+        val now = System.currentTimeMillis()
+        val merchant = FinancialEntity(
+            id = UUID.randomUUID().toString(),
+            type = FinancialEntityType.MERCHANT,
+            provider = null,
+            name = name,
+            maskedIdentifier = null,
+            lastFour = null,
+            currency = "INR",
+            active = true,
+            createdAtEpochMillis = now,
+            updatedAtEpochMillis = now
+        )
+        ledgerRepository.createEntity(merchant)
+        Log.i(TAG, "Auto-created merchant entity: $name")
+        return merchant
+    }
+
+    // ── Transaction builder ──────────────────────────────────────────────────
+
+    private fun buildTransaction(
+        id: String,
+        normalized: NormalizedSmsTransaction,
+        sourceEntityId: String,
+        destinationEntityId: String?,
+        fingerprint: String,
+        status: TransactionStatus,
+        description: String,
+        reviewRequired: Boolean,
+        receivedAt: Long
+    ) = LedgerTransaction(
+        id = id,
+        sourceEntityId = sourceEntityId,
+        destinationEntityId = destinationEntityId,
+        type = normalized.type,
+        amountMinor = normalized.amountMinor,
+        currency = normalized.currency,
+        merchantName = normalized.merchantName,
+        description = description,
+        transactionTimestamp = normalized.transactionTimestamp,
+        status = status,
+        referenceNumber = normalized.referenceNumber,
+        upiReference = normalized.upiReference,
+        rawEventReference = fingerprint,
+        parserSource = normalized.parserSource,
+        parserVersion = normalized.parserVersion,
+        confidence = normalized.confidence,
+        reviewRequired = reviewRequired,
+        category = normalized.category,
+        createdAtEpochMillis = receivedAt,
+        updatedAtEpochMillis = receivedAt
+    )
+
+    // ── Inbox scan ───────────────────────────────────────────────────────────
+
+    override suspend fun clearProcessedEvents() {
+        eventDao.deleteAll()
+        Log.i(TAG, "clearProcessedEvents: table cleared")
+    }
+
+    override suspend fun scanInbox(context: Context, lookbackMs: Long): SmsInboxScanSummary {
+        Log.i(TAG, "scanInbox: starting, lookback=${lookbackMs / 3600000}h")
         val cutoff = System.currentTimeMillis() - lookbackMs
-        val uri = Uri.parse("content://sms/inbox")
         val cursor = try {
             context.contentResolver.query(
-                uri,
+                Uri.parse("content://sms/inbox"),
                 arrayOf("address", "body", "date"),
-                "date > ?",
-                arrayOf(cutoff.toString()),
-                "date DESC"
+                "date > ?", arrayOf(cutoff.toString()), "date DESC"
             )
         } catch (e: Exception) {
-            Log.e(TAG, "scanInbox: ContentResolver.query failed: ${e.message}", e)
-            return
+            Log.e(TAG, "scanInbox: query failed: ${e.message}", e)
+            return SmsInboxScanSummary(0, 0, 0)
         }
         if (cursor == null) {
-            Log.w(TAG, "scanInbox: cursor null — READ_SMS denied or provider unavailable")
-            return
+            Log.w(TAG, "scanInbox: cursor null — READ_SMS denied?")
+            return SmsInboxScanSummary(0, 0, 0)
         }
-        Log.i(TAG, "scanInbox: cursor opened, rowCount=${cursor.count}")
-        var count = 0
-        var processed = 0
+        Log.i(TAG, "scanInbox: cursor rowCount=${cursor.count}")
+        var total = 0; var saved = 0; var review = 0
         cursor.use {
             while (it.moveToNext()) {
                 val sender = it.getString(0).orEmpty()
-                val body = it.getString(1).orEmpty()
-                val date = it.getLong(2)
-                count++
+                val body   = it.getString(1).orEmpty()
+                val date   = it.getLong(2)
+                total++
                 try {
-                    val msg = SmsMessage(sender = sender, body = body, receivedAtEpochMillis = date)
-                    val result = process(msg)
-                    Log.i(TAG, "Inbox[$count]: from=$sender cls=${result.classification} fail=${result.failureReason}")
-                    processed++
+                    val result = process(SmsMessage(sender, body, date))
+                    Log.i(TAG, "Inbox[$total]: from=$sender cls=${result.classification} fail=${result.failureReason}")
+                    if (result.failureReason == null && result.normalized != null) saved++
+                    if (result.normalized?.reviewRequired == true) review++
                 } catch (e: Exception) {
-                    Log.e(TAG, "Inbox[$count]: process() threw for sender=$sender: ${e.message}", e)
+                    Log.e(TAG, "Inbox[$total]: process threw for $sender: ${e.message}", e)
                 }
             }
         }
-        Log.i(TAG, "scanInbox complete: $count messages read, $processed processed without error")
+        Log.i(TAG, "scanInbox done: total=$total saved=$saved review=$review")
+        return SmsInboxScanSummary(total, saved, review)
     }
+
+    // ── Fingerprint ──────────────────────────────────────────────────────────
 
     private fun fingerprint(message: SmsMessage): String {
         val canonical = message.sender.trim().lowercase() + "|" +
