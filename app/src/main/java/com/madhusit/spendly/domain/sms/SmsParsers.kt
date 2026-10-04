@@ -86,7 +86,7 @@ private val INFO_FIELD = Regex(
 )
 // ICICI/Kotak style: "Rs X debited from acct; MERCHANT NAME. UPI"
 private val AFTER_SEMICOLON = Regex(
-    """;\s*([A-Za-z][A-Za-z0-9 &'./\-]{2,40?})(?:\.|UPI|\n|$)""",
+    """;\s*([A-Za-z][A-Za-z0-9 &'./\-]{2,40})(?:\.|UPI|\n|$)""",
     RegexOption.IGNORE_CASE
 )
 // UPI VPA — the local part before "@" is usually the merchant/sender name
