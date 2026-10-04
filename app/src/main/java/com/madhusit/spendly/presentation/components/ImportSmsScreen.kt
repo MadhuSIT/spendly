@@ -215,7 +215,7 @@ fun ImportSmsScreen(
                 } else {
                     Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(Modifier.width(8.dp))
-                    Text("Scan messages")
+                    Text("Import transactions")
                 }
             }
 

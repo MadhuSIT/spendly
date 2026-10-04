@@ -82,16 +82,6 @@ fun SpendlyApp(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
         readSmsGranted = granted
-        if (granted) {
-            scope.launch(kotlinx.coroutines.Dispatchers.IO) {
-                try {
-                    val summary = smsIngestionRepository.scanInbox(context)
-                    SpendlyNotificationHelper.notifyBatchImport(context, summary.total, summary.saved, summary.review)
-                } catch (e: Exception) {
-                    android.util.Log.e("Spendly.App", "scanInbox failed: ${e.message}", e)
-                }
-            }
-        }
     }
 
     val notifLauncher = rememberLauncherForActivityResult(
@@ -110,16 +100,9 @@ fun SpendlyApp(
         ) smsPermissionLauncher.launch(Manifest.permission.RECEIVE_SMS)
         if (!readSmsGranted) {
             readSmsLauncher.launch(Manifest.permission.READ_SMS)
-        } else {
-            try {
-                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                    val summary = smsIngestionRepository.scanInbox(context)
-                    SpendlyNotificationHelper.notifyBatchImport(context, summary.total, summary.saved, summary.review)
-                }
-            } catch (e: Exception) {
-                android.util.Log.e("Spendly.App", "scanInbox failed: ${e.message}", e)
-            }
         }
+        // No automatic inbox scan on startup — user controls imports via the Import screen.
+        // Live SMS messages are handled by SmsReceiver.
     }
 
     val navController = rememberNavController()
