@@ -120,7 +120,7 @@ private fun EntityGroupHeader(title: String) {
 
 @Composable
 private fun EntityCard(entity: FinancialEntity, balance: Long, onClick: (String) -> Unit) {
-    Card(
+    ElevatedCard(
         onClick = { onClick(entity.id) },
         modifier = Modifier
             .fillMaxWidth()
@@ -309,7 +309,7 @@ fun EntityDetailScreen(
             Text(sub, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         item {
-            Card(Modifier.fillMaxWidth()) {
+            ElevatedCard(Modifier.fillMaxWidth()) {
                 Row(
                     Modifier.fillMaxWidth().padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly
@@ -358,7 +358,7 @@ fun EntityDetailScreen(
 
 @Composable
 private fun EntityTransactionRow(transaction: LedgerTransaction, counterparty: String?) {
-    Card(Modifier.fillMaxWidth()) {
+    ElevatedCard(Modifier.fillMaxWidth()) {
         Row(
             Modifier.fillMaxWidth().padding(14.dp),
             horizontalArrangement = Arrangement.SpaceBetween,

@@ -61,7 +61,7 @@ fun LedgerHome(
                 }
             }
         }
-        Card(Modifier.fillMaxWidth()) {
+        ElevatedCard(Modifier.fillMaxWidth()) {
             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text("Net spending", style = MaterialTheme.typography.labelLarge)
                 Text(formatInr(totals.netSpendingMinor), style = MaterialTheme.typography.headlineMedium)
@@ -140,7 +140,7 @@ fun LedgerTransactions(
 private fun TransactionRow(transaction: LedgerTransaction, onClick: () -> Unit) {
     val timestamp = SimpleDateFormat("dd MMM · HH:mm", Locale.getDefault())
         .format(Date(transaction.transactionTimestamp))
-    Card(
+    ElevatedCard(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth().testTag("transaction-${transaction.id}")
     ) {
@@ -240,7 +240,7 @@ fun TransactionDetailScreen(
 
 @Composable
 private fun DetailSection(title: String, content: @Composable ColumnScope.() -> Unit) {
-    Card(Modifier.fillMaxWidth()) {
+    ElevatedCard(Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(title, style = MaterialTheme.typography.titleMedium)
             content()

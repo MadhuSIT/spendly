@@ -104,7 +104,7 @@ private fun QueueItemCard(
     entities: List<FinancialEntity>,
     onClick: () -> Unit
 ) {
-    Card(
+    ElevatedCard(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()

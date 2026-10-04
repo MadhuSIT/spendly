@@ -10,19 +10,25 @@ import androidx.compose.ui.graphics.Color
 private val LightColors = lightColorScheme(
     primary = Color(0xFF1B3A6B),
     onPrimary = Color(0xFFFFFFFF),
-    primaryContainer = Color(0xFFD6E3FF),
+    primaryContainer = Color(0xFFD6E4FF),
     onPrimaryContainer = Color(0xFF001849),
-    secondary = Color(0xFF2E5BBA),
+    secondary = Color(0xFF4A6FA5),
     onSecondary = Color(0xFFFFFFFF),
-    secondaryContainer = Color(0xFFDAE2FF),
-    onSecondaryContainer = Color(0xFF001356),
-    background = Color(0xFFF8F9FF),
-    onBackground = Color(0xFF1A1C23),
-    surface = Color(0xFFF8F9FF),
-    onSurface = Color(0xFF1A1C23),
-    surfaceVariant = Color(0xFFE2E5F0),
-    onSurfaceVariant = Color(0xFF44474F),
-    outline = Color(0xFF74778A),
+    secondaryContainer = Color(0xFFD8E6FF),
+    onSecondaryContainer = Color(0xFF00204D),
+    background = Color(0xFFF2EDE8),       // warm sand
+    onBackground = Color(0xFF1C1B1A),
+    surface = Color(0xFFFFFFFF),           // pure white cards
+    onSurface = Color(0xFF1C1B1A),
+    surfaceVariant = Color(0xFFEDE8E3),    // warm tint for chips/inputs
+    onSurfaceVariant = Color(0xFF4A4744),
+    surfaceContainerLowest = Color(0xFFFFFFFF),
+    surfaceContainerLow = Color(0xFFFFFFFF),
+    surfaceContainer = Color(0xFFFFFFFF),
+    surfaceContainerHigh = Color(0xFFF5F0EB),
+    surfaceContainerHighest = Color(0xFFEDE8E3),
+    outline = Color(0xFFB8B0A8),
+    outlineVariant = Color(0xFFDDD8D3),
 )
 
 private val DarkColors = darkColorScheme(
