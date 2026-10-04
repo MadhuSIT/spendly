@@ -16,7 +16,8 @@ class MainActivity : ComponentActivity() {
                     repository = app.repository,
                     ledgerRepository = app.ledgerRepository,
                     authRepository = app.authRepository,
-                    syncRepository = app.syncRepository
+                    syncRepository = app.syncRepository,
+                    smsIngestionRepository = app.smsIngestionRepository
                 )
             }
         }

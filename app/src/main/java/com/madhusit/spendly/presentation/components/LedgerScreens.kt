@@ -68,7 +68,8 @@ fun LedgerHome(
     reviewQueueCount: Int = 0,
     onAddTransaction: () -> Unit,
     onOpenTransaction: (String) -> Unit,
-    onOpenQueue: () -> Unit = {}
+    onOpenQueue: () -> Unit = {},
+    onScanSms: (() -> Unit)? = null
 ) {
     var showProfileMenu by remember { mutableStateOf(false) }
 
@@ -83,6 +84,18 @@ fun LedgerHome(
                     )
                 },
                 actions = {
+                    if (onScanSms != null) {
+                        var scanning by remember { mutableStateOf(false) }
+                        IconButton(onClick = {
+                            if (!scanning) { scanning = true; onScanSms(); scanning = false }
+                        }) {
+                            Icon(
+                                Icons.Default.Search,
+                                contentDescription = "Scan SMS inbox",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
                     Box {
                         IconButton(onClick = { showProfileMenu = true }) {
                             ProfileAvatar(user = user)

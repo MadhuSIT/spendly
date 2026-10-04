@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.madhusit.spendly.domain.auth.AuthRepository
 import com.madhusit.spendly.domain.auth.AuthUser
 import com.madhusit.spendly.domain.ledger.LedgerRepository
+import com.madhusit.spendly.domain.sms.SmsIngestionRepository
 import com.madhusit.spendly.domain.sync.SyncRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,7 +20,8 @@ private val GUEST_USER = AuthUser(uid = "guest", email = null, displayName = "Gu
 class AuthViewModel(
     private val authRepository: AuthRepository,
     private val syncRepository: SyncRepository,
-    private val ledgerRepository: LedgerRepository
+    private val ledgerRepository: LedgerRepository,
+    private val smsIngestionRepository: SmsIngestionRepository
 ) : ViewModel() {
 
     private val _guestMode = MutableStateFlow(false)
@@ -36,6 +38,7 @@ class AuthViewModel(
             val result = authRepository.signInWithGoogle(idToken)
             result.onSuccess { user ->
                 ledgerRepository.clearAllData()
+                smsIngestionRepository.clearProcessedEvents()
                 pullFromCloud(user.uid)
             }.onFailure {
                 syncError = it.message
@@ -80,11 +83,12 @@ class AuthViewModel(
         fun factory(
             authRepository: AuthRepository,
             syncRepository: SyncRepository,
-            ledgerRepository: LedgerRepository
+            ledgerRepository: LedgerRepository,
+            smsIngestionRepository: SmsIngestionRepository
         ) = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                AuthViewModel(authRepository, syncRepository, ledgerRepository) as T
+                AuthViewModel(authRepository, syncRepository, ledgerRepository, smsIngestionRepository) as T
         }
     }
 }

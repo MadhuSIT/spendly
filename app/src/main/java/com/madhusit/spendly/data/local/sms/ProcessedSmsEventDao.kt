@@ -23,4 +23,7 @@ interface ProcessedSmsEventDao {
         transactionId: String?,
         status: String
     )
+
+    @Query("DELETE FROM processed_sms_events")
+    suspend fun deleteAll()
 }
