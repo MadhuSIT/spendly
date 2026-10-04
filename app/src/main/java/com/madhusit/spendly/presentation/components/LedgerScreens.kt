@@ -13,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -464,7 +465,8 @@ fun TransactionDetailScreen(
     transaction: LedgerTransaction?,
     entities: List<FinancialEntity>,
     onBack: () -> Unit,
-    onEdit: (() -> Unit)? = null
+    onEdit: (() -> Unit)? = null,
+    onDelete: (() -> Unit)? = null
 ) {
     if (transaction == null) {
         Column(
@@ -478,6 +480,24 @@ fun TransactionDetailScreen(
             Text("This transaction may have been removed or is no longer available.")
         }
         return
+    }
+
+    var showDeleteDialog by remember { mutableStateOf(false) }
+
+    if (showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text("Delete transaction?") },
+            text = { Text("This will permanently remove the transaction from your ledger.") },
+            confirmButton = {
+                TextButton(onClick = { showDeleteDialog = false; onDelete?.invoke() }) {
+                    Text("Delete", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteDialog = false }) { Text("Cancel") }
+            }
+        )
     }
 
     val source = entities.firstOrNull { it.id == transaction.sourceEntityId }?.name ?: "Unknown account"
@@ -511,6 +531,12 @@ fun TransactionDetailScreen(
                     IconButton(onClick = onEdit) {
                         Icon(Icons.Default.Edit, contentDescription = "Edit",
                             tint = MaterialTheme.colorScheme.primary)
+                    }
+                }
+                if (onDelete != null) {
+                    IconButton(onClick = { showDeleteDialog = true }) {
+                        Icon(Icons.Default.Delete, contentDescription = "Delete",
+                            tint = MaterialTheme.colorScheme.error)
                     }
                 }
             }

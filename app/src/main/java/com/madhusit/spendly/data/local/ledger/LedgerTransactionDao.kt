@@ -26,4 +26,7 @@ interface LedgerTransactionDao {
 
     @Query("SELECT * FROM ledger_transactions WHERE referenceNumber = :reference OR upiReference = :reference LIMIT 1")
     suspend fun findByReference(reference: String): LedgerTransactionEntity?
+
+    @Query("DELETE FROM ledger_transactions WHERE id = :id")
+    suspend fun deleteById(id: String)
 }

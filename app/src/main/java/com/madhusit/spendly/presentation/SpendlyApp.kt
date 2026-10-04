@@ -119,7 +119,14 @@ fun SpendlyApp(
                     transaction = transaction,
                     entities = entities,
                     onBack = { navController.popBackStack() },
-                    onEdit = transaction?.let { { navController.navigate("edit_transaction/${it.id}") } }
+                    onEdit = transaction?.let { { navController.navigate("edit_transaction/${it.id}") } },
+                    onDelete = transaction?.let { txn ->
+                        {
+                            ledgerVm.deleteTransaction(txn.id) { error ->
+                                if (error == null) navController.popBackStack()
+                            }
+                        }
+                    }
                 )
             }
             composable(

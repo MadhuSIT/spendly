@@ -40,6 +40,17 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
                 nowEpochMillis = System.currentTimeMillis()
             )
 
+    fun deleteTransaction(id: String, onComplete: (String?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                repository.deleteTransaction(id)
+                onComplete(null)
+            } catch (e: Exception) {
+                onComplete(e.message ?: "Could not delete transaction.")
+            }
+        }
+    }
+
     fun addEntity(
         type: FinancialEntityType,
         name: String,

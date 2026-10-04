@@ -11,5 +11,6 @@ interface LedgerRepository {
     suspend fun createRelationship(relationship: TransactionRelationship)
     suspend fun findEntity(id: String): FinancialEntity?
     suspend fun findTransaction(id: String): LedgerTransaction?
+    suspend fun deleteTransaction(id: String)
     suspend fun calculateTotals(): LedgerTotals
 }
