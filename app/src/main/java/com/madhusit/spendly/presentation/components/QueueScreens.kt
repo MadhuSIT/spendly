@@ -3,12 +3,16 @@ package com.madhusit.spendly.presentation.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.madhusit.spendly.domain.ledger.*
 
 private fun reviewReason(txn: LedgerTransaction, entities: List<FinancialEntity>): String {
@@ -40,11 +44,15 @@ fun ReviewQueueScreen(
         Row(
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .padding(horizontal = 4.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Review queue", style = MaterialTheme.typography.headlineSmall)
+            IconButton(onClick = onDone) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back",
+                    tint = MaterialTheme.colorScheme.primary)
+            }
+            Text("Review queue", style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.weight(1f))
             if (queue.isEmpty()) {
                 TextButton(onClick = onSeedItem) { Text("Add test item") }
             }
@@ -161,17 +169,18 @@ fun ReviewItemScreen(
     padding: PaddingValues,
     transaction: LedgerTransaction?,
     entities: List<FinancialEntity>,
+    allTransactions: List<LedgerTransaction> = emptyList(),
     onConfirm: (merchantName: String?, type: TransactionType, sourceEntityId: String, done: (String?) -> Unit) -> Unit,
     onLater: () -> Unit,
     onBack: () -> Unit
 ) {
     if (transaction == null) {
-        Column(
-            Modifier.fillMaxSize().padding(padding).padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
+        Column(Modifier.fillMaxSize().padding(padding).padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            IconButton(onClick = onBack) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+            }
             Text("Item not found", style = MaterialTheme.typography.headlineSmall)
-            TextButton(onClick = onBack) { Text("Back") }
         }
         return
     }
@@ -186,126 +195,188 @@ fun ReviewItemScreen(
     }
     var error by remember { mutableStateOf<String?>(null) }
     var saving by remember { mutableStateOf(false) }
+    val knownMerchants = remember(allTransactions) {
+        val fromTxns = allTransactions.mapNotNull { it.merchantName }
+        (fromTxns + SEED_MERCHANTS)
+            .groupBy { it.lowercase() }
+            .map { (_, names) -> names.first() }
+            .sortedBy { it.lowercase() }
+    }
 
     val typeOptions = listOf(TransactionType.EXPENSE, TransactionType.INCOME, TransactionType.TRANSFER)
 
-    LazyColumn(
-        Modifier
-            .fillMaxSize()
-            .padding(padding)
-            .testTag("screen_review_item"),
-        contentPadding = PaddingValues(20.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+    Column(
+        Modifier.fillMaxSize().padding(padding).testTag("screen_review_item")
     ) {
-        item { TextButton(onClick = onBack) { Text("Back to queue") } }
-
-        item {
-            Text("Review transaction", style = MaterialTheme.typography.headlineSmall)
-            Spacer(Modifier.height(4.dp))
-            Text(
-                formatInr(transaction.amountMinor),
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
-
-        item {
-            Surface(
-                color = MaterialTheme.colorScheme.errorContainer,
-                shape = MaterialTheme.shapes.medium
-            ) {
-                Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(
-                        "Why review?",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onErrorContainer
-                    )
-                    Text(
-                        reviewReason(transaction, entities),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onErrorContainer
-                    )
-                }
-            }
-        }
-
-        item {
-            Text("Merchant / description", style = MaterialTheme.typography.labelLarge)
-            Spacer(Modifier.height(4.dp))
-            OutlinedTextField(
-                value = merchantName,
-                onValueChange = { merchantName = it; error = null },
-                label = { Text("Merchant name (optional)") },
-                singleLine = true,
-                enabled = !saving,
-                modifier = Modifier.fillMaxWidth().testTag("review-merchant")
-            )
-        }
-
-        item {
-            Text("Type", style = MaterialTheme.typography.labelLarge)
-            Spacer(Modifier.height(4.dp))
-            SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
-                typeOptions.forEachIndexed { index, option ->
-                    SegmentedButton(
-                        selected = selectedType == option,
-                        onClick = { selectedType = option; error = null },
-                        shape = SegmentedButtonDefaults.itemShape(index, typeOptions.size),
-                        modifier = Modifier.weight(1f)
-                    ) { Text(option.displayName()) }
-                }
-            }
-        }
-
-        item {
-            Text("Account", style = MaterialTheme.typography.labelLarge)
-            Spacer(Modifier.height(4.dp))
-            if (entities.isEmpty()) {
-                Text(
-                    "No accounts available. Add an account first.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.error
+        // Top bar with back arrow
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onBack) {
+                Icon(
+                    Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = MaterialTheme.colorScheme.primary
                 )
-            } else {
-                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    entities.forEach { entity ->
-                        FilterChip(
-                            selected = entity.id == selectedEntityId,
-                            onClick = { selectedEntityId = entity.id; error = null },
-                            label = { Text("${entity.name} · ${entity.type.displayLabel()}") },
-                            modifier = Modifier.testTag("review-entity-${entity.id}")
-                        )
+            }
+            Text(
+                "Review transaction",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
+
+        LazyColumn(
+            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            // Amount hero
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text(
+                        formatInr(transaction.amountMinor),
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.W300,
+                        color = MaterialTheme.colorScheme.primary,
+                        letterSpacing = (-1).sp
+                    )
+                    Text(
+                        transaction.type.displayName(),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
+            // Why review banner — subtle, not alarming
+            item {
+                Surface(
+                    color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.6f),
+                    shape = MaterialTheme.shapes.large,
+                    tonalElevation = 0.dp
+                ) {
+                    Row(
+                        Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                            Text(
+                                "Needs attention",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onErrorContainer,
+                                letterSpacing = 0.5.sp
+                            )
+                            Text(
+                                reviewReason(transaction, entities),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onErrorContainer
+                            )
+                        }
                     }
                 }
             }
-        }
 
-        error?.let { msg ->
+            // Merchant field with autocomplete
             item {
-                Text(msg, color = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.testTag("review-error"))
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        "MERCHANT",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        letterSpacing = 1.sp
+                    )
+                    MerchantField(
+                        value = merchantName,
+                        onValueChange = { merchantName = it; error = null },
+                        label = "e.g. Swiggy, Amazon…",
+                        suggestions = knownMerchants,
+                        enabled = !saving
+                    )
+                }
             }
-        }
 
-        item {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                TextButton(onClick = onLater, enabled = !saving) { Text("Later") }
-                FilledTonalButton(
-                    onClick = {
-                        saving = true
-                        error = null
-                        onConfirm(merchantName.ifBlank { null }, selectedType, selectedEntityId) { result ->
-                            saving = false
-                            if (result != null) error = result
+            // Type selector
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        "TYPE",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        letterSpacing = 1.sp
+                    )
+                    SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+                        typeOptions.forEachIndexed { index, option ->
+                            SegmentedButton(
+                                selected = selectedType == option,
+                                onClick = { selectedType = option; error = null },
+                                shape = SegmentedButtonDefaults.itemShape(index, typeOptions.size)
+                            ) { Text(option.displayName()) }
                         }
-                    },
-                    enabled = !saving && selectedEntityId.isNotBlank(),
-                    modifier = Modifier.testTag("review-confirm")
+                    }
+                }
+            }
+
+            // Account picker
+            item {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        "ACCOUNT",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        letterSpacing = 1.sp
+                    )
+                    if (entities.isEmpty()) {
+                        Text(
+                            "No accounts available. Add one first.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    } else {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            entities.forEach { entity ->
+                                FilterChip(
+                                    selected = entity.id == selectedEntityId,
+                                    onClick = { selectedEntityId = entity.id; error = null },
+                                    label = { Text("${entity.name} · ${entity.type.displayLabel()}") },
+                                    modifier = Modifier.testTag("review-entity-${entity.id}")
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            error?.let { msg ->
+                item {
+                    Text(msg, color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.testTag("review-error"))
+                }
+            }
+
+            // Actions
+            item {
+                Row(
+                    Modifier.fillMaxWidth().padding(top = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(if (saving) "Confirming…" else "Confirm transaction")
+                    TextButton(onClick = onLater, enabled = !saving) { Text("Skip for now") }
+                    FilledTonalButton(
+                        onClick = {
+                            saving = true
+                            error = null
+                            onConfirm(merchantName.ifBlank { null }, selectedType, selectedEntityId) { result ->
+                                saving = false
+                                if (result != null) error = result
+                            }
+                        },
+                        enabled = !saving && selectedEntityId.isNotBlank(),
+                        modifier = Modifier.weight(1f).testTag("review-confirm")
+                    ) {
+                        Text(if (saving) "Confirming…" else "Confirm")
+                    }
                 }
             }
         }

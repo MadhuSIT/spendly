@@ -25,16 +25,25 @@ fun BottomNav(navController: NavHostController) {
         "accounts" to ("Accounts" to Icons.Default.AccountBalanceWallet),
         "insights" to ("Insights" to Icons.Default.Insights)
     )
+    // Top-level tab routes — anything else is a detail/modal screen
+    val topLevelRoutes = setOf("home", "transactions", "accounts", "insights")
+    val selectedTab = if (currentRoute in topLevelRoutes) currentRoute else "home"
+
     NavigationBar {
         items.forEach { (route, item) ->
             NavigationBarItem(
                 modifier = Modifier.testTag("bottom_nav_$route"),
-                selected = currentRoute == route,
+                selected = selectedTab == route,
                 onClick = {
                     navController.navigate(route) {
-                        popUpTo("home") { saveState = true }
+                        // Pop current sub-screens. For Home tab, pop home itself too so it
+                        // re-enters fresh (avoids launchSingleTop no-op when home is underneath).
+                        popUpTo("home") {
+                            inclusive = route == "home"
+                            saveState = route != "home"
+                        }
                         launchSingleTop = true
-                        restoreState = true
+                        restoreState = route != "home"
                     }
                 },
                 icon = { Icon(item.second, contentDescription = item.first) },

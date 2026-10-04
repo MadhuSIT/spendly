@@ -4,13 +4,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.madhusit.spendly.domain.ledger.*
 
 fun entityBalance(entity: FinancialEntity, transactions: List<LedgerTransaction>): Long {
@@ -143,7 +147,16 @@ private fun EntityCard(entity: FinancialEntity, balance: Long, onClick: (String)
                 Text(sub, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(formatInr(balance), style = MaterialTheme.typography.titleMedium)
+                Text(
+                    formatInr(balance),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.W600,
+                    color = when {
+                        balance < 0 -> MaterialTheme.colorScheme.error
+                        balance > 0 -> Color(0xFF2A7D4F)
+                        else -> MaterialTheme.colorScheme.onSurfaceVariant
+                    }
+                )
                 if (!entity.active) {
                     Badge { Text("Inactive") }
                 }
@@ -169,76 +182,93 @@ fun AddEntityScreen(
         type == FinancialEntityType.CREDIT_CARD ||
         type == FinancialEntityType.DEBIT_CARD
 
-    LazyColumn(
-        Modifier.fillMaxSize().padding(padding),
-        contentPadding = PaddingValues(20.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        item { Text("Add account", style = MaterialTheme.typography.headlineSmall) }
-
-        item {
-            Text("Type", style = MaterialTheme.typography.labelLarge)
-            Spacer(Modifier.height(4.dp))
-            val typeOptions = listOf(
-                FinancialEntityType.BANK_ACCOUNT,
-                FinancialEntityType.CREDIT_CARD,
-                FinancialEntityType.CASH
-            )
-            SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
-                typeOptions.forEachIndexed { index, option ->
-                    SegmentedButton(
-                        selected = type == option,
-                        onClick = { type = option; error = null },
-                        shape = SegmentedButtonDefaults.itemShape(index, typeOptions.size),
-                        modifier = Modifier.weight(1f)
-                    ) { Text(option.displayLabel()) }
+    Column(Modifier.fillMaxSize().padding(padding)) {
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onCancel) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back",
+                    tint = MaterialTheme.colorScheme.primary)
+            }
+            Text("Add account", style = MaterialTheme.typography.titleMedium)
+        }
+        LazyColumn(
+            Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(20.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            item {
+                Text("TYPE", style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 1.sp)
+                Spacer(Modifier.height(6.dp))
+                val typeOptions = listOf(
+                    FinancialEntityType.BANK_ACCOUNT,
+                    FinancialEntityType.CREDIT_CARD,
+                    FinancialEntityType.CASH
+                )
+                SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+                    typeOptions.forEachIndexed { index, option ->
+                        SegmentedButton(
+                            selected = type == option,
+                            onClick = { type = option; error = null },
+                            shape = SegmentedButtonDefaults.itemShape(index, typeOptions.size),
+                            modifier = Modifier.weight(1f)
+                        ) { Text(option.displayLabel()) }
+                    }
                 }
             }
-        }
 
-        item {
-            OutlinedTextField(
-                value = name,
-                onValueChange = { name = it; error = null },
-                label = { Text("Account name") },
-                singleLine = true,
-                enabled = !saving,
-                modifier = Modifier.fillMaxWidth().testTag("entity-name")
-            )
-        }
-
-        if (showIdentifier) {
             item {
+                Text("ACCOUNT NAME", style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 1.sp)
+                Spacer(Modifier.height(6.dp))
                 OutlinedTextField(
-                    value = identifier,
-                    onValueChange = { identifier = it; error = null },
-                    label = { Text("Account / card number (optional)") },
+                    value = name,
+                    onValueChange = { name = it; error = null },
+                    placeholder = { Text("Account name") },
                     singleLine = true,
                     enabled = !saving,
-                    modifier = Modifier.fillMaxWidth().testTag("entity-identifier")
+                    modifier = Modifier.fillMaxWidth().testTag("entity-name")
                 )
             }
-            item {
-                OutlinedTextField(
-                    value = lastFour,
-                    onValueChange = { if (it.length <= 4) { lastFour = it; error = null } },
-                    label = { Text("Last four digits (optional)") },
-                    singleLine = true,
-                    enabled = !saving,
-                    modifier = Modifier.fillMaxWidth().testTag("entity-last-four")
-                )
-            }
-        }
 
-        error?.let { msg ->
-            item {
-                Text(msg, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("entity-error"))
+            if (showIdentifier) {
+                item {
+                    Text("CARD / ACCOUNT NUMBER", style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 1.sp)
+                    Spacer(Modifier.height(6.dp))
+                    OutlinedTextField(
+                        value = identifier,
+                        onValueChange = { identifier = it; error = null },
+                        label = { Text("Account / card number (optional)") },
+                        singleLine = true,
+                        enabled = !saving,
+                        modifier = Modifier.fillMaxWidth().testTag("entity-identifier")
+                    )
+                }
+                item {
+                    Text("LAST FOUR DIGITS", style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 1.sp)
+                    Spacer(Modifier.height(6.dp))
+                    OutlinedTextField(
+                        value = lastFour,
+                        onValueChange = { if (it.length <= 4) { lastFour = it; error = null } },
+                        label = { Text("Last four digits (optional)") },
+                        singleLine = true,
+                        enabled = !saving,
+                        modifier = Modifier.fillMaxWidth().testTag("entity-last-four")
+                    )
+                }
             }
-        }
 
-        item {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                TextButton(onClick = onCancel, enabled = !saving) { Text("Cancel") }
+            error?.let { msg ->
+                item {
+                    Text(msg, color = MaterialTheme.colorScheme.error, modifier = Modifier.testTag("entity-error"))
+                }
+            }
+
+            item {
                 FilledTonalButton(
                     onClick = {
                         saving = true
@@ -254,7 +284,7 @@ fun AddEntityScreen(
                         }
                     },
                     enabled = !saving && name.isNotBlank(),
-                    modifier = Modifier.testTag("save-entity")
+                    modifier = Modifier.fillMaxWidth().testTag("save-entity")
                 ) { Text(if (saving) "Saving…" else "Save account") }
             }
         }
@@ -275,9 +305,11 @@ fun EntityDetailScreen(
             Modifier.fillMaxSize().padding(padding).padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            IconButton(onClick = onBack) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+            }
             Text("Account not found", style = MaterialTheme.typography.headlineSmall)
             Text("This account may have been removed.")
-            TextButton(onClick = onBack) { Text("Back") }
         }
         return
     }
@@ -292,21 +324,32 @@ fun EntityDetailScreen(
         .filter { it.type == TransactionType.EXPENSE && it.status == TransactionStatus.CONFIRMED }
         .sumOf { it.amountMinor }
 
-    LazyColumn(
-        Modifier.fillMaxSize().padding(padding).testTag("screen_entity_detail"),
-        contentPadding = PaddingValues(20.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        item {
-            TextButton(onClick = onBack) { Text("Back to accounts") }
+    Column(Modifier.fillMaxSize().padding(padding).testTag("screen_entity_detail")) {
+        // Top bar
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onBack) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back",
+                    tint = MaterialTheme.colorScheme.primary)
+            }
+            Text(entity.type.displayLabel(), style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface)
         }
+        LazyColumn(
+            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
         item {
-            Text(entity.name, style = MaterialTheme.typography.headlineMedium)
             val sub = buildString {
                 append(entity.type.displayLabel())
                 entity.lastFour?.let { append(" · ••••$it") }
             }
-            Text(sub, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(entity.name, style = MaterialTheme.typography.headlineMedium)
+                Text(sub, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
         }
         item {
             ElevatedCard(Modifier.fillMaxWidth()) {
@@ -332,7 +375,7 @@ fun EntityDetailScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text("Transactions", style = MaterialTheme.typography.titleLarge)
-                TextButton(onClick = onAddTransaction) { Text("Add") }
+                FilledTonalButton(onClick = onAddTransaction) { Text("Add") }
             }
         }
         if (entityTxns.isEmpty()) {
@@ -353,18 +396,31 @@ fun EntityDetailScreen(
                 EntityTransactionRow(txn, counterparty)
             }
         }
-    }
+        } // end LazyColumn
+    } // end Column
 }
 
 @Composable
 private fun EntityTransactionRow(transaction: LedgerTransaction, counterparty: String?) {
+    val amountColor = when (transaction.type) {
+        TransactionType.INCOME -> Color(0xFF2A7D4F)
+        TransactionType.EXPENSE, TransactionType.CARD_PAYMENT,
+        TransactionType.FEE, TransactionType.CASH_WITHDRAWAL -> MaterialTheme.colorScheme.error
+        else -> MaterialTheme.colorScheme.onSurface
+    }
+    val prefix = when (transaction.type) {
+        TransactionType.INCOME, TransactionType.REFUND -> "+"
+        TransactionType.EXPENSE, TransactionType.CARD_PAYMENT,
+        TransactionType.FEE, TransactionType.CASH_WITHDRAWAL -> "−"
+        else -> ""
+    }
     ElevatedCard(Modifier.fillMaxWidth()) {
         Row(
-            Modifier.fillMaxWidth().padding(14.dp),
+            Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text(
                     transaction.merchantName ?: transaction.type.displayName(),
                     style = MaterialTheme.typography.titleSmall
@@ -373,9 +429,15 @@ private fun EntityTransactionRow(transaction: LedgerTransaction, counterparty: S
                     append(transaction.type.displayName())
                     counterparty?.let { append(" · $it") }
                 }
-                Text(sub, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(sub, style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            Text(formatInr(transaction.amountMinor), style = MaterialTheme.typography.titleSmall)
+            Text(
+                prefix + formatInr(transaction.amountMinor),
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.W600,
+                color = amountColor
+            )
         }
     }
 }

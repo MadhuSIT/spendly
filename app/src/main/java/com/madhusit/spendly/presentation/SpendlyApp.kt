@@ -85,6 +85,7 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
                 AddTransactionScreen(
                     padding = padding,
                     entities = entities,
+                    transactions = transactions,
                     onSave = { type, amount, title, source, destination, done ->
                         ledgerVm.addTransaction(type, amount, title, source, destination) { error ->
                             done(error)
@@ -148,6 +149,7 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
                     padding = padding,
                     transaction = txn,
                     entities = entities,
+                    allTransactions = transactions,
                     onConfirm = { merchantName, type, sourceEntityId, done ->
                         ledgerVm.confirmQueueItem(
                             transactionId = txn?.id ?: "",
@@ -163,7 +165,13 @@ fun SpendlyApp(repository: FoundationRepository, ledgerRepository: LedgerReposit
                     onBack = { navController.popBackStack() }
                 )
             }
-            composable(INSIGHTS) { PlaceholderScreen("Insights", padding) }
+            composable(INSIGHTS) {
+                InsightsScreen(
+                    padding = padding,
+                    transactions = transactions,
+                    entities = entities
+                )
+            }
         }
     }
 }
