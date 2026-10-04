@@ -1,11 +1,14 @@
 package com.madhusit.spendly.presentation.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -205,6 +208,24 @@ private fun greeting(): String {
     }
 }
 
+private fun dateLabel(epochMillis: Long): String {
+    val cal = Calendar.getInstance().apply { timeInMillis = epochMillis }
+    val today = Calendar.getInstance()
+    val yesterday = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, -1) }
+    return when {
+        cal.isSameDay(today) -> "Today"
+        cal.isSameDay(yesterday) -> "Yesterday"
+        cal.get(Calendar.YEAR) == today.get(Calendar.YEAR) ->
+            SimpleDateFormat("d MMMM", Locale.getDefault()).format(Date(epochMillis))
+        else -> SimpleDateFormat("d MMMM yyyy", Locale.getDefault()).format(Date(epochMillis))
+    }
+}
+
+private fun Calendar.isSameDay(other: Calendar) =
+    get(Calendar.YEAR) == other.get(Calendar.YEAR) &&
+    get(Calendar.DAY_OF_YEAR) == other.get(Calendar.DAY_OF_YEAR)
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LedgerTransactions(
     padding: PaddingValues,
@@ -344,17 +365,39 @@ fun LedgerTransactions(
                 )
             }
         } else {
+            val grouped = remember(displayed) {
+                displayed.groupBy { dateLabel(it.transactionTimestamp) }.entries.toList()
+            }
             LazyColumn(
                 Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 4.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                items(displayed, key = { it.id }) { transaction ->
-                    TransactionRow(transaction) { onOpenTransaction(transaction.id) }
+                grouped.forEach { (label, txns) ->
+                    stickyHeader(key = "header_$label") {
+                        DateHeader(label)
+                    }
+                    items(txns, key = { it.id }) { transaction ->
+                        Spacer(Modifier.height(10.dp))
+                        TransactionRow(transaction) { onOpenTransaction(transaction.id) }
+                    }
                 }
+                item { Spacer(Modifier.height(10.dp)) }
             }
         }
     }
+}
+
+@Composable
+private fun DateHeader(label: String) {
+    Text(
+        label,
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surface)
+            .padding(top = 16.dp, bottom = 4.dp)
+    )
 }
 
 @Composable
