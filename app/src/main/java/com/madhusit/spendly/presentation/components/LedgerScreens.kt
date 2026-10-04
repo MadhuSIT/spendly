@@ -11,6 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
@@ -365,11 +366,6 @@ fun LedgerTransactions(
         ) {
             Text("Transactions", style = MaterialTheme.typography.headlineSmall)
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.CenterVertically) {
-                if (reviewQueueCount > 0) {
-                    FilledTonalButton(onClick = onOpenQueue) {
-                        Text("Review ($reviewQueueCount)")
-                    }
-                }
                 IconButton(onClick = { searchActive = !searchActive; if (!searchActive) query = "" }) {
                     Icon(Icons.Default.Search, contentDescription = "Search",
                         tint = if (searchActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
@@ -381,6 +377,42 @@ fun LedgerTransactions(
                 IconButton(onClick = onAddTransaction) {
                     Icon(Icons.Default.Add, contentDescription = "Add transaction",
                         tint = MaterialTheme.colorScheme.primary)
+                }
+            }
+        }
+
+        // Review queue banner — shown below header, not crammed into icon row
+        if (reviewQueueCount > 0) {
+            Surface(
+                onClick = onOpenQueue,
+                color = MaterialTheme.colorScheme.tertiaryContainer,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 10.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text(
+                            "$reviewQueueCount transaction${if (reviewQueueCount == 1) "" else "s"} need review",
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onTertiaryContainer
+                        )
+                        Text(
+                            "Tap to review or bulk approve / reject",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.75f)
+                        )
+                    }
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                        modifier = Modifier.size(18.dp)
+                    )
                 }
             }
         }

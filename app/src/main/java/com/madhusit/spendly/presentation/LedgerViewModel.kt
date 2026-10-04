@@ -211,6 +211,25 @@ class LedgerViewModel(private val repository: LedgerRepository) : ViewModel() {
         }
     }
 
+    fun bulkApproveQueueItems(ids: List<String>, onDone: (String?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                ids.forEach { id ->
+                    val txn = repository.findTransaction(id) ?: return@forEach
+                    val updated = txn.copy(
+                        status = TransactionStatus.CONFIRMED,
+                        reviewRequired = false,
+                        updatedAtEpochMillis = System.currentTimeMillis()
+                    )
+                    updateTransaction(updated, nowEpochMillis = updated.updatedAtEpochMillis)
+                }
+                onDone(null)
+            } catch (e: Exception) {
+                onDone(e.message ?: "Could not approve transactions.")
+            }
+        }
+    }
+
     fun bulkDeleteTransactions(ids: List<String>, onDone: (String?) -> Unit) {
         viewModelScope.launch {
             try {

@@ -299,7 +299,9 @@ fun SpendlyApp(
                     entities = entities,
                     onOpenItem = { navController.navigate("review_item/$it") },
                     onDone = { navController.popBackStack() },
-                    onSeedItem = { entities.firstOrNull()?.let { e -> ledgerVm.seedReviewItem(e.id) } }
+                    onSeedItem = { entities.firstOrNull()?.let { e -> ledgerVm.seedReviewItem(e.id) } },
+                    onBulkApprove = { ids, done -> ledgerVm.bulkApproveQueueItems(ids, done) },
+                    onBulkReject = { ids, done -> ledgerVm.bulkDeleteTransactions(ids, done) }
                 )
             }
             composable(

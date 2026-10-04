@@ -1,10 +1,18 @@
 package com.madhusit.spendly.presentation.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -33,72 +41,211 @@ fun ReviewQueueScreen(
     entities: List<FinancialEntity>,
     onOpenItem: (String) -> Unit,
     onDone: () -> Unit,
-    onSeedItem: () -> Unit
+    onSeedItem: () -> Unit,
+    onBulkApprove: (List<String>, (String?) -> Unit) -> Unit = { _, _ -> },
+    onBulkReject: (List<String>, (String?) -> Unit) -> Unit = { _, _ -> }
 ) {
-    Column(
-        Modifier
-            .fillMaxSize()
-            .padding(padding)
-            .testTag("screen_review_queue")
-    ) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 4.dp, vertical = 4.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onDone) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back",
-                    tint = MaterialTheme.colorScheme.primary)
+    val selectedIds = remember { mutableStateListOf<String>() }
+    LaunchedEffect(queue) { selectedIds.removeAll { id -> queue.none { it.id == id } } }
+
+    val allSelected = queue.isNotEmpty() && selectedIds.size == queue.size
+
+    var showApproveDialog by remember { mutableStateOf(false) }
+    var showRejectDialog by remember { mutableStateOf(false) }
+    var busy by remember { mutableStateOf(false) }
+    var actionError by remember { mutableStateOf<String?>(null) }
+
+    if (showApproveDialog) {
+        AlertDialog(
+            onDismissRequest = { if (!busy) showApproveDialog = false },
+            title = { Text("Approve ${selectedIds.size} transaction${if (selectedIds.size == 1) "" else "s"}?") },
+            text = { Text("They will be confirmed with their parsed values and move to your transaction history.") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        busy = true; actionError = null
+                        val ids = selectedIds.toList()
+                        onBulkApprove(ids) { err ->
+                            busy = false
+                            if (err == null) { selectedIds.clear(); showApproveDialog = false }
+                            else actionError = err
+                        }
+                    },
+                    enabled = !busy
+                ) {
+                    if (busy) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
+                    else Text("Approve")
+                }
+            },
+            dismissButton = { TextButton(onClick = { showApproveDialog = false }, enabled = !busy) { Text("Cancel") } }
+        )
+    }
+
+    if (showRejectDialog) {
+        AlertDialog(
+            onDismissRequest = { if (!busy) showRejectDialog = false },
+            title = { Text("Delete ${selectedIds.size} transaction${if (selectedIds.size == 1) "" else "s"}?") },
+            text = { Text("These will be permanently removed. This cannot be undone.") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        busy = true; actionError = null
+                        val ids = selectedIds.toList()
+                        onBulkReject(ids) { err ->
+                            busy = false
+                            if (err == null) { selectedIds.clear(); showRejectDialog = false }
+                            else actionError = err
+                        }
+                    },
+                    enabled = !busy,
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                ) {
+                    if (busy) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
+                    else Text("Delete")
+                }
+            },
+            dismissButton = { TextButton(onClick = { showRejectDialog = false }, enabled = !busy) { Text("Cancel") } }
+        )
+    }
+
+    Scaffold(
+        modifier = Modifier.padding(padding),
+        topBar = {
+            Column {
+                Row(
+                    Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(onClick = onDone) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back",
+                            tint = MaterialTheme.colorScheme.primary)
+                    }
+                    Text("Review queue", style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.weight(1f))
+                    if (queue.isEmpty()) {
+                        TextButton(onClick = onSeedItem) { Text("Add test item") }
+                    }
+                }
+                if (queue.isNotEmpty()) {
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                if (allSelected) selectedIds.clear()
+                                else { selectedIds.clear(); selectedIds.addAll(queue.map { it.id }) }
+                            }
+                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = allSelected,
+                            onCheckedChange = {
+                                if (allSelected) selectedIds.clear()
+                                else { selectedIds.clear(); selectedIds.addAll(queue.map { it.id }) }
+                            }
+                        )
+                        Spacer(Modifier.width(6.dp))
+                        Text(
+                            if (allSelected) "Deselect all" else "Select all (${queue.size})",
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(Modifier.weight(1f))
+                        Text(
+                            "${queue.size} item${if (queue.size == 1) "" else "s"} pending",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    HorizontalDivider()
+                }
             }
-            Text("Review queue", style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.weight(1f))
-            if (queue.isEmpty()) {
-                TextButton(onClick = onSeedItem) { Text("Add test item") }
+        },
+        bottomBar = {
+            AnimatedVisibility(
+                visible = selectedIds.isNotEmpty(),
+                enter = slideInVertically { it } + fadeIn(),
+                exit = slideOutVertically { it } + fadeOut()
+            ) {
+                Surface(tonalElevation = 3.dp) {
+                    Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+                        actionError?.let { err ->
+                            Text(err, color = MaterialTheme.colorScheme.error,
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.padding(bottom = 8.dp))
+                        }
+                        Row(
+                            Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            OutlinedButton(
+                                onClick = { showRejectDialog = true },
+                                modifier = Modifier.weight(1f),
+                                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                            ) {
+                                Icon(Icons.Default.Delete, contentDescription = null, modifier = Modifier.size(16.dp))
+                                Spacer(Modifier.width(6.dp))
+                                Text("Reject (${selectedIds.size})")
+                            }
+                            Button(
+                                onClick = { showApproveDialog = true },
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Icon(Icons.Default.CheckCircle, contentDescription = null, modifier = Modifier.size(16.dp))
+                                Spacer(Modifier.width(6.dp))
+                                Text("Approve (${selectedIds.size})")
+                            }
+                        }
+                    }
+                }
             }
         }
-
+    ) { innerPadding ->
         if (queue.isEmpty()) {
             Column(
-                Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 24.dp),
+                Modifier.fillMaxSize().padding(innerPadding).padding(horizontal = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    "All caught up",
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.testTag("queue-empty-title")
-                )
-                Text(
-                    "Everything currently needs no attention.",
+                Text("All caught up", style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.testTag("queue-empty-title"))
+                Text("Everything currently needs no attention.",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                FilledTonalButton(onClick = onDone, modifier = Modifier.testTag("queue-done")) {
-                    Text("Done")
-                }
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                FilledTonalButton(onClick = onDone, modifier = Modifier.testTag("queue-done")) { Text("Done") }
             }
         } else {
-            Text(
-                "${queue.size} item${if (queue.size == 1) "" else "s"} need your attention",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(horizontal = 20.dp).padding(bottom = 8.dp)
-            )
             LazyColumn(
-                contentPadding = PaddingValues(bottom = 24.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                contentPadding = PaddingValues(
+                    start = 16.dp, end = 16.dp,
+                    top = innerPadding.calculateTopPadding() + 4.dp,
+                    bottom = innerPadding.calculateBottomPadding() + 80.dp
+                ),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.testTag("screen_review_queue")
             ) {
                 items(queue, key = { it.id }) { txn ->
                     val entity = entities.firstOrNull { it.id == txn.sourceEntityId }
-                    QueueItemCard(
-                        txn = txn,
-                        entity = entity,
-                        entities = entities,
-                        onClick = { onOpenItem(txn.id) }
-                    )
+                    val isSelected = txn.id in selectedIds
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = isSelected,
+                            onCheckedChange = {
+                                if (isSelected) selectedIds.remove(txn.id) else selectedIds.add(txn.id)
+                            }
+                        )
+                        Box(Modifier.weight(1f)) {
+                            QueueItemCard(
+                                txn = txn,
+                                entity = entity,
+                                entities = entities,
+                                onClick = { onOpenItem(txn.id) }
+                            )
+                        }
+                    }
                 }
             }
         }
