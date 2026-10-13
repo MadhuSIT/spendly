@@ -39,13 +39,13 @@ internal object SmsMlModelData {
             "is_rs" to 2.78338,
             "balance" to 2.47323,
             "account_balance" to 2.27256,
-            "available" to 2.27256,
             "available_limit" to 2.27256,
             "balance_enquiry" to 2.27256,
             "balance_in" to 2.27256,
             "balance_inr" to 2.27256,
             "balance_rs" to 2.27256,
-            "credit_limit" to 2.27256
+            "credit_limit" to 2.27256,
+            "current" to 2.27256
         ),
         "FAILED" to mapOf(
             "failed" to 3.01737,
