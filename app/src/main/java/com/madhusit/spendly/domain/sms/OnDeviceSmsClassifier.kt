@@ -34,6 +34,9 @@ class OnDeviceSmsClassifier {
         val denominator = exponentials.values.sum().coerceAtLeast(1e-12)
         val (label, rawConfidence) = exponentials.maxByOrNull { it.value }?.let { it.key to it.value / denominator }
             ?: return ambiguous(0.0)
+        if (label != "TRANSACTION" && hasConfirmedAction(text)) {
+            return SmsMlPrediction("TRANSACTION", 1.0, SmsMlModelData.VERSION, SmsMlPredictionSource.SAFETY_RULE)
+        }
         if (label == "TRANSACTION" && rawConfidence < MIN_TRANSACTION_CONFIDENCE) return ambiguous(rawConfidence)
         if (label == "AMBIGUOUS" || rawConfidence < MIN_CLASS_CONFIDENCE) return ambiguous(rawConfidence)
         return SmsMlPrediction(label, rawConfidence, SmsMlModelData.VERSION, SmsMlPredictionSource.MODEL)
@@ -48,15 +51,16 @@ class OnDeviceSmsClassifier {
     }
 
     private fun safetyOverride(text: String): String? {
-        val confirmedAction = Regex(
-            "\\b(debited|credited|received|spent|withdrawn|refunded|refund|reversed|charged|purchased|paid\\s+to|purchase\\s+approved|purchase\\s+completed)\\b"
-        ).containsMatchIn(text)
+        val confirmedAction = hasConfirmedAction(text)
         if (listOf("transaction failed", "payment failed", "transaction declined", "payment declined",
                 "transaction unsuccessful", "insufficient funds", "insufficient balance",
                 "transaction rejected", "not debited", "no money deducted").any { it in text }) return "FAILED"
+        val securityBoilerplate = listOf("fraud alert", "suspicious transaction", "suspicious activity",
+            "security warning", "security alert", "if you did not", "if not you", "call bank fraud team")
+            .any { it in text }
         // A confirmed movement must not be discarded because banks append standard fraud-warning boilerplate.
-        if (confirmedAction) return "TRANSACTION"
-        if (listOf("fraud alert", "suspicious transaction", "suspicious activity",
+        if (confirmedAction && securityBoilerplate) return "TRANSACTION"
+        if (!confirmedAction && listOf("fraud alert", "suspicious transaction", "suspicious activity",
                 "security warning", "security alert", "did you attempt", "if you did not",
                 "not initiated by you", "unrecognized transaction").any { it in text }) return "SECURITY_ALERT"
         if (!confirmedAction && listOf("otp", "verification code", "one time password",
@@ -69,6 +73,10 @@ class OnDeviceSmsClassifier {
                 "offer expires", "apply now", "subscribe now", "reply stop").any { it in text }) return "MARKETING"
         return null
     }
+
+    private fun hasConfirmedAction(text: String): Boolean = Regex(
+        "\\b(debited|credited|received|spent|withdrawn|refunded|refund|reversed|charged|purchased|paid\\s+to|purchase\\s+approved|purchase\\s+completed)\\b"
+    ).containsMatchIn(text)
 
     private fun ambiguous(confidence: Double) =
         SmsMlPrediction("AMBIGUOUS", confidence, SmsMlModelData.VERSION, SmsMlPredictionSource.MODEL)
