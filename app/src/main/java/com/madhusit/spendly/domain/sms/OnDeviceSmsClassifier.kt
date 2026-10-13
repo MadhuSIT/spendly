@@ -54,7 +54,9 @@ class OnDeviceSmsClassifier {
         if (listOf("transaction failed", "payment failed", "transaction declined", "payment declined",
                 "transaction unsuccessful", "insufficient funds", "insufficient balance",
                 "transaction rejected", "not debited", "no money deducted").any { it in text }) return "FAILED"
-        if (!confirmedAction && listOf("fraud alert", "suspicious transaction", "suspicious activity",
+        // A confirmed movement must not be discarded because banks append standard fraud-warning boilerplate.
+        if (confirmedAction) return "TRANSACTION"
+        if (listOf("fraud alert", "suspicious transaction", "suspicious activity",
                 "security warning", "security alert", "did you attempt", "if you did not",
                 "not initiated by you", "unrecognized transaction").any { it in text }) return "SECURITY_ALERT"
         if (!confirmedAction && listOf("otp", "verification code", "one time password",
