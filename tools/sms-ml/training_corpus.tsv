@@ -1,0 +1,54 @@
+TRANSACTION	Rs 500 debited from your account via UPI to ABC Store ref 123456789
+TRANSACTION	INR 1250.00 spent on your debit card at grocery store
+TRANSACTION	Your account is debited with Rs 850 for UPI payment to merchant
+TRANSACTION	Rs. 321.45 debited from A/c XX4321 at SMS E2E Merchant. UPI Ref 987654321
+TRANSACTION	Payment of INR 499 completed successfully at Amazon transaction reference 99887766
+TRANSACTION	Your card was used for a purchase of Rs 2400 at a retail store
+SECURITY_ALERT	Fraud alert: suspicious transaction detected for Rs 10000. If not you call bank immediately
+SECURITY_ALERT	Security warning about a transaction of INR 5000. Block your card if you did not authorize it
+SECURITY_ALERT	Did you attempt this transaction? Reply yes or call support to report fraud
+SECURITY_ALERT	Suspicious activity detected on your account. Your card may be blocked
+SECURITY_ALERT	Never share OTP. If you did not make this payment contact bank fraud team
+SECURITY_ALERT	Your account is locked due to unusual login activity. Secure your account now
+OTP	Your OTP for Rs 10000 transaction is 123456. Do not share it
+OTP	Verification code 443322 for your payment. Valid for five minutes
+OTP	One time password for transaction approval is 456789
+OTP	OTP 999111 to authorize purchase of INR 4500
+OTP	Use verification code 223344 to complete your UPI transaction
+OTP	Do not share this OTP for Rs 5000 card transaction
+REMINDER	Your credit card payment of Rs 5000 is due tomorrow
+REMINDER	Reminder: minimum amount due INR 750 by 20 October
+REMINDER	Your bill payment is due on 15 October. Outstanding amount Rs 4200
+REMINDER	Statement generated. Total due Rs 8500 and minimum due Rs 500
+REMINDER	Your loan EMI of Rs 12000 is due next week
+REMINDER	Payment reminder: pay Rs 3000 before due date to avoid late fee
+MARKETING	Congratulations you are eligible for a pre approved loan offer
+MARKETING	Get cashback on your next purchase click here to claim offer
+MARKETING	Special shopping offer expires tonight register now
+MARKETING	Apply now for a new credit card with exciting rewards
+MARKETING	Limited time offer: shop today and save 20 percent
+MARKETING	Visit us to learn about personal loan offers
+BALANCE	Available balance in your account is INR 42300
+BALANCE	Your account balance is Rs 12000
+BALANCE	Current balance Rs 4500 and available balance INR 9000
+BALANCE	Statement balance is Rs 15000
+BALANCE	Your credit limit is INR 100000 and available limit is 75000
+BALANCE	Balance enquiry: account XX4321 has Rs 2500 available
+FAILED	Your UPI transaction failed for Rs 500. Amount not debited
+FAILED	Payment declined for INR 1200 due to insufficient balance
+FAILED	Transaction unsuccessful: Rs 800 was not debited
+FAILED	Your card payment failed. Please try again later
+FAILED	NEFT transfer rejected and amount was not processed
+FAILED	Transaction failed due to technical issue. No money deducted
+OTHER	Your bank branch will remain closed on Sunday
+OTHER	Thank you for banking with us
+OTHER	Your monthly e-statement is now available online
+OTHER	Update your KYC details to continue using services
+OTHER	Your debit card will expire soon. Renew it now
+OTHER	Your account profile was updated successfully
+AMBIGUOUS	Transaction of Rs 500 successful
+AMBIGUOUS	Payment of INR 250 has been processed
+AMBIGUOUS	Rs 600 transaction notification
+AMBIGUOUS	Your account activity notification for Rs 1000
+AMBIGUOUS	INR 2500 payment status updated
+AMBIGUOUS	Amount Rs 900 has been processed successfully
