@@ -13,6 +13,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[2]
 CORPUS = ROOT / "tools/sms-ml/training_corpus.tsv"
+EVALUATION = ROOT / "tools/sms-ml/evaluation_corpus.tsv"
 OUTPUT = ROOT / "app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt"
 VERSION = "sms-nb-2026-10-13-v1"
 ALPHA = 0.5
@@ -95,11 +96,35 @@ def main():
     lines += ["    )", "}", ""]
     generated = "\n".join(lines)
     OUTPUT.write_text(generated, encoding="utf-8")
+    def predict(text):
+        row_features = features(text)
+        logits = {label: biases[label] + sum(weights[label].get(token, 0.0) for token in row_features) for label in labels}
+        maximum = max(logits.values())
+        exp_scores = {label: math.exp(max(-60.0, value - maximum)) for label, value in logits.items()}
+        denominator = sum(exp_scores.values()) or 1.0
+        probabilities = {label: value / denominator for label, value in exp_scores.items()}
+        predicted = max(probabilities, key=probabilities.get)
+        confidence = probabilities[predicted]
+        if (predicted == "TRANSACTION" and confidence < 0.72) or predicted == "AMBIGUOUS" or confidence < 0.52:
+            predicted = "AMBIGUOUS"
+        return predicted
+
+    evaluation = []
+    for line_number, line in enumerate(EVALUATION.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        label, separator, text = line.partition("\\t")
+        if not separator or not label or not text:
+            raise SystemExit(f"Invalid evaluation row at {EVALUATION}:{line_number}")
+        evaluation.append((label, text))
+    correct = sum(predict(text) == label for label, text in evaluation)
     print(f"model_version={VERSION}")
     print(f"training_samples={len(samples)}")
     print(f"classes={len(labels)}")
     print(f"selected_features={sum(len(value) for value in weights.values())}")
-    print(f"model_bytes={OUTPUT.stat().st_size}")
+    print(f"model_source_bytes={OUTPUT.stat().st_size}")
+    print(f"evaluation_samples={len(evaluation)}")
+    print(f"evaluation_accuracy={correct / max(1, len(evaluation)):.3f} ({correct}/{len(evaluation)})")
     print(f"output={OUTPUT.relative_to(ROOT)}")
 
 if __name__ == "__main__":
