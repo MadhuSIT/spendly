@@ -28,9 +28,17 @@ class SmsParserEngine(
     )
 ) {
     fun parse(message: SmsMessage): SmsParseResult {
-        if (detector.classify(message) != SmsClassification.FINANCIAL) {
-            return SmsParseResult(SmsClassification.NON_FINANCIAL)
+        when (detector.classify(message)) {
+            SmsClassification.NON_FINANCIAL ->
+                return SmsParseResult(SmsClassification.NON_FINANCIAL)
+            SmsClassification.AMBIGUOUS ->
+                return SmsParseResult(
+                    SmsClassification.AMBIGUOUS,
+                    failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION
+                )
+            SmsClassification.FINANCIAL -> Unit
         }
+
         val parser = parsers.firstOrNull { it.canParse(message) }
             ?: return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.UNSUPPORTED_PROVIDER)
         val normalized = parser.parse(message)
