@@ -8,12 +8,13 @@ package com.madhusit.spendly.domain.sms
 class SmsDetector(
     private val classifier: OnDeviceSmsClassifier = OnDeviceSmsClassifier()
 ) {
-    fun classify(message: SmsMessage): SmsClassification {
-        val prediction = classifier.predict(message)
-        return when (prediction.label) {
-            "TRANSACTION" -> SmsClassification.FINANCIAL
-            "AMBIGUOUS" -> SmsClassification.AMBIGUOUS
-            else -> SmsClassification.NON_FINANCIAL
-        }
+    fun predict(message: SmsMessage): SmsMlPrediction = classifier.predict(message)
+
+    fun classify(message: SmsMessage): SmsClassification = classify(predict(message))
+
+    fun classify(prediction: SmsMlPrediction): SmsClassification = when (prediction.label) {
+        "TRANSACTION" -> SmsClassification.FINANCIAL
+        "AMBIGUOUS" -> SmsClassification.AMBIGUOUS
+        else -> SmsClassification.NON_FINANCIAL
     }
 }
