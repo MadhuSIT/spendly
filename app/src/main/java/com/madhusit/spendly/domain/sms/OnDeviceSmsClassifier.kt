@@ -3,9 +3,9 @@ package com.madhusit.spendly.domain.sms
 import java.util.Locale
 import kotlin.math.exp
 
-internal enum class SmsMlPredictionSource { MODEL, SAFETY_RULE }
+enum class SmsMlPredictionSource { MODEL, SAFETY_RULE }
 
-internal data class SmsMlPrediction(
+data class SmsMlPrediction(
     val label: String,
     val confidence: Double,
     val modelVersion: String,
@@ -18,7 +18,7 @@ internal data class SmsMlPrediction(
  * High-risk, unambiguous negative patterns are safety overrides; low-confidence
  * model output fails closed to AMBIGUOUS rather than creating ledger impact.
  */
-internal class OnDeviceSmsClassifier {
+class OnDeviceSmsClassifier {
     fun predict(message: SmsMessage): SmsMlPrediction {
         val text = message.body.lowercase(Locale.ROOT)
         safetyOverride(text)?.let { label ->
