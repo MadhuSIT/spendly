@@ -12,6 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Verify reproducible SMS ML model
+        run: |
+          python3 tools/sms-ml/train_sms_model.py
+          git diff --exit-code -- app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt
+
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
