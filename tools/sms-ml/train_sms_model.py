@@ -68,7 +68,7 @@ def main():
             own_probability = (class_counts[label][token] + ALPHA) / (own_total + ALPHA * vocab_size)
             other_probability = (other[token] + ALPHA) / (other_total + ALPHA * vocab_size)
             token_weights[token] = math.log(own_probability / other_probability)
-        weights[label] = dict(sorted(token_weights.items(), key=lambda item: (-abs(item[1]), item[0]))[:TOP_FEATURES])
+        weights[label] = dict(sorted(token_weights.items(), key=lambda item: (-round(abs(item[1]), 10), item[0]))[:TOP_FEATURES])
         own_prior = sum(1 for sample_label, _ in samples if sample_label == label) / total_samples
         other_prior = 1.0 - own_prior
         biases[label] = math.log(own_prior / other_prior)
