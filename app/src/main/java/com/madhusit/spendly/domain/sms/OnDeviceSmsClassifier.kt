@@ -49,7 +49,7 @@ class OnDeviceSmsClassifier {
 
     private fun safetyOverride(text: String): String? {
         val confirmedAction = Regex(
-            "\\b(debited|credited|spent|withdrawn|refunded|refund|reversed|charged|paid\\s+to|purchase\\s+approved|purchase\\s+completed)\\b"
+            "\\b(debited|credited|received|spent|withdrawn|refunded|refund|reversed|charged|purchased|paid\\s+to|purchase\\s+approved|purchase\\s+completed)\\b"
         ).containsMatchIn(text)
         if (listOf("transaction failed", "payment failed", "transaction declined", "payment declined",
                 "transaction unsuccessful", "insufficient funds", "insufficient balance",
