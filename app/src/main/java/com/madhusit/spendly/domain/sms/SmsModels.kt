@@ -38,5 +38,8 @@ data class NormalizedSmsTransaction(
 data class SmsParseResult(
     val classification: SmsClassification,
     val normalized: NormalizedSmsTransaction? = null,
-    val failureReason: SmsFailureReason? = null
+    val failureReason: SmsFailureReason? = null,
+    val classifierLabel: String? = null,
+    val classifierConfidence: Double? = null,
+    val classifierVersion: String? = null
 )

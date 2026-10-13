@@ -1,0 +1,19 @@
+TRANSACTION	INR 740 was debited from your savings account at pharmacy
+TRANSACTION	Card purchase completed for Rs 1299 at online merchant
+TRANSACTION	UPI payment of INR 235 to local shop was successful
+SECURITY_ALERT	Possible fraud detected for transaction of Rs 2000. Contact bank if this was not you
+SECURITY_ALERT	Security alert: unusual payment attempt of INR 3500, verify with your bank
+OTP	Use this verification code to authorize your Rs 800 purchase
+OTP	Your OTP for online transaction approval is 445566
+REMINDER	Reminder: your card bill minimum due is INR 600 next week
+REMINDER	Statement due date is approaching; total amount due Rs 4200
+MARKETING	Exclusive cashback offer, click here to apply for a loan
+MARKETING	Pre-approved credit card offer available for eligible customers
+BALANCE	Your available account balance is Rs 18750
+BALANCE	Available credit limit INR 55000, current statement balance Rs 6000
+FAILED	Payment rejected. Rs 350 was not deducted from your account
+FAILED	Transaction declined due to insufficient funds
+OTHER	Your KYC update request has been received
+OTHER	Your debit card expires next month, please renew it
+AMBIGUOUS	Payment status updated for amount Rs 850
+AMBIGUOUS	Transaction of INR 240 processed successfully
