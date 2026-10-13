@@ -113,7 +113,7 @@ def main():
     for line_number, line in enumerate(EVALUATION.read_text(encoding="utf-8").splitlines(), 1):
         if not line.strip() or line.lstrip().startswith("#"):
             continue
-        label, separator, text = line.partition("\\t")
+        label, separator, text = line.partition("\t")
         if not separator or not label or not text:
             raise SystemExit(f"Invalid evaluation row at {EVALUATION}:{line_number}")
         evaluation.append((label, text))
