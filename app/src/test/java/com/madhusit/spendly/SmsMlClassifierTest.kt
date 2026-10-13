@@ -22,8 +22,12 @@ class SmsMlClassifierTest {
         assertEquals("TRANSACTION", prediction.label)
         assertTrue(prediction.confidence >= 0.72)
         assertNotNull(prediction.modelVersion)
-        assertEquals(SmsClassification.FINANCIAL, engine.parse(sms).classification)
-        assertEquals(50000L, engine.parse(sms).normalized?.amountMinor)
+        val result = engine.parse(sms)
+        assertEquals(SmsClassification.FINANCIAL, result.classification)
+        assertEquals(50000L, result.normalized?.amountMinor)
+        assertEquals(prediction.label, result.classifierLabel)
+        assertEquals(prediction.modelVersion, result.classifierVersion)
+        assertTrue((result.classifierConfidence ?: 0.0) >= 0.72)
     }
 
     @Test
