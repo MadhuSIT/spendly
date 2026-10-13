@@ -77,4 +77,18 @@ class SmsMlClassifierTest {
         assertEquals(first, second)
         assertTrue(first.modelVersion.startsWith("sms-nb-"))
     }
+
+    @Test
+    fun marketingOfferContainingPurchaseLanguageIsNotAnExpense() {
+        val sms = message("Get cashback on your next purchase click here to claim offer")
+        assertEquals("MARKETING", classifier.predict(sms).label)
+        assertEquals(SmsClassification.NON_FINANCIAL, engine.parse(sms).classification)
+    }
+
+    @Test
+    fun confirmedDebitWithStandardFraudBoilerplateRemainsARealTransaction() {
+        val sms = message("Rs 5000 debited from your account. If you did not make this transaction, call bank fraud team")
+        assertEquals(SmsClassification.FINANCIAL, engine.parse(sms).classification)
+        assertEquals(500000L, engine.parse(sms).normalized?.amountMinor)
+    }
 }
