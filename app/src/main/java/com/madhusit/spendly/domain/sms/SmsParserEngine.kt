@@ -28,24 +28,34 @@ class SmsParserEngine(
     )
 ) {
     fun parse(message: SmsMessage): SmsParseResult {
-        when (detector.classify(message)) {
+        val prediction = detector.predict(message)
+        val classification = detector.classify(prediction)
+        when (classification) {
             SmsClassification.NON_FINANCIAL ->
-                return SmsParseResult(SmsClassification.NON_FINANCIAL)
+                return SmsParseResult(
+                    SmsClassification.NON_FINANCIAL,
+                    classifierLabel = prediction.label,
+                    classifierConfidence = prediction.confidence,
+                    classifierVersion = prediction.modelVersion
+                )
             SmsClassification.AMBIGUOUS ->
                 return SmsParseResult(
                     SmsClassification.AMBIGUOUS,
-                    failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION
+                    failureReason = SmsFailureReason.AMBIGUOUS_TRANSACTION,
+                    classifierLabel = prediction.label,
+                    classifierConfidence = prediction.confidence,
+                    classifierVersion = prediction.modelVersion
                 )
             SmsClassification.FINANCIAL -> Unit
         }
 
         val parser = parsers.firstOrNull { it.canParse(message) }
-            ?: return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.UNSUPPORTED_PROVIDER)
+            ?: return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.UNSUPPORTED_PROVIDER, classifierLabel = prediction.label, classifierConfidence = prediction.confidence, classifierVersion = prediction.modelVersion)
         val normalized = parser.parse(message)
-            ?: return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.UNPARSEABLE)
+            ?: return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.UNPARSEABLE, classifierLabel = prediction.label, classifierConfidence = prediction.confidence, classifierVersion = prediction.modelVersion)
         if (normalized.amountMinor <= 0 || normalized.currency.length != 3 || normalized.confidence !in 0.0..1.0) {
-            return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.INVALID_NORMALIZED_RESULT)
+            return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.INVALID_NORMALIZED_RESULT, classifierLabel = prediction.label, classifierConfidence = prediction.confidence, classifierVersion = prediction.modelVersion)
         }
-        return SmsParseResult(SmsClassification.FINANCIAL, normalized = normalized)
+        return SmsParseResult(SmsClassification.FINANCIAL, normalized = normalized, classifierLabel = prediction.label, classifierConfidence = prediction.confidence, classifierVersion = prediction.modelVersion)
     }
 }
