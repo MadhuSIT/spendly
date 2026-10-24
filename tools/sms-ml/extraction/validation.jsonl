@@ -10,3 +10,4 @@
 {"text":"Account service request has been registered","intent":"OTHER","slots":{}}
 {"text":"Rs 200 sent to Rapido via UPI, reference number 556677889900","intent":"TRANSACTION","slots":{"AMOUNT":"200","DIRECTION":"sent","MERCHANT":"Rapido","REFERENCE":"556677889900"}}
 {"text":"Rs 1,050.00 debited from A/c XX3535 at Decathlon on 10-Sep-2026","intent":"TRANSACTION","slots":{"AMOUNT":"1,050.00","DIRECTION":"debited","ACCOUNT_LAST4":"3535","MERCHANT":"Decathlon","DATE":"10-Sep-2026"}}
+{"text":"A refund of Rs 900 may be processed later; transaction is not confirmed","intent":"AMBIGUOUS","slots":{"AMOUNT":"900"}}
