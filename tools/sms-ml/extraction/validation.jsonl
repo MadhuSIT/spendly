@@ -1,0 +1,12 @@
+{"text":"INR 680.00 debited from A/c XX1818 at Reliance Fresh on 11-Sep-2026. Ref 654321098765","intent":"TRANSACTION","slots":{"AMOUNT":"680.00","DIRECTION":"debited","ACCOUNT_LAST4":"1818","MERCHANT":"Reliance Fresh","DATE":"11-Sep-2026","REFERENCE":"654321098765"}}
+{"text":"Rs 7,500.00 received in account XX2424. UPI Ref 234567890123","intent":"TRANSACTION","slots":{"AMOUNT":"7,500.00","DIRECTION":"received","ACCOUNT_LAST4":"2424","REFERENCE":"234567890123"}}
+{"text":"Card XX6161 charged Rs 349.00 at YouTube Premium","intent":"TRANSACTION","slots":{"AMOUNT":"349.00","DIRECTION":"charged","ACCOUNT_LAST4":"6161","MERCHANT":"YouTube Premium"}}
+{"text":"Balance available: Rs 4,200 in A/c XX6565","intent":"BALANCE","slots":{"AMOUNT":"4,200","ACCOUNT_LAST4":"6565"}}
+{"text":"Rs 900.00 transaction declined; no money deducted","intent":"FAILED","slots":{"AMOUNT":"900.00"}}
+{"text":"Your one time password is 654321","intent":"OTP","slots":{}}
+{"text":"Get cashback up to Rs 2,000. Offer expires soon","intent":"MARKETING","slots":{"AMOUNT":"2,000"}}
+{"text":"Statement generated. Total due Rs 12,500 by 20-Oct-2026","intent":"REMINDER","slots":{"AMOUNT":"12,500","DATE":"20-Oct-2026"}}
+{"text":"Fraud alert for transaction of Rs 999. If you did not make this, contact us","intent":"SECURITY_ALERT","slots":{"AMOUNT":"999"}}
+{"text":"Account service request has been registered","intent":"OTHER","slots":{}}
+{"text":"Rs 200 sent to Rapido via UPI, reference number 556677889900","intent":"TRANSACTION","slots":{"AMOUNT":"200","DIRECTION":"sent","MERCHANT":"Rapido","REFERENCE":"556677889900"}}
+{"text":"Rs 1,050.00 debited from A/c XX3535 at Decathlon on 10-Sep-2026","intent":"TRANSACTION","slots":{"AMOUNT":"1,050.00","DIRECTION":"debited","ACCOUNT_LAST4":"3535","MERCHANT":"Decathlon","DATE":"10-Sep-2026"}}
