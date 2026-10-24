@@ -27,7 +27,7 @@ class LedgerViewModelTest {
             title = "Test Merchant",
             sourceEntityId = source.id,
             destinationEntityId = null
-        ) { result = it }
+        ) { message, _ -> result = message }
 
         testScheduler.advanceUntilIdle()
 
@@ -63,6 +63,7 @@ class LedgerViewModelTest {
             parserVersion = null,
             confidence = null,
             reviewRequired = false,
+            category = null,
             createdAtEpochMillis = 1_000L,
             updatedAtEpochMillis = 1_000L
         )
@@ -87,7 +88,7 @@ class LedgerViewModelTest {
             title = "Invalid",
             sourceEntityId = repository.entities.value.single().id,
             destinationEntityId = null
-        ) { result = it }
+        ) { message, _ -> result = message }
 
         testScheduler.advanceUntilIdle()
 
@@ -158,7 +159,7 @@ class LedgerViewModelTest {
             title = "Self transfer",
             sourceEntityId = source.id,
             destinationEntityId = source.id
-        ) { result = it }
+        ) { message, _ -> result = message }
 
         testScheduler.advanceUntilIdle()
 
@@ -197,6 +198,19 @@ class LedgerViewModelTest {
 
         override suspend fun updateTransaction(transaction: LedgerTransaction) {
             transactions.value = transactions.value.map { if (it.id == transaction.id) transaction else it }
+        }
+
+        override suspend fun deleteTransaction(id: String) {
+            transactions.value = transactions.value.filterNot { it.id == id }
+        }
+
+        override suspend fun deleteTransactions(ids: List<String>) {
+            transactions.value = transactions.value.filterNot { it.id in ids }
+        }
+
+        override suspend fun clearAllData() {
+            transactions.value = emptyList()
+            entities.value = emptyList()
         }
 
         override suspend fun createRelationship(relationship: TransactionRelationship) = Unit
