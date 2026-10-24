@@ -4,11 +4,11 @@
 
 - `training_corpus.tsv`: 54 general synthetic examples across the existing message classes.
 - `linked_account_scenarios.tsv`: 38 synthetic examples with consistent bank-account/card identifiers, linked purchases and refunds, a matched bank-to-card payment, statements, balances, an IPO block/release, offers, and wallet activity.
-- `field_regressions.tsv`: 12 sanitized, real-world-pattern examples based on messages reviewed during phone/inbox discussion. Account suffixes, recipient names, UTRs, references, and other identifiers are removed or replaced with `[REDACTED]`.
+- `field_regressions.tsv`: 18 sanitized, real-world-pattern examples based on messages reviewed during phone/inbox discussion. Account suffixes, recipient names, UTRs, references, and other identifiers are removed or replaced with `[REDACTED]`.
 - `evaluation_corpus.tsv`: the original held-out synthetic examples.
 - `field_evaluation.tsv`: 9 held-out paraphrases for dividend credits, NEFT/RTGS, card payments, failed bill payments, wallet activity, railway booking, and charges. These are not used to fit weights.
 
-The trainer combines the three training files (104 examples total); the two held-out evaluation files contain 28 examples total.
+The trainer combines the three training files (110 examples total); the two held-out evaluation files contain 28 examples total.
 - `train_sms_model.py`: deterministic Python-standard-library trainer; no network or real inbox access.
 - `app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt`: generated compact one-vs-rest log-odds weights used by Android.
 - `OnDeviceSmsClassifier`: local inference plus conservative safety overrides and confidence gates.
