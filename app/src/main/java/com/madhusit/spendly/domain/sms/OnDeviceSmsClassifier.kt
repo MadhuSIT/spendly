@@ -74,9 +74,23 @@ class OnDeviceSmsClassifier {
         return null
     }
 
-    private fun hasConfirmedAction(text: String): Boolean = Regex(
-        "\\b(debited|credited|received|spent|withdrawn|refunded|refund|reversed|charged|purchased|paid\\s+to|purchase\\s+approved|purchase\\s+completed)\\b"
-    ).containsMatchIn(text)
+    private fun hasConfirmedAction(text: String): Boolean {
+        // Administrative acknowledgements (for example, "KYC request received") are not money movement.
+        // A currency amount and financial context are required before a generic action verb can override
+        // a low-confidence model result. Future/conditional refund language is not a completed event.
+        if (listOf("will be refunded", "may be refunded", "will be reversed", "may be reversed",
+                "will be credited", "may be credited", "did not go through", "not yet confirmed",
+                "requested to unblock").any { it in text }) return false
+        val hasCurrencyAmount = Regex("""(?:\\brs\\.?\\s*|\\binr\\s*|₹\\s*)\\d""").containsMatchIn(text)
+        if (!hasCurrencyAmount) return false
+        val hasFinancialContext = listOf("account", "card", "wallet", "upi", "neft", "rtgs",
+            "imps", "payment", "transaction", "purchase", "transfer", "dividend", "merchant", "bill")
+            .any { it in text }
+        if (!hasFinancialContext) return false
+        return Regex(
+            """\\b(debited|credited|received|spent|withdrawn|refunded|reversed|charged|purchased|sent|transferred|paid\\s+to|purchase\\s+approved|purchase\\s+completed)\\b"""
+        ).containsMatchIn(text)
+    }
 
     private fun ambiguous(confidence: Double) =
         SmsMlPrediction("AMBIGUOUS", confidence, SmsMlModelData.VERSION, SmsMlPredictionSource.MODEL)
