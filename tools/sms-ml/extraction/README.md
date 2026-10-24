@@ -15,7 +15,7 @@ This is a benchmark/prototype stage. It does **not** replace SmsParsers.kt or fe
 ## Data
 JSONL files contain text, intent, and slots. Each slot value must be an exact substring of its text. All messages are synthetic/sanitized; never commit raw inbox SMS, OTPs, phone numbers, or account/reference identifiers. The current corpus is only a bootstrap set and is not enough to establish production quality. Add reviewed and diverse examples before relying on it.
 
-Splits are fixed: train.jsonl, validation.jsonl, and test.jsonl. The training script additionally imports unique examples from Spendly's existing reviewed synthetic intent corpora as weakly labelled training rows; it uses conservative regexes only to create starter labels for amount, account suffix, reference, date, and direction cues. These weak labels do not label merchant spans and may be noisy. Validation/test rows are never added to training, and exact normalized text duplicates are excluded. Do not move test examples into training or tune thresholds on the test split.
+Splits are fixed: train.jsonl, validation.jsonl, and test.jsonl. The training script imports unique examples from Spendly's existing synthetic intent corpora as weakly labelled training rows, using conservative regexes for amount, account suffix, reference, date, and direction cues. These labels may be noisy and do not provide merchant supervision. It also generates deterministic, fully annotated transaction examples from varied templates and a merchant vocabulary, adding them to training only. Validation/test rows are never added to training, and exact normalized text duplicates are excluded. The evaluation applies intent-aware field constraints (for example, no merchant/reference extraction for OTP or marketing messages) to reduce implausible false-positive fields. Do not move test examples into training or tune thresholds on the test split.
 
 ## Local training
 Python 3.11+ with network access to the Hugging Face model hub is required for the first checkpoint download:
@@ -26,7 +26,7 @@ Python 3.11+ with network access to the Hugging Face model hub is required for t
 The script trains a shared encoder, reports exact-span field precision/recall/F1 and intent accuracy, exports ONNX, dynamically quantizes weights, and fails if model plus tokenizer files exceed 50 MiB. Model-hub downloads happen only during developer/CI training; Android inference is intended to be offline.
 
 ## Safety gates before Android integration
-1. Review held-out test results, including each field separately and false-positive slot rates.
+1. Review held-out test results, including each field separately and false-positive slot rates. The expanded synthetic validation/test splits are still not evidence of production accuracy.
 2. Add a larger independently reviewed corpus representing multiple banks, card issuers, UPI apps, wallets, English variants, and malformed/ambiguous messages.
 3. Compare against the current Kotlin parser on exactly the same held-out SMS set.
 4. Integrate ONNX Runtime Android only after the model artifact, latency, memory, and APK-size costs are measured.
