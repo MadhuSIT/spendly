@@ -1,17 +1,18 @@
 name: SMS extraction model benchmark
 
 on:
-  push:
-    branches: ["main", "feat/**"]
-    paths:
-      - "tools/sms-ml/extraction/**"
-      - ".github/workflows/sms-extraction-model.yml"
   pull_request:
     branches: ["main", "feat/**"]
     paths:
       - "tools/sms-ml/extraction/**"
       - ".github/workflows/sms-extraction-model.yml"
   workflow_dispatch:
+
+# Only the newest run for a PR/branch should consume the training budget.
+# Older runs are cancelled when another update arrives.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
