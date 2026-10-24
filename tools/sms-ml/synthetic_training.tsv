@@ -939,3 +939,183 @@ OTHER	Your account profile details were changed and saved.
 OTHER	Address correction request completed in customer services.
 OTHER	Your profile data update is finished; check the official app.
 OTHER	Bank completed your request to update contact details.
+TRANSACTION	Google Pay: INR 129 debited for completed UPI payment to Green Basket.
+TRANSACTION	ICICI Bank: Your account was debited INR 1499 at Online Market; transaction successful.
+TRANSACTION	MobiKwik UPI via Kotak Bank: UPI transfer of Rs 875 to Travel Desk completed successfully.
+TRANSACTION	Paytm: Card purchase of INR 420 at City Fuel approved.
+TRANSACTION	Federal Bank: INR 88 credited to your account from Pharmacy Plus.
+TRANSACTION	PhonePe via HDFC Bank: NEFT credit of INR 119 from Electricity Board posted.
+TRANSACTION	Amazon Pay UPI: INR 7200 paid to Metro Store using your linked account.
+TRANSACTION	Kotak Bank: Debit card used for INR 245 at Rail Tickets.
+TRANSACTION	BHIM UPI via Bank of Baroda: Refund of INR 2300 from Water Services credited to your card.
+TRANSACTION	MobiKwik UPI: IMPS transfer of INR 512 to Fresh Mart is complete.
+TRANSACTION	HDFC Bank: UPI payment successful: INR 999 paid to Local Grocer.
+TRANSACTION	CRED UPI via ICICI Bank: Your account received INR 640 from Cinema Tickets; credit completed.
+TRANSACTION	PhonePe: Purchase approved for INR 1540 on your credit card at Book House.
+TRANSACTION	Bank of Baroda: ATM cash withdrawal of INR 199 completed.
+TRANSACTION	Google Pay via Federal Bank: Bill payment of INR 780 to Medical Store succeeded.
+TRANSACTION	BHIM UPI: Salary credit of INR 65 received from Utility Services.
+TRANSACTION	ICICI Bank: Wallet payment of INR 3199 at Hardware Shop completed.
+TRANSACTION	Paytm via Kotak Bank: INR 1750 transferred to Food Court; status successful.
+TRANSACTION	CRED UPI: Contactless card payment of INR 2800 approved at Cafe South.
+TRANSACTION	Federal Bank: Dividend of INR 360 credited to your bank account.
+AMBIGUOUS	PhonePe: Payment of INR 780 to Fresh Mart is processing; final status unavailable.
+AMBIGUOUS	Axis Bank: UPI request for Rs 65 at Local Grocer initiated; await confirmation.
+AMBIGUOUS	Google Pay via Canara Bank: Transfer for INR 3199 is pending verification.
+AMBIGUOUS	BHIM UPI: Checking your INR 1750 payment to Book House; outcome not confirmed.
+AMBIGUOUS	IndusInd Bank: Transaction reference for INR 2800 has no final status yet.
+AMBIGUOUS	Paytm via SBI: Payment attempt received for Medical Store, INR 360; wait for status.
+AMBIGUOUS	CRED UPI: Request to pay Utility Services INR 129 is under review.
+AMBIGUOUS	Canara Bank: Payment gateway accepted INR 1499 request but has not confirmed it.
+AMBIGUOUS	Amazon Pay UPI via IDFC FIRST Bank: UPI transfer INR 875 to Food Court awaits bank response.
+AMBIGUOUS	Google Pay: Status of your INR 420 transaction is temporarily unavailable.
+AMBIGUOUS	SBI: Mandate request for INR 88 submitted; result unstated.
+AMBIGUOUS	MobiKwik UPI via Axis Bank: INR 119 transaction appears in a pending queue.
+AMBIGUOUS	Paytm: Your transfer of INR 7200 may still be processing.
+AMBIGUOUS	IDFC FIRST Bank: Bank is checking payment request of INR 245.
+AMBIGUOUS	PhonePe via IndusInd Bank: Transaction details for INR 2300 are incomplete.
+AMBIGUOUS	Amazon Pay UPI: UPI payment to Pharmacy Plus for INR 512 has no confirmation.
+AMBIGUOUS	Axis Bank: INR 999 request is queued; no debit or credit confirmed.
+AMBIGUOUS	BHIM UPI via Canara Bank: Notice does not specify final status for INR 640 at Metro Store.
+AMBIGUOUS	MobiKwik UPI: Please wait while bank confirms INR 1540 to Rail Tickets.
+AMBIGUOUS	IndusInd Bank: INR 199 payment is being verified and may not be final.
+BALANCE	ICICI Bank alert: Available balance in your account is INR 2300.
+BALANCE	CRED UPI: Your current account balance is Rs 512.
+BALANCE	Bank of Baroda alert: Balance enquiry: INR 999 is available in your account.
+BALANCE	Amazon Pay UPI: Available credit limit on your card is INR 640.
+BALANCE	HDFC Bank alert: Your wallet balance is INR 1540; no transaction reported.
+BALANCE	BHIM UPI: Card statement total due is INR 199.
+BALANCE	Kotak Bank alert: Remaining credit limit: INR 780.
+BALANCE	Paytm: Account has closing balance of INR 65.
+BALANCE	Federal Bank alert: Your savings balance as of today is INR 3199.
+BALANCE	PhonePe: INR 1750 is available after latest balance update.
+BALANCE	ICICI Bank alert: Unutilized card limit is Rs 2800.
+BALANCE	Google Pay: Balance alert only: funds available INR 360.
+BALANCE	Bank of Baroda alert: Your account ledger balance is INR 129.
+BALANCE	MobiKwik UPI: Wallet available funds: Rs 1499.
+BALANCE	HDFC Bank alert: Outstanding card balance is INR 875.
+BALANCE	CRED UPI: Current balance for your account is Rs 420.
+BALANCE	Kotak Bank alert: Remaining credit INR 88; this is a limit summary.
+BALANCE	Amazon Pay UPI: Account balance alert: INR 119 available now.
+BALANCE	Federal Bank alert: Your statement balance is INR 7200.
+BALANCE	BHIM UPI: Available funds total INR 245; no debit was made.
+FAILED	BHIM UPI: UPI payment of INR 875 to Rail Tickets failed; no money transferred.
+FAILED	Canara Bank: Your card transaction of INR 420 at Water Services was declined.
+FAILED	Paytm via IDFC FIRST Bank: INR 88 payment to Fresh Mart could not be completed.
+FAILED	CRED UPI: Transfer failed for INR 119; retry later.
+FAILED	SBI: Payment unsuccessful: INR 7200 at Cinema Tickets.
+FAILED	Amazon Pay UPI via Axis Bank: Bank declined the INR 245 transaction.
+FAILED	Google Pay: INR 2300 debit attempt reversed after failure.
+FAILED	IDFC FIRST Bank: Payment of INR 512 to Medical Store was not successful.
+FAILED	MobiKwik UPI via IndusInd Bank: Card transaction at Utility Services, INR 999, declined.
+FAILED	Paytm: UPI transaction failed; INR 640 was not debited.
+FAILED	Axis Bank: Bill payment of INR 1540 failed due to bank response.
+FAILED	PhonePe via Canara Bank: INR 199 transfer to Cafe South failed and was reversed.
+FAILED	Amazon Pay UPI: Payment could not be processed for INR 780.
+FAILED	IndusInd Bank: Card payment at Green Basket for INR 65 was rejected.
+FAILED	BHIM UPI via SBI: INR 3199 transaction unsuccessful; funds were not moved.
+FAILED	MobiKwik UPI: Failed payment of INR 1750 to Travel Desk.
+FAILED	Canara Bank: Attempted INR 2800 charge was declined.
+FAILED	CRED UPI via IDFC FIRST Bank: UPI payment unsuccessful for Pharmacy Plus; amount INR 360.
+FAILED	PhonePe: INR 129 payment was cancelled before completion.
+FAILED	SBI: Transaction failed for INR 1499; no successful payment recorded.
+MARKETING	Kotak Bank alert: Special offer: get up to 3199% off at Hardware Shop. Terms apply.
+MARKETING	Google Pay: Limited-time reward points offer for your next purchase.
+MARKETING	Federal Bank alert: Upgrade your card to unlock exclusive benefits.
+MARKETING	MobiKwik UPI: Shop at Mobile Store and enjoy a promotional discount.
+MARKETING	ICICI Bank alert: You are pre-selected for a new credit card offer.
+MARKETING	CRED UPI: Earn bonus rewards when using your card this month.
+MARKETING	Bank of Baroda alert: Exclusive cashback offer available in the app. Conditions apply.
+MARKETING	Amazon Pay UPI: Invite friends and earn promotional rewards.
+MARKETING	HDFC Bank alert: A special shopping deal is waiting for you at Pharmacy Plus.
+MARKETING	BHIM UPI: Apply now for a personal loan offer.
+MARKETING	Kotak Bank alert: Enjoy partner discounts with your bank card.
+MARKETING	Paytm: Your festive offer is available for a limited time.
+MARKETING	Federal Bank alert: Get reward points on eligible purchases at Water Services.
+MARKETING	PhonePe: Pre-approved offer available; check official app.
+MARKETING	ICICI Bank alert: Save more with this week's merchant promotion.
+MARKETING	Google Pay: Activate your rewards offer before expiry.
+MARKETING	Bank of Baroda alert: Exclusive dining offer for cardholders at Book House.
+MARKETING	MobiKwik UPI: New customer offer: unlock benefits with the app.
+MARKETING	HDFC Bank alert: Your shopping voucher is ready to redeem.
+MARKETING	CRED UPI: Special cashback campaign announced; terms apply.
+OTHER	Canara Bank alert: Your KYC update request has been received; no payment information included.
+OTHER	PhonePe: Your registered email address was updated successfully.
+OTHER	IndusInd Bank alert: Account service request 1540 has been recorded.
+OTHER	Google Pay: Your new cheque book request is being processed.
+OTHER	Axis Bank alert: Nominee details were updated for your account.
+OTHER	MobiKwik UPI: Your statement is ready to download from the official app.
+OTHER	IDFC FIRST Bank alert: Customer service case for Cinema Tickets has been opened.
+OTHER	CRED UPI: Your address change request has been registered.
+OTHER	SBI alert: Bank holiday notice: branches may have revised timings.
+OTHER	Amazon Pay UPI: Your account profile was updated successfully.
+OTHER	Canara Bank alert: Your debit card delivery preference has been saved.
+OTHER	BHIM UPI: The service request for Hardware Shop has been completed.
+OTHER	IndusInd Bank alert: Your account is enabled for online statements.
+OTHER	Paytm: Terms of service have been updated; review official app.
+OTHER	Axis Bank alert: Your cheque book has been dispatched.
+OTHER	PhonePe: A new account-management feature is now available.
+OTHER	IDFC FIRST Bank alert: Your complaint reference has been created.
+OTHER	Google Pay: Your contact details were verified successfully.
+OTHER	SBI alert: Your bank scheduled routine mobile-app maintenance.
+OTHER	MobiKwik UPI: Your branch service request has been acknowledged.
+OTP	Bank of Baroda alert: Your one-time password is 420186; do not share it.
+OTP	Paytm: OTP 428105 requested for login; valid briefly.
+OTP	HDFC Bank alert: Use verification code 436024 to confirm sign-in.
+OTP	PhonePe: Your authentication code is 443943. Never disclose it.
+OTP	Kotak Bank alert: One-time code 451862 for transaction authentication.
+OTP	Google Pay: Enter 459781 to verify your registered mobile.
+OTP	Federal Bank alert: Login OTP generated; code 467700.
+OTP	MobiKwik UPI: Verification PIN 475619 expires shortly. Do not share.
+OTP	ICICI Bank alert: Your secure access code is 483538.
+OTP	CRED UPI: Use code 491457 to authorize banking-app access.
+OTP	Bank of Baroda alert: Do not share OTP 499376 with anyone.
+OTP	Amazon Pay UPI: Your one-time verification code 507295 was requested.
+OTP	HDFC Bank alert: Authentication OTP 515214 for account access.
+OTP	BHIM UPI: Code 523133 confirms identity; keep it private.
+OTP	Kotak Bank alert: OTP 531052 is valid for this login only.
+OTP	Paytm: Use 538971 as the verification code.
+OTP	Federal Bank alert: Security code 546890 must not be shared.
+OTP	PhonePe: One-time passcode 554809 for identity verification.
+OTP	ICICI Bank alert: Your requested OTP is 562728; never disclose it.
+OTP	Google Pay: Enter code 570647 to continue securely.
+REMINDER	IDFC FIRST Bank alert: Reminder: your card bill of INR 2800 is due soon.
+REMINDER	BHIM UPI: Your loan instalment of INR 360 is due on scheduled date.
+REMINDER	SBI alert: Pay the utility bill for Electricity Board before due date.
+REMINDER	Paytm: Your credit card payment is due; check official app.
+REMINDER	Canara Bank alert: Standing instruction for INR 875 is scheduled tomorrow.
+REMINDER	PhonePe: Reminder to review upcoming payment of INR 420.
+REMINDER	IndusInd Bank alert: Your recurring deposit instalment is due this week.
+REMINDER	Google Pay: Auto-debit mandate for Local Grocer is scheduled next cycle.
+REMINDER	Axis Bank alert: Please maintain sufficient balance for upcoming debit.
+REMINDER	MobiKwik UPI: Your card payment due date is approaching.
+REMINDER	IDFC FIRST Bank alert: Payment reminder for INR 2300 is available in account.
+REMINDER	CRED UPI: Your monthly loan repayment date is approaching.
+REMINDER	SBI alert: Upcoming bill of INR 999 for Utility Services; pay by due date.
+REMINDER	Amazon Pay UPI: Your scheduled transfer is due soon; review details.
+REMINDER	Canara Bank alert: Statement payment must be made before deadline.
+REMINDER	BHIM UPI: Your subscription renewal for Cafe South is coming up.
+REMINDER	IndusInd Bank alert: Keep funds available for scheduled mandate.
+REMINDER	Paytm: Your fixed deposit maturity date is approaching.
+REMINDER	Axis Bank alert: Please review upcoming EMI of INR 3199.
+REMINDER	PhonePe: Payment due notice: action may be needed before deadline.
+SECURITY_ALERT	Federal Bank alert: Security alert: unusual login detected; secure account in official app.
+SECURITY_ALERT	Amazon Pay UPI: Potential fraud detected; verify using official channels.
+SECURITY_ALERT	ICICI Bank alert: Your card was blocked due to suspicious activity.
+SECURITY_ALERT	BHIM UPI: A new device attempted to access your account.
+SECURITY_ALERT	Bank of Baroda alert: Warning: suspicious activity detected. Do not share OTP.
+SECURITY_ALERT	Paytm: Your UPI access was restricted after security check.
+SECURITY_ALERT	HDFC Bank alert: Unusual account access attempt detected.
+SECURITY_ALERT	PhonePe: Verify recent login activity in official app.
+SECURITY_ALERT	Kotak Bank alert: Possible unauthorized transaction activity detected.
+SECURITY_ALERT	Google Pay: Your account has been flagged for security review.
+SECURITY_ALERT	Federal Bank alert: A risky sign-in attempt was blocked.
+SECURITY_ALERT	MobiKwik UPI: Fraud prevention alert: confirm activity using official channels.
+SECURITY_ALERT	ICICI Bank alert: Your card has been locked for your protection.
+SECURITY_ALERT	CRED UPI: Suspicious device registration attempt detected.
+SECURITY_ALERT	Bank of Baroda alert: Security check found an unrecognized login attempt.
+SECURITY_ALERT	Amazon Pay UPI: Never share your PIN or one-time password.
+SECURITY_ALERT	HDFC Bank alert: Account access was paused due to security concern.
+SECURITY_ALERT	BHIM UPI: Unusual payment pattern triggered a security alert.
+SECURITY_ALERT	Kotak Bank alert: Potential account compromise detected; use verified bank app.
+SECURITY_ALERT	Paytm: Security notice: review profile for unauthorized access.
