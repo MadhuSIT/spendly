@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Train Spendly's tiny one-vs-rest multinomial text model using only Python stdlib.
+"""Train Spendly's compact offline SMS classifier using only Python stdlib.
 
-Usage:
-  python3 tools/sms-ml/train_sms_model.py
-The command deterministically regenerates SmsMlModelData.kt. No network or user SMS
-is read. The committed corpus contains synthetic examples only.
+Usage: python3 tools/sms-ml/train_sms_model.py
+The generated Kotlin model is deterministic. Only reviewed, sanitized examples
+from the checked-in TSV corpora are read; no inbox or network access is used.
 """
 from collections import Counter, defaultdict
 import math
@@ -15,12 +14,22 @@ ROOT = Path(__file__).resolve().parents[2]
 CORPORA = [
     ROOT / "tools/sms-ml/training_corpus.tsv",
     ROOT / "tools/sms-ml/linked_account_scenarios.tsv",
+    ROOT / "tools/sms-ml/field_regressions.tsv",
 ]
-EVALUATION = ROOT / "tools/sms-ml/evaluation_corpus.tsv"
+EVALUATIONS = [
+    ROOT / "tools/sms-ml/evaluation_corpus.tsv",
+    ROOT / "tools/sms-ml/field_evaluation.tsv",
+]
 OUTPUT = ROOT / "app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt"
-VERSION = "sms-nb-2026-10-24-v2"
+VERSION = "sms-nb-2026-10-24-v3"
 ALPHA = 0.5
-TOP_FEATURES = 14
+TOP_FEATURES = 40
+MIN_EVALUATION_ACCURACY = 0.80
+MAX_MODEL_SOURCE_BYTES = 25 * 1024
+LABELS = {
+    "TRANSACTION", "AMBIGUOUS", "BALANCE", "FAILED", "MARKETING",
+    "OTHER", "OTP", "REMINDER", "SECURITY_ALERT",
+}
 
 def tokenize(text):
     return re.findall(r"[a-z0-9]+", text.lower())
@@ -34,20 +43,23 @@ def features(text):
 def kotlin_string(value):
     return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
 
-def main():
+def read_corpus(path):
     samples = []
-    for corpus_path in CORPORA:
-        for line_number, line in enumerate(corpus_path.read_text(encoding="utf-8").splitlines(), 1):
-            if not line.strip() or line.lstrip().startswith("#"):
-                continue
-            label, separator, text = line.partition("\t")
-            if not separator or not label or not text:
-                raise SystemExit(f"Invalid corpus row at {corpus_path}:{line_number}")
-            samples.append((label, text))
+    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        label, separator, text = line.partition("\t")
+        if not separator or not label or not text.strip():
+            raise SystemExit(f"Invalid corpus row at {path}:{line_number}; expected LABEL<TAB>TEXT")
+        if label not in LABELS:
+            raise SystemExit(f"Unknown label {label!r} at {path}:{line_number}")
+        samples.append((label, text.strip()))
+    return samples
 
+def train(samples):
     labels = sorted({label for label, _ in samples})
-    if len(labels) < 2:
-        raise SystemExit("Training corpus must contain at least two classes")
+    if labels != sorted(LABELS):
+        raise SystemExit(f"Training labels mismatch; expected {sorted(LABELS)}, got {labels}")
     class_counts = {label: Counter() for label in labels}
     vocabulary = set()
     for label, text in samples:
@@ -72,11 +84,39 @@ def main():
             own_probability = (class_counts[label][token] + ALPHA) / (own_total + ALPHA * vocab_size)
             other_probability = (other[token] + ALPHA) / (other_total + ALPHA * vocab_size)
             token_weights[token] = math.log(own_probability / other_probability)
-        weights[label] = dict(sorted(token_weights.items(), key=lambda item: (-round(abs(item[1]), 10), item[0]))[:TOP_FEATURES])
+        weights[label] = dict(sorted(
+            token_weights.items(),
+            key=lambda item: (-round(abs(item[1]), 10), item[0])
+        )[:TOP_FEATURES])
         own_prior = sum(1 for sample_label, _ in samples if sample_label == label) / total_samples
-        other_prior = 1.0 - own_prior
-        biases[label] = math.log(own_prior / other_prior)
+        biases[label] = math.log(own_prior / (1.0 - own_prior))
+    return labels, weights, biases
 
+def predict(text, labels, weights, biases):
+    row_features = features(text)
+    logits = {
+        label: biases[label] + sum(weights[label].get(token, 0.0) for token in row_features)
+        for label in labels
+    }
+    maximum = max(logits.values())
+    exponentials = {label: math.exp(max(-60.0, score - maximum)) for label, score in logits.items()}
+    denominator = sum(exponentials.values()) or 1.0
+    probabilities = {label: value / denominator for label, value in exponentials.items()}
+    predicted = max(probabilities, key=probabilities.get)
+    confidence = probabilities[predicted]
+    if (predicted == "TRANSACTION" and confidence < 0.72) or predicted == "AMBIGUOUS" or confidence < 0.52:
+        return "AMBIGUOUS"
+    return predicted
+
+def main():
+    samples = [sample for path in CORPORA for sample in read_corpus(path)]
+    counts = Counter(label for label, _ in samples)
+    missing = sorted(LABELS - set(counts))
+    too_small = {label: count for label, count in counts.items() if count < 4}
+    if missing or too_small:
+        raise SystemExit(f"Insufficient training coverage: missing={missing}, classes_below_4={too_small}")
+
+    labels, weights, biases = train(samples)
     lines = [
         "package com.madhusit.spendly.domain.sms",
         "",
@@ -100,36 +140,31 @@ def main():
     lines += ["    )", "}", ""]
     generated = "\n".join(lines)
     OUTPUT.write_text(generated, encoding="utf-8")
-    def predict(text):
-        row_features = features(text)
-        logits = {label: biases[label] + sum(weights[label].get(token, 0.0) for token in row_features) for label in labels}
-        maximum = max(logits.values())
-        exp_scores = {label: math.exp(max(-60.0, value - maximum)) for label, value in logits.items()}
-        denominator = sum(exp_scores.values()) or 1.0
-        probabilities = {label: value / denominator for label, value in exp_scores.items()}
-        predicted = max(probabilities, key=probabilities.get)
-        confidence = probabilities[predicted]
-        if (predicted == "TRANSACTION" and confidence < 0.72) or predicted == "AMBIGUOUS" or confidence < 0.52:
-            predicted = "AMBIGUOUS"
-        return predicted
 
-    evaluation = []
-    for line_number, line in enumerate(EVALUATION.read_text(encoding="utf-8").splitlines(), 1):
-        if not line.strip() or line.lstrip().startswith("#"):
-            continue
-        label, separator, text = line.partition("\t")
-        if not separator or not label or not text:
-            raise SystemExit(f"Invalid evaluation row at {EVALUATION}:{line_number}")
-        evaluation.append((label, text))
-    correct = sum(predict(text) == label for label, text in evaluation)
+    evaluation = [sample for path in EVALUATIONS for sample in read_corpus(path)]
+    evaluation_labels = {label for label, _ in evaluation}
+    if evaluation_labels != LABELS:
+        raise SystemExit(f"Evaluation must cover all classes; missing={sorted(LABELS - evaluation_labels)}")
+    correct = sum(predict(text, labels, weights, biases) == label for label, text in evaluation)
+    accuracy = correct / max(1, len(evaluation))
+    class_results = {}
+    for label in sorted(LABELS):
+        rows = [(expected, predict(text, labels, weights, biases)) for expected, text in evaluation if expected == label]
+        class_results[label] = (sum(expected == actual for expected, actual in rows), len(rows))
+    model_bytes = OUTPUT.stat().st_size
     print(f"model_version={VERSION}")
     print(f"training_samples={len(samples)}")
+    print("training_class_counts=" + ",".join(f"{label}:{counts[label]}" for label in sorted(LABELS)))
     print(f"classes={len(labels)}")
     print(f"selected_features={sum(len(value) for value in weights.values())}")
-    print(f"model_source_bytes={OUTPUT.stat().st_size}")
+    print(f"model_source_bytes={model_bytes}")
     print(f"evaluation_samples={len(evaluation)}")
-    print(f"evaluation_accuracy={correct / max(1, len(evaluation)):.3f} ({correct}/{len(evaluation)})")
-    print(f"output={OUTPUT.relative_to(ROOT)}")
+    print(f"evaluation_accuracy={accuracy:.3f} ({correct}/{len(evaluation)})")
+    print("evaluation_per_class=" + ",".join(f"{label}:{class_results[label][0]}/{class_results[label][1]}" for label in sorted(LABELS)))
+    if model_bytes > MAX_MODEL_SOURCE_BYTES:
+        raise SystemExit(f"Generated model is {model_bytes} bytes; limit is {MAX_MODEL_SOURCE_BYTES}")
+    if accuracy < MIN_EVALUATION_ACCURACY:
+        raise SystemExit(f"Evaluation accuracy {accuracy:.3f} is below required {MIN_EVALUATION_ACCURACY:.2f}")
 
 if __name__ == "__main__":
     main()
