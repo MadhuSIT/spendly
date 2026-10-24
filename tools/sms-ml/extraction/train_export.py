@@ -248,7 +248,6 @@ def main():
     args.output_dir.mkdir(parents=True, exist_ok=True)
     model.eval().cpu()
     tokenizer.save_pretrained(args.output_dir)
-    torch.save(model.state_dict(), args.output_dir / "pytorch_model_state.pt")
     with (args.output_dir / "labels.json").open("w", encoding="utf-8") as f:
         json.dump({"intents": INTENTS, "tags": TAGS, "fields": FIELDS, "base_model": BASE_MODEL}, f, indent=2)
     input_ids = torch.zeros((1, MAX_LENGTH), dtype=torch.long)
