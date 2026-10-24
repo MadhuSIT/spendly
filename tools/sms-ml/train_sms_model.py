@@ -24,9 +24,9 @@ EVALUATIONS = [
 ]
 TEST_DATASET = ROOT / "tools/sms-ml/synthetic_test.tsv"
 OUTPUT = ROOT / "app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt"
-VERSION = "sms-nb-2026-10-24-v4"
+VERSION = "sms-nb-2026-10-24-v5"
 ALPHA = 0.5
-TOP_FEATURES = 40
+TOP_FEATURES = 80
 MIN_EVALUATION_ACCURACY = 0.80
 MIN_TRANSACTION_RECALL = 0.70
 MAX_MODEL_SOURCE_BYTES = 25 * 1024
@@ -39,10 +39,8 @@ def tokenize(text):
     return re.findall(r"[a-z0-9]+", text.lower())
 
 def features(text):
-    tokens = tokenize(text)
-    result = set(tokens)
-    result.update(f"{left}_{right}" for left, right in zip(tokens, tokens[1:]))
-    return result
+    # Unigrams generalize better across provider-specific word order and keep the model compact.
+    return set(tokenize(text))
 
 def kotlin_string(value):
     return '"' + value.replace("\\", "\\\\").replace('"', '\\"') + '"'
