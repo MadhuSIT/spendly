@@ -4,7 +4,7 @@
 {"text":"The Rs 650 charge at Book Store has been reversed to card ending 2204; ARN REV20261024001","intent":"TRANSACTION","slots":{"AMOUNT":"650","DIRECTION":"reversed","MERCHANT":"Book Store","ACCOUNT_LAST4":"2204","REFERENCE":"REV20261024001"}}
 {"text":"Cash withdrawal of INR 3,200 from A/c XX7316 at ATM on 24-Oct-2026","intent":"TRANSACTION","slots":{"AMOUNT":"3,200","DIRECTION":"withdrawal","ACCOUNT_LAST4":"7316","DATE":"24-Oct-2026"}}
 {"text":"Your account ending 8821 has an available balance of Rs 18,405.70 as of 24-Oct-2026","intent":"BALANCE","slots":{"ACCOUNT_LAST4":"8821","AMOUNT":"18,405.70","DATE":"24-Oct-2026"}}
-{"text":"Payment of Rs 2,299 to Orbit Broadband failed. No amount was deducted from your card.","intent":"FAILED","slots":{"AMOUNT":"2,299","MERCHANT":"Orbit Broadband"}}
+{"text":"Payment of Rs 2,299 to Orbit Broadband failed. No amount was deducted from your card.","intent":"FAILED","slots":{"AMOUNT":"2,299"}}
 {"text":"Special offer: get up to Rs 7,500 cashback after spending Rs 25,000 this month","intent":"MARKETING","slots":{"AMOUNT":"7,500"}}
 {"text":"Reminder: your loan instalment of INR 12,640 is due on 05-Nov-2026","intent":"REMINDER","slots":{"AMOUNT":"12,640","DATE":"05-Nov-2026"}}
 {"text":"Security notice: an attempted transaction for Rs 9,999 was blocked; verify activity in the app","intent":"SECURITY_ALERT","slots":{"AMOUNT":"9,999"}}
