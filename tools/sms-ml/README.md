@@ -11,7 +11,7 @@
 - `evaluation_corpus.tsv`: the original held-out synthetic examples.
 - `field_evaluation.tsv`: 9 held-out paraphrases for dividend credits, NEFT/RTGS, card payments, failed bill payments, wallet activity, railway booking, and charges. These are not used to fit weights.
 
-The trainer combines the original three training files and `synthetic_training.tsv` (1,010 examples total). Validation combines the existing 28 held-out examples with `synthetic_validation.tsv` (253 examples). The final test set contains 315 examples and is evaluated separately.
+The trainer combines the original corpora (110 examples) with `synthetic_training.tsv` (941 synthetic examples), for 1,051 training examples. Validation combines the existing held-out examples (28) with `synthetic_validation.tsv` (225), for 253 validation examples. The final held-out synthetic test set contains 315 examples (35 per class) and is never used to fit model weights.
 - `train_sms_model.py`: deterministic Python-standard-library trainer; no network or real inbox access.
 - `app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt`: generated compact one-vs-rest log-odds weights used by Android.
 - `OnDeviceSmsClassifier`: local inference plus conservative safety overrides and confidence gates.
