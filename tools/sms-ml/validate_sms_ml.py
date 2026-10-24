@@ -25,7 +25,8 @@ def main():
             raise SystemExit(f"{name} must cover every supported class; missing={sorted(LABELS - set(counts))}")
     if min(train_counts.values()) < 4 or min(val_counts.values()) < 2 or min(test_counts.values()) < 2:
         raise SystemExit("At least four train and two validation/test examples per class are required")
-    field_text = "\n".join(path.read_text(encoding="utf-8") for path in [CORPORA[-1], EVALUATIONS[-1], TEST_DATASET])
+    ROOT = Path(__file__).resolve().parents[2]
+    field_text = "\n".join(path.read_text(encoding="utf-8") for path in [ROOT / "tools/sms-ml/field_regressions.tsv", ROOT / "tools/sms-ml/field_evaluation.tsv"])
     if re.search(r"(?<!\d)\d{10,}(?!\d)", field_text):
         raise SystemExit("A field corpus contains a long identifier; redact phone/reference/account identifiers")
     if "[REDACTED]" not in field_text:
