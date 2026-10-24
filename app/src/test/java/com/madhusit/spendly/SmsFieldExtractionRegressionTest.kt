@@ -36,6 +36,15 @@ class SmsFieldExtractionRegressionTest {
     }
 
     @Test
+    fun keepsTransactionAmountWhenItEqualsTheReportedBalance() {
+        // Equal numeric values must not cause the transaction amount to be discarded.
+        assertEquals(
+            125000L,
+            extractAmountMinor("INR 1,250 debited from account. Available balance INR 1,250")
+        )
+    }
+
+    @Test
     fun extractsMaskedAccountLastFourAndReference() {
         assertEquals("4321", extractLastFour("A/c XX4321 debited for UPI"))
         assertEquals("ABCD12345678", extractUpiRef("UPI Ref: ABCD12345678"))
