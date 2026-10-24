@@ -11,3 +11,24 @@
 {"text":"Rs 4,850.00 debited from account XX7474 at BigBasket. Ref 665544332211","intent":"TRANSACTION","slots":{"AMOUNT":"4,850.00","DIRECTION":"debited","ACCOUNT_LAST4":"7474","MERCHANT":"BigBasket","REFERENCE":"665544332211"}}
 {"text":"Rs 360 refunded to wallet on 08-Sep-2026, reference RFD98765432","intent":"TRANSACTION","slots":{"AMOUNT":"360","DIRECTION":"refunded","DATE":"08-Sep-2026","REFERENCE":"RFD98765432"}}
 {"text":"Your transfer request for Rs 750 is awaiting confirmation","intent":"AMBIGUOUS","slots":{"AMOUNT":"750"}}
+{"text":"INR 1,340.75 debited from account ending 4726 at FreshKart on 16-Oct-2026. UPI reference FK123456789013","intent":"TRANSACTION","slots":{"AMOUNT":"1,340.75","DIRECTION":"debited","ACCOUNT_LAST4":"4726","MERCHANT":"FreshKart","DATE":"16-Oct-2026","REFERENCE":"FK123456789013"}}
+{"text":"Card ending 6403 charged Rs 2,180 at Urban Ladder on 17-Oct-2026; txn ID UL2026101802","intent":"TRANSACTION","slots":{"AMOUNT":"2,180","DIRECTION":"charged","ACCOUNT_LAST4":"6403","MERCHANT":"Urban Ladder","DATE":"17-Oct-2026","REFERENCE":"UL2026101802"}}
+{"text":"UPI transfer of Rs 875 sent to Green Leaf Stores on 19/10/2026. UPI Ref 987654321001","intent":"TRANSACTION","slots":{"AMOUNT":"875","DIRECTION":"sent","MERCHANT":"Green Leaf Stores","DATE":"19/10/2026","REFERENCE":"987654321001"}}
+{"text":"Salary credit: INR 14,500 received in account ending 5221. Ref PAYROLL202611","intent":"TRANSACTION","slots":{"AMOUNT":"14,500","DIRECTION":"received","ACCOUNT_LAST4":"5221","REFERENCE":"PAYROLL202611"}}
+{"text":"Cash withdrawal Rs 3,500 from account XX3168 at ATM on 20-Oct-2026","intent":"TRANSACTION","slots":{"AMOUNT":"3,500","DIRECTION":"withdrawal","ACCOUNT_LAST4":"3168","DATE":"20-Oct-2026"}}
+{"text":"INR 655.00 at Book Store was reversed to card XX2205. Ref REV20261019001","intent":"TRANSACTION","slots":{"AMOUNT":"655.00","DIRECTION":"reversed","MERCHANT":"Book Store","ACCOUNT_LAST4":"2205","REFERENCE":"REV20261019001"}}
+{"text":"A/c XX8882 debit alert for service fee of Rs 43.75. Ref FEE12345679","intent":"TRANSACTION","slots":{"AMOUNT":"43.75","DIRECTION":"debit","ACCOUNT_LAST4":"8882","REFERENCE":"FEE12345679"}}
+{"text":"Available balance in account ending 7605: Rs 9,145.22 as of 22-Oct-2026","intent":"BALANCE","slots":{"AMOUNT":"9,145.22","ACCOUNT_LAST4":"7605","DATE":"22-Oct-2026"}}
+{"text":"Your recharge payment of Rs 1,499 to Star Cable did not go through","intent":"FAILED","slots":{"AMOUNT":"1,499"}}
+{"text":"Pre-approved personal loan offer up to Rs 4,50,000. Apply today","intent":"MARKETING","slots":{"AMOUNT":"4,50,000"}}
+{"text":"Your card statement minimum due is INR 2,450 by 29-Oct-2026","intent":"REMINDER","slots":{"AMOUNT":"2,450","DATE":"29-Oct-2026"}}
+{"text":"Fraud warning: transaction of Rs 8,650 needs your attention. Contact the bank if unauthorized.","intent":"SECURITY_ALERT","slots":{"AMOUNT":"8,650"}}
+{"text":"A payment request for Rs 1,275 is awaiting confirmation from the recipient","intent":"AMBIGUOUS","slots":{"AMOUNT":"1,275"}}
+{"text":"Your one-time passcode is 391764. Do not share it with anyone.","intent":"OTP","slots":{}}
+{"text":"The service request for a replacement debit card has been registered","intent":"OTHER","slots":{}}
+{"text":"Rs 1,060 transferred to City Pharmacy from card XX7001. Reference CP12345678901","intent":"TRANSACTION","slots":{"AMOUNT":"1,060","DIRECTION":"transferred","MERCHANT":"City Pharmacy","ACCOUNT_LAST4":"7001","REFERENCE":"CP12345678901"}}
+{"text":"Your account balance is INR 6,420.50 on 23-Oct-2026","intent":"BALANCE","slots":{"AMOUNT":"6,420.50","DATE":"23-Oct-2026"}}
+{"text":"UPI transaction of Rs 348.90 completed at Metro Mart; UPI Ref MM20261023001","intent":"TRANSACTION","slots":{"AMOUNT":"348.90","MERCHANT":"Metro Mart","REFERENCE":"MM20261023001"}}
+{"text":"Rs 2,045.00 received from employer into account ending 9912 on 23-Oct-2026","intent":"TRANSACTION","slots":{"AMOUNT":"2,045.00","DIRECTION":"received","ACCOUNT_LAST4":"9912","DATE":"23-Oct-2026"}}
+{"text":"Payment failed for INR 560.00. Your account has not been debited.","intent":"FAILED","slots":{"AMOUNT":"560.00","DIRECTION":"debited"}}
+{"text":"Festive offer: save Rs 1,200 when you shop this weekend","intent":"MARKETING","slots":{"AMOUNT":"1,200"}}
