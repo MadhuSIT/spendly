@@ -62,13 +62,15 @@ fun extractAmountMinor(text: String): Long? {
         ?.validAmount()
     if (ctxAmount != null) return ctxAmount
 
-    // Pass 4: find all currency amounts, skip balance figures, take the first
-    val balanceAmounts = BALANCE_INDICATOR.findAll(text)
-        .map { it.groupValues[1].replace(",", "") }
-        .toSet()
+    // Pass 4: find all currency amounts and skip only matches that occur
+    // inside an explicitly labelled balance field. Compare match positions,
+    // not numeric values: a transaction amount can legitimately equal a balance.
+    val balanceMatches = BALANCE_INDICATOR.findAll(text).toList()
     return AMOUNT_ANY.findAll(text)
-        .map { it.groupValues[1] }
-        .firstOrNull { it.replace(",", "") !in balanceAmounts }
+        .firstOrNull { candidate ->
+            balanceMatches.none { balance -> candidate.range.first in balance.range }
+        }
+        ?.groupValues?.get(1)
         ?.replace(",", "")
         ?.toBigDecimalOrNull()
         ?.let { (it * BigDecimal(100)).setScale(0, RoundingMode.HALF_UP).toLong() }
@@ -113,7 +115,7 @@ private val NOISE_TOKENS = setOf(
     "your", "the", "bank", "account", "acct", "card", "upi", "neft", "rtgs",
     "imps", "ref", "txn", "transaction", "payment", "amount", "inr", "rs",
     "balance", "avail", "available", "net banking", "mobile", "app",
-    "hdfc", "icici", "sbi", "axis", "kotak", "paytm", "amazon", "flipkart"
+    "hdfc", "icici", "sbi", "axis", "kotak", "paytm"
 )
 
 fun extractMerchant(text: String): String? {
