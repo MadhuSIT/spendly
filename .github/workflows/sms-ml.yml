@@ -28,7 +28,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: false
 
       - name: Validate datasets and prevent evaluation leakage
         run: python3 tools/sms-ml/validate_sms_ml.py
