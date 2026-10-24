@@ -42,7 +42,10 @@ def weak_slots(text, intent):
     amount = re.search(r"(?:₹|\bINR\s*|\bRs\.?\s*)([0-9]+(?:,[0-9]{2,3})*(?:\.\d{1,2})?)", text, re.IGNORECASE)
     if amount:
         slots["AMOUNT"] = amount.group(1)
+    # Require an account/card cue for unmasked suffixes; never treat an arbitrary 4-digit number as an account.
     account = re.search(r"[Xx*]{2,}\s*(\d{4})", text)
+    if not account:
+        account = re.search(r"\b(?:account|a/c|card|bobcard)(?:\s+(?:number|no\.?|ending))?\s+(\d{4})\b", text, re.IGNORECASE)
     if account:
         slots["ACCOUNT_LAST4"] = account.group(1)
     reference = re.search(r"(?:upi\s*ref(?:erence)?|txn\s*(?:id|ref)|ref(?:erence)?(?:\s*(?:no\.?|id|#))?)[:\s#-]*([A-Z0-9]{8,22})", text, re.IGNORECASE)
@@ -75,6 +78,57 @@ def augment_with_existing_synthetic_corpus(train_rows, validation_rows, test_row
             seen.add(key)
             added.append({"text": text.strip(), "intent": label, "slots": weak_slots(text.strip(), label)})
     return train_rows + added, len(added)
+
+def generate_strong_synthetic_rows(existing_train_rows):
+    """Create fully annotated, deterministic transaction examples for underrepresented slots."""
+    merchants = {
+        row.get("slots", {}).get("MERCHANT")
+        for row in existing_train_rows
+        if row.get("slots", {}).get("MERCHANT")
+    }
+    merchants.update({
+        "L V Condiments", "City Grocers", "City Home", "Green Mart", "Metro Mart",
+        "BigBasket", "Fuel Station", "Cafe South", "E Gopal", "City Pharmacy",
+        "Amazon", "Flipkart", "Swiggy", "Zomato", "Uber", "Rapido", "Zepto",
+        "Reliance Digital", "Reliance Fresh", "Indian Oil", "BESCOM", "IRCTC",
+        "Netflix", "Spotify", "Myntra", "Croma", "Decathlon", "Apollo Pharmacy",
+        "BookMyShow", "PVR Cinemas", "YouTube Premium", "Ola", "OYO",
+        "Green Mart Online", "Fresh Basket", "South Cafe", "City Utilities",
+    })
+    templates = [
+        ("Rs {amount} debited from A/c XX{account} at {merchant} on {date}. UPI Ref {reference}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "DIRECTION": "debited", "ACCOUNT_LAST4": ac, "MERCHANT": m, "DATE": d, "REFERENCE": r}),
+        ("Card ending {account} charged INR {amount} at {merchant}. Ref No {reference}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "DIRECTION": "charged", "ACCOUNT_LAST4": ac, "MERCHANT": m, "REFERENCE": r}),
+        ("UPI payment of ₹{amount} to {merchant} successful. UPI Ref: {reference}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "MERCHANT": m, "REFERENCE": r}),
+        ("INR {amount} spent at {merchant} using card XX{account} on {date}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "DIRECTION": "spent", "ACCOUNT_LAST4": ac, "MERCHANT": m, "DATE": d}),
+    ]
+    generated = []
+    for i, merchant in enumerate(sorted(merchants, key=str.lower)):
+        for j, (template, make_slots) in enumerate(templates):
+            amount = ["49.00", "120.50", "275.00", "499.00", "740.25", "1,650.00", "2,020.00", "4,875.00"][(i + j) % 8]
+            account = f"{((i * 37 + j * 101) % 9000) + 1000:04d}"
+            date = ["01-Sep-2026", "12-Sep-2026", "2026-10-04", "22/09/2026"][(i + j) % 4]
+            reference = f"SPY{i:05d}{j:03d}"
+            text = template.format(amount=amount, account=account, merchant=merchant, date=date, reference=reference)
+            slots = make_slots(amount, account, merchant, date, reference)
+            generated.append({"text": text, "intent": "TRANSACTION", "slots": slots})
+    return generated
+
+
+def augment_with_strong_synthetic_rows(train_rows, validation_rows, test_rows):
+    """Add fully annotated synthetic rows to training only; never use held-out rows."""
+    seen = {normalize_text(row["text"]) for row in train_rows + validation_rows + test_rows}
+    generated = []
+    for row in generate_strong_synthetic_rows(train_rows):
+        key = normalize_text(row["text"])
+        if key not in seen:
+            seen.add(key)
+            generated.append(row)
+    return train_rows + generated, len(generated)
+
 
 def read_rows(path: Path):
     rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
@@ -193,6 +247,21 @@ def predicted_spans(tag_ids, offsets, text):
     return spans
 
 
+def allowed_fields_for_intent(intent):
+    # Constrain implausible field/intent combinations to reduce false-positive spans.
+    return {
+        "TRANSACTION": set(FIELDS),
+        "BALANCE": {"AMOUNT", "ACCOUNT_LAST4", "DATE"},
+        "FAILED": {"AMOUNT", "DIRECTION"},
+        "MARKETING": {"AMOUNT"},
+        "REMINDER": {"AMOUNT", "DATE"},
+        "SECURITY_ALERT": {"AMOUNT"},
+        "AMBIGUOUS": {"AMOUNT"},
+        "OTP": set(),
+        "OTHER": set(),
+    }.get(intent, set())
+
+
 def evaluate(model, dataset, device):
     model.eval()
     intent_correct = 0
@@ -207,6 +276,7 @@ def evaluate(model, dataset, device):
             intent_correct += int(intent_pred == row["intent"])
             intent_total += 1
             predicted = predicted_spans(token_logits.argmax(-1)[0].cpu().tolist(), row["offsets"], row["text"])
+            predicted = {span for span in predicted if span[0] in allowed_fields_for_intent(intent_pred)}
             actual = {(field, value) for field, value in row["slots"].items()}
             for field in FIELDS:
                 p = {span for span in predicted if span[0] == field}
@@ -254,7 +324,9 @@ def main():
     validation_rows = read_rows(DATA / "validation.jsonl")
     test_rows = read_rows(DATA / "test.jsonl")
     train_rows, weak_rows_added = augment_with_existing_synthetic_corpus(train_rows, validation_rows, test_rows)
+    train_rows, strong_rows_added = augment_with_strong_synthetic_rows(train_rows, validation_rows, test_rows)
     print(f"weakly_annotated_synthetic_rows_added={weak_rows_added}")
+    print(f"strongly_annotated_synthetic_rows_added={strong_rows_added}")
     for split_name, rows in (("train", train_rows), ("validation", validation_rows), ("test", test_rows)):
         missing = sorted(set(INTENTS) - {row["intent"] for row in rows})
         if missing:
@@ -335,6 +407,7 @@ def main():
         "seed": SEED,
         "train_rows": len(train_rows),
         "weakly_annotated_rows_added": weak_rows_added,
+        "strongly_annotated_synthetic_rows_added": strong_rows_added,
         "validation_rows": len(validation_rows),
         "test_rows": len(test_rows),
         "max_length": MAX_LENGTH,
