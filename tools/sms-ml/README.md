@@ -23,7 +23,7 @@ From the repository root:
 python3 tools/sms-ml/train_sms_model.py
 ```
 
-The script regenerates `SmsMlModelData.kt` deterministically and prints sample counts, per-class counts, selected feature count, generated source byte size, overall held-out accuracy, and per-class results. It fails if held-out accuracy falls below 80% or the generated Kotlin source exceeds 25 KiB. The model retains 40 features per class (up from 14) to better represent real SMS phrasing.
+The script regenerates `SmsMlModelData.kt` deterministically and prints sample counts, per-class counts, selected feature count, generated source byte size, overall held-out accuracy, per-class results, transaction recall, and non-transaction false positives. It fails if held-out accuracy falls below 80%, transaction recall falls below 70%, any held-out non-transaction is classified as a transaction, or the generated Kotlin source exceeds 25 KiB. The model retains 40 features per class (up from 14) to better represent real SMS phrasing.
 
 Run the independent ML checks with:
 
