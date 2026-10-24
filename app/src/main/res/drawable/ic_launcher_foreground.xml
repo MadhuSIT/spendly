@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Rounded coin / wallet disc, kept inside the 66dp safe-zone circle for adaptive icons -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,21 C70.57,21 84,34.43 84,51 C84,67.57 70.57,81 54,81 C37.43,81 24,67.57 24,51 C24,34.43 37.43,21 54,21 Z M54,27 C40.75,27 30,37.75 30,51 C30,64.25 40.75,75 54,75 C67.25,75 78,64.25 78,51 C78,37.75 67.25,27 54,27 Z" />
+    <!-- Rupee glyph -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M42,36 L66,36 L66,41.5 L58.4,41.5 C59.6,43 60.35,44.85 60.6,47 L66,47 L66,52.5 L60.35,52.5 C59.3,58.9 54.15,63.4 46.9,63.9 L46.9,64.1 L61.8,80 L54.4,80 L40,64.55 L40,58.6 L45.3,58.6 C50.75,58.6 54.1,56.35 54.95,52.5 L42,52.5 L42,47 L54.75,47 C53.75,43.75 50.75,41.5 45.75,41.5 L42,41.5 Z" />
+</vector>
