@@ -1,0 +1,43 @@
+name: SMS ML CI
+
+on:
+  push:
+    branches: ["main", "feat/**"]
+    paths:
+      - "tools/sms-ml/**"
+      - "app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt"
+      - ".github/workflows/sms-ml.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "tools/sms-ml/**"
+      - "app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt"
+      - ".github/workflows/sms-ml.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-evaluate:
+    name: Validate corpus, evaluate model, verify reproducibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: false
+
+      - name: Validate datasets and prevent evaluation leakage
+        run: python3 tools/sms-ml/validate_sms_ml.py
+
+      - name: Train and evaluate compact model
+        run: python3 tools/sms-ml/train_sms_model.py
+
+      - name: Validate generated model and corpus again
+        run: python3 tools/sms-ml/validate_sms_ml.py
+
+      - name: Require checked-in model to match deterministic training output
+        run: git diff --exit-code -- app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt
