@@ -3,7 +3,7 @@
 {"text":"Card XX6161 charged Rs 349.00 at YouTube Premium","intent":"TRANSACTION","slots":{"AMOUNT":"349.00","DIRECTION":"charged","ACCOUNT_LAST4":"6161","MERCHANT":"YouTube Premium"}}
 {"text":"Balance available: Rs 4,200 in A/c XX6565","intent":"BALANCE","slots":{"AMOUNT":"4,200","ACCOUNT_LAST4":"6565"}}
 {"text":"Rs 900.00 transaction declined; no money deducted","intent":"FAILED","slots":{"AMOUNT":"900.00"}}
-{"text":"Your one time password is 654321","intent":"OTP","slots":{}}
+{"text":"Your one time password is [REDACTED]","intent":"OTP","slots":{}}
 {"text":"Get cashback up to Rs 2,000. Offer expires soon","intent":"MARKETING","slots":{"AMOUNT":"2,000"}}
 {"text":"Statement generated. Total due Rs 12,500 by 20-Oct-2026","intent":"REMINDER","slots":{"AMOUNT":"12,500","DATE":"20-Oct-2026"}}
 {"text":"Fraud alert for transaction of Rs 999. If you did not make this, contact us","intent":"SECURITY_ALERT","slots":{"AMOUNT":"999"}}
@@ -24,6 +24,6 @@
 {"text":"Reminder: pay your electricity bill of Rs 2,340 by 28-Oct-2026","intent":"REMINDER","slots":{"AMOUNT":"2,340","DATE":"28-Oct-2026"}}
 {"text":"Security alert: an unusual transaction of INR 7,650 was detected on your card","intent":"SECURITY_ALERT","slots":{"AMOUNT":"7,650"}}
 {"text":"Your transfer of Rs 1,250 is pending confirmation; no final status is available yet","intent":"AMBIGUOUS","slots":{"AMOUNT":"1,250"}}
-{"text":"Verification OTP 482915 expires in five minutes. Never share this code.","intent":"OTP","slots":{}}
+{"text":"Verification OTP [REDACTED] expires in five minutes. Never share this code.","intent":"OTP","slots":{}}
 {"text":"Your address change request has been completed successfully","intent":"OTHER","slots":{}}
 {"text":"Rs 96 paid to Green Leaf Stores using UPI. Ref GL1234567890","intent":"TRANSACTION","slots":{"AMOUNT":"96","DIRECTION":"paid","MERCHANT":"Green Leaf Stores","REFERENCE":"GL1234567890"}}

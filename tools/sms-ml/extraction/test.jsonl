@@ -3,7 +3,7 @@
 {"text":"Rs 149.00 debited for purchase at PVR Cinemas. Card ending 2321","intent":"TRANSACTION","slots":{"AMOUNT":"149.00","DIRECTION":"debited","MERCHANT":"PVR Cinemas","ACCOUNT_LAST4":"2321"}}
 {"text":"Your account XX0099 balance is Rs 10,250.00","intent":"BALANCE","slots":{"AMOUNT":"10,250.00","ACCOUNT_LAST4":"0099"}}
 {"text":"Rs 1,200 payment failed. Transaction not completed","intent":"FAILED","slots":{"AMOUNT":"1,200"}}
-{"text":"OTP 998877 is valid for 10 minutes. Never share it","intent":"OTP","slots":{}}
+{"text":"OTP [REDACTED] is valid for 10 minutes. Never share it","intent":"OTP","slots":{}}
 {"text":"Apply now for pre-approved loan of Rs 3,00,000","intent":"MARKETING","slots":{"AMOUNT":"3,00,000"}}
 {"text":"Reminder: credit card minimum due Rs 2,400 by 22-Oct-2026","intent":"REMINDER","slots":{"AMOUNT":"2,400","DATE":"22-Oct-2026"}}
 {"text":"Security alert: unusual activity involving Rs 5,500. Call the bank if not you","intent":"SECURITY_ALERT","slots":{"AMOUNT":"5,500"}}
@@ -24,7 +24,7 @@
 {"text":"Your card statement minimum due is INR 2,450 by 29-Oct-2026","intent":"REMINDER","slots":{"AMOUNT":"2,450","DATE":"29-Oct-2026"}}
 {"text":"Fraud warning: transaction of Rs 8,650 needs your attention. Contact the bank if unauthorized.","intent":"SECURITY_ALERT","slots":{"AMOUNT":"8,650"}}
 {"text":"A payment request for Rs 1,275 is awaiting confirmation from the recipient","intent":"AMBIGUOUS","slots":{"AMOUNT":"1,275"}}
-{"text":"Your one-time passcode is 391764. Do not share it with anyone.","intent":"OTP","slots":{}}
+{"text":"Your one-time passcode is [REDACTED]. Do not share it with anyone.","intent":"OTP","slots":{}}
 {"text":"The service request for a replacement debit card has been registered","intent":"OTHER","slots":{}}
 {"text":"Rs 1,060 transferred to City Pharmacy from card XX7001. Reference CP12345678901","intent":"TRANSACTION","slots":{"AMOUNT":"1,060","DIRECTION":"transferred","MERCHANT":"City Pharmacy","ACCOUNT_LAST4":"7001","REFERENCE":"CP12345678901"}}
 {"text":"Your account balance is INR 6,420.50 on 23-Oct-2026","intent":"BALANCE","slots":{"AMOUNT":"6,420.50","DATE":"23-Oct-2026"}}

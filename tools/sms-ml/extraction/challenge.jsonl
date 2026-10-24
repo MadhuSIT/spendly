@@ -9,7 +9,7 @@
 {"text":"Reminder: your loan instalment of INR 12,640 is due on 05-Nov-2026","intent":"REMINDER","slots":{"AMOUNT":"12,640","DATE":"05-Nov-2026"}}
 {"text":"Security notice: an attempted transaction for Rs 9,999 was blocked; verify activity in the app","intent":"SECURITY_ALERT","slots":{"AMOUNT":"9,999"}}
 {"text":"Transfer of INR 4,850 to the beneficiary is pending; we will confirm once processed","intent":"AMBIGUOUS","slots":{"AMOUNT":"4,850"}}
-{"text":"Use verification code 731905 to confirm sign-in. It expires in 3 minutes","intent":"OTP","slots":{}}
+{"text":"Use verification code [REDACTED] to confirm sign-in. It expires in 3 minutes","intent":"OTP","slots":{}}
 {"text":"Your request to update nominee details has been recorded. Ticket SRQ482901","intent":"OTHER","slots":{}}
 {"text":"INR 1,099.00 was charged by StreamBox on your card ending 6028. Transaction ID SBX-2026-10-24-771","intent":"TRANSACTION","slots":{"AMOUNT":"1,099.00","DIRECTION":"charged","MERCHANT":"StreamBox","ACCOUNT_LAST4":"6028","REFERENCE":"SBX-2026-10-24-771"}}
 {"text":"Rs. 425 credited by A. Kumar to account XX0194 on 23-Oct-2026. IMPS reference 20261023004567","intent":"TRANSACTION","slots":{"AMOUNT":"425","DIRECTION":"credited","ACCOUNT_LAST4":"0194","DATE":"23-Oct-2026","REFERENCE":"20261023004567"}}

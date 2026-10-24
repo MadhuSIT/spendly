@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import random
 import re
 from collections import defaultdict
@@ -17,13 +18,21 @@ from onnxruntime.quantization import QuantType, quantize_dynamic
 
 ROOT = Path(__file__).resolve().parents[3]
 DATA = ROOT / "tools/sms-ml/extraction"
-BASE_MODEL = "google/mobilebert-uncased"
+# Base encoder. Defaults to the Hub id, but can be pointed at a locally-staged
+# snapshot (e.g. .models/mobilebert-uncased) for fully offline runs on networks
+# where huggingface.co is blocked. A local path next to the repo is preferred
+# automatically when present.
+_LOCAL_BASE = ROOT / ".models/mobilebert-uncased"
+BASE_MODEL = os.environ.get(
+    "SPENDLY_BASE_MODEL",
+    str(_LOCAL_BASE) if (_LOCAL_BASE / "config.json").exists() else "google/mobilebert-uncased",
+)
 INTENTS = ["TRANSACTION", "AMBIGUOUS", "BALANCE", "FAILED", "MARKETING", "OTHER", "OTP", "REMINDER", "SECURITY_ALERT"]
 FIELDS = ["AMOUNT", "DIRECTION", "ACCOUNT_LAST4", "MERCHANT", "DATE", "REFERENCE"]
 TAGS = ["O"] + [tag for field in FIELDS for tag in (f"B-{field}", f"I-{field}")]
 TAG_TO_ID = {tag: i for i, tag in enumerate(TAGS)}
 INTENT_TO_ID = {label: i for i, label in enumerate(INTENTS)}
-MAX_LENGTH = 160
+MAX_LENGTH = 96
 SEED = 20261024
 WEAK_CORPORA = [
     ROOT / "tools/sms-ml/training_corpus.tsv",
@@ -238,6 +247,13 @@ class MultiTaskMobileBert(nn.Module):
         self.encoder = AutoModel.from_pretrained(checkpoint)
         hidden = self.encoder.config.hidden_size
         self.dropout = nn.Dropout(0.1)
+        # MobileBERT's raw last_hidden_state has large magnitude; feeding it
+        # straight into the heads makes the intent logits explode on the first
+        # epoch (cross-entropy in the millions) before slowly recovering.
+        # Normalising the pooled and token representations keeps logits bounded
+        # and removes the first-epoch loss spike.
+        self.pooled_norm = nn.LayerNorm(hidden)
+        self.token_norm = nn.LayerNorm(hidden)
         self.intent_head = nn.Linear(hidden, num_intents)
         self.token_head = nn.Linear(hidden, num_tags)
 
@@ -246,7 +262,9 @@ class MultiTaskMobileBert(nn.Module):
         if token_type_ids is not None:
             kwargs["token_type_ids"] = token_type_ids
         hidden = self.encoder(**kwargs).last_hidden_state
-        return self.intent_head(self.dropout(hidden[:, 0])), self.token_head(self.dropout(hidden))
+        pooled = self.pooled_norm(hidden[:, 0])
+        tokens = self.token_norm(hidden)
+        return self.intent_head(self.dropout(pooled)), self.token_head(self.dropout(tokens))
 
 
 def collate(batch):
@@ -359,7 +377,7 @@ def evaluate(model, dataset, device, include_errors=False):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path, default=ROOT / "build/spendly-sms-extractor")
-    parser.add_argument("--epochs", type=int, default=5)
+    parser.add_argument("--epochs", type=int, default=12)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--max-model-mib", type=float, default=50.0)
     args = parser.parse_args()
@@ -400,8 +418,30 @@ def main():
     test_data = SmsDataset(test_rows, tokenizer)
     challenge_data = SmsDataset(challenge_rows, tokenizer)
     model = MultiTaskMobileBert(BASE_MODEL, len(INTENTS), len(TAGS)).to(device)
-    optimizer = torch.optim.AdamW(model.parameters(), lr=2e-5, weight_decay=0.01)
+    # The encoder is pretrained and only needs gentle adaptation; the freshly
+    # initialised heads must learn much faster, otherwise intent accuracy
+    # under-fits within a few epochs. Separate LR groups + warmup give a stable
+    # loss (no first-epoch spike) while letting the heads converge.
+    encoder_params = list(model.encoder.parameters())
+    head_params = [p for n, p in model.named_parameters() if not n.startswith("encoder.")]
+    optimizer = torch.optim.AdamW(
+        [
+            {"params": encoder_params, "lr": 3e-5},
+            {"params": head_params, "lr": 1e-3},
+        ],
+        weight_decay=0.01,
+    )
     loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True, collate_fn=collate)
+    total_steps = max(1, len(loader) * args.epochs)
+    warmup_steps = max(1, int(0.1 * total_steps))
+
+    def lr_scale(step):
+        if step < warmup_steps:
+            return step / warmup_steps
+        progress = (step - warmup_steps) / max(1, total_steps - warmup_steps)
+        return max(0.0, 1.0 - progress)
+
+    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_scale)
     best_loss = float("inf")
     best_state = None
     for epoch in range(args.epochs):
@@ -418,6 +458,7 @@ def main():
             loss.backward()
             nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             optimizer.step()
+            scheduler.step()
             total_loss += loss.item()
         model.eval()
         validation_loss = 0.0

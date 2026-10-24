@@ -1,0 +1,64 @@
+{
+  "note": "Template-family distribution of the fixed splits. Families appearing in >1 split indicate evaluation leakage.",
+  "splits": {
+    "train": {
+      "rows": 52,
+      "families": 52
+    },
+    "validation": {
+      "rows": 29,
+      "families": 29
+    },
+    "test": {
+      "rows": 34,
+      "families": 34
+    },
+    "challenge": {
+      "rows": 21,
+      "families": 21
+    }
+  },
+  "cross_split_family_leaks": [
+    {
+      "family": "2efe9dd19c4c",
+      "splits": [
+        "test",
+        "validation"
+      ],
+      "example": "UPI transfer of Rs 875 sent to Green Leaf Stores on 18/10/2026. UPI Ref 987654321000"
+    },
+    {
+      "family": "7e1e6800f2f6",
+      "splits": [
+        "test",
+        "validation"
+      ],
+      "example": "Salary credit: INR 14,000 received in account ending 5220. Ref PAYROLL202610"
+    },
+    {
+      "family": "09461e98ae02",
+      "splits": [
+        "test",
+        "validation"
+      ],
+      "example": "Cash withdrawal Rs 3,000 from account XX3167 at ATM on 19-Oct-2026"
+    },
+    {
+      "family": "b9cad56f2f16",
+      "splits": [
+        "test",
+        "validation"
+      ],
+      "example": "INR 650.00 at Book Store was reversed to card XX2204. Ref REV20261018001"
+    },
+    {
+      "family": "39baf4cee166",
+      "splits": [
+        "test",
+        "validation"
+      ],
+      "example": "A/c XX8881 debit alert for service fee of Rs 42.75. Ref FEE12345678"
+    }
+  ],
+  "leak_count": 5
+}

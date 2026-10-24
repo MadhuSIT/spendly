@@ -32,7 +32,7 @@
 {"text":"Your account balance is Rs 5,430.00 as of 12-Oct-2026","intent":"BALANCE","slots":{"AMOUNT":"5,430.00","DATE":"12-Oct-2026"}}
 {"text":"Available balance INR 23,400.00 in account XX1234","intent":"BALANCE","slots":{"AMOUNT":"23,400.00","ACCOUNT_LAST4":"1234"}}
 {"text":"Payment failed for Rs 450.00. Amount not debited","intent":"FAILED","slots":{"AMOUNT":"450.00","DIRECTION":"not debited"}}
-{"text":"Your OTP for card transaction is 123456. Do not share it","intent":"OTP","slots":{}}
+{"text":"Your OTP for card transaction is [REDACTED]. Do not share it","intent":"OTP","slots":{}}
 {"text":"Special loan offer up to Rs 5,00,000. Apply now","intent":"MARKETING","slots":{"AMOUNT":"5,00,000"}}
 {"text":"Your credit card bill of Rs 8,400 is due tomorrow","intent":"REMINDER","slots":{"AMOUNT":"8,400"}}
 {"text":"Suspicious transaction alert: Rs 2,000. If not you, call bank immediately","intent":"SECURITY_ALERT","slots":{"AMOUNT":"2,000"}}
