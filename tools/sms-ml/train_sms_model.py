@@ -24,7 +24,7 @@ EVALUATIONS = [
 ]
 TEST_DATASET = ROOT / "tools/sms-ml/synthetic_test.tsv"
 OUTPUT = ROOT / "app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt"
-VERSION = "sms-nb-2026-10-24-v5"
+VERSION = "sms-nb-2026-10-24-v6"
 ALPHA = 0.5
 TOP_FEATURES = 80
 MIN_EVALUATION_ACCURACY = 0.80
