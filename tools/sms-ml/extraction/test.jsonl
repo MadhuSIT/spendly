@@ -30,5 +30,5 @@
 {"text":"Your account balance is INR 6,420.50 on 23-Oct-2026","intent":"BALANCE","slots":{"AMOUNT":"6,420.50","DATE":"23-Oct-2026"}}
 {"text":"UPI transaction of Rs 348.90 completed at Metro Mart; UPI Ref MM20261023001","intent":"TRANSACTION","slots":{"AMOUNT":"348.90","MERCHANT":"Metro Mart","REFERENCE":"MM20261023001"}}
 {"text":"Rs 2,045.00 received from employer into account ending 9912 on 23-Oct-2026","intent":"TRANSACTION","slots":{"AMOUNT":"2,045.00","DIRECTION":"received","ACCOUNT_LAST4":"9912","DATE":"23-Oct-2026"}}
-{"text":"Payment failed for INR 560.00. Your account has not been debited.","intent":"FAILED","slots":{"AMOUNT":"560.00","DIRECTION":"debited"}}
+{"text":"Payment failed for INR 560.00. Your account has not been debited.","intent":"FAILED","slots":{"AMOUNT":"560.00"}}
 {"text":"Festive offer: save Rs 1,200 when you shop this weekend","intent":"MARKETING","slots":{"AMOUNT":"1,200"}}
