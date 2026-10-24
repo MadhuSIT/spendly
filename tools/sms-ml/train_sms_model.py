@@ -25,6 +25,7 @@ VERSION = "sms-nb-2026-10-24-v4"
 ALPHA = 0.5
 TOP_FEATURES = 40
 MIN_EVALUATION_ACCURACY = 0.80
+MIN_TRANSACTION_RECALL = 0.70
 MAX_MODEL_SOURCE_BYTES = 25 * 1024
 LABELS = {
     "TRANSACTION", "AMBIGUOUS", "BALANCE", "FAILED", "MARKETING",
@@ -145,11 +146,15 @@ def main():
     evaluation_labels = {label for label, _ in evaluation}
     if evaluation_labels != LABELS:
         raise SystemExit(f"Evaluation must cover all classes; missing={sorted(LABELS - evaluation_labels)}")
-    correct = sum(predict(text, labels, weights, biases) == label for label, text in evaluation)
+    predictions = [(expected, predict(text, labels, weights, biases)) for expected, text in evaluation]
+    correct = sum(expected == actual for expected, actual in predictions)
     accuracy = correct / max(1, len(evaluation))
+    false_positive_transactions = sum(expected != "TRANSACTION" and actual == "TRANSACTION" for expected, actual in predictions)
+    transaction_rows = [(expected, actual) for expected, actual in predictions if expected == "TRANSACTION"]
+    transaction_recall = sum(expected == actual for expected, actual in transaction_rows) / max(1, len(transaction_rows))
     class_results = {}
     for label in sorted(LABELS):
-        rows = [(expected, predict(text, labels, weights, biases)) for expected, text in evaluation if expected == label]
+        rows = [(expected, actual) for expected, actual in predictions if expected == label]
         class_results[label] = (sum(expected == actual for expected, actual in rows), len(rows))
     model_bytes = OUTPUT.stat().st_size
     print(f"model_version={VERSION}")
@@ -160,11 +165,17 @@ def main():
     print(f"model_source_bytes={model_bytes}")
     print(f"evaluation_samples={len(evaluation)}")
     print(f"evaluation_accuracy={accuracy:.3f} ({correct}/{len(evaluation)})")
+    print(f"evaluation_transaction_recall={transaction_recall:.3f} ({sum(expected == actual for expected, actual in transaction_rows)}/{len(transaction_rows)})")
+    print(f"evaluation_false_positive_transactions={false_positive_transactions}")
     print("evaluation_per_class=" + ",".join(f"{label}:{class_results[label][0]}/{class_results[label][1]}" for label in sorted(LABELS)))
     if model_bytes > MAX_MODEL_SOURCE_BYTES:
         raise SystemExit(f"Generated model is {model_bytes} bytes; limit is {MAX_MODEL_SOURCE_BYTES}")
     if accuracy < MIN_EVALUATION_ACCURACY:
         raise SystemExit(f"Evaluation accuracy {accuracy:.3f} is below required {MIN_EVALUATION_ACCURACY:.2f}")
+    if transaction_recall < MIN_TRANSACTION_RECALL:
+        raise SystemExit(f"Transaction recall {transaction_recall:.3f} is below required {MIN_TRANSACTION_RECALL:.2f}")
+    if false_positive_transactions:
+        raise SystemExit(f"Found {false_positive_transactions} non-transaction messages classified as TRANSACTION")
 
 if __name__ == "__main__":
     main()
