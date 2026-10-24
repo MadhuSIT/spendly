@@ -5,13 +5,13 @@
 - `training_corpus.tsv`: 54 general synthetic examples across the existing message classes.
 - `linked_account_scenarios.tsv`: 38 synthetic examples with consistent bank-account/card identifiers, linked purchases and refunds, a matched bank-to-card payment, statements, balances, an IPO block/release, offers, and wallet activity.
 - `field_regressions.tsv`: 18 sanitized, real-world-pattern examples based on messages reviewed during phone/inbox discussion.
-- `synthetic_training.tsv`: 900 deterministic synthetic examples (100 per class) with varied wording, amounts, account/card suffixes, and merchants.
-- `synthetic_validation.tsv`: 225 separately templated examples (25 per class) used for tuning/evaluation, never for fitting weights.
-- `synthetic_test.tsv`: 315 separately templated final test examples (35 per class), excluded from training and validation.
+- `synthetic_training.tsv`: 1,121 synthetic examples, including 180 added provider-variation examples (20 per class) for bank, UPI-app, and card-notification wording.
+- `synthetic_validation.tsv`: 315 separately templated examples (35 per class), including 90 provider-variation examples with bank/app names held out from training.
+- `synthetic_test.tsv`: 405 final synthetic test examples (45 per class), including 90 provider-held-out examples excluded from training and validation.
 - `evaluation_corpus.tsv`: the original held-out synthetic examples.
 - `field_evaluation.tsv`: 9 held-out paraphrases for dividend credits, NEFT/RTGS, card payments, failed bill payments, wallet activity, railway booking, and charges. These are not used to fit weights.
 
-The trainer combines the original corpora (110 examples) with `synthetic_training.tsv` (941 synthetic examples), for 1,051 training examples. Validation combines the existing held-out examples (28) with `synthetic_validation.tsv` (225), for 253 validation examples. The final held-out synthetic test set contains 315 examples (35 per class) and is never used to fit model weights.
+The trainer combines the original corpora (110 examples) with `synthetic_training.tsv` (1,121 synthetic examples), for 1,231 training examples. Validation combines the existing held-out examples (28) with `synthetic_validation.tsv` (315), for 343 validation examples. The final held-out synthetic test set contains 405 examples (45 per class) and is never used to fit model weights. Provider-held-out rows are synthetic generalization checks, not substitutes for genuine bank SMS.
 - `train_sms_model.py`: deterministic Python-standard-library trainer; no network or real inbox access.
 - `app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt`: generated compact one-vs-rest log-odds weights used by Android.
 - `OnDeviceSmsClassifier`: local inference plus conservative safety overrides and confidence gates.
@@ -70,7 +70,7 @@ The model never writes to Room and never chooses a financial entity. It only gat
 ## Known limitations
 
 - The field examples are sanitized paraphrases, not raw inbox exports. The synthetic validation/test sets are useful for repeatable regression testing but do not substitute for a larger, truly unseen set of genuine bank messages. Real-world provider and language variation is not represented adequately.
-- The evaluation set is small; its accuracy is directional, not a production quality guarantee.
+- The evaluation sets are synthetic and templated; their accuracy is directional, not a production quality guarantee. Test with genuinely unseen, sanitized bank SMS before claiming production quality.
 - This first slice adds ML to message classification only; it does not claim to solve semantic deduplication of different SMS wording.
 - A mixed security/transaction notification may be held out as a security alert when no explicit completed money-movement verb is present. Review ambiguous messages rather than guessing.
 - Device-level SMS permission, delivery, lifecycle and complete ledger behavior still require physical-device validation.
