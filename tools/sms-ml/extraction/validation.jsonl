@@ -11,3 +11,19 @@
 {"text":"Rs 200 sent to Rapido via UPI, reference number 556677889900","intent":"TRANSACTION","slots":{"AMOUNT":"200","DIRECTION":"sent","MERCHANT":"Rapido","REFERENCE":"556677889900"}}
 {"text":"Rs 1,050.00 debited from A/c XX3535 at Decathlon on 10-Sep-2026","intent":"TRANSACTION","slots":{"AMOUNT":"1,050.00","DIRECTION":"debited","ACCOUNT_LAST4":"3535","MERCHANT":"Decathlon","DATE":"10-Sep-2026"}}
 {"text":"A refund of Rs 900 may be processed later; transaction is not confirmed","intent":"AMBIGUOUS","slots":{"AMOUNT":"900"}}
+{"text":"Bank alert: INR 1,340.75 debited from account ending 4726 at FreshKart on 16-Oct-2026. UPI reference FK123456789012","intent":"TRANSACTION","slots":{"AMOUNT":"1,340.75","DIRECTION":"debited","ACCOUNT_LAST4":"4726","MERCHANT":"FreshKart","DATE":"16-Oct-2026","REFERENCE":"FK123456789012"}}
+{"text":"Your debit card ending 6402 was charged Rs 2,180 at Urban Ladder. Transaction ID UL2026101801","intent":"TRANSACTION","slots":{"AMOUNT":"2,180","DIRECTION":"charged","ACCOUNT_LAST4":"6402","MERCHANT":"Urban Ladder","REFERENCE":"UL2026101801"}}
+{"text":"UPI transfer of Rs 875 sent to Green Leaf Stores on 18/10/2026. UPI Ref 987654321000","intent":"TRANSACTION","slots":{"AMOUNT":"875","DIRECTION":"sent","MERCHANT":"Green Leaf Stores","DATE":"18/10/2026","REFERENCE":"987654321000"}}
+{"text":"Salary credit: INR 14,000 received in account ending 5220. Ref PAYROLL202610","intent":"TRANSACTION","slots":{"AMOUNT":"14,000","DIRECTION":"received","ACCOUNT_LAST4":"5220","REFERENCE":"PAYROLL202610"}}
+{"text":"Cash withdrawal Rs 3,000 from account XX3167 at ATM on 19-Oct-2026","intent":"TRANSACTION","slots":{"AMOUNT":"3,000","DIRECTION":"withdrawal","ACCOUNT_LAST4":"3167","DATE":"19-Oct-2026"}}
+{"text":"INR 650.00 at Book Store was reversed to card XX2204. Ref REV20261018001","intent":"TRANSACTION","slots":{"AMOUNT":"650.00","DIRECTION":"reversed","MERCHANT":"Book Store","ACCOUNT_LAST4":"2204","REFERENCE":"REV20261018001"}}
+{"text":"A/c XX8881 debit alert for service fee of Rs 42.75. Ref FEE12345678","intent":"TRANSACTION","slots":{"AMOUNT":"42.75","DIRECTION":"debit","ACCOUNT_LAST4":"8881","REFERENCE":"FEE12345678"}}
+{"text":"As of 21-Oct-2026, available balance for account ending 7604 is INR 8,945.22","intent":"BALANCE","slots":{"AMOUNT":"8,945.22","DATE":"21-Oct-2026","ACCOUNT_LAST4":"7604"}}
+{"text":"Bill payment of Rs 1,399.00 to Star Cable failed. Amount was not deducted.","intent":"FAILED","slots":{"AMOUNT":"1,399.00"}}
+{"text":"Limited-time cashback offer: get up to INR 750 on your next purchase","intent":"MARKETING","slots":{"AMOUNT":"750"}}
+{"text":"Reminder: pay your electricity bill of Rs 2,340 by 28-Oct-2026","intent":"REMINDER","slots":{"AMOUNT":"2,340","DATE":"28-Oct-2026"}}
+{"text":"Security alert: an unusual transaction of INR 7,650 was detected on your card","intent":"SECURITY_ALERT","slots":{"AMOUNT":"7,650"}}
+{"text":"Your transfer of Rs 1,250 is pending confirmation; no final status is available yet","intent":"AMBIGUOUS","slots":{"AMOUNT":"1,250"}}
+{"text":"Verification OTP 482915 expires in five minutes. Never share this code.","intent":"OTP","slots":{}}
+{"text":"Your address change request has been completed successfully","intent":"OTHER","slots":{}}
+{"text":"Rs 96 paid to Green Leaf Stores using UPI. Ref GL1234567890","intent":"TRANSACTION","slots":{"AMOUNT":"96","DIRECTION":"paid","MERCHANT":"Green Leaf Stores","REFERENCE":"GL1234567890"}}
