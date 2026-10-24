@@ -1,0 +1,45 @@
+name: SMS extraction model benchmark
+
+on:
+  push:
+    branches: ["main", "feat/**"]
+    paths:
+      - "tools/sms-ml/extraction/**"
+      - ".github/workflows/sms-extraction-model.yml"
+  pull_request:
+    branches: ["main", "feat/**"]
+    paths:
+      - "tools/sms-ml/extraction/**"
+      - ".github/workflows/sms-extraction-model.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  train-evaluate-export:
+    name: Train, evaluate and size-gate quantized MobileBERT
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: tools/sms-ml/extraction/requirements.txt
+
+      - name: Install training and export dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r tools/sms-ml/extraction/requirements.txt
+
+      - name: Train shared intent and slot model, evaluate held-out splits, export INT8 ONNX
+        run: python tools/sms-ml/extraction/train_export.py --output-dir build/spendly-sms-extractor
+
+      - name: Upload quantized model and evaluation report for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: spendly-sms-extractor-int8
+          path: build/spendly-sms-extractor/
+          if-no-files-found: error
+          retention-days: 7
