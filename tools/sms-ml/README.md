@@ -26,7 +26,7 @@ From the repository root:
 python3 tools/sms-ml/train_sms_model.py
 ```
 
-The script regenerates `SmsMlModelData.kt` deterministically and prints sample counts, per-class counts, selected feature count, generated source byte size, overall held-out accuracy, per-class results, transaction recall, and non-transaction false positives. It fails if held-out accuracy falls below 80%, transaction recall falls below 70%, any held-out non-transaction is classified as a transaction, or the generated Kotlin source exceeds 25 KiB. The model retains 40 features per class (up from 14) to better represent real SMS phrasing.
+The script regenerates `SmsMlModelData.kt` deterministically and prints sample counts, per-class counts, selected feature count, generated source byte size, overall held-out accuracy, per-class results, transaction recall, and non-transaction false positives. It fails if held-out accuracy falls below 80%, transaction recall falls below 70%, any held-out non-transaction is classified as a transaction, or the generated Kotlin source exceeds 25 KiB. The model uses 80 unigram features per class. Unigrams generalize better across provider-specific word order and keep the generated Kotlin source compact.
 
 Run the independent ML checks with:
 
@@ -69,7 +69,7 @@ The model never writes to Room and never chooses a financial entity. It only gat
 
 ## Known limitations
 
-- The corpus remains small and the field examples are sanitized paraphrases, not raw inbox exports. Real-world provider and language variation is not represented adequately.
+- The field examples are sanitized paraphrases, not raw inbox exports. The synthetic validation/test sets are useful for repeatable regression testing but do not substitute for a larger, truly unseen set of genuine bank messages. Real-world provider and language variation is not represented adequately.
 - The evaluation set is small; its accuracy is directional, not a production quality guarantee.
 - This first slice adds ML to message classification only; it does not claim to solve semantic deduplication of different SMS wording.
 - A mixed security/transaction notification may be held out as a security alert when no explicit completed money-movement verb is present. Review ambiguous messages rather than guessing.
