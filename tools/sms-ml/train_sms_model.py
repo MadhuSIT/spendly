@@ -18,7 +18,7 @@ CORPORA = [
 ]
 EVALUATION = ROOT / "tools/sms-ml/evaluation_corpus.tsv"
 OUTPUT = ROOT / "app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt"
-VERSION = "sms-nb-2026-10-13-v1"
+VERSION = "sms-nb-2026-10-24-v2"
 ALPHA = 0.5
 TOP_FEATURES = 14
 
