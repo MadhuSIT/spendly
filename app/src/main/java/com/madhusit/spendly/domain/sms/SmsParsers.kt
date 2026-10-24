@@ -249,6 +249,37 @@ fun detectType(text: String): TransactionType {
     }
 }
 
+// ─── Provider detection ───────────────────────────────────────────────────────
+
+// Known Indian bank / wallet sender tokens → canonical provider id. Matched
+// against the SMS sender header first, then the body.
+private val PROVIDER_PATTERNS: List<Pair<String, Regex>> = listOf(
+    "HDFC"      to Regex("HDFCBK|HDFCB|HDFC", RegexOption.IGNORE_CASE),
+    "ICICI"     to Regex("ICICIB|ICICI", RegexOption.IGNORE_CASE),
+    "AXIS"      to Regex("AXISBK|AXIS", RegexOption.IGNORE_CASE),
+    "KOTAK"     to Regex("KOTAKB|KOTAK", RegexOption.IGNORE_CASE),
+    "IDFCFIRST" to Regex("IDFCFIRST|IDFCBK|IDFC", RegexOption.IGNORE_CASE),
+    "YESBANK"   to Regex("YESBNK|YESBANK", RegexOption.IGNORE_CASE),
+    "INDUSIND"  to Regex("INDUSIN|INDUSIND", RegexOption.IGNORE_CASE),
+    "RBL"       to Regex("RBLBANK|RBLBNK", RegexOption.IGNORE_CASE),
+    "SBI"       to Regex("SBIPSG|\\bSBI\\b", RegexOption.IGNORE_CASE),
+    "CANARA"    to Regex("CNRB|CANARABNK|CANARA", RegexOption.IGNORE_CASE),
+    "BOB"       to Regex("BARODA|BOBINDIA|\\bBOB\\b", RegexOption.IGNORE_CASE),
+    "PNB"       to Regex("PNBSMS|PNBMOB|\\bPNB\\b", RegexOption.IGNORE_CASE),
+    "FEDERAL"   to Regex("FEDBNK|FEDERAL", RegexOption.IGNORE_CASE),
+    "UNIONBANK" to Regex("UBNKIN|UNIONBK|UNIONBANK", RegexOption.IGNORE_CASE),
+    "IOBK"      to Regex("IOBSMS|IOBANKL|\\bIOB\\b", RegexOption.IGNORE_CASE),
+    "PAYTM"     to Regex("PYTMBNK|PAYTM", RegexOption.IGNORE_CASE),
+    "AMEX"      to Regex("AMEX|AMERICANEXPRESS", RegexOption.IGNORE_CASE),
+)
+
+/** Best-effort bank/wallet provider id from the sender header, then the body. */
+fun detectProvider(sender: String, body: String): String? {
+    PROVIDER_PATTERNS.firstOrNull { it.second.containsMatchIn(sender) }?.let { return it.first }
+    PROVIDER_PATTERNS.firstOrNull { it.second.containsMatchIn(body) }?.let { return it.first }
+    return null
+}
+
 // ─── Entity type hint ─────────────────────────────────────────────────────────
 
 fun detectEntityType(body: String): FinancialEntityType {

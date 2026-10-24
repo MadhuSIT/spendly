@@ -120,10 +120,56 @@ class SmsIngestionRepositoryImpl(
                 it.provider.equals(normalized.provider, ignoreCase = true)
         }.singleOrNull()?.let { return it }
 
-        // 3. Single non-merchant entity
+        // 3. A last-four identifies a specific account/card. Find or create a
+        //    dedicated entity for it rather than defaulting to the cash wallet,
+        //    so the user's accounts/cards are actually maintained.
+        normalized.lastFour?.let { last4 ->
+            return findOrCreateAccount(normalized.provider, last4, normalized.entityType)
+        }
+
+        // 4. No account signal: fall back to a single non-merchant entity (cash).
         val nonMerchant = all.filter { it.type != FinancialEntityType.MERCHANT }
         if (nonMerchant.size == 1) return nonMerchant.single()
         return null
+    }
+
+    private suspend fun findOrCreateAccount(
+        provider: String?,
+        lastFour: String,
+        entityType: FinancialEntityType
+    ): FinancialEntity {
+        val type = when (entityType) {
+            FinancialEntityType.CREDIT_CARD,
+            FinancialEntityType.DEBIT_CARD,
+            FinancialEntityType.BANK_ACCOUNT -> entityType
+            else -> FinancialEntityType.BANK_ACCOUNT
+        }
+        val existing = ledgerRepository.observeEntities().first().firstOrNull {
+            it.type == type && it.lastFour == lastFour &&
+                (provider == null || it.provider.equals(provider, ignoreCase = true))
+        }
+        if (existing != null) return existing
+        val now = System.currentTimeMillis()
+        val label = (provider ?: when (type) {
+            FinancialEntityType.CREDIT_CARD -> "Credit Card"
+            FinancialEntityType.DEBIT_CARD -> "Debit Card"
+            else -> "Account"
+        }) + " ••$lastFour"
+        val account = FinancialEntity(
+            id = UUID.randomUUID().toString(),
+            type = type,
+            provider = provider,
+            name = label,
+            maskedIdentifier = "XX$lastFour",
+            lastFour = lastFour,
+            currency = "INR",
+            active = true,
+            createdAtEpochMillis = now,
+            updatedAtEpochMillis = now
+        )
+        ledgerRepository.createEntity(account)
+        Log.i(TAG, "Auto-created account entity: $label")
+        return account
     }
 
     private suspend fun resolveDestinationEntity(normalized: NormalizedSmsTransaction): FinancialEntity? {
