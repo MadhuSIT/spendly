@@ -10,3 +10,9 @@ TRANSACTION	INR 1021 credited to the bank account through UPI by a payment merch
 TRANSACTION	INR 185 credited to RWallet. Available wallet balance INR 201.80.
 TRANSACTION	INR 45 debited from RWallet. Available wallet balance INR 183.55.
 OTHER	Unreserved railway ticket booking confirmed. Check My Bookings for ticket details. This message does not authorize travel.
+OTHER	Your KYC verification request has been received by the bank.
+OTHER	Your debit card will expire soon. Request a replacement card through your bank.
+OTHER	Your debit card renewal is due; update your card details to continue using the service.
+OTHER	Your unreserved railway ticket booking is confirmed. Open the app to view ticket details.
+TRANSACTION	UPI payment of INR 620 to a merchant was successful. UPI reference [REDACTED].
+TRANSACTION	Your UPI transfer of INR 275 to a shop was completed successfully. Reference [REDACTED].
