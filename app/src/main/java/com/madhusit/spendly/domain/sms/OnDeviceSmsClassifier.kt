@@ -44,10 +44,7 @@ class OnDeviceSmsClassifier {
 
     private fun features(text: String): Set<String> {
         val tokens = Regex("[a-z0-9]+").findAll(text).map { it.value }.toList()
-        return buildSet {
-            addAll(tokens)
-            tokens.zipWithNext().forEach { (left, right) -> add("${left}_${right}") }
-        }
+        return tokens.toSet()
     }
 
     private fun safetyOverride(text: String): String? {
@@ -69,7 +66,7 @@ class OnDeviceSmsClassifier {
         if (!confirmedAction && listOf("due tomorrow", "minimum due", "payment reminder",
                 "statement generated", "bill payment is due", "due date", "outstanding amount").any { it in text }) return "REMINDER"
         if (!confirmedAction && listOf("available balance", "account balance", "statement balance",
-                "balance enquiry", "credit limit", "balance is").any { it in text }) return "BALANCE"
+                "balance enquiry", "credit limit", "remaining credit", "unused credit", "remaining limit", "balance is").any { it in text }) return "BALANCE"
         if (!confirmedAction && listOf("loan offer", "pre approved", "cashback", "click here",
                 "offer expires", "apply now", "subscribe now", "reply stop").any { it in text }) return "MARKETING"
         return null
