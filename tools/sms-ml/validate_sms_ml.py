@@ -1,42 +1,45 @@
 #!/usr/bin/env python3
-"""Validate SMS ML datasets for schema, class coverage, privacy hygiene, and leakage."""
+"""Validate Spendly's fixed-format SMS corpora and split hygiene."""
 from collections import Counter
 from pathlib import Path
 import re
-from train_sms_model import CORPORA, EVALUATIONS, LABELS, OUTPUT, MAX_MODEL_SOURCE_BYTES, read_corpus
+from train_sms_model import CORPORA, EVALUATIONS, LABELS, TEST_DATASET, OUTPUT, MAX_MODEL_SOURCE_BYTES, read_corpus
 
 def normalized(text):
     return " ".join(text.lower().split())
 
 def main():
     training = [row for path in CORPORA for row in read_corpus(path)]
-    evaluation = [row for path in EVALUATIONS for row in read_corpus(path)]
+    validation = [row for path in EVALUATIONS for row in read_corpus(path)]
+    test = read_corpus(TEST_DATASET)
     train_texts = {normalized(text) for _, text in training}
-    eval_texts = {normalized(text) for _, text in evaluation}
-    overlap = train_texts & eval_texts
-    if overlap:
-        raise SystemExit(f"Training/evaluation leakage: {len(overlap)} identical normalized messages")
+    val_texts = {normalized(text) for _, text in validation}
+    test_texts = {normalized(text) for _, text in test}
+    if train_texts & val_texts or train_texts & test_texts or val_texts & test_texts:
+        raise SystemExit("Exact normalized message leakage across train/validation/test splits")
     train_counts = Counter(label for label, _ in training)
-    eval_counts = Counter(label for label, _ in evaluation)
-    if set(train_counts) != LABELS or set(eval_counts) != LABELS:
-        raise SystemExit("Training and evaluation must each cover all supported labels")
-    if any(count < 4 for count in train_counts.values()):
-        raise SystemExit("Each training label must have at least four examples")
-    if any(count < 2 for count in eval_counts.values()):
-        raise SystemExit("Each evaluation label must have at least two examples")
-    field_text = "\n".join(path.read_text(encoding="utf-8") for path in [CORPORA[-1], EVALUATIONS[-1]])
+    val_counts = Counter(label for label, _ in validation)
+    test_counts = Counter(label for label, _ in test)
+    for name, counts in (("training", train_counts), ("validation", val_counts), ("test", test_counts)):
+        if set(counts) != LABELS:
+            raise SystemExit(f"{name} must cover every supported class; missing={sorted(LABELS - set(counts))}")
+    if min(train_counts.values()) < 4 or min(val_counts.values()) < 2 or min(test_counts.values()) < 2:
+        raise SystemExit("At least four train and two validation/test examples per class are required")
+    field_text = "\n".join(path.read_text(encoding="utf-8") for path in [CORPORA[-1], EVALUATIONS[-1], TEST_DATASET])
     if re.search(r"(?<!\d)\d{10,}(?!\d)", field_text):
-        raise SystemExit("Field regression corpus contains a long identifier; redact phone/reference/account identifiers")
+        raise SystemExit("A field corpus contains a long identifier; redact phone/reference/account identifiers")
     if "[REDACTED]" not in field_text:
-        raise SystemExit("Field regression examples must use explicit redaction markers where references would appear")
+        raise SystemExit("Field examples must use explicit redaction markers where needed")
     if OUTPUT.exists() and OUTPUT.stat().st_size > MAX_MODEL_SOURCE_BYTES:
-        raise SystemExit(f"Generated Kotlin model exceeds {MAX_MODEL_SOURCE_BYTES} bytes")
-    print(f"dataset_validation=PASS")
+        raise SystemExit(f"Generated model exceeds {MAX_MODEL_SOURCE_BYTES} bytes")
+    print("dataset_validation=PASS")
     print(f"training_samples={len(training)}")
-    print(f"training_class_counts={dict(sorted(train_counts.items()))}")
-    print(f"evaluation_samples={len(evaluation)}")
-    print(f"evaluation_class_counts={dict(sorted(eval_counts.items()))}")
-    print(f"exact_train_eval_overlap={len(overlap)}")
+    print("training_class_counts=" + str(dict(sorted(train_counts.items()))))
+    print(f"validation_samples={len(validation)}")
+    print("validation_class_counts=" + str(dict(sorted(val_counts.items()))))
+    print(f"test_samples={len(test)}")
+    print("test_class_counts=" + str(dict(sorted(test_counts.items()))))
+    print(f"exact_train_validation_test_overlap={len((train_texts & val_texts) | (train_texts & test_texts) | (val_texts & test_texts))}")
     print(f"model_source_bytes={OUTPUT.stat().st_size if OUTPUT.exists() else 'not generated yet'}")
 
 if __name__ == "__main__":
