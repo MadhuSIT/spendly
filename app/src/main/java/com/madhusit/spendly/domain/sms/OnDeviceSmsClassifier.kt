@@ -81,14 +81,14 @@ class OnDeviceSmsClassifier {
         if (listOf("will be refunded", "may be refunded", "will be reversed", "may be reversed",
                 "will be credited", "may be credited", "did not go through", "not yet confirmed",
                 "requested to unblock").any { it in text }) return false
-        val hasCurrencyAmount = Regex("""(?:\\brs\\.?\\s*|\\binr\\s*|₹\\s*)\\d""").containsMatchIn(text)
+        val hasCurrencyAmount = Regex("""(?:\brs\.?\s*|\binr\s*|₹\s*)\d""").containsMatchIn(text)
         if (!hasCurrencyAmount) return false
         val hasFinancialContext = listOf("account", "card", "wallet", "upi", "neft", "rtgs",
             "imps", "payment", "transaction", "purchase", "transfer", "dividend", "merchant", "bill")
             .any { it in text }
         if (!hasFinancialContext) return false
         return Regex(
-            """\\b(debited|credited|received|spent|withdrawn|refunded|reversed|charged|purchased|sent|transferred|paid\\s+to|purchase\\s+approved|purchase\\s+completed)\\b"""
+            """\b(debited|credited|received|spent|withdrawn|refunded|reversed|charged|purchased|sent|transferred|paid\s+to|purchase\s+approved|purchase\s+completed)\b"""
         ).containsMatchIn(text)
     }
 
