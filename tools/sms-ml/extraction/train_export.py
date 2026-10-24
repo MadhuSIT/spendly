@@ -62,7 +62,7 @@ def encode_row(row, tokenizer):
     for start, end, field in spans:
         matching = [i for i, (a, b) in enumerate(offsets) if b > a and a < end and b > start]
         if not matching:
-            raise ValueError(f"Could not align {field} span {value!r} in {text!r}")
+            raise ValueError(f"Could not align {field} span {text[start:end]!r} in {text!r}")
         for position, token_index in enumerate(matching):
             tag = ("B-" if position == 0 else "I-") + field
             labels[token_index] = TAG_TO_ID[tag]
@@ -132,7 +132,9 @@ def predicted_spans(tag_ids, offsets, text):
         if tag.startswith("B-"):
             flush()
             current_field, current_start, current_end = tag[2:], start, end
-        elif tag.startswith("I-") and current_field == tag[2:] and current_end == start:
+        elif tag.startswith("I-") and current_field == tag[2:] and (
+            current_end == start or (current_end < start and text[current_end:start].isspace())
+        ):
             current_end = end
         else:
             flush()
