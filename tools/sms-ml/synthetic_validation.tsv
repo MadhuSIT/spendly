@@ -1,0 +1,225 @@
+TRANSACTION	INR 499 left account 8464 after a completed UPI payment to Utility Services.
+TRANSACTION	INR 740 left account 2041 after a completed UPI payment to BigBasket.
+TRANSACTION	INR 1021 left account 7765 after a completed UPI payment to Fuel Station.
+TRANSACTION	INR 1650 left account 9130 after a completed UPI payment to Cafe South.
+TRANSACTION	Credit alert: INR 2020 arrived in IDFC FIRST Bank account from service provider.
+TRANSACTION	Credit alert: INR 4875 arrived in Federal Bank account from refund processor.
+TRANSACTION	Credit alert: INR 14999 arrived in IndusInd Bank account from UPI merchant.
+TRANSACTION	Credit alert: INR 49 arrived in HDFC Bank account from Ravi K.
+TRANSACTION	Purchase of INR 120 at Metro Mart approved on card 5566.
+TRANSACTION	Purchase of INR 275 at Online Store approved on card 4536.
+TRANSACTION	Purchase of INR 499 at Utility Services approved on card 7788.
+TRANSACTION	IMPS transfer of INR 740 sent from account 2041 to utility provider.
+TRANSACTION	IMPS transfer of INR 1021 sent from account 7765 to service provider.
+TRANSACTION	IMPS transfer of INR 1650 sent from account 9130 to payment app.
+TRANSACTION	IMPS transfer of INR 2020 sent from account 5521 to card bill account.
+TRANSACTION	Refund of INR 4875 credited to card 9443 after purchase.
+TRANSACTION	Refund of INR 14999 credited to card 1008 after purchase.
+TRANSACTION	Refund of INR 49 credited to card 8899 after purchase.
+TRANSACTION	ATM withdrawal for INR 120 completed on card 5566.
+TRANSACTION	ATM withdrawal for INR 275 completed on card 4536.
+TRANSACTION	ATM withdrawal for INR 499 completed on card 7788.
+TRANSACTION	ATM withdrawal for INR 740 completed on card 6677.
+TRANSACTION	Dividend payout of INR 1021 posted to account 7765.
+TRANSACTION	Dividend payout of INR 1650 posted to account 9130.
+TRANSACTION	Dividend payout of INR 2020 posted to account 5521.
+AMBIGUOUS	Payment status for INR 499 is pending; completion is not stated.
+AMBIGUOUS	Payment status for INR 740 is pending; completion is not stated.
+AMBIGUOUS	Payment status for INR 1021 is pending; completion is not stated.
+AMBIGUOUS	Payment status for INR 1650 is pending; completion is not stated.
+AMBIGUOUS	Payment status for INR 2020 is pending; completion is not stated.
+AMBIGUOUS	Request for INR 4875 was received; result is unknown.
+AMBIGUOUS	Request for INR 14999 was received; result is unknown.
+AMBIGUOUS	Request for INR 49 was received; result is unknown.
+AMBIGUOUS	Request for INR 120 was received; result is unknown.
+AMBIGUOUS	Request for INR 275 was received; result is unknown.
+AMBIGUOUS	Bank notice mentions INR 499 without confirming movement.
+AMBIGUOUS	Bank notice mentions INR 740 without confirming movement.
+AMBIGUOUS	Bank notice mentions INR 1021 without confirming movement.
+AMBIGUOUS	Bank notice mentions INR 1650 without confirming movement.
+AMBIGUOUS	Bank notice mentions INR 2020 without confirming movement.
+AMBIGUOUS	Transfer of INR 4875 awaits network confirmation.
+AMBIGUOUS	Transfer of INR 14999 awaits network confirmation.
+AMBIGUOUS	Transfer of INR 49 awaits network confirmation.
+AMBIGUOUS	Transfer of INR 120 awaits network confirmation.
+AMBIGUOUS	Transfer of INR 275 awaits network confirmation.
+AMBIGUOUS	INR 499 status update gives no definitive outcome.
+AMBIGUOUS	INR 740 status update gives no definitive outcome.
+AMBIGUOUS	INR 1021 status update gives no definitive outcome.
+AMBIGUOUS	INR 1650 status update gives no definitive outcome.
+AMBIGUOUS	INR 2020 status update gives no definitive outcome.
+BALANCE	Funds available in account 8464: INR 18765.40.
+BALANCE	Funds available in account 2041: INR 50210.75.
+BALANCE	Funds available in account 7765: INR 990.00.
+BALANCE	Funds available in account 9130: INR 128.35.
+BALANCE	Funds available in account 5521: INR 6543.21.
+BALANCE	Card 9443 has INR 24750.00 of unused credit limit.
+BALANCE	Card 1008 has INR 812.80 of unused credit limit.
+BALANCE	Card 8899 has INR 84.50 of unused credit limit.
+BALANCE	Card 5566 has INR 760.25 of unused credit limit.
+BALANCE	Card 4536 has INR 4230.00 of unused credit limit.
+BALANCE	Wallet amount available is INR 18765.40.
+BALANCE	Wallet amount available is INR 50210.75.
+BALANCE	Wallet amount available is INR 990.00.
+BALANCE	Wallet amount available is INR 128.35.
+BALANCE	Wallet amount available is INR 6543.21.
+BALANCE	Closing balance of account 6608 is INR 24750.00.
+BALANCE	Closing balance of account 3194 is INR 812.80.
+BALANCE	Closing balance of account 8800 is INR 84.50.
+BALANCE	Closing balance of account 1122 is INR 760.25.
+BALANCE	Closing balance of account 4834 is INR 4230.00.
+BALANCE	Credit card statement balance is INR 18765.40.
+BALANCE	Credit card statement balance is INR 50210.75.
+BALANCE	Credit card statement balance is INR 990.00.
+BALANCE	Credit card statement balance is INR 128.35.
+BALANCE	Credit card statement balance is INR 6543.21.
+FAILED	UPI payment INR 499 unsuccessful; no debit occurred.
+FAILED	UPI payment INR 740 unsuccessful; no debit occurred.
+FAILED	UPI payment INR 1021 unsuccessful; no debit occurred.
+FAILED	UPI payment INR 1650 unsuccessful; no debit occurred.
+FAILED	UPI payment INR 2020 unsuccessful; no debit occurred.
+FAILED	Bank rejected transfer of INR 4875; not completed.
+FAILED	Bank rejected transfer of INR 14999; not completed.
+FAILED	Bank rejected transfer of INR 49; not completed.
+FAILED	Bank rejected transfer of INR 120; not completed.
+FAILED	Bank rejected transfer of INR 275; not completed.
+FAILED	Card 7788 purchase at Utility Services declined; not charged.
+FAILED	Card 6677 purchase at BigBasket declined; not charged.
+FAILED	Card 4206 purchase at Fuel Station declined; not charged.
+FAILED	Card 7306 purchase at Cafe South declined; not charged.
+FAILED	Card 5907 purchase at E Gopal declined; not charged.
+FAILED	Bill payment INR 4875 did not complete; refund is conditional.
+FAILED	Bill payment INR 14999 did not complete; refund is conditional.
+FAILED	Bill payment INR 49 did not complete; refund is conditional.
+FAILED	Bill payment INR 120 did not complete; refund is conditional.
+FAILED	Bill payment INR 275 did not complete; refund is conditional.
+FAILED	Wallet transaction INR 499 failed before funds moved.
+FAILED	Wallet transaction INR 740 failed before funds moved.
+FAILED	Wallet transaction INR 1021 failed before funds moved.
+FAILED	Wallet transaction INR 1650 failed before funds moved.
+FAILED	Wallet transaction INR 2020 failed before funds moved.
+MARKETING	Promotion: get 499% off at Utility Services on eligible purchases.
+MARKETING	Promotion: get 740% off at BigBasket on eligible purchases.
+MARKETING	Promotion: get 1021% off at Fuel Station on eligible purchases.
+MARKETING	Promotion: get 1650% off at Cafe South on eligible purchases.
+MARKETING	Promotion: get 2020% off at E Gopal on eligible purchases.
+MARKETING	Activate your Federal Bank shopping offer before it ends.
+MARKETING	Activate your IndusInd Bank shopping offer before it ends.
+MARKETING	Activate your HDFC Bank shopping offer before it ends.
+MARKETING	Activate your SBI shopping offer before it ends.
+MARKETING	Activate your Axis Bank shopping offer before it ends.
+MARKETING	Apply for a pre-approved loan; terms and eligibility apply.
+MARKETING	Apply for a pre-approved loan; terms and eligibility apply.
+MARKETING	Apply for a pre-approved loan; terms and eligibility apply.
+MARKETING	Apply for a pre-approved loan; terms and eligibility apply.
+MARKETING	Apply for a pre-approved loan; terms and eligibility apply.
+MARKETING	Future purchases may earn bonus points under this campaign.
+MARKETING	Future purchases may earn bonus points under this campaign.
+MARKETING	Future purchases may earn bonus points under this campaign.
+MARKETING	Future purchases may earn bonus points under this campaign.
+MARKETING	Future purchases may earn bonus points under this campaign.
+MARKETING	Subscribe through the promotional link; reply STOP to opt out.
+MARKETING	Subscribe through the promotional link; reply STOP to opt out.
+MARKETING	Subscribe through the promotional link; reply STOP to opt out.
+MARKETING	Subscribe through the promotional link; reply STOP to opt out.
+MARKETING	Subscribe through the promotional link; reply STOP to opt out.
+OTHER	Bank received your KYC details update request.
+OTHER	Bank received your KYC details update request.
+OTHER	Bank received your KYC details update request.
+OTHER	Bank received your KYC details update request.
+OTHER	Bank received your KYC details update request.
+OTHER	Contact information was changed on your account profile.
+OTHER	Contact information was changed on your account profile.
+OTHER	Contact information was changed on your account profile.
+OTHER	Contact information was changed on your account profile.
+OTHER	Contact information was changed on your account profile.
+OTHER	Railway booking confirmed; view itinerary details.
+OTHER	Railway booking confirmed; view itinerary details.
+OTHER	Railway booking confirmed; view itinerary details.
+OTHER	Railway booking confirmed; view itinerary details.
+OTHER	Railway booking confirmed; view itinerary details.
+OTHER	Service request [REDACTED] has been opened.
+OTHER	Service request [REDACTED] has been opened.
+OTHER	Service request [REDACTED] has been opened.
+OTHER	Service request [REDACTED] has been opened.
+OTHER	Service request [REDACTED] has been opened.
+OTHER	Your e-statement document is available online.
+OTHER	Your e-statement document is available online.
+OTHER	Your e-statement document is available online.
+OTHER	Your e-statement document is available online.
+OTHER	Your e-statement document is available online.
+OTP	Login verification code: 123757. Keep it confidential.
+OTP	Login verification code: 131676. Keep it confidential.
+OTP	Login verification code: 139595. Keep it confidential.
+OTP	Login verification code: 147514. Keep it confidential.
+OTP	Login verification code: 155433. Keep it confidential.
+OTP	Enter one-time code 163352 to verify account access.
+OTP	Enter one-time code 171271 to verify account access.
+OTP	Enter one-time code 179190 to verify account access.
+OTP	Enter one-time code 187109 to verify account access.
+OTP	Enter one-time code 195028 to verify account access.
+OTP	Authentication OTP 202947 expires in 10 minutes.
+OTP	Authentication OTP 210866 expires in 10 minutes.
+OTP	Authentication OTP 218785 expires in 10 minutes.
+OTP	Authentication OTP 226704 expires in 10 minutes.
+OTP	Authentication OTP 234623 expires in 10 minutes.
+OTP	Code 242542 confirms your mobile number; do not disclose it.
+OTP	Code 250461 confirms your mobile number; do not disclose it.
+OTP	Code 258380 confirms your mobile number; do not disclose it.
+OTP	Code 266299 confirms your mobile number; do not disclose it.
+OTP	Code 274218 confirms your mobile number; do not disclose it.
+OTP	Your requested sign-in code is 282137.
+OTP	Your requested sign-in code is 290056.
+OTP	Your requested sign-in code is 297975.
+OTP	Your requested sign-in code is 305894.
+OTP	Your requested sign-in code is 313813.
+REMINDER	Card 7788 statement total INR 499 payable by 15 Nov 2026.
+REMINDER	Card 6677 statement total INR 740 payable by 10 Dec 2026.
+REMINDER	Card 4206 statement total INR 1021 payable by 05 Dec 2026.
+REMINDER	Card 7306 statement total INR 1650 payable by 28 Oct 2026.
+REMINDER	Card 5907 statement total INR 2020 payable by 02 Nov 2026.
+REMINDER	Monthly installment of INR 4875 is due soon.
+REMINDER	Monthly installment of INR 14999 is due soon.
+REMINDER	Monthly installment of INR 49 is due soon.
+REMINDER	Monthly installment of INR 120 is due soon.
+REMINDER	Monthly installment of INR 275 is due soon.
+REMINDER	Utility bill deadline 15 Nov 2026; amount due INR 499.
+REMINDER	Utility bill deadline 10 Dec 2026; amount due INR 740.
+REMINDER	Utility bill deadline 05 Dec 2026; amount due INR 1021.
+REMINDER	Utility bill deadline 28 Oct 2026; amount due INR 1650.
+REMINDER	Utility bill deadline 02 Nov 2026; amount due INR 2020.
+REMINDER	Card 9443 minimum due is INR 4875.
+REMINDER	Card 1008 minimum due is INR 14999.
+REMINDER	Card 8899 minimum due is INR 49.
+REMINDER	Card 5566 minimum due is INR 120.
+REMINDER	Card 4536 minimum due is INR 275.
+REMINDER	Insurance payment INR 499 approaches its due date.
+REMINDER	Insurance payment INR 740 approaches its due date.
+REMINDER	Insurance payment INR 1021 approaches its due date.
+REMINDER	Insurance payment INR 1650 approaches its due date.
+REMINDER	Insurance payment INR 2020 approaches its due date.
+SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it.
+SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it.
+SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it.
+SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it.
+SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it.
+SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown.
+SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown.
+SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown.
+SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown.
+SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown.
+SECURITY_ALERT	Card 7788 temporarily locked after suspicious activity.
+SECURITY_ALERT	Card 6677 temporarily locked after suspicious activity.
+SECURITY_ALERT	Card 4206 temporarily locked after suspicious activity.
+SECURITY_ALERT	Card 7306 temporarily locked after suspicious activity.
+SECURITY_ALERT	Card 5907 temporarily locked after suspicious activity.
+SECURITY_ALERT	Security notice: never reveal PIN or OTP.
+SECURITY_ALERT	Security notice: never reveal PIN or OTP.
+SECURITY_ALERT	Security notice: never reveal PIN or OTP.
+SECURITY_ALERT	Security notice: never reveal PIN or OTP.
+SECURITY_ALERT	Security notice: never reveal PIN or OTP.
+SECURITY_ALERT	Unrecognized access attempt detected; secure your account.
+SECURITY_ALERT	Unrecognized access attempt detected; secure your account.
+SECURITY_ALERT	Unrecognized access attempt detected; secure your account.
+SECURITY_ALERT	Unrecognized access attempt detected; secure your account.
+SECURITY_ALERT	Unrecognized access attempt detected; secure your account.
