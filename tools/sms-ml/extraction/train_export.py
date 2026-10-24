@@ -124,6 +124,32 @@ def generate_strong_synthetic_rows(existing_train_rows):
             text = template.format(amount=amount, account=account, merchant=merchant, date=date, reference=reference)
             slots = make_slots(amount, account, merchant, date, reference)
             generated.append({"text": text, "intent": "TRANSACTION", "slots": slots})
+
+    # Add strongly labelled, varied hard cases across non-transaction intents.
+    # These teach the model to distinguish the event amount from balances,
+    # promotional thresholds, negated actions, and dates in reminders.
+    hard_cases = [
+        ("Payment of Rs 2,299 to Orbit Broadband failed. No amount was deducted from your card.", "FAILED", {"AMOUNT": "2,299"}),
+        ("INR 560.00 did not complete; your account was not debited. Balance remains Rs 3,740.25", "FAILED", {"AMOUNT": "560.00"}),
+        ("Your transfer of Rs 845 to Green Mart failed. The amount has not been debited.", "FAILED", {"AMOUNT": "845"}),
+        ("Rs 1,275 payment was unsuccessful; no funds were deducted from account XX7316.", "FAILED", {"AMOUNT": "1,275"}),
+        ("Special offer: get up to Rs 7,500 cashback after spending Rs 25,000 this month.", "MARKETING", {"AMOUNT": "7,500"}),
+        ("Spend INR 18,000 and receive Rs 2,000 cashback on eligible purchases.", "MARKETING", {"AMOUNT": "2,000"}),
+        ("Earn up to Rs 950 rewards when you spend Rs 12,000 with your card.", "MARKETING", {"AMOUNT": "950"}),
+        ("Get Rs 1,500 off on purchases above Rs 10,000 before the offer ends.", "MARKETING", {"AMOUNT": "1,500"}),
+        ("Reminder: your loan instalment of INR 12,640 is due on 05-Nov-2026.", "REMINDER", {"AMOUNT": "12,640", "DATE": "05-Nov-2026"}),
+        ("Your card bill of Rs 14,260 must be paid before 02-Nov-2026 to avoid late fees.", "REMINDER", {"AMOUNT": "14,260", "DATE": "02-Nov-2026"}),
+        ("Electricity bill payment of Rs 1,840 is due by 18/11/2026.", "REMINDER", {"AMOUNT": "1,840", "DATE": "18/11/2026"}),
+        ("Your monthly subscription of INR 799 is scheduled for 2026-11-03.", "REMINDER", {"AMOUNT": "799", "DATE": "2026-11-03"}),
+        ("Available balance in account XX1946 is Rs 31,400.00 as of 24-Oct-2026.", "BALANCE", {"AMOUNT": "31,400.00", "ACCOUNT_LAST4": "1946", "DATE": "24-Oct-2026"}),
+        ("Your current account balance is INR 8,205.50.", "BALANCE", {"AMOUNT": "8,205.50"}),
+        ("Balance enquiry: Rs 6,740 available in account ending 6028.", "BALANCE", {"AMOUNT": "6,740", "ACCOUNT_LAST4": "6028"}),
+        ("INR 1,099.00 was charged by StreamBox on your card ending 6028. Transaction ID SBX-2026-10-24-771", "TRANSACTION", {"AMOUNT": "1,099.00", "MERCHANT": "StreamBox", "ACCOUNT_LAST4": "6028", "REFERENCE": "SBX-2026-10-24-771"}),
+        ("Debit alert for INR 87.60 on account ending 4419 at BESCOM. Ref: BESCOM24102026", "TRANSACTION", {"AMOUNT": "87.60", "ACCOUNT_LAST4": "4419", "MERCHANT": "BESCOM", "REFERENCE": "BESCOM24102026"}),
+        ("Cash withdrawal of INR 3,200 from A/c XX7316 at ATM on 24-Oct-2026", "TRANSACTION", {"AMOUNT": "3,200", "ACCOUNT_LAST4": "7316", "DATE": "24-Oct-2026", "DIRECTION": "withdrawal"}),
+    ]
+    for text, intent, slots in hard_cases:
+        generated.append({"text": text, "intent": intent, "slots": slots})
     return generated
 
 
