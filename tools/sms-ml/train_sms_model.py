@@ -12,7 +12,10 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[2]
-CORPUS = ROOT / "tools/sms-ml/training_corpus.tsv"
+CORPORA = [
+    ROOT / "tools/sms-ml/training_corpus.tsv",
+    ROOT / "tools/sms-ml/linked_account_scenarios.tsv",
+]
 EVALUATION = ROOT / "tools/sms-ml/evaluation_corpus.tsv"
 OUTPUT = ROOT / "app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt"
 VERSION = "sms-nb-2026-10-13-v1"
@@ -33,13 +36,14 @@ def kotlin_string(value):
 
 def main():
     samples = []
-    for line_number, line in enumerate(CORPUS.read_text(encoding="utf-8").splitlines(), 1):
-        if not line.strip() or line.lstrip().startswith("#"):
-            continue
-        label, separator, text = line.partition("\t")
-        if not separator or not label or not text:
-            raise SystemExit(f"Invalid corpus row at {CORPUS}:{line_number}")
-        samples.append((label, text))
+    for corpus_path in CORPORA:
+        for line_number, line in enumerate(corpus_path.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            label, separator, text = line.partition("\t")
+            if not separator or not label or not text:
+                raise SystemExit(f"Invalid corpus row at {corpus_path}:{line_number}")
+            samples.append((label, text))
 
     labels = sorted({label for label, _ in samples})
     if len(labels) < 2:
