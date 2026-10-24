@@ -332,24 +332,35 @@ def main():
     train_rows = read_rows(DATA / "train.jsonl")
     validation_rows = read_rows(DATA / "validation.jsonl")
     test_rows = read_rows(DATA / "test.jsonl")
+    challenge_rows = read_rows(DATA / "challenge.jsonl")
     train_rows, weak_rows_added = augment_with_existing_synthetic_corpus(train_rows, validation_rows, test_rows)
     train_rows, strong_rows_added = augment_with_strong_synthetic_rows(train_rows, validation_rows, test_rows)
     print(f"weakly_annotated_synthetic_rows_added={weak_rows_added}")
     print(f"strongly_annotated_synthetic_rows_added={strong_rows_added}")
-    for split_name, rows in (("train", train_rows), ("validation", validation_rows), ("test", test_rows)):
+    for split_name, rows in (("train", train_rows), ("validation", validation_rows), ("test", test_rows), ("challenge", challenge_rows)):
         missing = sorted(set(INTENTS) - {row["intent"] for row in rows})
         if missing:
             raise SystemExit(f"{split_name} split is missing intent classes: {missing}")
     normalized = lambda rows: {" ".join(row["text"].lower().split()) for row in rows}
-    train_texts, validation_texts, test_texts = map(normalized, (train_rows, validation_rows, test_rows))
-    if (train_texts & validation_texts) or (train_texts & test_texts) or (validation_texts & test_texts):
-        raise SystemExit("Exact normalized message leakage across train/validation/test splits")
+    train_texts, validation_texts, test_texts, challenge_texts = map(
+        normalized, (train_rows, validation_rows, test_rows, challenge_rows)
+    )
+    split_texts = {
+        "train": train_texts, "validation": validation_texts,
+        "test": test_texts, "challenge": challenge_texts,
+    }
+    split_names = list(split_texts)
+    for i, left in enumerate(split_names):
+        for right in split_names[i + 1:]:
+            if split_texts[left] & split_texts[right]:
+                raise SystemExit(f"Exact normalized message leakage between {left} and {right} splits")
     tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, use_fast=True)
     if not tokenizer.is_fast:
         raise SystemExit("A fast tokenizer is required to align token offsets")
     train_data = SmsDataset(train_rows, tokenizer)
     validation_data = SmsDataset(validation_rows, tokenizer)
     test_data = SmsDataset(test_rows, tokenizer)
+    challenge_data = SmsDataset(challenge_rows, tokenizer)
     model = MultiTaskMobileBert(BASE_MODEL, len(INTENTS), len(TAGS)).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=2e-5, weight_decay=0.01)
     loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True, collate_fn=collate)
@@ -388,8 +399,10 @@ def main():
         model.load_state_dict(best_state)
     validation_metrics = evaluate(model, validation_data, device)
     test_metrics = evaluate(model, test_data, device)
+    challenge_metrics = evaluate(model, challenge_data, device)
     print("validation_metrics=" + json.dumps(validation_metrics, sort_keys=True))
     print("test_metrics=" + json.dumps(test_metrics, sort_keys=True))
+    print("challenge_metrics=" + json.dumps(challenge_metrics, sort_keys=True))
     args.output_dir.mkdir(parents=True, exist_ok=True)
     model.eval().cpu()
     tokenizer.save_pretrained(args.output_dir)
@@ -419,9 +432,11 @@ def main():
         "strongly_annotated_synthetic_rows_added": strong_rows_added,
         "validation_rows": len(validation_rows),
         "test_rows": len(test_rows),
+        "challenge_rows": len(challenge_rows),
         "max_length": MAX_LENGTH,
         "validation": validation_metrics,
         "test": test_metrics,
+        "challenge": challenge_metrics,
         "artifact_bytes": artifact_bytes,
         "artifact_mib": round(artifact_bytes / (1024 * 1024), 3),
         "files": {p.name: p.stat().st_size for p in artifact_files},
