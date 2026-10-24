@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import re
 from collections import defaultdict
 from pathlib import Path
 
@@ -24,6 +25,56 @@ TAG_TO_ID = {tag: i for i, tag in enumerate(TAGS)}
 INTENT_TO_ID = {label: i for i, label in enumerate(INTENTS)}
 MAX_LENGTH = 160
 SEED = 20261024
+WEAK_CORPORA = [
+    ROOT / "tools/sms-ml/training_corpus.tsv",
+    ROOT / "tools/sms-ml/linked_account_scenarios.tsv",
+    ROOT / "tools/sms-ml/field_regressions.tsv",
+    ROOT / "tools/sms-ml/synthetic_training.tsv",
+]
+
+
+def normalize_text(text):
+    return " ".join(text.lower().split())
+
+
+def weak_slots(text, intent):
+    slots = {}
+    amount = re.search(r"(?:₹|\\bINR\\s*|\\bRs\\.?\\s*)([0-9]+(?:,[0-9]{2,3})*(?:\\.\\d{1,2})?)", text, re.IGNORECASE)
+    if amount:
+        slots["AMOUNT"] = amount.group(1)
+    account = re.search(r"[Xx*]{2,}\\s*(\\d{4})", text)
+    if account:
+        slots["ACCOUNT_LAST4"] = account.group(1)
+    reference = re.search(r"(?:upi\\s*ref(?:erence)?|txn\\s*(?:id|ref)|ref(?:erence)?(?:\\s*(?:no\\.?|id|#))?)[:\\s#-]*([A-Z0-9]{8,22})", text, re.IGNORECASE)
+    if reference:
+        slots["REFERENCE"] = reference.group(1)
+    date = re.search(r"\\b(?:\\d{1,2}[-/][A-Za-z]{3}[-/]\\d{2,4}|\\d{2}[-/]\\d{2}[-/]\\d{4}|\\d{4}-\\d{2}-\\d{2})\\b", text)
+    if date:
+        slots["DATE"] = date.group(0)
+    if intent in {"TRANSACTION", "FAILED"}:
+        direction = re.search(r"\\b(?:debited|credited|spent|withdrawn|refunded|reversed|charged|deducted|sent|transferred|received|paid|not\\s+debited)\\b", text, re.IGNORECASE)
+        if direction:
+            slots["DIRECTION"] = direction.group(0)
+    return slots
+
+
+def augment_with_existing_synthetic_corpus(train_rows, validation_rows, test_rows):
+    """Use existing reviewed synthetic SMS as weakly labelled examples, never as evaluation data."""
+    seen = {normalize_text(row["text"]) for row in train_rows + validation_rows + test_rows}
+    added = []
+    for path in WEAK_CORPORA:
+        for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            label, separator, text = line.partition("\\t")
+            if not separator or label not in INTENT_TO_ID or not text.strip():
+                raise ValueError(f"Invalid weak corpus row at {path}:{line_number}")
+            key = normalize_text(text)
+            if key in seen:
+                continue
+            seen.add(key)
+            added.append({"text": text.strip(), "intent": label, "slots": weak_slots(text.strip(), label)})
+    return train_rows + added, len(added)
 
 
 def read_rows(path: Path):
@@ -203,6 +254,8 @@ def main():
     train_rows = read_rows(DATA / "train.jsonl")
     validation_rows = read_rows(DATA / "validation.jsonl")
     test_rows = read_rows(DATA / "test.jsonl")
+    train_rows, weak_rows_added = augment_with_existing_synthetic_corpus(train_rows, validation_rows, test_rows)
+    print(f"weakly_annotated_synthetic_rows_added={weak_rows_added}")
     for split_name, rows in (("train", train_rows), ("validation", validation_rows), ("test", test_rows)):
         missing = sorted(set(INTENTS) - {row["intent"] for row in rows})
         if missing:
@@ -282,6 +335,7 @@ def main():
         "base_model": BASE_MODEL,
         "seed": SEED,
         "train_rows": len(train_rows),
+        "weakly_annotated_rows_added": weak_rows_added,
         "validation_rows": len(validation_rows),
         "test_rows": len(test_rows),
         "max_length": MAX_LENGTH,
