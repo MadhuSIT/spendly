@@ -35,6 +35,9 @@ jobs:
       - name: Train and evaluate compact model
         run: python3 tools/sms-ml/train_sms_model.py
 
+      - name: Evaluate final held-out synthetic test set
+        run: python3 tools/sms-ml/evaluate_sms_test.py
+
       - name: Validate generated model and corpus again
         run: python3 tools/sms-ml/validate_sms_ml.py
 
