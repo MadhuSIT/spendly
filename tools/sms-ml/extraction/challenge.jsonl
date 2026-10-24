@@ -1,0 +1,21 @@
+{"text":"Your UPI payment of INR 1,275.50 to Namma Metro was successful. Current balance: INR 8,450.20. UPI reference NM202610241234","intent":"TRANSACTION","slots":{"AMOUNT":"1,275.50","MERCHANT":"Namma Metro","REFERENCE":"NM202610241234"}}
+{"text":"A sum of Rs. 2,045 was transferred to Green Leaf Stores on 24/10/2026; available balance Rs. 9,876.45; UTR: 123456789012","intent":"TRANSACTION","slots":{"AMOUNT":"2,045","DIRECTION":"transferred","MERCHANT":"Green Leaf Stores","DATE":"24/10/2026","REFERENCE":"123456789012"}}
+{"text":"Debit alert for INR 87.60 on account ending 4419 at BESCOM. Ref: BESCOM24102026","intent":"TRANSACTION","slots":{"AMOUNT":"87.60","ACCOUNT_LAST4":"4419","MERCHANT":"BESCOM","REFERENCE":"BESCOM24102026"}}
+{"text":"The Rs 650 charge at Book Store has been reversed to card ending 2204; ARN REV20261024001","intent":"TRANSACTION","slots":{"AMOUNT":"650","DIRECTION":"reversed","MERCHANT":"Book Store","ACCOUNT_LAST4":"2204","REFERENCE":"REV20261024001"}}
+{"text":"Cash withdrawal of INR 3,200 from A/c XX7316 at ATM on 24-Oct-2026","intent":"TRANSACTION","slots":{"AMOUNT":"3,200","DIRECTION":"withdrawal","ACCOUNT_LAST4":"7316","DATE":"24-Oct-2026"}}
+{"text":"Your account ending 8821 has an available balance of Rs 18,405.70 as of 24-Oct-2026","intent":"BALANCE","slots":{"ACCOUNT_LAST4":"8821","AMOUNT":"18,405.70","DATE":"24-Oct-2026"}}
+{"text":"Payment of Rs 2,299 to Orbit Broadband failed. No amount was deducted from your card.","intent":"FAILED","slots":{"AMOUNT":"2,299","MERCHANT":"Orbit Broadband"}}
+{"text":"Special offer: get up to Rs 7,500 cashback after spending Rs 25,000 this month","intent":"MARKETING","slots":{"AMOUNT":"7,500"}}
+{"text":"Reminder: your loan instalment of INR 12,640 is due on 05-Nov-2026","intent":"REMINDER","slots":{"AMOUNT":"12,640","DATE":"05-Nov-2026"}}
+{"text":"Security notice: an attempted transaction for Rs 9,999 was blocked; verify activity in the app","intent":"SECURITY_ALERT","slots":{"AMOUNT":"9,999"}}
+{"text":"Transfer of INR 4,850 to the beneficiary is pending; we will confirm once processed","intent":"AMBIGUOUS","slots":{"AMOUNT":"4,850"}}
+{"text":"Use verification code 731905 to confirm sign-in. It expires in 3 minutes","intent":"OTP","slots":{}}
+{"text":"Your request to update nominee details has been recorded. Ticket SRQ482901","intent":"OTHER","slots":{}}
+{"text":"INR 1,099.00 was charged by StreamBox on your card ending 6028. Transaction ID SBX-2026-10-24-771","intent":"TRANSACTION","slots":{"AMOUNT":"1,099.00","DIRECTION":"charged","MERCHANT":"StreamBox","ACCOUNT_LAST4":"6028","REFERENCE":"SBX-2026-10-24-771"}}
+{"text":"Rs. 425 credited by A. Kumar to account XX0194 on 23-Oct-2026. IMPS reference 20261023004567","intent":"TRANSACTION","slots":{"AMOUNT":"425","DIRECTION":"credited","ACCOUNT_LAST4":"0194","DATE":"23-Oct-2026","REFERENCE":"20261023004567"}}
+{"text":"A payment of INR 560.00 did not complete; your account was not debited. Balance remains Rs 3,740.25","intent":"FAILED","slots":{"AMOUNT":"560.00"}}
+{"text":"Card payment: Rs 6,700.00 at Northside Clinic approved. Card ending 3710. Ref ID NC241024556677","intent":"TRANSACTION","slots":{"AMOUNT":"6,700.00","MERCHANT":"Northside Clinic","ACCOUNT_LAST4":"3710","REFERENCE":"NC241024556677"}}
+{"text":"Rs 2,500 received from payroll. Your account balance is now Rs 31,400.00; account ending 1946","intent":"TRANSACTION","slots":{"AMOUNT":"2,500","DIRECTION":"received","ACCOUNT_LAST4":"1946"}}
+{"text":"Your card bill of Rs 14,260 must be paid before 02-Nov-2026 to avoid late fees","intent":"REMINDER","slots":{"AMOUNT":"14,260","DATE":"02-Nov-2026"}}
+{"text":"Fraud alert: Rs 1,850 on card ending 0098 may be unauthorized. Call the number on your card","intent":"SECURITY_ALERT","slots":{"AMOUNT":"1,850"}}
+{"text":"Your UPI collect request for Rs 875 has not been accepted yet","intent":"AMBIGUOUS","slots":{"AMOUNT":"875"}}
