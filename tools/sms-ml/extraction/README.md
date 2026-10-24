@@ -15,7 +15,7 @@ This is a benchmark/prototype stage. It does **not** replace SmsParsers.kt or fe
 ## Data
 JSONL files contain text, intent, and slots. Each slot value must be an exact substring of its text. All messages are synthetic/sanitized; never commit raw inbox SMS, OTPs, phone numbers, or account/reference identifiers. The current corpus is only a bootstrap set and is not enough to establish production quality. Add reviewed and diverse examples before relying on it.
 
-Splits are fixed: train.jsonl, validation.jsonl, and test.jsonl. Do not move test examples into training or tune thresholds on the test split.
+Splits are fixed: train.jsonl, validation.jsonl, and test.jsonl. The training script additionally imports unique examples from Spendly's existing reviewed synthetic intent corpora as weakly labelled training rows; it uses conservative regexes only to create starter labels for amount, account suffix, reference, date, and direction cues. These weak labels do not label merchant spans and may be noisy. Validation/test rows are never added to training, and exact normalized text duplicates are excluded. Do not move test examples into training or tune thresholds on the test split.
 
 ## Local training
 Python 3.11+ with network access to the Hugging Face model hub is required for the first checkpoint download:
