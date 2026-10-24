@@ -223,3 +223,93 @@ SECURITY_ALERT	Unrecognized access attempt detected; secure your account. Report
 SECURITY_ALERT	Unrecognized access attempt detected; secure your account. Protect your account credentials. Ref VA0251
 SECURITY_ALERT	Unrecognized access attempt detected; secure your account. Contact the bank through a verified channel. Ref VA0252
 SECURITY_ALERT	Unrecognized access attempt detected; secure your account. Secure the account if this was not you. Ref VA0253
+TRANSACTION	WhatsApp Pay: INR 1499 debited for completed UPI payment to Metro Store.
+TRANSACTION	Indian Bank: Your account was debited INR 875 at Rail Tickets; transaction successful.
+TRANSACTION	JioFinance UPI via Karnataka Bank: UPI transfer of Rs 420 to Water Services completed successfully.
+TRANSACTION	Airtel Payments Bank UPI: Card purchase of INR 88 at Fresh Mart approved.
+TRANSACTION	UCO Bank: INR 119 credited to your account from Local Grocer.
+TRANSACTION	Freecharge UPI via Union Bank of India: NEFT credit of INR 7200 from Cinema Tickets posted.
+TRANSACTION	JioFinance UPI: INR 245 paid to Book House using your linked account.
+TRANSACTION	Karnataka Bank: Debit card used for INR 2300 at Cloud Kitchen.
+TRANSACTION	WhatsApp Pay via Yes Bank: Refund of INR 512 from Medical Store credited to your card.
+TRANSACTION	Freecharge UPI: IMPS transfer of INR 999 to Utility Services is complete.
+AMBIGUOUS	Airtel Payments Bank UPI: Payment of INR 65 to Utility Services is processing; final status unavailable.
+AMBIGUOUS	UCO Bank: UPI request for Rs 3199 at Hardware Shop initiated; await confirmation.
+AMBIGUOUS	Freecharge UPI via Union Bank of India: Transfer for INR 1750 is pending verification.
+AMBIGUOUS	JioFinance UPI: Checking your INR 2800 payment to Cafe South; outcome not confirmed.
+AMBIGUOUS	Karnataka Bank: Transaction reference for INR 360 has no final status yet.
+AMBIGUOUS	WhatsApp Pay via Yes Bank: Payment attempt received for Green Basket, INR 129; wait for status.
+AMBIGUOUS	Freecharge UPI: Request to pay Online Market INR 1499 is under review.
+AMBIGUOUS	Union Bank of India: Payment gateway accepted INR 875 request but has not confirmed it.
+AMBIGUOUS	Airtel Payments Bank UPI via Indian Bank: UPI transfer INR 420 to City Fuel awaits bank response.
+AMBIGUOUS	WhatsApp Pay: Status of your INR 88 transaction is temporarily unavailable.
+BALANCE	Indian Bank alert: Available balance in your account is INR 512.
+BALANCE	Airtel Payments Bank UPI: Your current account balance is Rs 999.
+BALANCE	Yes Bank alert: Balance enquiry: INR 640 is available in your account.
+BALANCE	Freecharge UPI: Available credit limit on your card is INR 1540.
+BALANCE	Union Bank of India alert: Your wallet balance is INR 199; no transaction reported.
+BALANCE	Airtel Payments Bank UPI: Card statement total due is INR 780.
+BALANCE	Karnataka Bank alert: Remaining credit limit: INR 65.
+BALANCE	Freecharge UPI: Account has closing balance of INR 3199.
+BALANCE	UCO Bank alert: Your savings balance as of today is INR 1750.
+BALANCE	Airtel Payments Bank UPI: INR 2800 is available after latest balance update.
+FAILED	Freecharge UPI: UPI payment of INR 420 to Cloud Kitchen failed; no money transferred.
+FAILED	Union Bank of India: Your card transaction of INR 88 at Medical Store was declined.
+FAILED	Airtel Payments Bank UPI via Indian Bank: INR 119 payment to Utility Services could not be completed.
+FAILED	WhatsApp Pay: Transfer failed for INR 7200; retry later.
+FAILED	Yes Bank: Payment unsuccessful: INR 245 at Food Court.
+FAILED	JioFinance UPI via UCO Bank: Bank declined the INR 2300 transaction.
+FAILED	Airtel Payments Bank UPI: INR 512 debit attempt reversed after failure.
+FAILED	Indian Bank: Payment of INR 999 to Green Basket was not successful.
+FAILED	Freecharge UPI via Karnataka Bank: Card transaction at Online Market, INR 640, declined.
+FAILED	JioFinance UPI: UPI transaction failed; INR 1540 was not debited.
+MARKETING	Karnataka Bank alert: Special offer: get up to 1750% off at Travel Desk. Terms apply.
+MARKETING	Freecharge UPI: Limited-time reward points offer for your next purchase.
+MARKETING	UCO Bank alert: Upgrade your card to unlock exclusive benefits.
+MARKETING	Airtel Payments Bank UPI: Shop at Electricity Board and enjoy a promotional discount.
+MARKETING	Indian Bank alert: You are pre-selected for a new credit card offer.
+MARKETING	Freecharge UPI: Earn bonus rewards when using your card this month.
+MARKETING	Yes Bank alert: Exclusive cashback offer available in the app. Conditions apply.
+MARKETING	Airtel Payments Bank UPI: Invite friends and earn promotional rewards.
+MARKETING	Union Bank of India alert: A special shopping deal is waiting for you at Local Grocer.
+MARKETING	Freecharge UPI: Apply now for a personal loan offer.
+OTHER	Union Bank of India alert: Your KYC update request has been received; no payment information included.
+OTHER	WhatsApp Pay: Your registered email address was updated successfully.
+OTHER	Karnataka Bank alert: Account service request 199 has been recorded.
+OTHER	JioFinance UPI: Your new cheque book request is being processed.
+OTHER	UCO Bank alert: Nominee details were updated for your account.
+OTHER	WhatsApp Pay: Your statement is ready to download from the official app.
+OTHER	Indian Bank alert: Customer service case for Food Court has been opened.
+OTHER	JioFinance UPI: Your address change request has been registered.
+OTHER	Yes Bank alert: Bank holiday notice: branches may have revised timings.
+OTHER	WhatsApp Pay: Your account profile was updated successfully.
+OTP	Yes Bank alert: Your one-time password is 420186; do not share it.
+OTP	Airtel Payments Bank UPI: OTP 428105 requested for login; valid briefly.
+OTP	Union Bank of India alert: Use verification code 436024 to confirm sign-in.
+OTP	Freecharge UPI: Your authentication code is 443943. Never disclose it.
+OTP	Karnataka Bank alert: One-time code 451862 for transaction authentication.
+OTP	Airtel Payments Bank UPI: Enter 459781 to verify your registered mobile.
+OTP	UCO Bank alert: Login OTP generated; code 467700.
+OTP	Freecharge UPI: Verification PIN 475619 expires shortly. Do not share.
+OTP	Indian Bank alert: Your secure access code is 483538.
+OTP	Airtel Payments Bank UPI: Use code 491457 to authorize banking-app access.
+REMINDER	Indian Bank alert: Reminder: your card bill of INR 360 is due soon.
+REMINDER	JioFinance UPI: Your loan instalment of INR 129 is due on scheduled date.
+REMINDER	Yes Bank alert: Pay the utility bill for Cinema Tickets before due date.
+REMINDER	WhatsApp Pay: Your credit card payment is due; check official app.
+REMINDER	Union Bank of India alert: Standing instruction for INR 420 is scheduled tomorrow.
+REMINDER	JioFinance UPI: Reminder to review upcoming payment of INR 88.
+REMINDER	Karnataka Bank alert: Your recurring deposit instalment is due this week.
+REMINDER	WhatsApp Pay: Auto-debit mandate for Hardware Shop is scheduled next cycle.
+REMINDER	UCO Bank alert: Please maintain sufficient balance for upcoming debit.
+REMINDER	JioFinance UPI: Your card payment due date is approaching.
+SECURITY_ALERT	UCO Bank alert: Security alert: unusual login detected; secure account in official app.
+SECURITY_ALERT	Freecharge UPI: Potential fraud detected; verify using official channels.
+SECURITY_ALERT	Indian Bank alert: Your card was blocked due to suspicious activity.
+SECURITY_ALERT	Airtel Payments Bank UPI: A new device attempted to access your account.
+SECURITY_ALERT	Yes Bank alert: Warning: suspicious activity detected. Do not share OTP.
+SECURITY_ALERT	Freecharge UPI: Your UPI access was restricted after security check.
+SECURITY_ALERT	Union Bank of India alert: Unusual account access attempt detected.
+SECURITY_ALERT	Airtel Payments Bank UPI: Verify recent login activity in official app.
+SECURITY_ALERT	Karnataka Bank alert: Possible unauthorized transaction activity detected.
+SECURITY_ALERT	Freecharge UPI: Your account has been flagged for security review.
