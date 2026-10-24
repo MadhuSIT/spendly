@@ -52,3 +52,35 @@ AMBIGUOUS	Rs 600 transaction notification
 AMBIGUOUS	Your account activity notification for Rs 1000
 AMBIGUOUS	INR 2500 payment status updated
 AMBIGUOUS	Amount Rs 900 has been processed successfully
+TRANSACTION	BOBCARD ending 8899: INR 73.00 spent at L V Condiments on 09-09-2026. Available credit limit INR 139911.93. Current outstanding INR 2819.07.
+TRANSACTION	BOBCARD ending 8899: INR 245.00 spent at City Grocers on 10-09-2026. Current outstanding INR 3064.07.
+TRANSACTION	BOBCARD ending 8899: INR 300.00 refund credited by merchant and adjusted against BOBCARD ending 8899 on 15-09-2026.
+TRANSACTION	BOB Bank account XX8800: INR 1200.00 debited for UPI payment to Green Mart on 16-09-2026. UPI reference 880012345678.
+TRANSACTION	BOB Bank account XX8800: INR 5000.00 credited by salary transfer on 30-09-2026. Reference 880098765432.
+BALANCE	BOB Bank account XX8800 available balance is INR 18450.00 on 30-09-2026.
+TRANSACTION	BOB Bank account XX8800: INR 1000.00 withdrawn at ATM on 01-10-2026. Available balance INR 17450.00.
+TRANSACTION	SBI Card ending 5907: purchase of INR 58.06 at ASSPL on 15-10-2026 was successful.
+FAILED	SBI Card ending 5907: transaction of INR 58.06 at ASSPL on 15-10-2026 was declined. No purchase completed.
+TRANSACTION	SBI Card payment of INR 1650.00 was successfully processed on 20-10-2026. Reference SBI5907PAY01.
+REMINDER	SBI Card ending 5907 statement generated. Total amount due INR 1650.00. Minimum due INR 100.00. Due date 04-11-2026.
+TRANSACTION	Axis Bank Credit Card ending 9443: INR 110.00 spent at E Gopal on 22-10-2026. Available credit limit INR 6754.72.
+TRANSACTION	Axis Bank Credit Card ending 9443: INR 300.00 cashback credited against the card balance on 23-10-2026.
+REMINDER	Axis Bank Credit Card ending 9443 statement generated. Total amount due INR 491.28. Minimum amount due INR 100.00. Due date 04-11-2026.
+TRANSACTION	HDFC Bank account XX8800: INR 30.00 sent to a contact by UPI on 22-10-2026. Reference HDFC88003001.
+TRANSACTION	HDFC Bank account XX8800: INR 1.00 credited by UPI from VPA sender1586@upi on 21-10-2026. UPI reference HDFC88000001.
+TRANSACTION	HDFC Bank Credit Card ending 3764: INR 300.00 refund adjusted against the card balance on 15-09-2026.
+TRANSACTION	HDFC Bank Credit Card ending 3764: bill payment of INR 1650.00 received and applied to card outstanding. Reference HDFC3764PAY01.
+REMINDER	HDFC Bank Credit Card ending 3764 statement generated. Total amount due INR 1350.00. Minimum amount due INR 100.00. Due date 04-11-2026.
+OTHER	IPO application for TONBO: INR 14700.00 was requested to be unblocked after non-allotment. Application reference TONBOIPO01.
+TRANSACTION	IPO application LCC Projects: INR 14892.00 debited from BOB Bank account XX8800 on 15-09-2026. Application reference LCCIPO01.
+OTHER	Bank has initiated release of INR 14700.00 held for an IPO application after non-allotment. Funds release is not yet confirmed.
+MARKETING	Get up to INR 1000 cashback on BOBCARD ending 8899. Minimum transaction INR 7500. Offer valid until 29 November 2026.
+MARKETING	Get up to INR 16000 instant discount at PAI International with SBI Card ending 5907. Minimum transaction INR 20000. Terms apply.
+MARKETING	Get up to INR 12500 instant discount at Bonito Designs with SBI Card ending 5907. Minimum transaction INR 30000. Offer valid in October.
+MARKETING	First BigBasket order offer: get up to INR 125 off orders above INR 399 on Tata Neu. Terms apply.
+TRANSACTION	RWallet account: INR 20.00 debited on 11-10-2026. Available wallet balance INR 11.80.
+TRANSACTION	HDFC Bank Credit Card ending 3764: INR 1000.00 cash withdrawal at ATM on 21-10-2026. Available account balance INR 785.54.
+BALANCE	Axis Bank Credit Card ending 9443 current outstanding is INR 2819.07 and available credit limit is INR 139911.93.
+FAILED	Axis Bank Credit Card ending 9443 purchase of INR 250.00 was declined. No amount was charged.
+OTP	Your OTP to authorize an INR 500 payment on SBI Card ending 5907 is 123456. Do not share it.
+SECURITY_ALERT	Security alert for BOBCARD ending 8899: if you did not authorize the transaction, contact the bank immediately.
