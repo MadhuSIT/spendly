@@ -89,7 +89,7 @@ class OnDeviceSmsClassifier {
             .any { it in text }
         if (!hasFinancialContext) return false
         return Regex(
-            """\b(debited|credited|received|spent|withdrawn|refunded|reversed|charged|purchased|sent|transferred|paid\s+to|purchase\s+approved|purchase\s+completed)\b"""
+            """\b(debited|credited|received|spent|withdrawn|refunded|reversed|charged|purchased|deducted|sent|transferred|paid\s+to|purchase\s+approved|purchase\s+completed)\b"""
         ).containsMatchIn(text)
     }
 
