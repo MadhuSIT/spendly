@@ -1,7 +1,7 @@
 {"text":"Rs 450.00 debited from A/c XX1234 for purchase at Swiggy on 12-Oct-2026. UPI Ref 123456789012","intent":"TRANSACTION","slots":{"AMOUNT":"450.00","DIRECTION":"debited","ACCOUNT_LAST4":"1234","MERCHANT":"Swiggy","DATE":"12-Oct-2026","REFERENCE":"123456789012"}}
 {"text":"INR 1,299.00 spent on your HDFC Bank card XX7788 at Amazon. Ref No AB12CD345678","intent":"TRANSACTION","slots":{"AMOUNT":"1,299.00","DIRECTION":"spent","ACCOUNT_LAST4":"7788","MERCHANT":"Amazon","REFERENCE":"AB12CD345678"}}
 {"text":"Your account XX9012 is credited with Rs. 25,000.00 towards salary on 01/10/2026","intent":"TRANSACTION","slots":{"AMOUNT":"25,000.00","DIRECTION":"credited","ACCOUNT_LAST4":"9012","DATE":"01/10/2026"}}
-{"text":"UPI payment of ₹235 to Zomato successful. UPI Ref: 426712345678","intent":"TRANSACTION","slots":{"AMOUNT":"235","DIRECTION":"payment","MERCHANT":"Zomato","REFERENCE":"426712345678"}}
+{"text":"UPI payment of ₹235 to Zomato successful. UPI Ref: 426712345678","intent":"TRANSACTION","slots":{"AMOUNT":"235","MERCHANT":"Zomato","REFERENCE":"426712345678"}}
 {"text":"Rs 2,500 debited from account ending 4321 for NEFT transfer to Rahul. Ref 987654321098","intent":"TRANSACTION","slots":{"AMOUNT":"2,500","DIRECTION":"debited","ACCOUNT_LAST4":"4321","REFERENCE":"987654321098"}}
 {"text":"Your SBI account XX0098 has been debited by INR 799.00 at Flipkart on 05-Oct-2026","intent":"TRANSACTION","slots":{"AMOUNT":"799.00","DIRECTION":"debited","ACCOUNT_LAST4":"0098","MERCHANT":"Flipkart","DATE":"05-Oct-2026"}}
 {"text":"Card purchase of Rs. 129.50 at Metro on 2026-10-04 approved. Card ending 6644","intent":"TRANSACTION","slots":{"AMOUNT":"129.50","MERCHANT":"Metro","DATE":"2026-10-04","ACCOUNT_LAST4":"6644"}}
@@ -31,7 +31,7 @@
 {"text":"Rs 199.00 paid at BookMyShow with card ending 2211","intent":"TRANSACTION","slots":{"AMOUNT":"199.00","DIRECTION":"paid","MERCHANT":"BookMyShow","ACCOUNT_LAST4":"2211"}}
 {"text":"Your account balance is Rs 5,430.00 as of 12-Oct-2026","intent":"BALANCE","slots":{"AMOUNT":"5,430.00","DATE":"12-Oct-2026"}}
 {"text":"Available balance INR 23,400.00 in account XX1234","intent":"BALANCE","slots":{"AMOUNT":"23,400.00","ACCOUNT_LAST4":"1234"}}
-{"text":"Payment failed for Rs 450.00. Amount not debited","intent":"FAILED","slots":{"AMOUNT":"450.00","DIRECTION":"debited"}}
+{"text":"Payment failed for Rs 450.00. Amount not debited","intent":"FAILED","slots":{"AMOUNT":"450.00","DIRECTION":"not debited"}}
 {"text":"Your OTP for card transaction is 123456. Do not share it","intent":"OTP","slots":{}}
 {"text":"Special loan offer up to Rs 5,00,000. Apply now","intent":"MARKETING","slots":{"AMOUNT":"5,00,000"}}
 {"text":"Your credit card bill of Rs 8,400 is due tomorrow","intent":"REMINDER","slots":{"AMOUNT":"8,400"}}
