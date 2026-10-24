@@ -1,0 +1,52 @@
+{"text":"Rs 450.00 debited from A/c XX1234 for purchase at Swiggy on 12-Oct-2026. UPI Ref 123456789012","intent":"TRANSACTION","slots":{"AMOUNT":"450.00","DIRECTION":"debited","ACCOUNT_LAST4":"1234","MERCHANT":"Swiggy","DATE":"12-Oct-2026","REFERENCE":"123456789012"}}
+{"text":"INR 1,299.00 spent on your HDFC Bank card XX7788 at Amazon. Ref No AB12CD345678","intent":"TRANSACTION","slots":{"AMOUNT":"1,299.00","DIRECTION":"spent","ACCOUNT_LAST4":"7788","MERCHANT":"Amazon","REFERENCE":"AB12CD345678"}}
+{"text":"Your account XX9012 is credited with Rs. 25,000.00 towards salary on 01/10/2026","intent":"TRANSACTION","slots":{"AMOUNT":"25,000.00","DIRECTION":"credited","ACCOUNT_LAST4":"9012","DATE":"01/10/2026"}}
+{"text":"UPI payment of ₹235 to Zomato successful. UPI Ref: 426712345678","intent":"TRANSACTION","slots":{"AMOUNT":"235","DIRECTION":"payment","MERCHANT":"Zomato","REFERENCE":"426712345678"}}
+{"text":"Rs 2,500 debited from account ending 4321 for NEFT transfer to Rahul. Ref 987654321098","intent":"TRANSACTION","slots":{"AMOUNT":"2,500","DIRECTION":"debited","ACCOUNT_LAST4":"4321","REFERENCE":"987654321098"}}
+{"text":"Your SBI account XX0098 has been debited by INR 799.00 at Flipkart on 05-Oct-2026","intent":"TRANSACTION","slots":{"AMOUNT":"799.00","DIRECTION":"debited","ACCOUNT_LAST4":"0098","MERCHANT":"Flipkart","DATE":"05-Oct-2026"}}
+{"text":"Card purchase of Rs. 129.50 at Metro on 2026-10-04 approved. Card ending 6644","intent":"TRANSACTION","slots":{"AMOUNT":"129.50","MERCHANT":"Metro","DATE":"2026-10-04","ACCOUNT_LAST4":"6644"}}
+{"text":"Rs 10,000.00 credited to account XX1122 via IMPS. Ref ID IMPS12345678","intent":"TRANSACTION","slots":{"AMOUNT":"10,000.00","DIRECTION":"credited","ACCOUNT_LAST4":"1122","REFERENCE":"IMPS12345678"}}
+{"text":"You paid Rs 89.00 to Uber using UPI. UPI Ref No 612345678901","intent":"TRANSACTION","slots":{"AMOUNT":"89.00","DIRECTION":"paid","MERCHANT":"Uber","REFERENCE":"612345678901"}}
+{"text":"Rs. 1,750.00 withdrawn at ATM from A/c XX5678 on 03/10/2026","intent":"TRANSACTION","slots":{"AMOUNT":"1,750.00","DIRECTION":"withdrawn","ACCOUNT_LAST4":"5678","DATE":"03/10/2026"}}
+{"text":"Payment of INR 499.00 to Netflix completed using card ending 2345","intent":"TRANSACTION","slots":{"AMOUNT":"499.00","MERCHANT":"Netflix","ACCOUNT_LAST4":"2345"}}
+{"text":"Refund of Rs 650.00 credited to your account XX3456 on 02-Oct-2026. Ref RFD12345678","intent":"TRANSACTION","slots":{"AMOUNT":"650.00","DIRECTION":"credited","ACCOUNT_LAST4":"3456","DATE":"02-Oct-2026","REFERENCE":"RFD12345678"}}
+{"text":"Your credit card XX8877 payment of Rs 5,000.00 was received on 2026-10-01","intent":"TRANSACTION","slots":{"AMOUNT":"5,000.00","ACCOUNT_LAST4":"8877","DATE":"2026-10-01"}}
+{"text":"Rs 120.00 debited for fuel at Indian Oil from card XX4321. Ref 456789012345","intent":"TRANSACTION","slots":{"AMOUNT":"120.00","DIRECTION":"debited","MERCHANT":"Indian Oil","ACCOUNT_LAST4":"4321","REFERENCE":"456789012345"}}
+{"text":"A/c XX4433 debited Rs. 2,300 towards electricity bill on 30-Sep-2026","intent":"TRANSACTION","slots":{"AMOUNT":"2,300","DIRECTION":"debited","ACCOUNT_LAST4":"4433","DATE":"30-Sep-2026"}}
+{"text":"Rs 75.00 sent to Priya through UPI. Ref No 876543210987","intent":"TRANSACTION","slots":{"AMOUNT":"75.00","DIRECTION":"sent","REFERENCE":"876543210987"}}
+{"text":"INR 899 debited on card ending 2233 at Myntra","intent":"TRANSACTION","slots":{"AMOUNT":"899","DIRECTION":"debited","ACCOUNT_LAST4":"2233","MERCHANT":"Myntra"}}
+{"text":"Your account XX1212 received Rs 4,200.00 from ACME LTD on 29/09/2026","intent":"TRANSACTION","slots":{"AMOUNT":"4,200.00","ACCOUNT_LAST4":"1212","DATE":"29/09/2026"}}
+{"text":"Rs 340 debited for purchase at BigBasket. A/c XX9900. Ref TXN99887766","intent":"TRANSACTION","slots":{"AMOUNT":"340","DIRECTION":"debited","MERCHANT":"BigBasket","ACCOUNT_LAST4":"9900","REFERENCE":"TXN99887766"}}
+{"text":"UPI transaction successful: Rs. 1,200 sent to BESCOM, ref 987612345678","intent":"TRANSACTION","slots":{"AMOUNT":"1,200","DIRECTION":"sent","MERCHANT":"BESCOM","REFERENCE":"987612345678"}}
+{"text":"Rs 99.00 charged as annual fee on card XX5566","intent":"TRANSACTION","slots":{"AMOUNT":"99.00","DIRECTION":"charged","ACCOUNT_LAST4":"5566"}}
+{"text":"Your account XX3434 has been credited with INR 18,500.00. Ref NEFT123456789","intent":"TRANSACTION","slots":{"AMOUNT":"18,500.00","DIRECTION":"credited","ACCOUNT_LAST4":"3434","REFERENCE":"NEFT123456789"}}
+{"text":"Rs 640.00 paid to IRCTC using UPI on 27-Sep-2026, UPI Ref 123498761234","intent":"TRANSACTION","slots":{"AMOUNT":"640.00","DIRECTION":"paid","MERCHANT":"IRCTC","DATE":"27-Sep-2026","REFERENCE":"123498761234"}}
+{"text":"INR 2,099.00 purchase at Croma approved for card ending 8080","intent":"TRANSACTION","slots":{"AMOUNT":"2,099.00","MERCHANT":"Croma","ACCOUNT_LAST4":"8080"}}
+{"text":"Rs 450.00 was refunded to your wallet on 2026-09-25. Ref REF12345678","intent":"TRANSACTION","slots":{"AMOUNT":"450.00","DIRECTION":"refunded","DATE":"2026-09-25","REFERENCE":"REF12345678"}}
+{"text":"Rs 3,000 transferred from A/c XX1919 via RTGS, transaction ID RTGS12345678","intent":"TRANSACTION","slots":{"AMOUNT":"3,000","DIRECTION":"transferred","ACCOUNT_LAST4":"1919","REFERENCE":"RTGS12345678"}}
+{"text":"Your card XX7744 was charged INR 1,050.25 at Apollo Pharmacy on 24/09/2026","intent":"TRANSACTION","slots":{"AMOUNT":"1,050.25","DIRECTION":"charged","ACCOUNT_LAST4":"7744","MERCHANT":"Apollo Pharmacy","DATE":"24/09/2026"}}
+{"text":"Payment of Rs 299 to Spotify completed. Reference number SPOT12345678","intent":"TRANSACTION","slots":{"AMOUNT":"299","MERCHANT":"Spotify","REFERENCE":"SPOT12345678"}}
+{"text":"Rs. 850.00 debited from account XX6655 for online shopping. Ref 102938475610","intent":"TRANSACTION","slots":{"AMOUNT":"850.00","DIRECTION":"debited","ACCOUNT_LAST4":"6655","REFERENCE":"102938475610"}}
+{"text":"INR 15,000.00 credited to A/c XX5670 on 2026-09-20. Ref ABCD12345678","intent":"TRANSACTION","slots":{"AMOUNT":"15,000.00","DIRECTION":"credited","ACCOUNT_LAST4":"5670","DATE":"2026-09-20","REFERENCE":"ABCD12345678"}}
+{"text":"Rs 199.00 paid at BookMyShow with card ending 2211","intent":"TRANSACTION","slots":{"AMOUNT":"199.00","DIRECTION":"paid","MERCHANT":"BookMyShow","ACCOUNT_LAST4":"2211"}}
+{"text":"Your account balance is Rs 5,430.00 as of 12-Oct-2026","intent":"BALANCE","slots":{"AMOUNT":"5,430.00","DATE":"12-Oct-2026"}}
+{"text":"Available balance INR 23,400.00 in account XX1234","intent":"BALANCE","slots":{"AMOUNT":"23,400.00","ACCOUNT_LAST4":"1234"}}
+{"text":"Payment failed for Rs 450.00. Amount not debited","intent":"FAILED","slots":{"AMOUNT":"450.00","DIRECTION":"debited"}}
+{"text":"Your OTP for card transaction is 123456. Do not share it","intent":"OTP","slots":{}}
+{"text":"Special loan offer up to Rs 5,00,000. Apply now","intent":"MARKETING","slots":{"AMOUNT":"5,00,000"}}
+{"text":"Your credit card bill of Rs 8,400 is due tomorrow","intent":"REMINDER","slots":{"AMOUNT":"8,400"}}
+{"text":"Suspicious transaction alert: Rs 2,000. If not you, call bank immediately","intent":"SECURITY_ALERT","slots":{"AMOUNT":"2,000"}}
+{"text":"KYC request received successfully. No transaction was performed","intent":"OTHER","slots":{}}
+{"text":"Your payment of Rs 1,000 may be refunded after review","intent":"AMBIGUOUS","slots":{"AMOUNT":"1,000"}}
+{"text":"Rs 89 debited at Zepto from card XX1111. Ref 778899001122","intent":"TRANSACTION","slots":{"AMOUNT":"89","DIRECTION":"debited","MERCHANT":"Zepto","ACCOUNT_LAST4":"1111","REFERENCE":"778899001122"}}
+{"text":"Rs 1,599 spent at Reliance Digital on 2026-09-18. Card XX3333","intent":"TRANSACTION","slots":{"AMOUNT":"1,599","DIRECTION":"spent","MERCHANT":"Reliance Digital","DATE":"2026-09-18","ACCOUNT_LAST4":"3333"}}
+{"text":"A/c XX5656 credited by Rs 2,750 via NEFT on 18-Sep-2026","intent":"TRANSACTION","slots":{"AMOUNT":"2,750","DIRECTION":"credited","ACCOUNT_LAST4":"5656","DATE":"18-Sep-2026"}}
+{"text":"Rs 550.00 payment to Ola completed, ref 998877665544","intent":"TRANSACTION","slots":{"AMOUNT":"550.00","MERCHANT":"Ola","REFERENCE":"998877665544"}}
+{"text":"INR 2,450.00 debited from account XX4545. Merchant: Decathlon. Ref DEC12345678","intent":"TRANSACTION","slots":{"AMOUNT":"2,450.00","DIRECTION":"debited","ACCOUNT_LAST4":"4545","MERCHANT":"Decathlon","REFERENCE":"DEC12345678"}}
+{"text":"Rs 315 credited to account XX2323 from refund, reference 564738291012","intent":"TRANSACTION","slots":{"AMOUNT":"315","DIRECTION":"credited","ACCOUNT_LAST4":"2323","REFERENCE":"564738291012"}}
+{"text":"Card ending 9090 spent Rs 725.50 at Dominos","intent":"TRANSACTION","slots":{"AMOUNT":"725.50","DIRECTION":"spent","ACCOUNT_LAST4":"9090","MERCHANT":"Dominos"}}
+{"text":"Rs 1,100 paid to Jio recharge from UPI. Ref 112233445566","intent":"TRANSACTION","slots":{"AMOUNT":"1,100","DIRECTION":"paid","MERCHANT":"Jio recharge","REFERENCE":"112233445566"}}
+{"text":"Rs 65.00 debited from account XX1414 at pharmacy on 15-Sep-2026","intent":"TRANSACTION","slots":{"AMOUNT":"65.00","DIRECTION":"debited","ACCOUNT_LAST4":"1414","DATE":"15-Sep-2026"}}
+{"text":"INR 799.00 charged to card XX7878 for hotel booking at OYO","intent":"TRANSACTION","slots":{"AMOUNT":"799.00","DIRECTION":"charged","ACCOUNT_LAST4":"7878","MERCHANT":"OYO"}}
+{"text":"Rs 4,000 received into account XX1210. Ref IMPS456789012","intent":"TRANSACTION","slots":{"AMOUNT":"4,000","DIRECTION":"received","ACCOUNT_LAST4":"1210","REFERENCE":"IMPS456789012"}}
+{"text":"Rs 2,600.00 debited for insurance premium on 14-Sep-2026. A/c XX1211","intent":"TRANSACTION","slots":{"AMOUNT":"2,600.00","DIRECTION":"debited","DATE":"14-Sep-2026","ACCOUNT_LAST4":"1211"}}
