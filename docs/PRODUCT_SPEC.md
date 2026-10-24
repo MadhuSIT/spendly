@@ -30,13 +30,15 @@ SMS_RECEIVED -> detect -> classify -> identify provider -> parse -> normalize ->
 
 Real-time SMS processing and reconciliation use the same parser, validation and deduplication pipeline.
 
-### Detection
+### Detection and compact on-device ML
 
 Positive financial signals include debit, credit, spent, paid, purchase, transaction, payment, withdrawn, received, refund, reversed, UPI, card, POS, ATM and bill payment.
 
-Negative signals include OTP, verification codes, promotional offers, loan/card marketing, login alerts and generic balance-only messages.
+Negative signals include fraud/security alerts, OTP/verification codes, promotional offers, loan/card marketing, payment reminders and generic balance/statement-only messages.
 
-The initial detector is rule-based and measurable so false positives and false negatives can be tested.
+The detector uses a compact, offline statistical text classifier trained from a versioned synthetic corpus. High-risk deterministic safety overrides take precedence for clear negative cases. Low-confidence results become AMBIGUOUS and must not be converted into an auto-confirmed expense. The model only gates messages into the existing provider/generic parser; it does not extract final financial fields, resolve entities, deduplicate events, or write to the ledger.
+
+The reproducible training pipeline is documented in `tools/sms-ml/README.md`. Only explicitly reviewed, sanitized examples may be added as labels. Predictions are never automatically treated as ground truth, and raw phone SMS is never uploaded or committed.
 
 ### Parser architecture
 

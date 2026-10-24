@@ -111,8 +111,11 @@ The app must request only the minimum SMS permissions required by its supported 
 
 Components:
 
-SmsClassifier
-- determines whether an SMS is financially relevant
+OnDeviceSmsClassifier / SmsDetector
+- runs compact offline statistical classification before amount extraction
+- uses safety overrides for high-risk non-transaction messages
+- returns transaction, non-transaction, or ambiguous classification with confidence and model version
+- fails closed to ambiguous when confidence is insufficient
 
 ProviderIdentifier
 - identifies likely bank/card/payment provider
@@ -131,7 +134,7 @@ Validator
 
 ParserResult must contain structured data rather than directly modifying persistence.
 
-Every parser result records parser source and version.
+The ML stage is a gate only; it must not bypass normalization, validation, entity resolution, deduplication, or Room ledger invariants. The reproducible training and reviewed-feedback process is documented in `tools/sms-ml/README.md`.
 
 ## 6. Entity resolution
 
