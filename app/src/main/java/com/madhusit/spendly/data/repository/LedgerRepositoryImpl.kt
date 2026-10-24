@@ -168,6 +168,9 @@ database.withTransaction {
             relationshipDao.deleteAll()
             transactionDao.deleteAll()
             entityDao.deleteAll()
+            // Also clear processed-SMS fingerprints so a re-import is not blocked
+            // as "already exists" after the user has cleared the ledger.
+            smsEventDao.deleteAll()
         }
     }
 

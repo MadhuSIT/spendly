@@ -60,7 +60,7 @@ class OnnxSmsParser(
             amountMinor = amountMinor,
             currency = "INR",
             merchantName = merchant,
-            provider = null,
+            provider = detectProvider(message.sender, text),
             maskedIdentifier = lastFour?.let { "XX$it" },
             lastFour = lastFour,
             transactionTimestamp = timestamp,
