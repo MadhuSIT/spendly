@@ -1,0 +1,37 @@
+{
+  "intents": [
+    "TRANSACTION",
+    "AMBIGUOUS",
+    "BALANCE",
+    "FAILED",
+    "MARKETING",
+    "OTHER",
+    "OTP",
+    "REMINDER",
+    "SECURITY_ALERT"
+  ],
+  "tags": [
+    "O",
+    "B-AMOUNT",
+    "I-AMOUNT",
+    "B-DIRECTION",
+    "I-DIRECTION",
+    "B-ACCOUNT_LAST4",
+    "I-ACCOUNT_LAST4",
+    "B-MERCHANT",
+    "I-MERCHANT",
+    "B-DATE",
+    "I-DATE",
+    "B-REFERENCE",
+    "I-REFERENCE"
+  ],
+  "fields": [
+    "AMOUNT",
+    "DIRECTION",
+    "ACCOUNT_LAST4",
+    "MERCHANT",
+    "DATE",
+    "REFERENCE"
+  ],
+  "base_model": "C:\\Users\\vm30\\projects\\spendly\\.models\\mobilebert-uncased"
+}

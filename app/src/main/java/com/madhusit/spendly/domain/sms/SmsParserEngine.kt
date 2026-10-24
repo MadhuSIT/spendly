@@ -2,7 +2,8 @@ package com.madhusit.spendly.domain.sms
 
 class SmsParserEngine(
     private val detector: SmsDetector = SmsDetector(),
-    private val parsers: List<SmsParser> = listOf(
+    private val onnxParser: SmsParser? = null,
+    private val regexParsers: List<SmsParser> = listOf(
         // ── Major private banks ──────────────────────────────────────────────
         ProviderSmsParser("HDFC",       Regex("HDFCBK|HDFCB|HDFC",      RegexOption.IGNORE_CASE)),
         ProviderSmsParser("ICICI",      Regex("ICICIB?|ICICI",           RegexOption.IGNORE_CASE)),
@@ -27,13 +28,20 @@ class SmsParserEngine(
         GenericSmsParser()
     )
 ) {
+    /** ONNX extractor (advisory) tried first, then deterministic regex parsers. */
+    private val parsers: List<SmsParser> = listOfNotNull(onnxParser) + regexParsers
+
     fun parse(message: SmsMessage): SmsParseResult {
         if (detector.classify(message) != SmsClassification.FINANCIAL) {
             return SmsParseResult(SmsClassification.NON_FINANCIAL)
         }
-        val parser = parsers.firstOrNull { it.canParse(message) }
-            ?: return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.UNSUPPORTED_PROVIDER)
-        val normalized = parser.parse(message)
+        val candidates = parsers.filter { it.canParse(message) }
+        if (candidates.isEmpty()) {
+            return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.UNSUPPORTED_PROVIDER)
+        }
+        // Try parsers in order; a parser returning null (e.g. the advisory ONNX
+        // parser deferring a non-transaction) falls through to the next one.
+        val normalized = candidates.firstNotNullOfOrNull { it.parse(message) }
             ?: return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.UNPARSEABLE)
         if (normalized.amountMinor <= 0 || normalized.currency.length != 3 || normalized.confidence !in 0.0..1.0) {
             return SmsParseResult(SmsClassification.FINANCIAL, failureReason = SmsFailureReason.INVALID_NORMALIZED_RESULT)

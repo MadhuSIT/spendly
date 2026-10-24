@@ -16,6 +16,9 @@ import com.madhusit.spendly.domain.FoundationRepository
 import com.madhusit.spendly.domain.auth.AuthRepository
 import com.madhusit.spendly.domain.ledger.LedgerRepository
 import com.madhusit.spendly.domain.sms.SmsIngestionRepository
+import com.madhusit.spendly.domain.sms.OnnxSmsExtractor
+import com.madhusit.spendly.domain.sms.OnnxSmsParser
+import com.madhusit.spendly.domain.sms.SmsParserEngine
 import com.madhusit.spendly.domain.sync.SyncRepository
 
 class SpendlyApplication : Application() {
@@ -34,7 +37,11 @@ class SpendlyApplication : Application() {
     }
 
     val smsIngestionRepository: SmsIngestionRepository by lazy {
-        SmsIngestionRepositoryImpl(database, ledgerRepository, database.processedSmsEventDao())
+        val onnxExtractor = OnnxSmsExtractor.fromAssets(this)
+        val engine = SmsParserEngine(
+            onnxParser = onnxExtractor?.let { OnnxSmsParser(it) }
+        )
+        SmsIngestionRepositoryImpl(database, ledgerRepository, database.processedSmsEventDao(), engine)
     }
 
     val authRepository: AuthRepository by lazy { FirebaseAuthRepository() }

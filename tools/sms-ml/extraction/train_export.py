@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import random
 import re
 from collections import defaultdict
@@ -17,13 +18,21 @@ from onnxruntime.quantization import QuantType, quantize_dynamic
 
 ROOT = Path(__file__).resolve().parents[3]
 DATA = ROOT / "tools/sms-ml/extraction"
-BASE_MODEL = "google/mobilebert-uncased"
+# Base encoder. Defaults to the Hub id, but can be pointed at a locally-staged
+# snapshot (e.g. .models/mobilebert-uncased) for fully offline runs on networks
+# where huggingface.co is blocked. A local path next to the repo is preferred
+# automatically when present.
+_LOCAL_BASE = ROOT / ".models/mobilebert-uncased"
+BASE_MODEL = os.environ.get(
+    "SPENDLY_BASE_MODEL",
+    str(_LOCAL_BASE) if (_LOCAL_BASE / "config.json").exists() else "google/mobilebert-uncased",
+)
 INTENTS = ["TRANSACTION", "AMBIGUOUS", "BALANCE", "FAILED", "MARKETING", "OTHER", "OTP", "REMINDER", "SECURITY_ALERT"]
 FIELDS = ["AMOUNT", "DIRECTION", "ACCOUNT_LAST4", "MERCHANT", "DATE", "REFERENCE"]
 TAGS = ["O"] + [tag for field in FIELDS for tag in (f"B-{field}", f"I-{field}")]
 TAG_TO_ID = {tag: i for i, tag in enumerate(TAGS)}
 INTENT_TO_ID = {label: i for i, label in enumerate(INTENTS)}
-MAX_LENGTH = 160
+MAX_LENGTH = 96
 SEED = 20261024
 WEAK_CORPORA = [
     ROOT / "tools/sms-ml/training_corpus.tsv",
@@ -42,7 +51,10 @@ def weak_slots(text, intent):
     amount = re.search(r"(?:₹|\bINR\s*|\bRs\.?\s*)([0-9]+(?:,[0-9]{2,3})*(?:\.\d{1,2})?)", text, re.IGNORECASE)
     if amount:
         slots["AMOUNT"] = amount.group(1)
+    # Require an account/card cue for unmasked suffixes; never treat an arbitrary 4-digit number as an account.
     account = re.search(r"[Xx*]{2,}\s*(\d{4})", text)
+    if not account:
+        account = re.search(r"\b(?:account|a/c|card|bobcard)(?:\s+(?:number|no\.?|ending))?\s+(\d{4})\b", text, re.IGNORECASE)
     if account:
         slots["ACCOUNT_LAST4"] = account.group(1)
     reference = re.search(r"(?:upi\s*ref(?:erence)?|txn\s*(?:id|ref)|ref(?:erence)?(?:\s*(?:no\.?|id|#))?)[:\s#-]*([A-Z0-9]{8,22})", text, re.IGNORECASE)
@@ -52,7 +64,16 @@ def weak_slots(text, intent):
     if date:
         slots["DATE"] = date.group(0)
     if intent in {"TRANSACTION", "FAILED"}:
-        direction = re.search(r"\b(?:debited|credited|spent|withdrawn|refunded|reversed|charged|deducted|sent|transferred|received|paid|not\s+debited)\b", text, re.IGNORECASE)
+        # Negative status phrases are not evidence that money actually moved.
+        # Do not weak-label "not debited" as a positive debit cue.
+        negated_debit = re.search(
+            r"\b(?:not|never|has not|was not|hasn't|wasn't)\s+(?:been\s+)?debited\b",
+            text, re.IGNORECASE,
+        )
+        direction = None if negated_debit else re.search(
+            r"\b(?:debited|credited|spent|withdrawn|refunded|reversed|charged|deducted|sent|transferred|received|paid)\b",
+            text, re.IGNORECASE,
+        )
         if direction:
             slots["DIRECTION"] = direction.group(0)
     return slots
@@ -75,6 +96,83 @@ def augment_with_existing_synthetic_corpus(train_rows, validation_rows, test_row
             seen.add(key)
             added.append({"text": text.strip(), "intent": label, "slots": weak_slots(text.strip(), label)})
     return train_rows + added, len(added)
+
+def generate_strong_synthetic_rows(existing_train_rows):
+    """Create fully annotated, deterministic transaction examples for underrepresented slots."""
+    merchants = {
+        row.get("slots", {}).get("MERCHANT")
+        for row in existing_train_rows
+        if row.get("slots", {}).get("MERCHANT")
+    }
+    merchants.update({
+        "L V Condiments", "City Grocers", "City Home", "Green Mart", "Metro Mart",
+        "BigBasket", "Fuel Station", "Cafe South", "E Gopal", "City Pharmacy",
+        "Amazon", "Flipkart", "Swiggy", "Zomato", "Uber", "Rapido", "Zepto",
+        "Reliance Digital", "Reliance Fresh", "Indian Oil", "BESCOM", "IRCTC",
+        "Netflix", "Spotify", "Myntra", "Croma", "Decathlon", "Apollo Pharmacy",
+        "BookMyShow", "PVR Cinemas", "YouTube Premium", "Ola", "OYO",
+        "Green Mart Online", "Fresh Basket", "South Cafe", "City Utilities",
+    })
+    templates = [
+        ("Rs {amount} debited from A/c XX{account} at {merchant} on {date}. UPI Ref {reference}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "DIRECTION": "debited", "ACCOUNT_LAST4": ac, "MERCHANT": m, "DATE": d, "REFERENCE": r}),
+        ("Card ending {account} charged INR {amount} at {merchant}. Ref No {reference}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "DIRECTION": "charged", "ACCOUNT_LAST4": ac, "MERCHANT": m, "REFERENCE": r}),
+        ("UPI payment of ₹{amount} to {merchant} successful. UPI Ref: {reference}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "MERCHANT": m, "REFERENCE": r}),
+        ("INR {amount} spent at {merchant} using card XX{account} on {date}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "DIRECTION": "spent", "ACCOUNT_LAST4": ac, "MERCHANT": m, "DATE": d}),
+    ]
+    generated = []
+    for i, merchant in enumerate(sorted(merchants, key=str.lower)):
+        for j, (template, make_slots) in enumerate(templates):
+            amount = ["49.00", "120.50", "275.00", "499.00", "740.25", "1,650.00", "2,020.00", "4,875.00"][(i + j) % 8]
+            account = f"{((i * 37 + j * 101) % 9000) + 1000:04d}"
+            date = ["01-Sep-2026", "12-Sep-2026", "2026-10-04", "22/09/2026"][(i + j) % 4]
+            reference = f"SPY{i:05d}{j:03d}"
+            text = template.format(amount=amount, account=account, merchant=merchant, date=date, reference=reference)
+            slots = make_slots(amount, account, merchant, date, reference)
+            generated.append({"text": text, "intent": "TRANSACTION", "slots": slots})
+
+    # Add strongly labelled, varied hard cases across non-transaction intents.
+    # These teach the model to distinguish the event amount from balances,
+    # promotional thresholds, negated actions, and dates in reminders.
+    hard_cases = [
+        ("Orbit Broadband payment for Rs 2,299 could not be processed; your card was not charged.", "FAILED", {"AMOUNT": "2,299"}),
+        ("Your Rs 560.00 transfer was unsuccessful. No debit was made and the available balance is Rs 3,740.25.", "FAILED", {"AMOUNT": "560.00"}),
+        ("Your transfer of Rs 845 to Green Mart failed. The amount has not been debited.", "FAILED", {"AMOUNT": "845"}),
+        ("Rs 1,275 payment was unsuccessful; no funds were deducted from account XX7316.", "FAILED", {"AMOUNT": "1,275"}),
+        ("Limited-time reward: receive up to Rs 7,500 cashback when monthly eligible spend reaches Rs 25,000.", "MARKETING", {"AMOUNT": "7,500"}),
+        ("Spend INR 18,000 and receive Rs 2,000 cashback on eligible purchases.", "MARKETING", {"AMOUNT": "2,000"}),
+        ("Earn up to Rs 950 rewards when you spend Rs 12,000 with your card.", "MARKETING", {"AMOUNT": "950"}),
+        ("Get Rs 1,500 off on purchases above Rs 10,000 before the offer ends.", "MARKETING", {"AMOUNT": "1,500"}),
+        ("Loan instalment reminder: pay INR 12,640 by 05-Nov-2026.", "REMINDER", {"AMOUNT": "12,640", "DATE": "05-Nov-2026"}),
+        ("Please clear the outstanding card bill of Rs 14,260 on or before 02-Nov-2026.", "REMINDER", {"AMOUNT": "14,260", "DATE": "02-Nov-2026"}),
+        ("Electricity bill payment of Rs 1,840 is due by 18/11/2026.", "REMINDER", {"AMOUNT": "1,840", "DATE": "18/11/2026"}),
+        ("Your monthly subscription of INR 799 is scheduled for 2026-11-03.", "REMINDER", {"AMOUNT": "799", "DATE": "2026-11-03"}),
+        ("Available balance in account XX1946 is Rs 31,400.00 as of 24-Oct-2026.", "BALANCE", {"AMOUNT": "31,400.00", "ACCOUNT_LAST4": "1946", "DATE": "24-Oct-2026"}),
+        ("Your current account balance is INR 8,205.50.", "BALANCE", {"AMOUNT": "8,205.50"}),
+        ("Balance enquiry: Rs 6,740 available in account ending 6028.", "BALANCE", {"AMOUNT": "6,740", "ACCOUNT_LAST4": "6028"}),
+        ("StreamBox purchase: INR 1,099.00 on card ending 6028. Transaction ID SBX-2026-10-24-771.", "TRANSACTION", {"AMOUNT": "1,099.00", "MERCHANT": "StreamBox", "ACCOUNT_LAST4": "6028", "REFERENCE": "SBX-2026-10-24-771"}),
+        ("BESCOM bill payment of INR 87.60 from account ending 4419. Reference BESCOM24102026.", "TRANSACTION", {"AMOUNT": "87.60", "ACCOUNT_LAST4": "4419", "MERCHANT": "BESCOM", "REFERENCE": "BESCOM24102026"}),
+        ("ATM cash withdrawal: Rs 3,200 from account XX7316 dated 24-Oct-2026.", "TRANSACTION", {"AMOUNT": "3,200", "ACCOUNT_LAST4": "7316", "DATE": "24-Oct-2026", "DIRECTION": "withdrawal"}),
+    ]
+    for text, intent, slots in hard_cases:
+        generated.append({"text": text, "intent": intent, "slots": slots})
+    return generated
+
+
+def augment_with_strong_synthetic_rows(train_rows, validation_rows, test_rows):
+    """Add fully annotated synthetic rows to training only; never use held-out rows."""
+    seen = {normalize_text(row["text"]) for row in train_rows + validation_rows + test_rows}
+    generated = []
+    for row in generate_strong_synthetic_rows(train_rows):
+        key = normalize_text(row["text"])
+        if key not in seen:
+            seen.add(key)
+            generated.append(row)
+    return train_rows + generated, len(generated)
+
 
 def read_rows(path: Path):
     rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
@@ -149,6 +247,13 @@ class MultiTaskMobileBert(nn.Module):
         self.encoder = AutoModel.from_pretrained(checkpoint)
         hidden = self.encoder.config.hidden_size
         self.dropout = nn.Dropout(0.1)
+        # MobileBERT's raw last_hidden_state has large magnitude; feeding it
+        # straight into the heads makes the intent logits explode on the first
+        # epoch (cross-entropy in the millions) before slowly recovering.
+        # Normalising the pooled and token representations keeps logits bounded
+        # and removes the first-epoch loss spike.
+        self.pooled_norm = nn.LayerNorm(hidden)
+        self.token_norm = nn.LayerNorm(hidden)
         self.intent_head = nn.Linear(hidden, num_intents)
         self.token_head = nn.Linear(hidden, num_tags)
 
@@ -157,7 +262,9 @@ class MultiTaskMobileBert(nn.Module):
         if token_type_ids is not None:
             kwargs["token_type_ids"] = token_type_ids
         hidden = self.encoder(**kwargs).last_hidden_state
-        return self.intent_head(self.dropout(hidden[:, 0])), self.token_head(self.dropout(hidden))
+        pooled = self.pooled_norm(hidden[:, 0])
+        tokens = self.token_norm(hidden)
+        return self.intent_head(self.dropout(pooled)), self.token_head(self.dropout(tokens))
 
 
 def collate(batch):
@@ -193,10 +300,26 @@ def predicted_spans(tag_ids, offsets, text):
     return spans
 
 
-def evaluate(model, dataset, device):
+def allowed_fields_for_intent(intent):
+    # Constrain implausible field/intent combinations to reduce false-positive spans.
+    return {
+        "TRANSACTION": set(FIELDS),
+        "BALANCE": {"AMOUNT", "ACCOUNT_LAST4", "DATE"},
+        "FAILED": {"AMOUNT", "DIRECTION"},
+        "MARKETING": {"AMOUNT"},
+        "REMINDER": {"AMOUNT", "DATE"},
+        "SECURITY_ALERT": {"AMOUNT"},
+        "AMBIGUOUS": {"AMOUNT"},
+        "OTP": set(),
+        "OTHER": set(),
+    }.get(intent, set())
+
+
+def evaluate(model, dataset, device, include_errors=False):
     model.eval()
     intent_correct = 0
     intent_total = 0
+    errors = []
     tp, fp, fn = defaultdict(int), defaultdict(int), defaultdict(int)
     with torch.no_grad():
         for row in dataset.rows:
@@ -207,7 +330,18 @@ def evaluate(model, dataset, device):
             intent_correct += int(intent_pred == row["intent"])
             intent_total += 1
             predicted = predicted_spans(token_logits.argmax(-1)[0].cpu().tolist(), row["offsets"], row["text"])
+            predicted = {span for span in predicted if span[0] in allowed_fields_for_intent(intent_pred)}
             actual = {(field, value) for field, value in row["slots"].items()}
+            if include_errors and (intent_pred != row["intent"] or predicted != actual):
+                errors.append({
+                    "text": row["text"],
+                    "expected_intent": row["intent"],
+                    "predicted_intent": intent_pred,
+                    "expected_slots": {field: value for field, value in sorted(actual)},
+                    "predicted_slots": {field: value for field, value in sorted(predicted)},
+                    "missing_slots": {field: value for field, value in sorted(actual - predicted)},
+                    "unexpected_slots": {field: value for field, value in sorted(predicted - actual)},
+                })
             for field in FIELDS:
                 p = {span for span in predicted if span[0] == field}
                 a = {span for span in actual if span[0] == field}
@@ -236,13 +370,14 @@ def evaluate(model, dataset, device):
         "slot_micro_recall": round(recall, 4),
         "slot_micro_f1": round(2 * precision * recall / (precision + recall), 4) if precision + recall else 0.0,
         "fields": field_metrics,
+        **({"error_examples": errors, "error_example_count": len(errors)} if include_errors else {}),
     }
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path, default=ROOT / "build/spendly-sms-extractor")
-    parser.add_argument("--epochs", type=int, default=5)
+    parser.add_argument("--epochs", type=int, default=12)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--max-model-mib", type=float, default=50.0)
     args = parser.parse_args()
@@ -253,25 +388,60 @@ def main():
     train_rows = read_rows(DATA / "train.jsonl")
     validation_rows = read_rows(DATA / "validation.jsonl")
     test_rows = read_rows(DATA / "test.jsonl")
+    challenge_rows = read_rows(DATA / "challenge.jsonl")
     train_rows, weak_rows_added = augment_with_existing_synthetic_corpus(train_rows, validation_rows, test_rows)
+    train_rows, strong_rows_added = augment_with_strong_synthetic_rows(train_rows, validation_rows, test_rows)
     print(f"weakly_annotated_synthetic_rows_added={weak_rows_added}")
-    for split_name, rows in (("train", train_rows), ("validation", validation_rows), ("test", test_rows)):
+    print(f"strongly_annotated_synthetic_rows_added={strong_rows_added}")
+    for split_name, rows in (("train", train_rows), ("validation", validation_rows), ("test", test_rows), ("challenge", challenge_rows)):
         missing = sorted(set(INTENTS) - {row["intent"] for row in rows})
         if missing:
             raise SystemExit(f"{split_name} split is missing intent classes: {missing}")
     normalized = lambda rows: {" ".join(row["text"].lower().split()) for row in rows}
-    train_texts, validation_texts, test_texts = map(normalized, (train_rows, validation_rows, test_rows))
-    if (train_texts & validation_texts) or (train_texts & test_texts) or (validation_texts & test_texts):
-        raise SystemExit("Exact normalized message leakage across train/validation/test splits")
+    train_texts, validation_texts, test_texts, challenge_texts = map(
+        normalized, (train_rows, validation_rows, test_rows, challenge_rows)
+    )
+    split_texts = {
+        "train": train_texts, "validation": validation_texts,
+        "test": test_texts, "challenge": challenge_texts,
+    }
+    split_names = list(split_texts)
+    for i, left in enumerate(split_names):
+        for right in split_names[i + 1:]:
+            if split_texts[left] & split_texts[right]:
+                raise SystemExit(f"Exact normalized message leakage between {left} and {right} splits")
     tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, use_fast=True)
     if not tokenizer.is_fast:
         raise SystemExit("A fast tokenizer is required to align token offsets")
     train_data = SmsDataset(train_rows, tokenizer)
     validation_data = SmsDataset(validation_rows, tokenizer)
     test_data = SmsDataset(test_rows, tokenizer)
+    challenge_data = SmsDataset(challenge_rows, tokenizer)
     model = MultiTaskMobileBert(BASE_MODEL, len(INTENTS), len(TAGS)).to(device)
-    optimizer = torch.optim.AdamW(model.parameters(), lr=2e-5, weight_decay=0.01)
+    # The encoder is pretrained and only needs gentle adaptation; the freshly
+    # initialised heads must learn much faster, otherwise intent accuracy
+    # under-fits within a few epochs. Separate LR groups + warmup give a stable
+    # loss (no first-epoch spike) while letting the heads converge.
+    encoder_params = list(model.encoder.parameters())
+    head_params = [p for n, p in model.named_parameters() if not n.startswith("encoder.")]
+    optimizer = torch.optim.AdamW(
+        [
+            {"params": encoder_params, "lr": 3e-5},
+            {"params": head_params, "lr": 1e-3},
+        ],
+        weight_decay=0.01,
+    )
     loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True, collate_fn=collate)
+    total_steps = max(1, len(loader) * args.epochs)
+    warmup_steps = max(1, int(0.1 * total_steps))
+
+    def lr_scale(step):
+        if step < warmup_steps:
+            return step / warmup_steps
+        progress = (step - warmup_steps) / max(1, total_steps - warmup_steps)
+        return max(0.0, 1.0 - progress)
+
+    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_scale)
     best_loss = float("inf")
     best_state = None
     for epoch in range(args.epochs):
@@ -288,6 +458,7 @@ def main():
             loss.backward()
             nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             optimizer.step()
+            scheduler.step()
             total_loss += loss.item()
         model.eval()
         validation_loss = 0.0
@@ -307,8 +478,10 @@ def main():
         model.load_state_dict(best_state)
     validation_metrics = evaluate(model, validation_data, device)
     test_metrics = evaluate(model, test_data, device)
+    challenge_metrics = evaluate(model, challenge_data, device, include_errors=True)
     print("validation_metrics=" + json.dumps(validation_metrics, sort_keys=True))
     print("test_metrics=" + json.dumps(test_metrics, sort_keys=True))
+    print("challenge_metrics=" + json.dumps(challenge_metrics, sort_keys=True))
     args.output_dir.mkdir(parents=True, exist_ok=True)
     model.eval().cpu()
     tokenizer.save_pretrained(args.output_dir)
@@ -335,11 +508,14 @@ def main():
         "seed": SEED,
         "train_rows": len(train_rows),
         "weakly_annotated_rows_added": weak_rows_added,
+        "strongly_annotated_synthetic_rows_added": strong_rows_added,
         "validation_rows": len(validation_rows),
         "test_rows": len(test_rows),
+        "challenge_rows": len(challenge_rows),
         "max_length": MAX_LENGTH,
         "validation": validation_metrics,
         "test": test_metrics,
+        "challenge": challenge_metrics,
         "artifact_bytes": artifact_bytes,
         "artifact_mib": round(artifact_bytes / (1024 * 1024), 3),
         "files": {p.name: p.stat().st_size for p in artifact_files},
