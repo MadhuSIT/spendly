@@ -313,3 +313,93 @@ SECURITY_ALERT	Account security check found an unrecognized login attempt. Ref S
 SECURITY_ALERT	Account security check found an unrecognized login attempt. Ref SYNTE0313
 SECURITY_ALERT	Account security check found an unrecognized login attempt. Ref SYNTE0314
 SECURITY_ALERT	Account security check found an unrecognized login attempt. Ref SYNTE0315
+TRANSACTION	Navi UPI: INR 512 debited for completed UPI payment to Utility Services.
+TRANSACTION	Punjab & Sind Bank: Your account was debited INR 999 at Hardware Shop; transaction successful.
+TRANSACTION	super.money UPI via South Indian Bank: UPI transfer of Rs 640 to Food Court completed successfully.
+TRANSACTION	FamPay UPI: Card purchase of INR 1540 at Cafe South approved.
+TRANSACTION	Indian Overseas Bank: INR 199 credited to your account from Mobile Store.
+TRANSACTION	Kiwi UPI via AU Small Finance Bank: NEFT credit of INR 780 from Green Basket posted.
+TRANSACTION	super.money UPI: INR 65 paid to Online Market using your linked account.
+TRANSACTION	South Indian Bank: Debit card used for INR 3199 at Travel Desk.
+TRANSACTION	Navi UPI via Bank of Maharashtra: Refund of INR 1750 from City Fuel credited to your card.
+TRANSACTION	Kiwi UPI: IMPS transfer of INR 2800 to Pharmacy Plus is complete.
+AMBIGUOUS	FamPay UPI: Payment of INR 420 to Pharmacy Plus is processing; final status unavailable.
+AMBIGUOUS	Indian Overseas Bank: UPI request for Rs 88 at Electricity Board initiated; await confirmation.
+AMBIGUOUS	Kiwi UPI via AU Small Finance Bank: Transfer for INR 119 is pending verification.
+AMBIGUOUS	super.money UPI: Checking your INR 7200 payment to Rail Tickets; outcome not confirmed.
+AMBIGUOUS	South Indian Bank: Transaction reference for INR 245 has no final status yet.
+AMBIGUOUS	Navi UPI via Bank of Maharashtra: Payment attempt received for Fresh Mart, INR 2300; wait for status.
+AMBIGUOUS	Kiwi UPI: Request to pay Local Grocer INR 512 is under review.
+AMBIGUOUS	AU Small Finance Bank: Payment gateway accepted INR 999 request but has not confirmed it.
+AMBIGUOUS	FamPay UPI via Punjab & Sind Bank: UPI transfer INR 640 to Book House awaits bank response.
+AMBIGUOUS	Navi UPI: Status of your INR 1540 transaction is temporarily unavailable.
+BALANCE	Punjab & Sind Bank alert: Available balance in your account is INR 1750.
+BALANCE	FamPay UPI: Your current account balance is Rs 2800.
+BALANCE	Bank of Maharashtra alert: Balance enquiry: INR 360 is available in your account.
+BALANCE	Kiwi UPI: Available credit limit on your card is INR 129.
+BALANCE	AU Small Finance Bank alert: Your wallet balance is INR 1499; no transaction reported.
+BALANCE	FamPay UPI: Card statement total due is INR 875.
+BALANCE	South Indian Bank alert: Remaining credit limit: INR 420.
+BALANCE	Kiwi UPI: Account has closing balance of INR 88.
+BALANCE	Indian Overseas Bank alert: Your savings balance as of today is INR 119.
+BALANCE	FamPay UPI: INR 7200 is available after latest balance update.
+FAILED	Kiwi UPI: UPI payment of INR 640 to Travel Desk failed; no money transferred.
+FAILED	AU Small Finance Bank: Your card transaction of INR 1540 at City Fuel was declined.
+FAILED	FamPay UPI via Punjab & Sind Bank: INR 199 payment to Pharmacy Plus could not be completed.
+FAILED	Navi UPI: Transfer failed for INR 780; retry later.
+FAILED	Bank of Maharashtra: Payment unsuccessful: INR 65 at Metro Store.
+FAILED	super.money UPI via Indian Overseas Bank: Bank declined the INR 3199 transaction.
+FAILED	FamPay UPI: INR 1750 debit attempt reversed after failure.
+FAILED	Punjab & Sind Bank: Payment of INR 2800 to Fresh Mart was not successful.
+FAILED	Kiwi UPI via South Indian Bank: Card transaction at Local Grocer, INR 360, declined.
+FAILED	super.money UPI: UPI transaction failed; INR 129 was not debited.
+MARKETING	South Indian Bank alert: Special offer: get up to 119% off at Cinema Tickets. Terms apply.
+MARKETING	Kiwi UPI: Limited-time reward points offer for your next purchase.
+MARKETING	Indian Overseas Bank alert: Upgrade your card to unlock exclusive benefits.
+MARKETING	FamPay UPI: Shop at Medical Store and enjoy a promotional discount.
+MARKETING	Punjab & Sind Bank alert: You are pre-selected for a new credit card offer.
+MARKETING	Kiwi UPI: Earn bonus rewards when using your card this month.
+MARKETING	Bank of Maharashtra alert: Exclusive cashback offer available in the app. Conditions apply.
+MARKETING	FamPay UPI: Invite friends and earn promotional rewards.
+MARKETING	AU Small Finance Bank alert: A special shopping deal is waiting for you at Mobile Store.
+MARKETING	Kiwi UPI: Apply now for a personal loan offer.
+OTHER	AU Small Finance Bank alert: Your KYC update request has been received; no payment information included.
+OTHER	Navi UPI: Your registered email address was updated successfully.
+OTHER	South Indian Bank alert: Account service request 1499 has been recorded.
+OTHER	super.money UPI: Your new cheque book request is being processed.
+OTHER	Indian Overseas Bank alert: Nominee details were updated for your account.
+OTHER	Navi UPI: Your statement is ready to download from the official app.
+OTHER	Punjab & Sind Bank alert: Customer service case for Metro Store has been opened.
+OTHER	super.money UPI: Your address change request has been registered.
+OTHER	Bank of Maharashtra alert: Bank holiday notice: branches may have revised timings.
+OTHER	Navi UPI: Your account profile was updated successfully.
+OTP	Bank of Maharashtra alert: Your one-time password is 420186; do not share it.
+OTP	FamPay UPI: OTP 428105 requested for login; valid briefly.
+OTP	AU Small Finance Bank alert: Use verification code 436024 to confirm sign-in.
+OTP	Kiwi UPI: Your authentication code is 443943. Never disclose it.
+OTP	South Indian Bank alert: One-time code 451862 for transaction authentication.
+OTP	FamPay UPI: Enter 459781 to verify your registered mobile.
+OTP	Indian Overseas Bank alert: Login OTP generated; code 467700.
+OTP	Kiwi UPI: Verification PIN 475619 expires shortly. Do not share.
+OTP	Punjab & Sind Bank alert: Your secure access code is 483538.
+OTP	FamPay UPI: Use code 491457 to authorize banking-app access.
+REMINDER	Punjab & Sind Bank alert: Reminder: your card bill of INR 245 is due soon.
+REMINDER	super.money UPI: Your loan instalment of INR 2300 is due on scheduled date.
+REMINDER	Bank of Maharashtra alert: Pay the utility bill for Green Basket before due date.
+REMINDER	Navi UPI: Your credit card payment is due; check official app.
+REMINDER	AU Small Finance Bank alert: Standing instruction for INR 640 is scheduled tomorrow.
+REMINDER	super.money UPI: Reminder to review upcoming payment of INR 1540.
+REMINDER	South Indian Bank alert: Your recurring deposit instalment is due this week.
+REMINDER	Navi UPI: Auto-debit mandate for Electricity Board is scheduled next cycle.
+REMINDER	Indian Overseas Bank alert: Please maintain sufficient balance for upcoming debit.
+REMINDER	super.money UPI: Your card payment due date is approaching.
+SECURITY_ALERT	Indian Overseas Bank alert: Security alert: unusual login detected; secure account in official app.
+SECURITY_ALERT	Kiwi UPI: Potential fraud detected; verify using official channels.
+SECURITY_ALERT	Punjab & Sind Bank alert: Your card was blocked due to suspicious activity.
+SECURITY_ALERT	FamPay UPI: A new device attempted to access your account.
+SECURITY_ALERT	Bank of Maharashtra alert: Warning: suspicious activity detected. Do not share OTP.
+SECURITY_ALERT	Kiwi UPI: Your UPI access was restricted after security check.
+SECURITY_ALERT	AU Small Finance Bank alert: Unusual account access attempt detected.
+SECURITY_ALERT	FamPay UPI: Verify recent login activity in official app.
+SECURITY_ALERT	South Indian Bank alert: Possible unauthorized transaction activity detected.
+SECURITY_ALERT	Kiwi UPI: Your account has been flagged for security review.
