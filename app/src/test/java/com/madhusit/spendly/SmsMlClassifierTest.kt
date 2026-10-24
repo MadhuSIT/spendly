@@ -95,4 +95,40 @@ class SmsMlClassifierTest {
         assertEquals(SmsClassification.FINANCIAL, engine.parse(sms).classification)
         assertEquals(500000L, engine.parse(sms).normalized?.amountMinor)
     }
+
+    @Test
+    fun administrativeAcknowledgementDoesNotBecomeTransaction() {
+        val sms = message("Your KYC update request has been received")
+        val prediction = classifier.predict(sms)
+        assertTrue(prediction.label != "TRANSACTION")
+        val result = engine.parse(sms)
+        assertTrue(result.classification != SmsClassification.FINANCIAL)
+        assertEquals(null, result.normalized)
+    }
+
+    @Test
+    fun confirmedCardPaymentWithAmountRemainsFinancialEvent() {
+        val sms = message("A payment of INR 2020 was received on your American Express card. It may take 24-48 hours for your payment to be credited.")
+        assertEquals("TRANSACTION", classifier.predict(sms).label)
+        assertEquals(SmsClassification.FINANCIAL, engine.parse(sms).classification)
+    }
+
+    @Test
+    fun railwayBookingConfirmationWithoutAmountDoesNotBecomeExpense() {
+        val sms = message("Unreserved ticket with booking reference [REDACTED] is booked. This message does not authorize travel.")
+        val prediction = classifier.predict(sms)
+        assertTrue(prediction.label != "TRANSACTION")
+        val result = engine.parse(sms)
+        assertTrue(result.classification != SmsClassification.FINANCIAL)
+        assertEquals(null, result.normalized)
+    }
+
+    @Test
+    fun conditionalRefundAfterFailedBillPaymentDoesNotBecomeCompletedTransaction() {
+        val sms = message("Electricity bill payment of INR 1021 did not go through. If deducted, it will be refunded within 7-9 working days.")
+        assertTrue(classifier.predict(sms).label != "TRANSACTION")
+        assertTrue(engine.parse(sms).classification != SmsClassification.FINANCIAL)
+        assertEquals(null, engine.parse(sms).normalized)
+    }
+
 }
