@@ -21,7 +21,7 @@ EVALUATIONS = [
     ROOT / "tools/sms-ml/field_evaluation.tsv",
 ]
 OUTPUT = ROOT / "app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt"
-VERSION = "sms-nb-2026-10-24-v3"
+VERSION = "sms-nb-2026-10-24-v4"
 ALPHA = 0.5
 TOP_FEATURES = 40
 MIN_EVALUATION_ACCURACY = 0.80
