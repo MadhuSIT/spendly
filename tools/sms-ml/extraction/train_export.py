@@ -271,10 +271,11 @@ def allowed_fields_for_intent(intent):
     }.get(intent, set())
 
 
-def evaluate(model, dataset, device):
+def evaluate(model, dataset, device, include_errors=False):
     model.eval()
     intent_correct = 0
     intent_total = 0
+    errors = []
     tp, fp, fn = defaultdict(int), defaultdict(int), defaultdict(int)
     with torch.no_grad():
         for row in dataset.rows:
@@ -287,6 +288,16 @@ def evaluate(model, dataset, device):
             predicted = predicted_spans(token_logits.argmax(-1)[0].cpu().tolist(), row["offsets"], row["text"])
             predicted = {span for span in predicted if span[0] in allowed_fields_for_intent(intent_pred)}
             actual = {(field, value) for field, value in row["slots"].items()}
+            if include_errors and (intent_pred != row["intent"] or predicted != actual):
+                errors.append({
+                    "text": row["text"],
+                    "expected_intent": row["intent"],
+                    "predicted_intent": intent_pred,
+                    "expected_slots": {field: value for field, value in sorted(actual)},
+                    "predicted_slots": {field: value for field, value in sorted(predicted)},
+                    "missing_slots": {field: value for field, value in sorted(actual - predicted)},
+                    "unexpected_slots": {field: value for field, value in sorted(predicted - actual)},
+                })
             for field in FIELDS:
                 p = {span for span in predicted if span[0] == field}
                 a = {span for span in actual if span[0] == field}
@@ -315,6 +326,7 @@ def evaluate(model, dataset, device):
         "slot_micro_recall": round(recall, 4),
         "slot_micro_f1": round(2 * precision * recall / (precision + recall), 4) if precision + recall else 0.0,
         "fields": field_metrics,
+        **({"error_examples": errors, "error_example_count": len(errors)} if include_errors else {}),
     }
 
 
@@ -399,7 +411,7 @@ def main():
         model.load_state_dict(best_state)
     validation_metrics = evaluate(model, validation_data, device)
     test_metrics = evaluate(model, test_data, device)
-    challenge_metrics = evaluate(model, challenge_data, device)
+    challenge_metrics = evaluate(model, challenge_data, device, include_errors=True)
     print("validation_metrics=" + json.dumps(validation_metrics, sort_keys=True))
     print("test_metrics=" + json.dumps(test_metrics, sort_keys=True))
     print("challenge_metrics=" + json.dumps(challenge_metrics, sort_keys=True))
