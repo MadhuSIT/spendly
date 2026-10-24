@@ -108,46 +108,46 @@ MARKETING	Activate your IndusInd Bank shopping offer before it ends.
 MARKETING	Activate your HDFC Bank shopping offer before it ends.
 MARKETING	Activate your SBI shopping offer before it ends.
 MARKETING	Activate your Axis Bank shopping offer before it ends.
-MARKETING	Apply for a pre-approved loan; terms and eligibility apply.
-MARKETING	Apply for a pre-approved loan; terms and eligibility apply.
-MARKETING	Apply for a pre-approved loan; terms and eligibility apply.
-MARKETING	Apply for a pre-approved loan; terms and eligibility apply.
-MARKETING	Apply for a pre-approved loan; terms and eligibility apply.
-MARKETING	Future purchases may earn bonus points under this campaign.
-MARKETING	Future purchases may earn bonus points under this campaign.
-MARKETING	Future purchases may earn bonus points under this campaign.
-MARKETING	Future purchases may earn bonus points under this campaign.
-MARKETING	Future purchases may earn bonus points under this campaign.
-MARKETING	Subscribe through the promotional link; reply STOP to opt out.
-MARKETING	Subscribe through the promotional link; reply STOP to opt out.
-MARKETING	Subscribe through the promotional link; reply STOP to opt out.
-MARKETING	Subscribe through the promotional link; reply STOP to opt out.
-MARKETING	Subscribe through the promotional link; reply STOP to opt out.
-OTHER	Bank received your KYC details update request.
-OTHER	Bank received your KYC details update request.
-OTHER	Bank received your KYC details update request.
-OTHER	Bank received your KYC details update request.
-OTHER	Bank received your KYC details update request.
-OTHER	Contact information was changed on your account profile.
-OTHER	Contact information was changed on your account profile.
-OTHER	Contact information was changed on your account profile.
-OTHER	Contact information was changed on your account profile.
-OTHER	Contact information was changed on your account profile.
-OTHER	Railway booking confirmed; view itinerary details.
-OTHER	Railway booking confirmed; view itinerary details.
-OTHER	Railway booking confirmed; view itinerary details.
-OTHER	Railway booking confirmed; view itinerary details.
-OTHER	Railway booking confirmed; view itinerary details.
-OTHER	Service request [REDACTED] has been opened.
-OTHER	Service request [REDACTED] has been opened.
-OTHER	Service request [REDACTED] has been opened.
-OTHER	Service request [REDACTED] has been opened.
-OTHER	Service request [REDACTED] has been opened.
-OTHER	Your e-statement document is available online.
-OTHER	Your e-statement document is available online.
-OTHER	Your e-statement document is available online.
-OTHER	Your e-statement document is available online.
-OTHER	Your e-statement document is available online.
+MARKETING	Apply for a pre-approved loan; terms and eligibility apply. Terms and conditions apply. Ref VA0139
+MARKETING	Apply for a pre-approved loan; terms and eligibility apply. Offer is subject to eligibility. Ref VA0140
+MARKETING	Apply for a pre-approved loan; terms and eligibility apply. This is a promotional notification. Ref VA0141
+MARKETING	Apply for a pre-approved loan; terms and eligibility apply. Review offer details before opting in. Ref VA0142
+MARKETING	Apply for a pre-approved loan; terms and eligibility apply. Offer applies to future activity. Ref VA0143
+MARKETING	Future purchases may earn bonus points under this campaign. Terms and conditions apply. Ref VA0144
+MARKETING	Future purchases may earn bonus points under this campaign. Offer is subject to eligibility. Ref VA0145
+MARKETING	Future purchases may earn bonus points under this campaign. This is a promotional notification. Ref VA0146
+MARKETING	Future purchases may earn bonus points under this campaign. Review offer details before opting in. Ref VA0147
+MARKETING	Future purchases may earn bonus points under this campaign. Offer applies to future activity. Ref VA0148
+MARKETING	Subscribe through the promotional link; reply STOP to opt out. Terms and conditions apply. Ref VA0149
+MARKETING	Subscribe through the promotional link; reply STOP to opt out. Offer is subject to eligibility. Ref VA0150
+MARKETING	Subscribe through the promotional link; reply STOP to opt out. This is a promotional notification. Ref VA0151
+MARKETING	Subscribe through the promotional link; reply STOP to opt out. Review offer details before opting in. Ref VA0152
+MARKETING	Subscribe through the promotional link; reply STOP to opt out. Offer applies to future activity. Ref VA0153
+OTHER	Bank received your KYC details update request. This is an account service update. Ref VA0154
+OTHER	Bank received your KYC details update request. No payment action is required. Ref VA0155
+OTHER	Bank received your KYC details update request. Review profile details in the app. Ref VA0156
+OTHER	Bank received your KYC details update request. This notice concerns account administration. Ref VA0157
+OTHER	Bank received your KYC details update request. Check service request details. Ref VA0158
+OTHER	Contact information was changed on your account profile. This is an account service update. Ref VA0159
+OTHER	Contact information was changed on your account profile. No payment action is required. Ref VA0160
+OTHER	Contact information was changed on your account profile. Review profile details in the app. Ref VA0161
+OTHER	Contact information was changed on your account profile. This notice concerns account administration. Ref VA0162
+OTHER	Contact information was changed on your account profile. Check service request details. Ref VA0163
+OTHER	Railway booking confirmed; view itinerary details. This is an account service update. Ref VA0164
+OTHER	Railway booking confirmed; view itinerary details. No payment action is required. Ref VA0165
+OTHER	Railway booking confirmed; view itinerary details. Review profile details in the app. Ref VA0166
+OTHER	Railway booking confirmed; view itinerary details. This notice concerns account administration. Ref VA0167
+OTHER	Railway booking confirmed; view itinerary details. Check service request details. Ref VA0168
+OTHER	Service request [REDACTED] has been opened. This is an account service update. Ref VA0169
+OTHER	Service request [REDACTED] has been opened. No payment action is required. Ref VA0170
+OTHER	Service request [REDACTED] has been opened. Review profile details in the app. Ref VA0171
+OTHER	Service request [REDACTED] has been opened. This notice concerns account administration. Ref VA0172
+OTHER	Service request [REDACTED] has been opened. Check service request details. Ref VA0173
+OTHER	Your e-statement document is available online. This is an account service update. Ref VA0174
+OTHER	Your e-statement document is available online. No payment action is required. Ref VA0175
+OTHER	Your e-statement document is available online. Review profile details in the app. Ref VA0176
+OTHER	Your e-statement document is available online. This notice concerns account administration. Ref VA0177
+OTHER	Your e-statement document is available online. Check service request details. Ref VA0178
 OTP	Login verification code: 123757. Keep it confidential.
 OTP	Login verification code: 131676. Keep it confidential.
 OTP	Login verification code: 139595. Keep it confidential.
@@ -198,28 +198,28 @@ REMINDER	Insurance payment INR 740 approaches its due date.
 REMINDER	Insurance payment INR 1021 approaches its due date.
 REMINDER	Insurance payment INR 1650 approaches its due date.
 REMINDER	Insurance payment INR 2020 approaches its due date.
-SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it.
-SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it.
-SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it.
-SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it.
-SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it.
-SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown.
-SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown.
-SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown.
-SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown.
-SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown.
+SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it. Review using official channels. Ref VA0229
+SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it. Report activity you do not recognize. Ref VA0230
+SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it. Protect your account credentials. Ref VA0231
+SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it. Contact the bank through a verified channel. Ref VA0232
+SECURITY_ALERT	Fraud monitoring detected unusual attempt; verify it. Secure the account if this was not you. Ref VA0233
+SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown. Review using official channels. Ref VA0234
+SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown. Report activity you do not recognize. Ref VA0235
+SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown. Protect your account credentials. Ref VA0236
+SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown. Contact the bank through a verified channel. Ref VA0237
+SECURITY_ALERT	New sign-in alert for your bank profile; report if unknown. Secure the account if this was not you. Ref VA0238
 SECURITY_ALERT	Card 7788 temporarily locked after suspicious activity.
 SECURITY_ALERT	Card 6677 temporarily locked after suspicious activity.
 SECURITY_ALERT	Card 4206 temporarily locked after suspicious activity.
 SECURITY_ALERT	Card 7306 temporarily locked after suspicious activity.
 SECURITY_ALERT	Card 5907 temporarily locked after suspicious activity.
-SECURITY_ALERT	Security notice: never reveal PIN or OTP.
-SECURITY_ALERT	Security notice: never reveal PIN or OTP.
-SECURITY_ALERT	Security notice: never reveal PIN or OTP.
-SECURITY_ALERT	Security notice: never reveal PIN or OTP.
-SECURITY_ALERT	Security notice: never reveal PIN or OTP.
-SECURITY_ALERT	Unrecognized access attempt detected; secure your account.
-SECURITY_ALERT	Unrecognized access attempt detected; secure your account.
-SECURITY_ALERT	Unrecognized access attempt detected; secure your account.
-SECURITY_ALERT	Unrecognized access attempt detected; secure your account.
-SECURITY_ALERT	Unrecognized access attempt detected; secure your account.
+SECURITY_ALERT	Security notice: never reveal PIN or OTP. Review using official channels. Ref VA0244
+SECURITY_ALERT	Security notice: never reveal PIN or OTP. Report activity you do not recognize. Ref VA0245
+SECURITY_ALERT	Security notice: never reveal PIN or OTP. Protect your account credentials. Ref VA0246
+SECURITY_ALERT	Security notice: never reveal PIN or OTP. Contact the bank through a verified channel. Ref VA0247
+SECURITY_ALERT	Security notice: never reveal PIN or OTP. Secure the account if this was not you. Ref VA0248
+SECURITY_ALERT	Unrecognized access attempt detected; secure your account. Review using official channels. Ref VA0249
+SECURITY_ALERT	Unrecognized access attempt detected; secure your account. Report activity you do not recognize. Ref VA0250
+SECURITY_ALERT	Unrecognized access attempt detected; secure your account. Protect your account credentials. Ref VA0251
+SECURITY_ALERT	Unrecognized access attempt detected; secure your account. Contact the bank through a verified channel. Ref VA0252
+SECURITY_ALERT	Unrecognized access attempt detected; secure your account. Secure the account if this was not you. Ref VA0253
