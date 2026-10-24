@@ -10,3 +10,4 @@
 {"text":"Your address update request has been completed","intent":"OTHER","slots":{}}
 {"text":"Rs 4,850.00 debited from account XX7474 at BigBasket. Ref 665544332211","intent":"TRANSACTION","slots":{"AMOUNT":"4,850.00","DIRECTION":"debited","ACCOUNT_LAST4":"7474","MERCHANT":"BigBasket","REFERENCE":"665544332211"}}
 {"text":"Rs 360 refunded to wallet on 08-Sep-2026, reference RFD98765432","intent":"TRANSACTION","slots":{"AMOUNT":"360","DIRECTION":"refunded","DATE":"08-Sep-2026","REFERENCE":"RFD98765432"}}
+{"text":"Your transfer request for Rs 750 is awaiting confirmation","intent":"AMBIGUOUS","slots":{"AMOUNT":"750"}}
