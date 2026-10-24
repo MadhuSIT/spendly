@@ -39,20 +39,20 @@ def normalize_text(text):
 
 def weak_slots(text, intent):
     slots = {}
-    amount = re.search(r"(?:₹|\\bINR\\s*|\\bRs\\.?\\s*)([0-9]+(?:,[0-9]{2,3})*(?:\\.\\d{1,2})?)", text, re.IGNORECASE)
+    amount = re.search(r"(?:₹|\bINR\s*|\bRs\.?\s*)([0-9]+(?:,[0-9]{2,3})*(?:\.\d{1,2})?)", text, re.IGNORECASE)
     if amount:
         slots["AMOUNT"] = amount.group(1)
-    account = re.search(r"[Xx*]{2,}\\s*(\\d{4})", text)
+    account = re.search(r"[Xx*]{2,}\s*(\d{4})", text)
     if account:
         slots["ACCOUNT_LAST4"] = account.group(1)
-    reference = re.search(r"(?:upi\\s*ref(?:erence)?|txn\\s*(?:id|ref)|ref(?:erence)?(?:\\s*(?:no\\.?|id|#))?)[:\\s#-]*([A-Z0-9]{8,22})", text, re.IGNORECASE)
+    reference = re.search(r"(?:upi\s*ref(?:erence)?|txn\s*(?:id|ref)|ref(?:erence)?(?:\s*(?:no\.?|id|#))?)[:\s#-]*([A-Z0-9]{8,22})", text, re.IGNORECASE)
     if reference:
         slots["REFERENCE"] = reference.group(1)
-    date = re.search(r"\\b(?:\\d{1,2}[-/][A-Za-z]{3}[-/]\\d{2,4}|\\d{2}[-/]\\d{2}[-/]\\d{4}|\\d{4}-\\d{2}-\\d{2})\\b", text)
+    date = re.search(r"\b(?:\d{1,2}[-/][A-Za-z]{3}[-/]\d{2,4}|\d{2}[-/]\d{2}[-/]\d{4}|\d{4}-\d{2}-\d{2})\b", text)
     if date:
         slots["DATE"] = date.group(0)
     if intent in {"TRANSACTION", "FAILED"}:
-        direction = re.search(r"\\b(?:debited|credited|spent|withdrawn|refunded|reversed|charged|deducted|sent|transferred|received|paid|not\\s+debited)\\b", text, re.IGNORECASE)
+        direction = re.search(r"\b(?:debited|credited|spent|withdrawn|refunded|reversed|charged|deducted|sent|transferred|received|paid|not\s+debited)\b", text, re.IGNORECASE)
         if direction:
             slots["DIRECTION"] = direction.group(0)
     return slots
@@ -66,7 +66,7 @@ def augment_with_existing_synthetic_corpus(train_rows, validation_rows, test_row
         for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
             if not line.strip() or line.lstrip().startswith("#"):
                 continue
-            label, separator, text = line.partition("\\t")
+            label, separator, text = line.partition("\t")
             if not separator or label not in INTENT_TO_ID or not text.strip():
                 raise ValueError(f"Invalid weak corpus row at {path}:{line_number}")
             key = normalize_text(text)
@@ -75,7 +75,6 @@ def augment_with_existing_synthetic_corpus(train_rows, validation_rows, test_row
             seen.add(key)
             added.append({"text": text.strip(), "intent": label, "slots": weak_slots(text.strip(), label)})
     return train_rows + added, len(added)
-
 
 def read_rows(path: Path):
     rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
