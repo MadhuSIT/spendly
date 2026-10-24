@@ -1,3 +1,113 @@
+TRANSACTION	Rs 500 debited from your account via UPI to ABC Store ref 123456789
+TRANSACTION	INR 1250.00 spent on your debit card at grocery store
+TRANSACTION	Your account is debited with Rs 850 for UPI payment to merchant
+TRANSACTION	Rs. 321.45 debited from A/c XX4321 at SMS E2E Merchant. UPI Ref 987654321
+TRANSACTION	Payment of INR 499 completed successfully at Amazon transaction reference 99887766
+TRANSACTION	Your card was used for a purchase of Rs 2400 at a retail store
+SECURITY_ALERT	Fraud alert: suspicious transaction detected for Rs 10000. If not you call bank immediately
+SECURITY_ALERT	Security warning about a transaction of INR 5000. Block your card if you did not authorize it
+SECURITY_ALERT	Did you attempt this transaction? Reply yes or call support to report fraud
+SECURITY_ALERT	Suspicious activity detected on your account. Your card may be blocked
+SECURITY_ALERT	Never share OTP. If you did not make this payment contact bank fraud team
+SECURITY_ALERT	Your account is locked due to unusual login activity. Secure your account now
+OTP	Your OTP for Rs 10000 transaction is 123456. Do not share it
+OTP	Verification code 443322 for your payment. Valid for five minutes
+OTP	One time password for transaction approval is 456789
+OTP	OTP 999111 to authorize purchase of INR 4500
+OTP	Use verification code 223344 to complete your UPI transaction
+OTP	Do not share this OTP for Rs 5000 card transaction
+REMINDER	Your credit card payment of Rs 5000 is due tomorrow
+REMINDER	Reminder: minimum amount due INR 750 by 20 October
+REMINDER	Your bill payment is due on 15 October. Outstanding amount Rs 4200
+REMINDER	Statement generated. Total due Rs 8500 and minimum due Rs 500
+REMINDER	Your loan EMI of Rs 12000 is due next week
+REMINDER	Payment reminder: pay Rs 3000 before due date to avoid late fee
+MARKETING	Congratulations you are eligible for a pre approved loan offer
+MARKETING	Get cashback on your next purchase click here to claim offer
+MARKETING	Special shopping offer expires tonight register now
+MARKETING	Apply now for a new credit card with exciting rewards
+MARKETING	Limited time offer: shop today and save 20 percent
+MARKETING	Visit us to learn about personal loan offers
+BALANCE	Available balance in your account is INR 42300
+BALANCE	Your account balance is Rs 12000
+BALANCE	Current balance Rs 4500 and available balance INR 9000
+BALANCE	Statement balance is Rs 15000
+BALANCE	Your credit limit is INR 100000 and available limit is 75000
+BALANCE	Balance enquiry: account XX4321 has Rs 2500 available
+FAILED	Your UPI transaction failed for Rs 500. Amount not debited
+FAILED	Payment declined for INR 1200 due to insufficient balance
+FAILED	Transaction unsuccessful: Rs 800 was not debited
+FAILED	Your card payment failed. Please try again later
+FAILED	NEFT transfer rejected and amount was not processed
+FAILED	Transaction failed due to technical issue. No money deducted
+OTHER	Your bank branch will remain closed on Sunday
+OTHER	Thank you for banking with us
+OTHER	Your monthly e-statement is now available online
+OTHER	Update your KYC details to continue using services
+OTHER	Your debit card will expire soon. Renew it now
+OTHER	Your account profile was updated successfully
+AMBIGUOUS	Transaction of Rs 500 successful
+AMBIGUOUS	Payment of INR 250 has been processed
+AMBIGUOUS	Rs 600 transaction notification
+AMBIGUOUS	Your account activity notification for Rs 1000
+AMBIGUOUS	INR 2500 payment status updated
+AMBIGUOUS	Amount Rs 900 has been processed successfully
+BALANCE	BOB Bank account ending 8800 available balance was INR 35000.00 on 01-09-2026.
+TRANSACTION	BOB Bank account ending 8800: INR 14700.00 debited for a TONBO IPO application on 02-09-2026. Application reference TONBOIPO01.
+OTHER	KFintech requested the bank to unblock INR 14700.00 for the TONBO IPO after non-allotment. Funds release is not yet confirmed. Application reference TONBOIPO01.
+TRANSACTION	BOB Bank account ending 8800: INR 1200.00 debited for UPI payment to Green Mart on 16-09-2026. UPI reference BOB880012345678.
+TRANSACTION	BOB Bank account ending 8800: INR 5000.00 credited as salary on 30-09-2026. Reference BOB880098765432.
+TRANSACTION	BOB Bank account ending 8800: INR 1000.00 withdrawn at ATM on 01-10-2026. Available balance INR 23100.00.
+BALANCE	BOB Bank account ending 8800 available balance is INR 23100.00 on 01-10-2026.
+TRANSACTION	BOBCARD ending 8899: INR 73.00 spent at L V Condiments on 09-09-2026. Current outstanding INR 2073.00.
+TRANSACTION	BOBCARD ending 8899: INR 245.00 spent at City Grocers on 10-09-2026. Current outstanding INR 2318.00.
+TRANSACTION	BOBCARD ending 8899: INR 300.00 spent at City Home on 12-09-2026. Current outstanding INR 2618.00.
+TRANSACTION	BOBCARD ending 8899: INR 300.00 refund for the City Home purchase credited to the card on 15-09-2026. Current outstanding INR 2318.00.
+REMINDER	BOBCARD ending 8899 statement generated on 20-09-2026. Total amount due INR 2318.00. Minimum amount due INR 150.00. Due date 05-10-2026.
+BALANCE	BOBCARD ending 8899 current outstanding is INR 2318.00. Available credit limit INR 147682.00.
+BALANCE	HDFC Bank account ending 1122 available balance was INR 25000.00 on 01-09-2026.
+TRANSACTION	HDFC Bank account ending 1122: INR 14892.00 debited for LCC Projects Limited IPO application on 15-09-2026. Application reference LCCIPO02.
+TRANSACTION	HDFC Bank account ending 1122: INR 300.00 debited for a purchase at City Home on 15-09-2026. Reference HDFC1122PUR300.
+TRANSACTION	HDFC Bank account ending 1122: INR 2400.00 debited for an online purchase on 17-09-2026. Reference HDFC1122PUR2400.
+TRANSACTION	HDFC Bank account ending 1122: INR 300.00 refund received from City Home on 18-09-2026. Reference HDFC1122REF300.
+TRANSACTION	HDFC Bank account ending 1122: INR 1650.00 debited as payment toward SBI Card ending 7788 on 20-10-2026. Reference HDFC1122SBI7788PAY01.
+TRANSACTION	HDFC Bank account ending 1122: INR 1.00 credited by UPI from sender1586@upi on 21-10-2026. UPI reference HDFC11220001.
+TRANSACTION	HDFC Bank account ending 1122: INR 30.00 sent by UPI on 22-10-2026. Reference HDFC11223001.
+BALANCE	HDFC Bank account ending 1122 available balance is INR 6029.00 after the listed transactions on 22-10-2026.
+TRANSACTION	SBI Card ending 7788: purchase of INR 1650.00 completed at Demo Electronics on 18-10-2026. Current outstanding INR 1650.00.
+FAILED	SBI Card ending 7788: transaction of INR 58.06 at ASSPL on 15-10-2026 was declined. No purchase completed.
+REMINDER	SBI Card ending 7788 statement generated on 19-10-2026. Total amount due INR 1650.00. Minimum due INR 100.00. Due date 04-11-2026.
+TRANSACTION	SBI Card ending 7788: payment of INR 1650.00 from HDFC Bank account ending 1122 was successfully applied on 20-10-2026. Reference HDFC1122SBI7788PAY01. Current outstanding INR 0.00.
+TRANSACTION	Axis Bank Credit Card ending 6677: INR 110.00 spent at E Gopal on 22-10-2026. Current outstanding INR 601.28.
+TRANSACTION	Axis Bank Credit Card ending 6677: INR 300.00 cashback reward applied to the card balance on 23-10-2026. Current outstanding INR 301.28.
+REMINDER	Axis Bank Credit Card ending 6677 statement generated on 24-10-2026. Total amount due INR 301.28. Minimum amount due INR 100.00. Due date 04-11-2026.
+BALANCE	Axis Bank Credit Card ending 6677 current outstanding is INR 301.28.
+TRANSACTION	HDFC Bank Credit Card ending 5566: INR 300.00 purchase at Canara Mart on 10-09-2026. Current outstanding INR 900.00.
+TRANSACTION	HDFC Bank Credit Card ending 5566: INR 300.00 refund from Canara Mart adjusted against the card on 15-09-2026. Current outstanding INR 600.00.
+REMINDER	HDFC Bank Credit Card ending 5566 statement generated on 20-09-2026. Total amount due INR 600.00. Minimum amount due INR 100.00. Due date 04-11-2026.
+MARKETING	Get 5 percent extra cashback at Monte Carlo with SBI Card. Minimum transaction INR 7500. Maximum cashback INR 1000. Offer valid until 29 November 2026.
+MARKETING	Up to INR 16000 instant discount at PAI International with SBI Card. Minimum transaction INR 20000. Terms apply.
+MARKETING	Up to INR 12500 instant discount at Bonito Designs with SBI Card. Minimum transaction INR 30000. Terms apply.
+MARKETING	First BigBasket order offer: get up to INR 125 off orders above INR 399 on Tata Neu. Terms apply.
+TRANSACTION	RWallet account: INR 20.00 debited on 11-10-2026. Available wallet balance INR 11.80.
+TRANSACTION	INR 80 credited to the account as a dividend from a listed company. Available balance INR 88.94.
+TRANSACTION	INR 100000 debited from the account for NEFT transfer to a beneficiary. UTR [REDACTED].
+TRANSACTION	INR 900000 debited from the account for RTGS transfer to a beneficiary. UTR [REDACTED].
+TRANSACTION	INR 58 debited for bank service charges associated with PORD.
+TRANSACTION	INR 2020 sent from bank account to American Express credit card through UPI. Reference [REDACTED].
+TRANSACTION	Payment of INR 2020 received on the American Express card; crediting may take 24-48 hours.
+FAILED	Electricity bill payment of INR 1021 through a payment app failed. If the amount was deducted, it will be refunded in 7-9 working days.
+TRANSACTION	INR 1021 transferred from the bank account through UPI to a payment app. Available balance INR 24427.99.
+TRANSACTION	INR 1021 credited to the bank account through UPI by a payment merchant. Available balance INR 25448.99.
+TRANSACTION	INR 185 credited to RWallet. Available wallet balance INR 201.80.
+TRANSACTION	INR 45 debited from RWallet. Available wallet balance INR 183.55.
+OTHER	Unreserved railway ticket booking confirmed. Check My Bookings for ticket details. This message does not authorize travel.
+OTHER	Your KYC verification request has been received by the bank. This is an account service update. Ref TR0105
+OTHER	Your debit card will expire soon. Request a replacement card through your bank.
+OTHER	Your debit card renewal is due; update your card details to continue using the service.
+OTHER	Your unreserved railway ticket booking is confirmed. Open the app to view ticket details.
+TRANSACTION	UPI payment of INR 620 to a merchant was successful. UPI reference [REDACTED].
+TRANSACTION	Your UPI transfer of INR 275 to a shop was completed successfully. Reference [REDACTED].
 TRANSACTION	INR 49 debited from account 8800 for UPI purchase at L V Condiments; reference [REDACTED].
 TRANSACTION	INR 120 debited from account 1122 for UPI purchase at Metro Mart; reference [REDACTED].
 TRANSACTION	INR 275 debited from account 4834 for UPI purchase at Online Store; reference [REDACTED].
@@ -58,16 +168,16 @@ TRANSACTION	Refund of INR 1650 credited to card 7306 for purchase at Cafe South.
 TRANSACTION	Refund of INR 2020 credited to card 5907 for purchase at E Gopal.
 TRANSACTION	Refund of INR 4875 credited to card 9443 for purchase at City Pharmacy.
 TRANSACTION	Refund of INR 14999 credited to card 1008 for purchase at Railway Catering.
-TRANSACTION	ATM cash withdrawal of INR 49 completed on card 8899.
-TRANSACTION	ATM cash withdrawal of INR 120 completed on card 5566.
+TRANSACTION	ATM cash withdrawal of INR 49 completed on card 8899. Review the completed entry in account history. Please review details in the official banking app. Ref TR0171
+TRANSACTION	ATM cash withdrawal of INR 120 completed on card 5566. Review the completed entry in account history. Please review details in the official banking app. Ref TR0172
 TRANSACTION	ATM cash withdrawal of INR 275 completed on card 4536.
 TRANSACTION	ATM cash withdrawal of INR 499 completed on card 7788.
 TRANSACTION	ATM cash withdrawal of INR 740 completed on card 6677.
 TRANSACTION	ATM cash withdrawal of INR 1021 completed on card 4206.
 TRANSACTION	ATM cash withdrawal of INR 1650 completed on card 7306.
-TRANSACTION	ATM cash withdrawal of INR 2020 completed on card 5907.
-TRANSACTION	ATM cash withdrawal of INR 4875 completed on card 9443.
-TRANSACTION	ATM cash withdrawal of INR 14999 completed on card 1008.
+TRANSACTION	ATM cash withdrawal of INR 2020 completed on card 5907. Review the completed entry in account history. Please review details in the official banking app. Ref TR0178
+TRANSACTION	ATM cash withdrawal of INR 4875 completed on card 9443. Review the completed entry in account history. Please review details in the official banking app. Ref TR0179
+TRANSACTION	ATM cash withdrawal of INR 14999 completed on card 1008. Review the completed entry in account history. Please review details in the official banking app. Ref TR0180
 TRANSACTION	UPI payment of INR 49 to L V Condiments completed successfully.
 TRANSACTION	UPI payment of INR 120 to Metro Mart completed successfully.
 TRANSACTION	UPI payment of INR 275 to Online Store completed successfully.
@@ -428,46 +538,46 @@ MARKETING	Limited-time Kotak Bank card discounts on selected purchases.
 MARKETING	Limited-time IDFC FIRST Bank card discounts on selected purchases.
 MARKETING	Limited-time Federal Bank card discounts on selected purchases.
 MARKETING	Limited-time IndusInd Bank card discounts on selected purchases.
-MARKETING	Earn rewards on future transactions by activating this offer.
-MARKETING	Earn rewards on future transactions by activating this offer.
-MARKETING	Earn rewards on future transactions by activating this offer.
-MARKETING	Earn rewards on future transactions by activating this offer.
-MARKETING	Earn rewards on future transactions by activating this offer.
-MARKETING	Earn rewards on future transactions by activating this offer.
-MARKETING	Earn rewards on future transactions by activating this offer.
-MARKETING	Earn rewards on future transactions by activating this offer.
-MARKETING	Earn rewards on future transactions by activating this offer.
-MARKETING	Earn rewards on future transactions by activating this offer.
-MARKETING	Pre-approved loan offer available; apply to check eligibility.
-MARKETING	Pre-approved loan offer available; apply to check eligibility.
-MARKETING	Pre-approved loan offer available; apply to check eligibility.
-MARKETING	Pre-approved loan offer available; apply to check eligibility.
-MARKETING	Pre-approved loan offer available; apply to check eligibility.
-MARKETING	Pre-approved loan offer available; apply to check eligibility.
-MARKETING	Pre-approved loan offer available; apply to check eligibility.
-MARKETING	Pre-approved loan offer available; apply to check eligibility.
-MARKETING	Pre-approved loan offer available; apply to check eligibility.
-MARKETING	Pre-approved loan offer available; apply to check eligibility.
-MARKETING	Bonus reward on your next spend; terms apply.
-MARKETING	Bonus reward on your next spend; terms apply.
-MARKETING	Bonus reward on your next spend; terms apply.
-MARKETING	Bonus reward on your next spend; terms apply.
-MARKETING	Bonus reward on your next spend; terms apply.
-MARKETING	Bonus reward on your next spend; terms apply.
-MARKETING	Bonus reward on your next spend; terms apply.
-MARKETING	Bonus reward on your next spend; terms apply.
-MARKETING	Bonus reward on your next spend; terms apply.
-MARKETING	Bonus reward on your next spend; terms apply.
-MARKETING	Subscribe for introductory pricing; reply STOP to opt out.
-MARKETING	Subscribe for introductory pricing; reply STOP to opt out.
-MARKETING	Subscribe for introductory pricing; reply STOP to opt out.
-MARKETING	Subscribe for introductory pricing; reply STOP to opt out.
-MARKETING	Subscribe for introductory pricing; reply STOP to opt out.
-MARKETING	Subscribe for introductory pricing; reply STOP to opt out.
-MARKETING	Subscribe for introductory pricing; reply STOP to opt out.
-MARKETING	Subscribe for introductory pricing; reply STOP to opt out.
-MARKETING	Subscribe for introductory pricing; reply STOP to opt out.
-MARKETING	Subscribe for introductory pricing; reply STOP to opt out.
+MARKETING	Earn rewards on future transactions by activating this offer. Terms and conditions apply. Ref TR0541
+MARKETING	Earn rewards on future transactions by activating this offer. Offer is subject to eligibility. Ref TR0542
+MARKETING	Earn rewards on future transactions by activating this offer. This is a promotional notification. Ref TR0543
+MARKETING	Earn rewards on future transactions by activating this offer. Review offer details before opting in. Ref TR0544
+MARKETING	Earn rewards on future transactions by activating this offer. Offer applies to future activity. Ref TR0545
+MARKETING	Earn rewards on future transactions by activating this offer. Terms and conditions apply. Ref TR0546
+MARKETING	Earn rewards on future transactions by activating this offer. Offer is subject to eligibility. Ref TR0547
+MARKETING	Earn rewards on future transactions by activating this offer. This is a promotional notification. Ref TR0548
+MARKETING	Earn rewards on future transactions by activating this offer. Review offer details before opting in. Ref TR0549
+MARKETING	Earn rewards on future transactions by activating this offer. Offer applies to future activity. Ref TR0550
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Terms and conditions apply. Ref TR0551
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Offer is subject to eligibility. Ref TR0552
+MARKETING	Pre-approved loan offer available; apply to check eligibility. This is a promotional notification. Ref TR0553
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Review offer details before opting in. Ref TR0554
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Offer applies to future activity. Ref TR0555
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Terms and conditions apply. Ref TR0556
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Offer is subject to eligibility. Ref TR0557
+MARKETING	Pre-approved loan offer available; apply to check eligibility. This is a promotional notification. Ref TR0558
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Review offer details before opting in. Ref TR0559
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Offer applies to future activity. Ref TR0560
+MARKETING	Bonus reward on your next spend; terms apply. Terms and conditions apply. Ref TR0561
+MARKETING	Bonus reward on your next spend; terms apply. Offer is subject to eligibility. Ref TR0562
+MARKETING	Bonus reward on your next spend; terms apply. This is a promotional notification. Ref TR0563
+MARKETING	Bonus reward on your next spend; terms apply. Review offer details before opting in. Ref TR0564
+MARKETING	Bonus reward on your next spend; terms apply. Offer applies to future activity. Ref TR0565
+MARKETING	Bonus reward on your next spend; terms apply. Terms and conditions apply. Ref TR0566
+MARKETING	Bonus reward on your next spend; terms apply. Offer is subject to eligibility. Ref TR0567
+MARKETING	Bonus reward on your next spend; terms apply. This is a promotional notification. Ref TR0568
+MARKETING	Bonus reward on your next spend; terms apply. Review offer details before opting in. Ref TR0569
+MARKETING	Bonus reward on your next spend; terms apply. Offer applies to future activity. Ref TR0570
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Terms and conditions apply. Ref TR0571
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Offer is subject to eligibility. Ref TR0572
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. This is a promotional notification. Ref TR0573
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Review offer details before opting in. Ref TR0574
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Offer applies to future activity. Ref TR0575
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Terms and conditions apply. Ref TR0576
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Offer is subject to eligibility. Ref TR0577
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. This is a promotional notification. Ref TR0578
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Review offer details before opting in. Ref TR0579
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Offer applies to future activity. Ref TR0580
 MARKETING	Exclusive shopping deal at L V Condiments; use promo code SAVE1010.
 MARKETING	Exclusive shopping deal at Metro Mart; use promo code SAVE1023.
 MARKETING	Exclusive shopping deal at Online Store; use promo code SAVE1036.
@@ -478,16 +588,16 @@ MARKETING	Exclusive shopping deal at Cafe South; use promo code SAVE1088.
 MARKETING	Exclusive shopping deal at E Gopal; use promo code SAVE1101.
 MARKETING	Exclusive shopping deal at City Pharmacy; use promo code SAVE1114.
 MARKETING	Exclusive shopping deal at Railway Catering; use promo code SAVE1127.
-MARKETING	Invite friends to earn promotional rewards; no transaction occurred.
-MARKETING	Invite friends to earn promotional rewards; no transaction occurred.
-MARKETING	Invite friends to earn promotional rewards; no transaction occurred.
-MARKETING	Invite friends to earn promotional rewards; no transaction occurred.
-MARKETING	Invite friends to earn promotional rewards; no transaction occurred.
-MARKETING	Invite friends to earn promotional rewards; no transaction occurred.
-MARKETING	Invite friends to earn promotional rewards; no transaction occurred.
-MARKETING	Invite friends to earn promotional rewards; no transaction occurred.
-MARKETING	Invite friends to earn promotional rewards; no transaction occurred.
-MARKETING	Invite friends to earn promotional rewards; no transaction occurred.
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Terms and conditions apply. Ref TR0591
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Offer is subject to eligibility. Ref TR0592
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. This is a promotional notification. Ref TR0593
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Review offer details before opting in. Ref TR0594
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Offer applies to future activity. Ref TR0595
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Terms and conditions apply. Ref TR0596
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Offer is subject to eligibility. Ref TR0597
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. This is a promotional notification. Ref TR0598
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Review offer details before opting in. Ref TR0599
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Offer applies to future activity. Ref TR0600
 MARKETING	Festival sale: save 49% on selected products.
 MARKETING	Festival sale: save 120% on selected products.
 MARKETING	Festival sale: save 275% on selected products.
@@ -498,106 +608,106 @@ MARKETING	Festival sale: save 1650% on selected products.
 MARKETING	Festival sale: save 2020% on selected products.
 MARKETING	Festival sale: save 4875% on selected products.
 MARKETING	Festival sale: save 14999% on selected products.
-OTHER	Your KYC verification request has been received by the bank.
-OTHER	Your KYC verification request has been received by the bank.
-OTHER	Your KYC verification request has been received by the bank.
-OTHER	Your KYC verification request has been received by the bank.
-OTHER	Your KYC verification request has been received by the bank.
-OTHER	Your KYC verification request has been received by the bank.
-OTHER	Your KYC verification request has been received by the bank.
-OTHER	Your KYC verification request has been received by the bank.
-OTHER	Your KYC verification request has been received by the bank.
-OTHER	Your KYC verification request has been received by the bank.
-OTHER	Your debit card will expire soon; request a replacement.
-OTHER	Your debit card will expire soon; request a replacement.
-OTHER	Your debit card will expire soon; request a replacement.
-OTHER	Your debit card will expire soon; request a replacement.
-OTHER	Your debit card will expire soon; request a replacement.
-OTHER	Your debit card will expire soon; request a replacement.
-OTHER	Your debit card will expire soon; request a replacement.
-OTHER	Your debit card will expire soon; request a replacement.
-OTHER	Your debit card will expire soon; request a replacement.
-OTHER	Your debit card will expire soon; request a replacement.
-OTHER	Your account profile details were updated successfully.
-OTHER	Your account profile details were updated successfully.
-OTHER	Your account profile details were updated successfully.
-OTHER	Your account profile details were updated successfully.
-OTHER	Your account profile details were updated successfully.
-OTHER	Your account profile details were updated successfully.
-OTHER	Your account profile details were updated successfully.
-OTHER	Your account profile details were updated successfully.
-OTHER	Your account profile details were updated successfully.
-OTHER	Your account profile details were updated successfully.
-OTHER	Railway ticket booking confirmed; open app for itinerary.
-OTHER	Railway ticket booking confirmed; open app for itinerary.
-OTHER	Railway ticket booking confirmed; open app for itinerary.
-OTHER	Railway ticket booking confirmed; open app for itinerary.
-OTHER	Railway ticket booking confirmed; open app for itinerary.
-OTHER	Railway ticket booking confirmed; open app for itinerary.
-OTHER	Railway ticket booking confirmed; open app for itinerary.
-OTHER	Railway ticket booking confirmed; open app for itinerary.
-OTHER	Railway ticket booking confirmed; open app for itinerary.
-OTHER	Railway ticket booking confirmed; open app for itinerary.
-OTHER	Service request [REDACTED] has been created.
-OTHER	Service request [REDACTED] has been created.
-OTHER	Service request [REDACTED] has been created.
-OTHER	Service request [REDACTED] has been created.
-OTHER	Service request [REDACTED] has been created.
-OTHER	Service request [REDACTED] has been created.
-OTHER	Service request [REDACTED] has been created.
-OTHER	Service request [REDACTED] has been created.
-OTHER	Service request [REDACTED] has been created.
-OTHER	Service request [REDACTED] has been created.
-OTHER	Your monthly e-statement document is ready to view.
-OTHER	Your monthly e-statement document is ready to view.
-OTHER	Your monthly e-statement document is ready to view.
-OTHER	Your monthly e-statement document is ready to view.
-OTHER	Your monthly e-statement document is ready to view.
-OTHER	Your monthly e-statement document is ready to view.
-OTHER	Your monthly e-statement document is ready to view.
-OTHER	Your monthly e-statement document is ready to view.
-OTHER	Your monthly e-statement document is ready to view.
-OTHER	Your monthly e-statement document is ready to view.
-OTHER	Cheque book request has been registered.
-OTHER	Cheque book request has been registered.
-OTHER	Cheque book request has been registered.
-OTHER	Cheque book request has been registered.
-OTHER	Cheque book request has been registered.
-OTHER	Cheque book request has been registered.
-OTHER	Cheque book request has been registered.
-OTHER	Cheque book request has been registered.
-OTHER	Cheque book request has been registered.
-OTHER	Cheque book request has been registered.
-OTHER	Address update request submitted for review.
-OTHER	Address update request submitted for review.
-OTHER	Address update request submitted for review.
-OTHER	Address update request submitted for review.
-OTHER	Address update request submitted for review.
-OTHER	Address update request submitted for review.
-OTHER	Address update request submitted for review.
-OTHER	Address update request submitted for review.
-OTHER	Address update request submitted for review.
-OTHER	Address update request submitted for review.
-OTHER	Account nomination details updated as requested.
-OTHER	Account nomination details updated as requested.
-OTHER	Account nomination details updated as requested.
-OTHER	Account nomination details updated as requested.
-OTHER	Account nomination details updated as requested.
-OTHER	Account nomination details updated as requested.
-OTHER	Account nomination details updated as requested.
-OTHER	Account nomination details updated as requested.
-OTHER	Account nomination details updated as requested.
-OTHER	Account nomination details updated as requested.
-OTHER	New card dispatch status is available in the app.
-OTHER	New card dispatch status is available in the app.
-OTHER	New card dispatch status is available in the app.
-OTHER	New card dispatch status is available in the app.
-OTHER	New card dispatch status is available in the app.
-OTHER	New card dispatch status is available in the app.
-OTHER	New card dispatch status is available in the app.
-OTHER	New card dispatch status is available in the app.
-OTHER	New card dispatch status is available in the app.
-OTHER	New card dispatch status is available in the app.
+OTHER	Your KYC verification request has been received by the bank. No payment action is required. Ref TR0611
+OTHER	Your KYC verification request has been received by the bank. Review profile details in the app. Ref TR0612
+OTHER	Your KYC verification request has been received by the bank. This notice concerns account administration. Ref TR0613
+OTHER	Your KYC verification request has been received by the bank. Check service request details. Ref TR0614
+OTHER	Your KYC verification request has been received by the bank. This is an account service update. Ref TR0615
+OTHER	Your KYC verification request has been received by the bank. No payment action is required. Ref TR0616
+OTHER	Your KYC verification request has been received by the bank. Review profile details in the app. Ref TR0617
+OTHER	Your KYC verification request has been received by the bank. This notice concerns account administration. Ref TR0618
+OTHER	Your KYC verification request has been received by the bank. Check service request details. Ref TR0619
+OTHER	Your KYC verification request has been received by the bank. This is an account service update. Ref TR0620
+OTHER	Your debit card will expire soon; request a replacement. This is an account service update. Ref TR0621
+OTHER	Your debit card will expire soon; request a replacement. No payment action is required. Ref TR0622
+OTHER	Your debit card will expire soon; request a replacement. Review profile details in the app. Ref TR0623
+OTHER	Your debit card will expire soon; request a replacement. This notice concerns account administration. Ref TR0624
+OTHER	Your debit card will expire soon; request a replacement. Check service request details. Ref TR0625
+OTHER	Your debit card will expire soon; request a replacement. This is an account service update. Ref TR0626
+OTHER	Your debit card will expire soon; request a replacement. No payment action is required. Ref TR0627
+OTHER	Your debit card will expire soon; request a replacement. Review profile details in the app. Ref TR0628
+OTHER	Your debit card will expire soon; request a replacement. This notice concerns account administration. Ref TR0629
+OTHER	Your debit card will expire soon; request a replacement. Check service request details. Ref TR0630
+OTHER	Your account profile details were updated successfully. This is an account service update. Ref TR0631
+OTHER	Your account profile details were updated successfully. No payment action is required. Ref TR0632
+OTHER	Your account profile details were updated successfully. Review profile details in the app. Ref TR0633
+OTHER	Your account profile details were updated successfully. This notice concerns account administration. Ref TR0634
+OTHER	Your account profile details were updated successfully. Check service request details. Ref TR0635
+OTHER	Your account profile details were updated successfully. This is an account service update. Ref TR0636
+OTHER	Your account profile details were updated successfully. No payment action is required. Ref TR0637
+OTHER	Your account profile details were updated successfully. Review profile details in the app. Ref TR0638
+OTHER	Your account profile details were updated successfully. This notice concerns account administration. Ref TR0639
+OTHER	Your account profile details were updated successfully. Check service request details. Ref TR0640
+OTHER	Railway ticket booking confirmed; open app for itinerary. This is an account service update. Ref TR0641
+OTHER	Railway ticket booking confirmed; open app for itinerary. No payment action is required. Ref TR0642
+OTHER	Railway ticket booking confirmed; open app for itinerary. Review profile details in the app. Ref TR0643
+OTHER	Railway ticket booking confirmed; open app for itinerary. This notice concerns account administration. Ref TR0644
+OTHER	Railway ticket booking confirmed; open app for itinerary. Check service request details. Ref TR0645
+OTHER	Railway ticket booking confirmed; open app for itinerary. This is an account service update. Ref TR0646
+OTHER	Railway ticket booking confirmed; open app for itinerary. No payment action is required. Ref TR0647
+OTHER	Railway ticket booking confirmed; open app for itinerary. Review profile details in the app. Ref TR0648
+OTHER	Railway ticket booking confirmed; open app for itinerary. This notice concerns account administration. Ref TR0649
+OTHER	Railway ticket booking confirmed; open app for itinerary. Check service request details. Ref TR0650
+OTHER	Service request [REDACTED] has been created. This is an account service update. Ref TR0651
+OTHER	Service request [REDACTED] has been created. No payment action is required. Ref TR0652
+OTHER	Service request [REDACTED] has been created. Review profile details in the app. Ref TR0653
+OTHER	Service request [REDACTED] has been created. This notice concerns account administration. Ref TR0654
+OTHER	Service request [REDACTED] has been created. Check service request details. Ref TR0655
+OTHER	Service request [REDACTED] has been created. This is an account service update. Ref TR0656
+OTHER	Service request [REDACTED] has been created. No payment action is required. Ref TR0657
+OTHER	Service request [REDACTED] has been created. Review profile details in the app. Ref TR0658
+OTHER	Service request [REDACTED] has been created. This notice concerns account administration. Ref TR0659
+OTHER	Service request [REDACTED] has been created. Check service request details. Ref TR0660
+OTHER	Your monthly e-statement document is ready to view. This is an account service update. Ref TR0661
+OTHER	Your monthly e-statement document is ready to view. No payment action is required. Ref TR0662
+OTHER	Your monthly e-statement document is ready to view. Review profile details in the app. Ref TR0663
+OTHER	Your monthly e-statement document is ready to view. This notice concerns account administration. Ref TR0664
+OTHER	Your monthly e-statement document is ready to view. Check service request details. Ref TR0665
+OTHER	Your monthly e-statement document is ready to view. This is an account service update. Ref TR0666
+OTHER	Your monthly e-statement document is ready to view. No payment action is required. Ref TR0667
+OTHER	Your monthly e-statement document is ready to view. Review profile details in the app. Ref TR0668
+OTHER	Your monthly e-statement document is ready to view. This notice concerns account administration. Ref TR0669
+OTHER	Your monthly e-statement document is ready to view. Check service request details. Ref TR0670
+OTHER	Cheque book request has been registered. This is an account service update. Ref TR0671
+OTHER	Cheque book request has been registered. No payment action is required. Ref TR0672
+OTHER	Cheque book request has been registered. Review profile details in the app. Ref TR0673
+OTHER	Cheque book request has been registered. This notice concerns account administration. Ref TR0674
+OTHER	Cheque book request has been registered. Check service request details. Ref TR0675
+OTHER	Cheque book request has been registered. This is an account service update. Ref TR0676
+OTHER	Cheque book request has been registered. No payment action is required. Ref TR0677
+OTHER	Cheque book request has been registered. Review profile details in the app. Ref TR0678
+OTHER	Cheque book request has been registered. This notice concerns account administration. Ref TR0679
+OTHER	Cheque book request has been registered. Check service request details. Ref TR0680
+OTHER	Address update request submitted for review. This is an account service update. Ref TR0681
+OTHER	Address update request submitted for review. No payment action is required. Ref TR0682
+OTHER	Address update request submitted for review. Review profile details in the app. Ref TR0683
+OTHER	Address update request submitted for review. This notice concerns account administration. Ref TR0684
+OTHER	Address update request submitted for review. Check service request details. Ref TR0685
+OTHER	Address update request submitted for review. This is an account service update. Ref TR0686
+OTHER	Address update request submitted for review. No payment action is required. Ref TR0687
+OTHER	Address update request submitted for review. Review profile details in the app. Ref TR0688
+OTHER	Address update request submitted for review. This notice concerns account administration. Ref TR0689
+OTHER	Address update request submitted for review. Check service request details. Ref TR0690
+OTHER	Account nomination details updated as requested. This is an account service update. Ref TR0691
+OTHER	Account nomination details updated as requested. No payment action is required. Ref TR0692
+OTHER	Account nomination details updated as requested. Review profile details in the app. Ref TR0693
+OTHER	Account nomination details updated as requested. This notice concerns account administration. Ref TR0694
+OTHER	Account nomination details updated as requested. Check service request details. Ref TR0695
+OTHER	Account nomination details updated as requested. This is an account service update. Ref TR0696
+OTHER	Account nomination details updated as requested. No payment action is required. Ref TR0697
+OTHER	Account nomination details updated as requested. Review profile details in the app. Ref TR0698
+OTHER	Account nomination details updated as requested. This notice concerns account administration. Ref TR0699
+OTHER	Account nomination details updated as requested. Check service request details. Ref TR0700
+OTHER	New card dispatch status is available in the app. This is an account service update. Ref TR0701
+OTHER	New card dispatch status is available in the app. No payment action is required. Ref TR0702
+OTHER	New card dispatch status is available in the app. Review profile details in the app. Ref TR0703
+OTHER	New card dispatch status is available in the app. This notice concerns account administration. Ref TR0704
+OTHER	New card dispatch status is available in the app. Check service request details. Ref TR0705
+OTHER	New card dispatch status is available in the app. This is an account service update. Ref TR0706
+OTHER	New card dispatch status is available in the app. No payment action is required. Ref TR0707
+OTHER	New card dispatch status is available in the app. Review profile details in the app. Ref TR0708
+OTHER	New card dispatch status is available in the app. This notice concerns account administration. Ref TR0709
+OTHER	New card dispatch status is available in the app. Check service request details. Ref TR0710
 OTP	Your OTP for login is 100000; do not share it with anyone.
 OTP	Your OTP for login is 107919; do not share it with anyone.
 OTP	Your OTP for login is 115838; do not share it with anyone.
@@ -798,86 +908,86 @@ REMINDER	Scheduled EMI reminder: INR 1650 due this month.
 REMINDER	Scheduled EMI reminder: INR 2020 due this month.
 REMINDER	Scheduled EMI reminder: INR 4875 due this month.
 REMINDER	Scheduled EMI reminder: INR 14999 due this month.
-SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you.
-SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you.
-SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you.
-SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you.
-SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you.
-SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you.
-SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you.
-SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you.
-SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you.
-SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you.
-SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it.
-SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it.
-SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it.
-SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it.
-SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it.
-SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it.
-SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it.
-SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it.
-SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it.
-SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it.
-SECURITY_ALERT	Banking profile accessed from a new device; review activity.
-SECURITY_ALERT	Banking profile accessed from a new device; review activity.
-SECURITY_ALERT	Banking profile accessed from a new device; review activity.
-SECURITY_ALERT	Banking profile accessed from a new device; review activity.
-SECURITY_ALERT	Banking profile accessed from a new device; review activity.
-SECURITY_ALERT	Banking profile accessed from a new device; review activity.
-SECURITY_ALERT	Banking profile accessed from a new device; review activity.
-SECURITY_ALERT	Banking profile accessed from a new device; review activity.
-SECURITY_ALERT	Banking profile accessed from a new device; review activity.
-SECURITY_ALERT	Banking profile accessed from a new device; review activity.
-SECURITY_ALERT	Suspicious activity detected; card temporarily restricted.
-SECURITY_ALERT	Suspicious activity detected; card temporarily restricted.
-SECURITY_ALERT	Suspicious activity detected; card temporarily restricted.
-SECURITY_ALERT	Suspicious activity detected; card temporarily restricted.
-SECURITY_ALERT	Suspicious activity detected; card temporarily restricted.
-SECURITY_ALERT	Suspicious activity detected; card temporarily restricted.
-SECURITY_ALERT	Suspicious activity detected; card temporarily restricted.
-SECURITY_ALERT	Suspicious activity detected; card temporarily restricted.
-SECURITY_ALERT	Suspicious activity detected; card temporarily restricted.
-SECURITY_ALERT	Suspicious activity detected; card temporarily restricted.
-SECURITY_ALERT	Security warning: never share PIN or OTP.
-SECURITY_ALERT	Security warning: never share PIN or OTP.
-SECURITY_ALERT	Security warning: never share PIN or OTP.
-SECURITY_ALERT	Security warning: never share PIN or OTP.
-SECURITY_ALERT	Security warning: never share PIN or OTP.
-SECURITY_ALERT	Security warning: never share PIN or OTP.
-SECURITY_ALERT	Security warning: never share PIN or OTP.
-SECURITY_ALERT	Security warning: never share PIN or OTP.
-SECURITY_ALERT	Security warning: never share PIN or OTP.
-SECURITY_ALERT	Security warning: never share PIN or OTP.
-SECURITY_ALERT	Did you attempt this login? If not, secure your account.
-SECURITY_ALERT	Did you attempt this login? If not, secure your account.
-SECURITY_ALERT	Did you attempt this login? If not, secure your account.
-SECURITY_ALERT	Did you attempt this login? If not, secure your account.
-SECURITY_ALERT	Did you attempt this login? If not, secure your account.
-SECURITY_ALERT	Did you attempt this login? If not, secure your account.
-SECURITY_ALERT	Did you attempt this login? If not, secure your account.
-SECURITY_ALERT	Did you attempt this login? If not, secure your account.
-SECURITY_ALERT	Did you attempt this login? If not, secure your account.
-SECURITY_ALERT	Did you attempt this login? If not, secure your account.
-SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team.
-SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team.
-SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team.
-SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team.
-SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team.
-SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team.
-SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team.
-SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team.
-SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team.
-SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team.
-SECURITY_ALERT	Security settings changed; call bank if not requested.
-SECURITY_ALERT	Security settings changed; call bank if not requested.
-SECURITY_ALERT	Security settings changed; call bank if not requested.
-SECURITY_ALERT	Security settings changed; call bank if not requested.
-SECURITY_ALERT	Security settings changed; call bank if not requested.
-SECURITY_ALERT	Security settings changed; call bank if not requested.
-SECURITY_ALERT	Security settings changed; call bank if not requested.
-SECURITY_ALERT	Security settings changed; call bank if not requested.
-SECURITY_ALERT	Security settings changed; call bank if not requested.
-SECURITY_ALERT	Security settings changed; call bank if not requested.
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Review using official channels. Ref TR0911
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Report activity you do not recognize. Ref TR0912
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Protect your account credentials. Ref TR0913
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Contact the bank through a verified channel. Ref TR0914
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Secure the account if this was not you. Ref TR0915
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Review using official channels. Ref TR0916
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Report activity you do not recognize. Ref TR0917
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Protect your account credentials. Ref TR0918
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Contact the bank through a verified channel. Ref TR0919
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Secure the account if this was not you. Ref TR0920
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Review using official channels. Ref TR0921
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Report activity you do not recognize. Ref TR0922
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Protect your account credentials. Ref TR0923
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Contact the bank through a verified channel. Ref TR0924
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Secure the account if this was not you. Ref TR0925
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Review using official channels. Ref TR0926
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Report activity you do not recognize. Ref TR0927
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Protect your account credentials. Ref TR0928
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Contact the bank through a verified channel. Ref TR0929
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Secure the account if this was not you. Ref TR0930
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Review using official channels. Ref TR0931
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Report activity you do not recognize. Ref TR0932
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Protect your account credentials. Ref TR0933
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Contact the bank through a verified channel. Ref TR0934
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Secure the account if this was not you. Ref TR0935
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Review using official channels. Ref TR0936
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Report activity you do not recognize. Ref TR0937
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Protect your account credentials. Ref TR0938
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Contact the bank through a verified channel. Ref TR0939
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Secure the account if this was not you. Ref TR0940
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Review using official channels. Ref TR0941
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Report activity you do not recognize. Ref TR0942
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Protect your account credentials. Ref TR0943
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Contact the bank through a verified channel. Ref TR0944
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Secure the account if this was not you. Ref TR0945
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Review using official channels. Ref TR0946
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Report activity you do not recognize. Ref TR0947
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Protect your account credentials. Ref TR0948
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Contact the bank through a verified channel. Ref TR0949
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Secure the account if this was not you. Ref TR0950
+SECURITY_ALERT	Security warning: never share PIN or OTP. Review using official channels. Ref TR0951
+SECURITY_ALERT	Security warning: never share PIN or OTP. Report activity you do not recognize. Ref TR0952
+SECURITY_ALERT	Security warning: never share PIN or OTP. Protect your account credentials. Ref TR0953
+SECURITY_ALERT	Security warning: never share PIN or OTP. Contact the bank through a verified channel. Ref TR0954
+SECURITY_ALERT	Security warning: never share PIN or OTP. Secure the account if this was not you. Ref TR0955
+SECURITY_ALERT	Security warning: never share PIN or OTP. Review using official channels. Ref TR0956
+SECURITY_ALERT	Security warning: never share PIN or OTP. Report activity you do not recognize. Ref TR0957
+SECURITY_ALERT	Security warning: never share PIN or OTP. Protect your account credentials. Ref TR0958
+SECURITY_ALERT	Security warning: never share PIN or OTP. Contact the bank through a verified channel. Ref TR0959
+SECURITY_ALERT	Security warning: never share PIN or OTP. Secure the account if this was not you. Ref TR0960
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Review using official channels. Ref TR0961
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Report activity you do not recognize. Ref TR0962
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Protect your account credentials. Ref TR0963
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Contact the bank through a verified channel. Ref TR0964
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Secure the account if this was not you. Ref TR0965
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Review using official channels. Ref TR0966
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Report activity you do not recognize. Ref TR0967
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Protect your account credentials. Ref TR0968
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Contact the bank through a verified channel. Ref TR0969
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Secure the account if this was not you. Ref TR0970
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Review using official channels. Ref TR0971
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Report activity you do not recognize. Ref TR0972
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Protect your account credentials. Ref TR0973
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Contact the bank through a verified channel. Ref TR0974
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Secure the account if this was not you. Ref TR0975
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Review using official channels. Ref TR0976
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Report activity you do not recognize. Ref TR0977
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Protect your account credentials. Ref TR0978
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Contact the bank through a verified channel. Ref TR0979
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Secure the account if this was not you. Ref TR0980
+SECURITY_ALERT	Security settings changed; call bank if not requested. Review using official channels. Ref TR0981
+SECURITY_ALERT	Security settings changed; call bank if not requested. Report activity you do not recognize. Ref TR0982
+SECURITY_ALERT	Security settings changed; call bank if not requested. Protect your account credentials. Ref TR0983
+SECURITY_ALERT	Security settings changed; call bank if not requested. Contact the bank through a verified channel. Ref TR0984
+SECURITY_ALERT	Security settings changed; call bank if not requested. Secure the account if this was not you. Ref TR0985
+SECURITY_ALERT	Security settings changed; call bank if not requested. Review using official channels. Ref TR0986
+SECURITY_ALERT	Security settings changed; call bank if not requested. Report activity you do not recognize. Ref TR0987
+SECURITY_ALERT	Security settings changed; call bank if not requested. Protect your account credentials. Ref TR0988
+SECURITY_ALERT	Security settings changed; call bank if not requested. Contact the bank through a verified channel. Ref TR0989
+SECURITY_ALERT	Security settings changed; call bank if not requested. Secure the account if this was not you. Ref TR0990
 SECURITY_ALERT	Possible fraud on card 8899; verify through official channels.
 SECURITY_ALERT	Possible fraud on card 5566; verify through official channels.
 SECURITY_ALERT	Possible fraud on card 4536; verify through official channels.
@@ -888,13 +998,53 @@ SECURITY_ALERT	Possible fraud on card 7306; verify through official channels.
 SECURITY_ALERT	Possible fraud on card 5907; verify through official channels.
 SECURITY_ALERT	Possible fraud on card 9443; verify through official channels.
 SECURITY_ALERT	Possible fraud on card 1008; verify through official channels.
-SECURITY_ALERT	New device enrollment request detected; deny if unauthorized.
-SECURITY_ALERT	New device enrollment request detected; deny if unauthorized.
-SECURITY_ALERT	New device enrollment request detected; deny if unauthorized.
-SECURITY_ALERT	New device enrollment request detected; deny if unauthorized.
-SECURITY_ALERT	New device enrollment request detected; deny if unauthorized.
-SECURITY_ALERT	New device enrollment request detected; deny if unauthorized.
-SECURITY_ALERT	New device enrollment request detected; deny if unauthorized.
-SECURITY_ALERT	New device enrollment request detected; deny if unauthorized.
-SECURITY_ALERT	New device enrollment request detected; deny if unauthorized.
-SECURITY_ALERT	New device enrollment request detected; deny if unauthorized.
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Review using official channels. Ref TR1001
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Report activity you do not recognize. Ref TR1002
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Protect your account credentials. Ref TR1003
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Contact the bank through a verified channel. Ref TR1004
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Secure the account if this was not you. Ref TR1005
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Review using official channels. Ref TR1006
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Report activity you do not recognize. Ref TR1007
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Protect your account credentials. Ref TR1008
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Contact the bank through a verified channel. Ref TR1009
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Secure the account if this was not you. Ref TR1010
+BALANCE	Remaining credit available on your card is INR 5400. This is unused credit, not a new charge.
+BALANCE	Credit remaining on the card is INR 5400. No purchase is reported.
+BALANCE	Your remaining card credit is INR 5400; this is a limit snapshot.
+BALANCE	Unused credit available for spending on card is INR 5400.
+BALANCE	Current remaining credit limit is INR 5400; no transaction is reported.
+BALANCE	Your card has a remaining credit limit of INR 5400.
+BALANCE	Available credit on card is INR 5400. This message is a balance summary.
+BALANCE	Credit limit remaining on the card is INR 5400.
+BALANCE	The unused credit amount on your card is INR 5400.
+BALANCE	Your card's available credit limit stands at INR 5400.
+OTHER	Your contact information update was completed in the customer profile.
+OTHER	Your account profile change has been completed successfully.
+OTHER	Customer address update completed; no payment action is required.
+OTHER	Your nominee details update is complete in the bank profile.
+OTHER	Profile information update completed for your customer account.
+OTHER	Your KYC profile details were updated successfully.
+OTHER	Account contact detail update completed in the service portal.
+OTHER	Your customer profile update has been processed successfully.
+OTHER	Service request for profile changes was completed.
+OTHER	Your registered address details have been updated.
+OTHER	Customer phone number update completed in your profile.
+OTHER	Your mailing address update was completed successfully.
+OTHER	Bank profile correction request has been completed.
+OTHER	Your nominee information was updated in the account profile.
+OTHER	Your email address update is complete; no money moved.
+OTHER	Customer preferences update completed in the service portal.
+OTHER	Your personal details have been updated successfully.
+OTHER	Profile update request has been completed by customer support.
+OTHER	Your contact preference change is now complete.
+OTHER	Account profile update completed; no financial transaction occurred.
+OTHER	Your service request to update personal details is complete.
+OTHER	Customer details were updated successfully in the bank records.
+OTHER	Your KYC address update has been completed.
+OTHER	Your profile change was processed without any payment.
+OTHER	Registered mobile number update completed in your account.
+OTHER	Customer information update has been completed successfully.
+OTHER	Your account profile details were changed and saved.
+OTHER	Address correction request completed in customer services.
+OTHER	Your profile data update is finished; check the official app.
+OTHER	Bank completed your request to update contact details.
