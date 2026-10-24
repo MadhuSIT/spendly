@@ -201,6 +201,14 @@ def main():
     train_rows = read_rows(DATA / "train.jsonl")
     validation_rows = read_rows(DATA / "validation.jsonl")
     test_rows = read_rows(DATA / "test.jsonl")
+    for split_name, rows in (("train", train_rows), ("validation", validation_rows), ("test", test_rows)):
+        missing = sorted(set(INTENTS) - {row["intent"] for row in rows})
+        if missing:
+            raise SystemExit(f"{split_name} split is missing intent classes: {missing}")
+    normalized = lambda rows: {" ".join(row["text"].lower().split()) for row in rows}
+    train_texts, validation_texts, test_texts = map(normalized, (train_rows, validation_rows, test_rows))
+    if (train_texts & validation_texts) or (train_texts & test_texts) or (validation_texts & test_texts):
+        raise SystemExit("Exact normalized message leakage across train/validation/test splits")
     tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, use_fast=True)
     if not tokenizer.is_fast:
         raise SystemExit("A fast tokenizer is required to align token offsets")
@@ -220,7 +228,8 @@ def main():
             optimizer.zero_grad(set_to_none=True)
             intent_logits, token_logits = model(batch["input_ids"], batch["attention_mask"])
             loss_intent = nn.functional.cross_entropy(intent_logits, batch["intent_labels"])
-            loss_slots = nn.functional.cross_entropy(token_logits.reshape(-1, len(TAGS)), batch["token_labels"].reshape(-1), ignore_index=-100)
+            tag_weights = torch.tensor([0.25 if tag == "O" else 1.0 for tag in TAGS], dtype=torch.float32, device=device)
+            loss_slots = nn.functional.cross_entropy(token_logits.reshape(-1, len(TAGS)), batch["token_labels"].reshape(-1), weight=tag_weights, ignore_index=-100)
             loss = loss_intent + loss_slots
             loss.backward()
             nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -233,7 +242,8 @@ def main():
                 batch = {key: value.to(device) for key, value in batch.items()}
                 intent_logits, token_logits = model(batch["input_ids"], batch["attention_mask"])
                 validation_loss += nn.functional.cross_entropy(intent_logits, batch["intent_labels"]).item()
-                validation_loss += nn.functional.cross_entropy(token_logits.reshape(-1, len(TAGS)), batch["token_labels"].reshape(-1), ignore_index=-100).item()
+                tag_weights = torch.tensor([0.25 if tag == "O" else 1.0 for tag in TAGS], dtype=torch.float32, device=device)
+                validation_loss += nn.functional.cross_entropy(token_logits.reshape(-1, len(TAGS)), batch["token_labels"].reshape(-1), weight=tag_weights, ignore_index=-100).item()
         validation_loss /= max(1, len(DataLoader(validation_data, batch_size=args.batch_size, collate_fn=collate)))
         print(f"epoch={epoch + 1} train_loss={total_loss / max(1, len(loader)):.4f} validation_loss={validation_loss:.4f}")
         if validation_loss < best_loss:
