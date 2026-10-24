@@ -15,11 +15,14 @@ CORPORA = [
     ROOT / "tools/sms-ml/training_corpus.tsv",
     ROOT / "tools/sms-ml/linked_account_scenarios.tsv",
     ROOT / "tools/sms-ml/field_regressions.tsv",
+    ROOT / "tools/sms-ml/synthetic_training.tsv",
 ]
 EVALUATIONS = [
     ROOT / "tools/sms-ml/evaluation_corpus.tsv",
     ROOT / "tools/sms-ml/field_evaluation.tsv",
+    ROOT / "tools/sms-ml/synthetic_validation.tsv",
 ]
+TEST_DATASET = ROOT / "tools/sms-ml/synthetic_test.tsv"
 OUTPUT = ROOT / "app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt"
 VERSION = "sms-nb-2026-10-24-v4"
 ALPHA = 0.5
