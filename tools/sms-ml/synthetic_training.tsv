@@ -1,0 +1,1121 @@
+OTHER	Your KYC verification request has been received by the bank. This is an account service update. Ref TR0105
+TRANSACTION	INR 49 debited from account 8800 for UPI purchase at L V Condiments; reference [REDACTED].
+TRANSACTION	INR 120 debited from account 1122 for UPI purchase at Metro Mart; reference [REDACTED].
+TRANSACTION	INR 275 debited from account 4834 for UPI purchase at Online Store; reference [REDACTED].
+TRANSACTION	INR 499 debited from account 8464 for UPI purchase at Utility Services; reference [REDACTED].
+TRANSACTION	INR 740 debited from account 2041 for UPI purchase at BigBasket; reference [REDACTED].
+TRANSACTION	INR 1021 debited from account 7765 for UPI purchase at Fuel Station; reference [REDACTED].
+TRANSACTION	INR 1650 debited from account 9130 for UPI purchase at Cafe South; reference [REDACTED].
+TRANSACTION	INR 2020 debited from account 5521 for UPI purchase at E Gopal; reference [REDACTED].
+TRANSACTION	INR 4875 debited from account 6608 for UPI purchase at City Pharmacy; reference [REDACTED].
+TRANSACTION	INR 14999 debited from account 3194 for UPI purchase at Railway Catering; reference [REDACTED].
+TRANSACTION	INR 49 credited to HDFC Bank savings account 8800 from Ravi K.
+TRANSACTION	INR 120 credited to SBI savings account 1122 from payment gateway.
+TRANSACTION	INR 275 credited to Axis Bank savings account 4834 from employer payroll.
+TRANSACTION	INR 499 credited to ICICI Bank savings account 8464 from ACME Payroll.
+TRANSACTION	INR 740 credited to Canara Bank savings account 2041 from business partner.
+TRANSACTION	INR 1021 credited to BOB Bank savings account 7765 from another bank.
+TRANSACTION	INR 1650 credited to Kotak Bank savings account 9130 from a listed company.
+TRANSACTION	INR 2020 credited to IDFC FIRST Bank savings account 5521 from service provider.
+TRANSACTION	INR 4875 credited to Federal Bank savings account 6608 from refund processor.
+TRANSACTION	INR 14999 credited to IndusInd Bank savings account 3194 from UPI merchant.
+TRANSACTION	Card 8899 purchase of INR 49 at L V Condiments approved.
+TRANSACTION	Card 5566 purchase of INR 120 at Metro Mart approved.
+TRANSACTION	Card 4536 purchase of INR 275 at Online Store approved.
+TRANSACTION	Card 7788 purchase of INR 499 at Utility Services approved.
+TRANSACTION	Card 6677 purchase of INR 740 at BigBasket approved.
+TRANSACTION	Card 4206 purchase of INR 1021 at Fuel Station approved.
+TRANSACTION	Card 7306 purchase of INR 1650 at Cafe South approved.
+TRANSACTION	Card 5907 purchase of INR 2020 at E Gopal approved.
+TRANSACTION	Card 9443 purchase of INR 4875 at City Pharmacy approved.
+TRANSACTION	Card 1008 purchase of INR 14999 at Railway Catering approved.
+TRANSACTION	IMPS transfer of INR 49 from account 8800 to registered beneficiary completed; UTR [REDACTED].
+TRANSACTION	IMPS transfer of INR 120 from account 1122 to merchant account completed; UTR [REDACTED].
+TRANSACTION	IMPS transfer of INR 275 from account 4834 to saved contact completed; UTR [REDACTED].
+TRANSACTION	IMPS transfer of INR 499 from account 8464 to Varshini completed; UTR [REDACTED].
+TRANSACTION	IMPS transfer of INR 740 from account 2041 to utility provider completed; UTR [REDACTED].
+TRANSACTION	IMPS transfer of INR 1021 from account 7765 to service provider completed; UTR [REDACTED].
+TRANSACTION	IMPS transfer of INR 1650 from account 9130 to payment app completed; UTR [REDACTED].
+TRANSACTION	IMPS transfer of INR 2020 from account 5521 to card bill account completed; UTR [REDACTED].
+TRANSACTION	IMPS transfer of INR 4875 from account 6608 to landlord completed; UTR [REDACTED].
+TRANSACTION	IMPS transfer of INR 14999 from account 3194 to travel agent completed; UTR [REDACTED].
+TRANSACTION	Wallet debited INR 49 at L V Condiments; remaining balance INR 84.50.
+TRANSACTION	Wallet debited INR 120 at Metro Mart; remaining balance INR 760.25.
+TRANSACTION	Wallet debited INR 275 at Online Store; remaining balance INR 4230.00.
+TRANSACTION	Wallet debited INR 499 at Utility Services; remaining balance INR 18765.40.
+TRANSACTION	Wallet debited INR 740 at BigBasket; remaining balance INR 50210.75.
+TRANSACTION	Wallet debited INR 1021 at Fuel Station; remaining balance INR 990.00.
+TRANSACTION	Wallet debited INR 1650 at Cafe South; remaining balance INR 128.35.
+TRANSACTION	Wallet debited INR 2020 at E Gopal; remaining balance INR 6543.21.
+TRANSACTION	Wallet debited INR 4875 at City Pharmacy; remaining balance INR 24750.00.
+TRANSACTION	Wallet debited INR 14999 at Railway Catering; remaining balance INR 812.80.
+TRANSACTION	Refund of INR 49 credited to card 8899 for purchase at L V Condiments.
+TRANSACTION	Refund of INR 120 credited to card 5566 for purchase at Metro Mart.
+TRANSACTION	Refund of INR 275 credited to card 4536 for purchase at Online Store.
+TRANSACTION	Refund of INR 499 credited to card 7788 for purchase at Utility Services.
+TRANSACTION	Refund of INR 740 credited to card 6677 for purchase at BigBasket.
+TRANSACTION	Refund of INR 1021 credited to card 4206 for purchase at Fuel Station.
+TRANSACTION	Refund of INR 1650 credited to card 7306 for purchase at Cafe South.
+TRANSACTION	Refund of INR 2020 credited to card 5907 for purchase at E Gopal.
+TRANSACTION	Refund of INR 4875 credited to card 9443 for purchase at City Pharmacy.
+TRANSACTION	Refund of INR 14999 credited to card 1008 for purchase at Railway Catering.
+TRANSACTION	ATM cash withdrawal of INR 49 completed on card 8899. Review the completed entry in account history. Please review details in the official banking app. Ref TR0171
+TRANSACTION	ATM cash withdrawal of INR 120 completed on card 5566. Review the completed entry in account history. Please review details in the official banking app. Ref TR0172
+TRANSACTION	ATM cash withdrawal of INR 275 completed on card 4536.
+TRANSACTION	ATM cash withdrawal of INR 499 completed on card 7788.
+TRANSACTION	ATM cash withdrawal of INR 740 completed on card 6677.
+TRANSACTION	ATM cash withdrawal of INR 1021 completed on card 4206.
+TRANSACTION	ATM cash withdrawal of INR 1650 completed on card 7306.
+TRANSACTION	ATM cash withdrawal of INR 2020 completed on card 5907. Review the completed entry in account history. Please review details in the official banking app. Ref TR0178
+TRANSACTION	ATM cash withdrawal of INR 4875 completed on card 9443. Review the completed entry in account history. Please review details in the official banking app. Ref TR0179
+TRANSACTION	ATM cash withdrawal of INR 14999 completed on card 1008. Review the completed entry in account history. Please review details in the official banking app. Ref TR0180
+TRANSACTION	UPI payment of INR 49 to L V Condiments completed successfully.
+TRANSACTION	UPI payment of INR 120 to Metro Mart completed successfully.
+TRANSACTION	UPI payment of INR 275 to Online Store completed successfully.
+TRANSACTION	UPI payment of INR 499 to Utility Services completed successfully.
+TRANSACTION	UPI payment of INR 740 to BigBasket completed successfully.
+TRANSACTION	UPI payment of INR 1021 to Fuel Station completed successfully.
+TRANSACTION	UPI payment of INR 1650 to Cafe South completed successfully.
+TRANSACTION	UPI payment of INR 2020 to E Gopal completed successfully.
+TRANSACTION	UPI payment of INR 4875 to City Pharmacy completed successfully.
+TRANSACTION	UPI payment of INR 14999 to Railway Catering completed successfully.
+TRANSACTION	HDFC Bank card 8899 charged INR 49 at L V Condiments.
+TRANSACTION	SBI card 5566 charged INR 120 at Metro Mart.
+TRANSACTION	Axis Bank card 4536 charged INR 275 at Online Store.
+TRANSACTION	ICICI Bank card 7788 charged INR 499 at Utility Services.
+TRANSACTION	Canara Bank card 6677 charged INR 740 at BigBasket.
+TRANSACTION	BOB Bank card 4206 charged INR 1021 at Fuel Station.
+TRANSACTION	Kotak Bank card 7306 charged INR 1650 at Cafe South.
+TRANSACTION	IDFC FIRST Bank card 5907 charged INR 2020 at E Gopal.
+TRANSACTION	Federal Bank card 9443 charged INR 4875 at City Pharmacy.
+TRANSACTION	IndusInd Bank card 1008 charged INR 14999 at Railway Catering.
+TRANSACTION	Dividend credit of INR 49 posted to account 8800.
+TRANSACTION	Dividend credit of INR 120 posted to account 1122.
+TRANSACTION	Dividend credit of INR 275 posted to account 4834.
+TRANSACTION	Dividend credit of INR 499 posted to account 8464.
+TRANSACTION	Dividend credit of INR 740 posted to account 2041.
+TRANSACTION	Dividend credit of INR 1021 posted to account 7765.
+TRANSACTION	Dividend credit of INR 1650 posted to account 9130.
+TRANSACTION	Dividend credit of INR 2020 posted to account 5521.
+TRANSACTION	Dividend credit of INR 4875 posted to account 6608.
+TRANSACTION	Dividend credit of INR 14999 posted to account 3194.
+AMBIGUOUS	INR 49 transaction is processing; final status is unavailable.
+AMBIGUOUS	INR 120 transaction is processing; final status is unavailable.
+AMBIGUOUS	INR 275 transaction is processing; final status is unavailable.
+AMBIGUOUS	INR 499 transaction is processing; final status is unavailable.
+AMBIGUOUS	INR 740 transaction is processing; final status is unavailable.
+AMBIGUOUS	INR 1021 transaction is processing; final status is unavailable.
+AMBIGUOUS	INR 1650 transaction is processing; final status is unavailable.
+AMBIGUOUS	INR 2020 transaction is processing; final status is unavailable.
+AMBIGUOUS	INR 4875 transaction is processing; final status is unavailable.
+AMBIGUOUS	INR 14999 transaction is processing; final status is unavailable.
+AMBIGUOUS	Payment for INR 49 was initiated, but confirmation is pending.
+AMBIGUOUS	Payment for INR 120 was initiated, but confirmation is pending.
+AMBIGUOUS	Payment for INR 275 was initiated, but confirmation is pending.
+AMBIGUOUS	Payment for INR 499 was initiated, but confirmation is pending.
+AMBIGUOUS	Payment for INR 740 was initiated, but confirmation is pending.
+AMBIGUOUS	Payment for INR 1021 was initiated, but confirmation is pending.
+AMBIGUOUS	Payment for INR 1650 was initiated, but confirmation is pending.
+AMBIGUOUS	Payment for INR 2020 was initiated, but confirmation is pending.
+AMBIGUOUS	Payment for INR 4875 was initiated, but confirmation is pending.
+AMBIGUOUS	Payment for INR 14999 was initiated, but confirmation is pending.
+AMBIGUOUS	Request involving INR 49 is under review; outcome is not confirmed.
+AMBIGUOUS	Request involving INR 120 is under review; outcome is not confirmed.
+AMBIGUOUS	Request involving INR 275 is under review; outcome is not confirmed.
+AMBIGUOUS	Request involving INR 499 is under review; outcome is not confirmed.
+AMBIGUOUS	Request involving INR 740 is under review; outcome is not confirmed.
+AMBIGUOUS	Request involving INR 1021 is under review; outcome is not confirmed.
+AMBIGUOUS	Request involving INR 1650 is under review; outcome is not confirmed.
+AMBIGUOUS	Request involving INR 2020 is under review; outcome is not confirmed.
+AMBIGUOUS	Request involving INR 4875 is under review; outcome is not confirmed.
+AMBIGUOUS	Request involving INR 14999 is under review; outcome is not confirmed.
+AMBIGUOUS	Transfer of INR 49 appears in a pending queue.
+AMBIGUOUS	Transfer of INR 120 appears in a pending queue.
+AMBIGUOUS	Transfer of INR 275 appears in a pending queue.
+AMBIGUOUS	Transfer of INR 499 appears in a pending queue.
+AMBIGUOUS	Transfer of INR 740 appears in a pending queue.
+AMBIGUOUS	Transfer of INR 1021 appears in a pending queue.
+AMBIGUOUS	Transfer of INR 1650 appears in a pending queue.
+AMBIGUOUS	Transfer of INR 2020 appears in a pending queue.
+AMBIGUOUS	Transfer of INR 4875 appears in a pending queue.
+AMBIGUOUS	Transfer of INR 14999 appears in a pending queue.
+AMBIGUOUS	Reference [REDACTED] for INR 49 has no final status yet.
+AMBIGUOUS	Reference [REDACTED] for INR 120 has no final status yet.
+AMBIGUOUS	Reference [REDACTED] for INR 275 has no final status yet.
+AMBIGUOUS	Reference [REDACTED] for INR 499 has no final status yet.
+AMBIGUOUS	Reference [REDACTED] for INR 740 has no final status yet.
+AMBIGUOUS	Reference [REDACTED] for INR 1021 has no final status yet.
+AMBIGUOUS	Reference [REDACTED] for INR 1650 has no final status yet.
+AMBIGUOUS	Reference [REDACTED] for INR 2020 has no final status yet.
+AMBIGUOUS	Reference [REDACTED] for INR 4875 has no final status yet.
+AMBIGUOUS	Reference [REDACTED] for INR 14999 has no final status yet.
+AMBIGUOUS	Card activity for INR 49 is being verified; no final result.
+AMBIGUOUS	Card activity for INR 120 is being verified; no final result.
+AMBIGUOUS	Card activity for INR 275 is being verified; no final result.
+AMBIGUOUS	Card activity for INR 499 is being verified; no final result.
+AMBIGUOUS	Card activity for INR 740 is being verified; no final result.
+AMBIGUOUS	Card activity for INR 1021 is being verified; no final result.
+AMBIGUOUS	Card activity for INR 1650 is being verified; no final result.
+AMBIGUOUS	Card activity for INR 2020 is being verified; no final result.
+AMBIGUOUS	Card activity for INR 4875 is being verified; no final result.
+AMBIGUOUS	Card activity for INR 14999 is being verified; no final result.
+AMBIGUOUS	INR 49 appears in a notice without clear debit or credit status.
+AMBIGUOUS	INR 120 appears in a notice without clear debit or credit status.
+AMBIGUOUS	INR 275 appears in a notice without clear debit or credit status.
+AMBIGUOUS	INR 499 appears in a notice without clear debit or credit status.
+AMBIGUOUS	INR 740 appears in a notice without clear debit or credit status.
+AMBIGUOUS	INR 1021 appears in a notice without clear debit or credit status.
+AMBIGUOUS	INR 1650 appears in a notice without clear debit or credit status.
+AMBIGUOUS	INR 2020 appears in a notice without clear debit or credit status.
+AMBIGUOUS	INR 4875 appears in a notice without clear debit or credit status.
+AMBIGUOUS	INR 14999 appears in a notice without clear debit or credit status.
+AMBIGUOUS	Mandate request for INR 49 submitted; processing result is unstated.
+AMBIGUOUS	Mandate request for INR 120 submitted; processing result is unstated.
+AMBIGUOUS	Mandate request for INR 275 submitted; processing result is unstated.
+AMBIGUOUS	Mandate request for INR 499 submitted; processing result is unstated.
+AMBIGUOUS	Mandate request for INR 740 submitted; processing result is unstated.
+AMBIGUOUS	Mandate request for INR 1021 submitted; processing result is unstated.
+AMBIGUOUS	Mandate request for INR 1650 submitted; processing result is unstated.
+AMBIGUOUS	Mandate request for INR 2020 submitted; processing result is unstated.
+AMBIGUOUS	Mandate request for INR 4875 submitted; processing result is unstated.
+AMBIGUOUS	Mandate request for INR 14999 submitted; processing result is unstated.
+AMBIGUOUS	Bank is checking transfer request for INR 49.
+AMBIGUOUS	Bank is checking transfer request for INR 120.
+AMBIGUOUS	Bank is checking transfer request for INR 275.
+AMBIGUOUS	Bank is checking transfer request for INR 499.
+AMBIGUOUS	Bank is checking transfer request for INR 740.
+AMBIGUOUS	Bank is checking transfer request for INR 1021.
+AMBIGUOUS	Bank is checking transfer request for INR 1650.
+AMBIGUOUS	Bank is checking transfer request for INR 2020.
+AMBIGUOUS	Bank is checking transfer request for INR 4875.
+AMBIGUOUS	Bank is checking transfer request for INR 14999.
+AMBIGUOUS	Transaction details for INR 49 are incomplete.
+AMBIGUOUS	Transaction details for INR 120 are incomplete.
+AMBIGUOUS	Transaction details for INR 275 are incomplete.
+AMBIGUOUS	Transaction details for INR 499 are incomplete.
+AMBIGUOUS	Transaction details for INR 740 are incomplete.
+AMBIGUOUS	Transaction details for INR 1021 are incomplete.
+AMBIGUOUS	Transaction details for INR 1650 are incomplete.
+AMBIGUOUS	Transaction details for INR 2020 are incomplete.
+AMBIGUOUS	Transaction details for INR 4875 are incomplete.
+AMBIGUOUS	Transaction details for INR 14999 are incomplete.
+BALANCE	Available balance in account 8800 is INR 84.50.
+BALANCE	Available balance in account 1122 is INR 760.25.
+BALANCE	Available balance in account 4834 is INR 4230.00.
+BALANCE	Available balance in account 8464 is INR 18765.40.
+BALANCE	Available balance in account 2041 is INR 50210.75.
+BALANCE	Available balance in account 7765 is INR 990.00.
+BALANCE	Available balance in account 9130 is INR 128.35.
+BALANCE	Available balance in account 5521 is INR 6543.21.
+BALANCE	Available balance in account 6608 is INR 24750.00.
+BALANCE	Available balance in account 3194 is INR 812.80.
+BALANCE	HDFC Bank account 8800 current balance is INR 84.50.
+BALANCE	SBI account 1122 current balance is INR 760.25.
+BALANCE	Axis Bank account 4834 current balance is INR 4230.00.
+BALANCE	ICICI Bank account 8464 current balance is INR 18765.40.
+BALANCE	Canara Bank account 2041 current balance is INR 50210.75.
+BALANCE	BOB Bank account 7765 current balance is INR 990.00.
+BALANCE	Kotak Bank account 9130 current balance is INR 128.35.
+BALANCE	IDFC FIRST Bank account 5521 current balance is INR 6543.21.
+BALANCE	Federal Bank account 6608 current balance is INR 24750.00.
+BALANCE	IndusInd Bank account 3194 current balance is INR 812.80.
+BALANCE	Available credit limit on card 8899 is INR 84.50.
+BALANCE	Available credit limit on card 5566 is INR 760.25.
+BALANCE	Available credit limit on card 4536 is INR 4230.00.
+BALANCE	Available credit limit on card 7788 is INR 18765.40.
+BALANCE	Available credit limit on card 6677 is INR 50210.75.
+BALANCE	Available credit limit on card 4206 is INR 990.00.
+BALANCE	Available credit limit on card 7306 is INR 128.35.
+BALANCE	Available credit limit on card 5907 is INR 6543.21.
+BALANCE	Available credit limit on card 9443 is INR 24750.00.
+BALANCE	Available credit limit on card 1008 is INR 812.80.
+BALANCE	Wallet balance available is INR 84.50; no transaction is reported.
+BALANCE	Wallet balance available is INR 760.25; no transaction is reported.
+BALANCE	Wallet balance available is INR 4230.00; no transaction is reported.
+BALANCE	Wallet balance available is INR 18765.40; no transaction is reported.
+BALANCE	Wallet balance available is INR 50210.75; no transaction is reported.
+BALANCE	Wallet balance available is INR 990.00; no transaction is reported.
+BALANCE	Wallet balance available is INR 128.35; no transaction is reported.
+BALANCE	Wallet balance available is INR 6543.21; no transaction is reported.
+BALANCE	Wallet balance available is INR 24750.00; no transaction is reported.
+BALANCE	Wallet balance available is INR 812.80; no transaction is reported.
+BALANCE	Statement balance for card 8899 is INR 84.50.
+BALANCE	Statement balance for card 5566 is INR 760.25.
+BALANCE	Statement balance for card 4536 is INR 4230.00.
+BALANCE	Statement balance for card 7788 is INR 18765.40.
+BALANCE	Statement balance for card 6677 is INR 50210.75.
+BALANCE	Statement balance for card 4206 is INR 990.00.
+BALANCE	Statement balance for card 7306 is INR 128.35.
+BALANCE	Statement balance for card 5907 is INR 6543.21.
+BALANCE	Statement balance for card 9443 is INR 24750.00.
+BALANCE	Statement balance for card 1008 is INR 812.80.
+BALANCE	Balance enquiry: account 8800 has INR 84.50 available.
+BALANCE	Balance enquiry: account 1122 has INR 760.25 available.
+BALANCE	Balance enquiry: account 4834 has INR 4230.00 available.
+BALANCE	Balance enquiry: account 8464 has INR 18765.40 available.
+BALANCE	Balance enquiry: account 2041 has INR 50210.75 available.
+BALANCE	Balance enquiry: account 7765 has INR 990.00 available.
+BALANCE	Balance enquiry: account 9130 has INR 128.35 available.
+BALANCE	Balance enquiry: account 5521 has INR 6543.21 available.
+BALANCE	Balance enquiry: account 6608 has INR 24750.00 available.
+BALANCE	Balance enquiry: account 3194 has INR 812.80 available.
+BALANCE	Closing balance for account 8800 is INR 84.50.
+BALANCE	Closing balance for account 1122 is INR 760.25.
+BALANCE	Closing balance for account 4834 is INR 4230.00.
+BALANCE	Closing balance for account 8464 is INR 18765.40.
+BALANCE	Closing balance for account 2041 is INR 50210.75.
+BALANCE	Closing balance for account 7765 is INR 990.00.
+BALANCE	Closing balance for account 9130 is INR 128.35.
+BALANCE	Closing balance for account 5521 is INR 6543.21.
+BALANCE	Closing balance for account 6608 is INR 24750.00.
+BALANCE	Closing balance for account 3194 is INR 812.80.
+BALANCE	Unused spending limit on HDFC Bank card 8899 is INR 84.50.
+BALANCE	Unused spending limit on SBI card 5566 is INR 760.25.
+BALANCE	Unused spending limit on Axis Bank card 4536 is INR 4230.00.
+BALANCE	Unused spending limit on ICICI Bank card 7788 is INR 18765.40.
+BALANCE	Unused spending limit on Canara Bank card 6677 is INR 50210.75.
+BALANCE	Unused spending limit on BOB Bank card 4206 is INR 990.00.
+BALANCE	Unused spending limit on Kotak Bank card 7306 is INR 128.35.
+BALANCE	Unused spending limit on IDFC FIRST Bank card 5907 is INR 6543.21.
+BALANCE	Unused spending limit on Federal Bank card 9443 is INR 24750.00.
+BALANCE	Unused spending limit on IndusInd Bank card 1008 is INR 812.80.
+BALANCE	Wallet funds available now: INR 84.50.
+BALANCE	Wallet funds available now: INR 760.25.
+BALANCE	Wallet funds available now: INR 4230.00.
+BALANCE	Wallet funds available now: INR 18765.40.
+BALANCE	Wallet funds available now: INR 50210.75.
+BALANCE	Wallet funds available now: INR 990.00.
+BALANCE	Wallet funds available now: INR 128.35.
+BALANCE	Wallet funds available now: INR 6543.21.
+BALANCE	Wallet funds available now: INR 24750.00.
+BALANCE	Wallet funds available now: INR 812.80.
+BALANCE	Account summary 8800: balance INR 84.50.
+BALANCE	Account summary 1122: balance INR 760.25.
+BALANCE	Account summary 4834: balance INR 4230.00.
+BALANCE	Account summary 8464: balance INR 18765.40.
+BALANCE	Account summary 2041: balance INR 50210.75.
+BALANCE	Account summary 7765: balance INR 990.00.
+BALANCE	Account summary 9130: balance INR 128.35.
+BALANCE	Account summary 5521: balance INR 6543.21.
+BALANCE	Account summary 6608: balance INR 24750.00.
+BALANCE	Account summary 3194: balance INR 812.80.
+FAILED	UPI payment of INR 49 to L V Condiments failed; amount was not debited.
+FAILED	UPI payment of INR 120 to Metro Mart failed; amount was not debited.
+FAILED	UPI payment of INR 275 to Online Store failed; amount was not debited.
+FAILED	UPI payment of INR 499 to Utility Services failed; amount was not debited.
+FAILED	UPI payment of INR 740 to BigBasket failed; amount was not debited.
+FAILED	UPI payment of INR 1021 to Fuel Station failed; amount was not debited.
+FAILED	UPI payment of INR 1650 to Cafe South failed; amount was not debited.
+FAILED	UPI payment of INR 2020 to E Gopal failed; amount was not debited.
+FAILED	UPI payment of INR 4875 to City Pharmacy failed; amount was not debited.
+FAILED	UPI payment of INR 14999 to Railway Catering failed; amount was not debited.
+FAILED	Card purchase INR 49 at L V Condiments declined due to insufficient funds.
+FAILED	Card purchase INR 120 at Metro Mart declined due to insufficient funds.
+FAILED	Card purchase INR 275 at Online Store declined due to insufficient funds.
+FAILED	Card purchase INR 499 at Utility Services declined due to insufficient funds.
+FAILED	Card purchase INR 740 at BigBasket declined due to insufficient funds.
+FAILED	Card purchase INR 1021 at Fuel Station declined due to insufficient funds.
+FAILED	Card purchase INR 1650 at Cafe South declined due to insufficient funds.
+FAILED	Card purchase INR 2020 at E Gopal declined due to insufficient funds.
+FAILED	Card purchase INR 4875 at City Pharmacy declined due to insufficient funds.
+FAILED	Card purchase INR 14999 at Railway Catering declined due to insufficient funds.
+FAILED	Transfer of INR 49 could not complete; no money deducted.
+FAILED	Transfer of INR 120 could not complete; no money deducted.
+FAILED	Transfer of INR 275 could not complete; no money deducted.
+FAILED	Transfer of INR 499 could not complete; no money deducted.
+FAILED	Transfer of INR 740 could not complete; no money deducted.
+FAILED	Transfer of INR 1021 could not complete; no money deducted.
+FAILED	Transfer of INR 1650 could not complete; no money deducted.
+FAILED	Transfer of INR 2020 could not complete; no money deducted.
+FAILED	Transfer of INR 4875 could not complete; no money deducted.
+FAILED	Transfer of INR 14999 could not complete; no money deducted.
+FAILED	Payment of INR 49 failed; if debited, it will be refunded.
+FAILED	Payment of INR 120 failed; if debited, it will be refunded.
+FAILED	Payment of INR 275 failed; if debited, it will be refunded.
+FAILED	Payment of INR 499 failed; if debited, it will be refunded.
+FAILED	Payment of INR 740 failed; if debited, it will be refunded.
+FAILED	Payment of INR 1021 failed; if debited, it will be refunded.
+FAILED	Payment of INR 1650 failed; if debited, it will be refunded.
+FAILED	Payment of INR 2020 failed; if debited, it will be refunded.
+FAILED	Payment of INR 4875 failed; if debited, it will be refunded.
+FAILED	Payment of INR 14999 failed; if debited, it will be refunded.
+FAILED	HDFC Bank transaction for INR 49 was unsuccessful.
+FAILED	SBI transaction for INR 120 was unsuccessful.
+FAILED	Axis Bank transaction for INR 275 was unsuccessful.
+FAILED	ICICI Bank transaction for INR 499 was unsuccessful.
+FAILED	Canara Bank transaction for INR 740 was unsuccessful.
+FAILED	BOB Bank transaction for INR 1021 was unsuccessful.
+FAILED	Kotak Bank transaction for INR 1650 was unsuccessful.
+FAILED	IDFC FIRST Bank transaction for INR 2020 was unsuccessful.
+FAILED	Federal Bank transaction for INR 4875 was unsuccessful.
+FAILED	IndusInd Bank transaction for INR 14999 was unsuccessful.
+FAILED	Bill payment of INR 49 did not go through.
+FAILED	Bill payment of INR 120 did not go through.
+FAILED	Bill payment of INR 275 did not go through.
+FAILED	Bill payment of INR 499 did not go through.
+FAILED	Bill payment of INR 740 did not go through.
+FAILED	Bill payment of INR 1021 did not go through.
+FAILED	Bill payment of INR 1650 did not go through.
+FAILED	Bill payment of INR 2020 did not go through.
+FAILED	Bill payment of INR 4875 did not go through.
+FAILED	Bill payment of INR 14999 did not go through.
+FAILED	IMPS transfer of INR 49 rejected by the bank.
+FAILED	IMPS transfer of INR 120 rejected by the bank.
+FAILED	IMPS transfer of INR 275 rejected by the bank.
+FAILED	IMPS transfer of INR 499 rejected by the bank.
+FAILED	IMPS transfer of INR 740 rejected by the bank.
+FAILED	IMPS transfer of INR 1021 rejected by the bank.
+FAILED	IMPS transfer of INR 1650 rejected by the bank.
+FAILED	IMPS transfer of INR 2020 rejected by the bank.
+FAILED	IMPS transfer of INR 4875 rejected by the bank.
+FAILED	IMPS transfer of INR 14999 rejected by the bank.
+FAILED	Purchase of INR 49 on card 8899 declined.
+FAILED	Purchase of INR 120 on card 5566 declined.
+FAILED	Purchase of INR 275 on card 4536 declined.
+FAILED	Purchase of INR 499 on card 7788 declined.
+FAILED	Purchase of INR 740 on card 6677 declined.
+FAILED	Purchase of INR 1021 on card 4206 declined.
+FAILED	Purchase of INR 1650 on card 7306 declined.
+FAILED	Purchase of INR 2020 on card 5907 declined.
+FAILED	Purchase of INR 4875 on card 9443 declined.
+FAILED	Purchase of INR 14999 on card 1008 declined.
+FAILED	Wallet payment of INR 49 failed; balance unchanged.
+FAILED	Wallet payment of INR 120 failed; balance unchanged.
+FAILED	Wallet payment of INR 275 failed; balance unchanged.
+FAILED	Wallet payment of INR 499 failed; balance unchanged.
+FAILED	Wallet payment of INR 740 failed; balance unchanged.
+FAILED	Wallet payment of INR 1021 failed; balance unchanged.
+FAILED	Wallet payment of INR 1650 failed; balance unchanged.
+FAILED	Wallet payment of INR 2020 failed; balance unchanged.
+FAILED	Wallet payment of INR 4875 failed; balance unchanged.
+FAILED	Wallet payment of INR 14999 failed; balance unchanged.
+FAILED	Transaction failed for INR 49; funds were not transferred.
+FAILED	Transaction failed for INR 120; funds were not transferred.
+FAILED	Transaction failed for INR 275; funds were not transferred.
+FAILED	Transaction failed for INR 499; funds were not transferred.
+FAILED	Transaction failed for INR 740; funds were not transferred.
+FAILED	Transaction failed for INR 1021; funds were not transferred.
+FAILED	Transaction failed for INR 1650; funds were not transferred.
+FAILED	Transaction failed for INR 2020; funds were not transferred.
+FAILED	Transaction failed for INR 4875; funds were not transferred.
+FAILED	Transaction failed for INR 14999; funds were not transferred.
+MARKETING	Special offer: 49% cashback on future HDFC Bank card purchases. Apply now.
+MARKETING	Special offer: 120% cashback on future SBI card purchases. Apply now.
+MARKETING	Special offer: 275% cashback on future Axis Bank card purchases. Apply now.
+MARKETING	Special offer: 499% cashback on future ICICI Bank card purchases. Apply now.
+MARKETING	Special offer: 740% cashback on future Canara Bank card purchases. Apply now.
+MARKETING	Special offer: 1021% cashback on future BOB Bank card purchases. Apply now.
+MARKETING	Special offer: 1650% cashback on future Kotak Bank card purchases. Apply now.
+MARKETING	Special offer: 2020% cashback on future IDFC FIRST Bank card purchases. Apply now.
+MARKETING	Special offer: 4875% cashback on future Federal Bank card purchases. Apply now.
+MARKETING	Special offer: 14999% cashback on future IndusInd Bank card purchases. Apply now.
+MARKETING	Shop at L V Condiments and save on eligible orders; offer expires soon.
+MARKETING	Shop at Metro Mart and save on eligible orders; offer expires soon.
+MARKETING	Shop at Online Store and save on eligible orders; offer expires soon.
+MARKETING	Shop at Utility Services and save on eligible orders; offer expires soon.
+MARKETING	Shop at BigBasket and save on eligible orders; offer expires soon.
+MARKETING	Shop at Fuel Station and save on eligible orders; offer expires soon.
+MARKETING	Shop at Cafe South and save on eligible orders; offer expires soon.
+MARKETING	Shop at E Gopal and save on eligible orders; offer expires soon.
+MARKETING	Shop at City Pharmacy and save on eligible orders; offer expires soon.
+MARKETING	Shop at Railway Catering and save on eligible orders; offer expires soon.
+MARKETING	Limited-time HDFC Bank card discounts on selected purchases.
+MARKETING	Limited-time SBI card discounts on selected purchases.
+MARKETING	Limited-time Axis Bank card discounts on selected purchases.
+MARKETING	Limited-time ICICI Bank card discounts on selected purchases.
+MARKETING	Limited-time Canara Bank card discounts on selected purchases.
+MARKETING	Limited-time BOB Bank card discounts on selected purchases.
+MARKETING	Limited-time Kotak Bank card discounts on selected purchases.
+MARKETING	Limited-time IDFC FIRST Bank card discounts on selected purchases.
+MARKETING	Limited-time Federal Bank card discounts on selected purchases.
+MARKETING	Limited-time IndusInd Bank card discounts on selected purchases.
+MARKETING	Earn rewards on future transactions by activating this offer. Terms and conditions apply. Ref TR0541
+MARKETING	Earn rewards on future transactions by activating this offer. Offer is subject to eligibility. Ref TR0542
+MARKETING	Earn rewards on future transactions by activating this offer. This is a promotional notification. Ref TR0543
+MARKETING	Earn rewards on future transactions by activating this offer. Review offer details before opting in. Ref TR0544
+MARKETING	Earn rewards on future transactions by activating this offer. Offer applies to future activity. Ref TR0545
+MARKETING	Earn rewards on future transactions by activating this offer. Terms and conditions apply. Ref TR0546
+MARKETING	Earn rewards on future transactions by activating this offer. Offer is subject to eligibility. Ref TR0547
+MARKETING	Earn rewards on future transactions by activating this offer. This is a promotional notification. Ref TR0548
+MARKETING	Earn rewards on future transactions by activating this offer. Review offer details before opting in. Ref TR0549
+MARKETING	Earn rewards on future transactions by activating this offer. Offer applies to future activity. Ref TR0550
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Terms and conditions apply. Ref TR0551
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Offer is subject to eligibility. Ref TR0552
+MARKETING	Pre-approved loan offer available; apply to check eligibility. This is a promotional notification. Ref TR0553
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Review offer details before opting in. Ref TR0554
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Offer applies to future activity. Ref TR0555
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Terms and conditions apply. Ref TR0556
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Offer is subject to eligibility. Ref TR0557
+MARKETING	Pre-approved loan offer available; apply to check eligibility. This is a promotional notification. Ref TR0558
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Review offer details before opting in. Ref TR0559
+MARKETING	Pre-approved loan offer available; apply to check eligibility. Offer applies to future activity. Ref TR0560
+MARKETING	Bonus reward on your next spend; terms apply. Terms and conditions apply. Ref TR0561
+MARKETING	Bonus reward on your next spend; terms apply. Offer is subject to eligibility. Ref TR0562
+MARKETING	Bonus reward on your next spend; terms apply. This is a promotional notification. Ref TR0563
+MARKETING	Bonus reward on your next spend; terms apply. Review offer details before opting in. Ref TR0564
+MARKETING	Bonus reward on your next spend; terms apply. Offer applies to future activity. Ref TR0565
+MARKETING	Bonus reward on your next spend; terms apply. Terms and conditions apply. Ref TR0566
+MARKETING	Bonus reward on your next spend; terms apply. Offer is subject to eligibility. Ref TR0567
+MARKETING	Bonus reward on your next spend; terms apply. This is a promotional notification. Ref TR0568
+MARKETING	Bonus reward on your next spend; terms apply. Review offer details before opting in. Ref TR0569
+MARKETING	Bonus reward on your next spend; terms apply. Offer applies to future activity. Ref TR0570
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Terms and conditions apply. Ref TR0571
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Offer is subject to eligibility. Ref TR0572
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. This is a promotional notification. Ref TR0573
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Review offer details before opting in. Ref TR0574
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Offer applies to future activity. Ref TR0575
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Terms and conditions apply. Ref TR0576
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Offer is subject to eligibility. Ref TR0577
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. This is a promotional notification. Ref TR0578
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Review offer details before opting in. Ref TR0579
+MARKETING	Subscribe for introductory pricing; reply STOP to opt out. Offer applies to future activity. Ref TR0580
+MARKETING	Exclusive shopping deal at L V Condiments; use promo code SAVE1010.
+MARKETING	Exclusive shopping deal at Metro Mart; use promo code SAVE1023.
+MARKETING	Exclusive shopping deal at Online Store; use promo code SAVE1036.
+MARKETING	Exclusive shopping deal at Utility Services; use promo code SAVE1049.
+MARKETING	Exclusive shopping deal at BigBasket; use promo code SAVE1062.
+MARKETING	Exclusive shopping deal at Fuel Station; use promo code SAVE1075.
+MARKETING	Exclusive shopping deal at Cafe South; use promo code SAVE1088.
+MARKETING	Exclusive shopping deal at E Gopal; use promo code SAVE1101.
+MARKETING	Exclusive shopping deal at City Pharmacy; use promo code SAVE1114.
+MARKETING	Exclusive shopping deal at Railway Catering; use promo code SAVE1127.
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Terms and conditions apply. Ref TR0591
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Offer is subject to eligibility. Ref TR0592
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. This is a promotional notification. Ref TR0593
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Review offer details before opting in. Ref TR0594
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Offer applies to future activity. Ref TR0595
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Terms and conditions apply. Ref TR0596
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Offer is subject to eligibility. Ref TR0597
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. This is a promotional notification. Ref TR0598
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Review offer details before opting in. Ref TR0599
+MARKETING	Invite friends to earn promotional rewards; no transaction occurred. Offer applies to future activity. Ref TR0600
+MARKETING	Festival sale: save 49% on selected products.
+MARKETING	Festival sale: save 120% on selected products.
+MARKETING	Festival sale: save 275% on selected products.
+MARKETING	Festival sale: save 499% on selected products.
+MARKETING	Festival sale: save 740% on selected products.
+MARKETING	Festival sale: save 1021% on selected products.
+MARKETING	Festival sale: save 1650% on selected products.
+MARKETING	Festival sale: save 2020% on selected products.
+MARKETING	Festival sale: save 4875% on selected products.
+MARKETING	Festival sale: save 14999% on selected products.
+OTHER	Your KYC verification request has been received by the bank. No payment action is required. Ref TR0611
+OTHER	Your KYC verification request has been received by the bank. Review profile details in the app. Ref TR0612
+OTHER	Your KYC verification request has been received by the bank. This notice concerns account administration. Ref TR0613
+OTHER	Your KYC verification request has been received by the bank. Check service request details. Ref TR0614
+OTHER	Your KYC verification request has been received by the bank. This is an account service update. Ref TR0615
+OTHER	Your KYC verification request has been received by the bank. No payment action is required. Ref TR0616
+OTHER	Your KYC verification request has been received by the bank. Review profile details in the app. Ref TR0617
+OTHER	Your KYC verification request has been received by the bank. This notice concerns account administration. Ref TR0618
+OTHER	Your KYC verification request has been received by the bank. Check service request details. Ref TR0619
+OTHER	Your KYC verification request has been received by the bank. This is an account service update. Ref TR0620
+OTHER	Your debit card will expire soon; request a replacement. This is an account service update. Ref TR0621
+OTHER	Your debit card will expire soon; request a replacement. No payment action is required. Ref TR0622
+OTHER	Your debit card will expire soon; request a replacement. Review profile details in the app. Ref TR0623
+OTHER	Your debit card will expire soon; request a replacement. This notice concerns account administration. Ref TR0624
+OTHER	Your debit card will expire soon; request a replacement. Check service request details. Ref TR0625
+OTHER	Your debit card will expire soon; request a replacement. This is an account service update. Ref TR0626
+OTHER	Your debit card will expire soon; request a replacement. No payment action is required. Ref TR0627
+OTHER	Your debit card will expire soon; request a replacement. Review profile details in the app. Ref TR0628
+OTHER	Your debit card will expire soon; request a replacement. This notice concerns account administration. Ref TR0629
+OTHER	Your debit card will expire soon; request a replacement. Check service request details. Ref TR0630
+OTHER	Your account profile details were updated successfully. This is an account service update. Ref TR0631
+OTHER	Your account profile details were updated successfully. No payment action is required. Ref TR0632
+OTHER	Your account profile details were updated successfully. Review profile details in the app. Ref TR0633
+OTHER	Your account profile details were updated successfully. This notice concerns account administration. Ref TR0634
+OTHER	Your account profile details were updated successfully. Check service request details. Ref TR0635
+OTHER	Your account profile details were updated successfully. This is an account service update. Ref TR0636
+OTHER	Your account profile details were updated successfully. No payment action is required. Ref TR0637
+OTHER	Your account profile details were updated successfully. Review profile details in the app. Ref TR0638
+OTHER	Your account profile details were updated successfully. This notice concerns account administration. Ref TR0639
+OTHER	Your account profile details were updated successfully. Check service request details. Ref TR0640
+OTHER	Railway ticket booking confirmed; open app for itinerary. This is an account service update. Ref TR0641
+OTHER	Railway ticket booking confirmed; open app for itinerary. No payment action is required. Ref TR0642
+OTHER	Railway ticket booking confirmed; open app for itinerary. Review profile details in the app. Ref TR0643
+OTHER	Railway ticket booking confirmed; open app for itinerary. This notice concerns account administration. Ref TR0644
+OTHER	Railway ticket booking confirmed; open app for itinerary. Check service request details. Ref TR0645
+OTHER	Railway ticket booking confirmed; open app for itinerary. This is an account service update. Ref TR0646
+OTHER	Railway ticket booking confirmed; open app for itinerary. No payment action is required. Ref TR0647
+OTHER	Railway ticket booking confirmed; open app for itinerary. Review profile details in the app. Ref TR0648
+OTHER	Railway ticket booking confirmed; open app for itinerary. This notice concerns account administration. Ref TR0649
+OTHER	Railway ticket booking confirmed; open app for itinerary. Check service request details. Ref TR0650
+OTHER	Service request [REDACTED] has been created. This is an account service update. Ref TR0651
+OTHER	Service request [REDACTED] has been created. No payment action is required. Ref TR0652
+OTHER	Service request [REDACTED] has been created. Review profile details in the app. Ref TR0653
+OTHER	Service request [REDACTED] has been created. This notice concerns account administration. Ref TR0654
+OTHER	Service request [REDACTED] has been created. Check service request details. Ref TR0655
+OTHER	Service request [REDACTED] has been created. This is an account service update. Ref TR0656
+OTHER	Service request [REDACTED] has been created. No payment action is required. Ref TR0657
+OTHER	Service request [REDACTED] has been created. Review profile details in the app. Ref TR0658
+OTHER	Service request [REDACTED] has been created. This notice concerns account administration. Ref TR0659
+OTHER	Service request [REDACTED] has been created. Check service request details. Ref TR0660
+OTHER	Your monthly e-statement document is ready to view. This is an account service update. Ref TR0661
+OTHER	Your monthly e-statement document is ready to view. No payment action is required. Ref TR0662
+OTHER	Your monthly e-statement document is ready to view. Review profile details in the app. Ref TR0663
+OTHER	Your monthly e-statement document is ready to view. This notice concerns account administration. Ref TR0664
+OTHER	Your monthly e-statement document is ready to view. Check service request details. Ref TR0665
+OTHER	Your monthly e-statement document is ready to view. This is an account service update. Ref TR0666
+OTHER	Your monthly e-statement document is ready to view. No payment action is required. Ref TR0667
+OTHER	Your monthly e-statement document is ready to view. Review profile details in the app. Ref TR0668
+OTHER	Your monthly e-statement document is ready to view. This notice concerns account administration. Ref TR0669
+OTHER	Your monthly e-statement document is ready to view. Check service request details. Ref TR0670
+OTHER	Cheque book request has been registered. This is an account service update. Ref TR0671
+OTHER	Cheque book request has been registered. No payment action is required. Ref TR0672
+OTHER	Cheque book request has been registered. Review profile details in the app. Ref TR0673
+OTHER	Cheque book request has been registered. This notice concerns account administration. Ref TR0674
+OTHER	Cheque book request has been registered. Check service request details. Ref TR0675
+OTHER	Cheque book request has been registered. This is an account service update. Ref TR0676
+OTHER	Cheque book request has been registered. No payment action is required. Ref TR0677
+OTHER	Cheque book request has been registered. Review profile details in the app. Ref TR0678
+OTHER	Cheque book request has been registered. This notice concerns account administration. Ref TR0679
+OTHER	Cheque book request has been registered. Check service request details. Ref TR0680
+OTHER	Address update request submitted for review. This is an account service update. Ref TR0681
+OTHER	Address update request submitted for review. No payment action is required. Ref TR0682
+OTHER	Address update request submitted for review. Review profile details in the app. Ref TR0683
+OTHER	Address update request submitted for review. This notice concerns account administration. Ref TR0684
+OTHER	Address update request submitted for review. Check service request details. Ref TR0685
+OTHER	Address update request submitted for review. This is an account service update. Ref TR0686
+OTHER	Address update request submitted for review. No payment action is required. Ref TR0687
+OTHER	Address update request submitted for review. Review profile details in the app. Ref TR0688
+OTHER	Address update request submitted for review. This notice concerns account administration. Ref TR0689
+OTHER	Address update request submitted for review. Check service request details. Ref TR0690
+OTHER	Account nomination details updated as requested. This is an account service update. Ref TR0691
+OTHER	Account nomination details updated as requested. No payment action is required. Ref TR0692
+OTHER	Account nomination details updated as requested. Review profile details in the app. Ref TR0693
+OTHER	Account nomination details updated as requested. This notice concerns account administration. Ref TR0694
+OTHER	Account nomination details updated as requested. Check service request details. Ref TR0695
+OTHER	Account nomination details updated as requested. This is an account service update. Ref TR0696
+OTHER	Account nomination details updated as requested. No payment action is required. Ref TR0697
+OTHER	Account nomination details updated as requested. Review profile details in the app. Ref TR0698
+OTHER	Account nomination details updated as requested. This notice concerns account administration. Ref TR0699
+OTHER	Account nomination details updated as requested. Check service request details. Ref TR0700
+OTHER	New card dispatch status is available in the app. This is an account service update. Ref TR0701
+OTHER	New card dispatch status is available in the app. No payment action is required. Ref TR0702
+OTHER	New card dispatch status is available in the app. Review profile details in the app. Ref TR0703
+OTHER	New card dispatch status is available in the app. This notice concerns account administration. Ref TR0704
+OTHER	New card dispatch status is available in the app. Check service request details. Ref TR0705
+OTHER	New card dispatch status is available in the app. This is an account service update. Ref TR0706
+OTHER	New card dispatch status is available in the app. No payment action is required. Ref TR0707
+OTHER	New card dispatch status is available in the app. Review profile details in the app. Ref TR0708
+OTHER	New card dispatch status is available in the app. This notice concerns account administration. Ref TR0709
+OTHER	New card dispatch status is available in the app. Check service request details. Ref TR0710
+OTP	Your OTP for login is 100000; do not share it with anyone.
+OTP	Your OTP for login is 107919; do not share it with anyone.
+OTP	Your OTP for login is 115838; do not share it with anyone.
+OTP	Your OTP for login is 123757; do not share it with anyone.
+OTP	Your OTP for login is 131676; do not share it with anyone.
+OTP	Your OTP for login is 139595; do not share it with anyone.
+OTP	Your OTP for login is 147514; do not share it with anyone.
+OTP	Your OTP for login is 155433; do not share it with anyone.
+OTP	Your OTP for login is 163352; do not share it with anyone.
+OTP	Your OTP for login is 171271; do not share it with anyone.
+OTP	Use verification code 179190 to confirm your mobile number.
+OTP	Use verification code 187109 to confirm your mobile number.
+OTP	Use verification code 195028 to confirm your mobile number.
+OTP	Use verification code 202947 to confirm your mobile number.
+OTP	Use verification code 210866 to confirm your mobile number.
+OTP	Use verification code 218785 to confirm your mobile number.
+OTP	Use verification code 226704 to confirm your mobile number.
+OTP	Use verification code 234623 to confirm your mobile number.
+OTP	Use verification code 242542 to confirm your mobile number.
+OTP	Use verification code 250461 to confirm your mobile number.
+OTP	One-time password 258380 is valid for 5 minutes.
+OTP	One-time password 266299 is valid for 5 minutes.
+OTP	One-time password 274218 is valid for 5 minutes.
+OTP	One-time password 282137 is valid for 5 minutes.
+OTP	One-time password 290056 is valid for 5 minutes.
+OTP	One-time password 297975 is valid for 5 minutes.
+OTP	One-time password 305894 is valid for 5 minutes.
+OTP	One-time password 313813 is valid for 5 minutes.
+OTP	One-time password 321732 is valid for 5 minutes.
+OTP	One-time password 329651 is valid for 5 minutes.
+OTP	Authentication code 337570 requested for secure sign-in.
+OTP	Authentication code 345489 requested for secure sign-in.
+OTP	Authentication code 353408 requested for secure sign-in.
+OTP	Authentication code 361327 requested for secure sign-in.
+OTP	Authentication code 369246 requested for secure sign-in.
+OTP	Authentication code 377165 requested for secure sign-in.
+OTP	Authentication code 385084 requested for secure sign-in.
+OTP	Authentication code 393003 requested for secure sign-in.
+OTP	Authentication code 400922 requested for secure sign-in.
+OTP	Authentication code 408841 requested for secure sign-in.
+OTP	OTP 416760 for transaction authorization; never share it.
+OTP	OTP 424679 for transaction authorization; never share it.
+OTP	OTP 432598 for transaction authorization; never share it.
+OTP	OTP 440517 for transaction authorization; never share it.
+OTP	OTP 448436 for transaction authorization; never share it.
+OTP	OTP 456355 for transaction authorization; never share it.
+OTP	OTP 464274 for transaction authorization; never share it.
+OTP	OTP 472193 for transaction authorization; never share it.
+OTP	OTP 480112 for transaction authorization; never share it.
+OTP	OTP 488031 for transaction authorization; never share it.
+OTP	Your one-time password is 495950; bank staff will never ask.
+OTP	Your one-time password is 503869; bank staff will never ask.
+OTP	Your one-time password is 511788; bank staff will never ask.
+OTP	Your one-time password is 519707; bank staff will never ask.
+OTP	Your one-time password is 527626; bank staff will never ask.
+OTP	Your one-time password is 535545; bank staff will never ask.
+OTP	Your one-time password is 543464; bank staff will never ask.
+OTP	Your one-time password is 551383; bank staff will never ask.
+OTP	Your one-time password is 559302; bank staff will never ask.
+OTP	Your one-time password is 567221; bank staff will never ask.
+OTP	Enter code 575140 to verify your device.
+OTP	Enter code 583059 to verify your device.
+OTP	Enter code 590978 to verify your device.
+OTP	Enter code 598897 to verify your device.
+OTP	Enter code 606816 to verify your device.
+OTP	Enter code 614735 to verify your device.
+OTP	Enter code 622654 to verify your device.
+OTP	Enter code 630573 to verify your device.
+OTP	Enter code 638492 to verify your device.
+OTP	Enter code 646411 to verify your device.
+OTP	Code 654330 requested; if not you, ignore this message.
+OTP	Code 662249 requested; if not you, ignore this message.
+OTP	Code 670168 requested; if not you, ignore this message.
+OTP	Code 678087 requested; if not you, ignore this message.
+OTP	Code 686006 requested; if not you, ignore this message.
+OTP	Code 693925 requested; if not you, ignore this message.
+OTP	Code 701844 requested; if not you, ignore this message.
+OTP	Code 709763 requested; if not you, ignore this message.
+OTP	Code 717682 requested; if not you, ignore this message.
+OTP	Code 725601 requested; if not you, ignore this message.
+OTP	Use 733520 to complete identity verification.
+OTP	Use 741439 to complete identity verification.
+OTP	Use 749358 to complete identity verification.
+OTP	Use 757277 to complete identity verification.
+OTP	Use 765196 to complete identity verification.
+OTP	Use 773115 to complete identity verification.
+OTP	Use 781034 to complete identity verification.
+OTP	Use 788953 to complete identity verification.
+OTP	Use 796872 to complete identity verification.
+OTP	Use 804791 to complete identity verification.
+OTP	Your secure access code is 812710; it expires shortly.
+OTP	Your secure access code is 820629; it expires shortly.
+OTP	Your secure access code is 828548; it expires shortly.
+OTP	Your secure access code is 836467; it expires shortly.
+OTP	Your secure access code is 844386; it expires shortly.
+OTP	Your secure access code is 852305; it expires shortly.
+OTP	Your secure access code is 860224; it expires shortly.
+OTP	Your secure access code is 868143; it expires shortly.
+OTP	Your secure access code is 876062; it expires shortly.
+OTP	Your secure access code is 883981; it expires shortly.
+REMINDER	Credit card statement generated: total due INR 49; pay by 04 Nov 2026.
+REMINDER	Credit card statement generated: total due INR 120; pay by 20 Nov 2026.
+REMINDER	Credit card statement generated: total due INR 275; pay by 12 Nov 2026.
+REMINDER	Credit card statement generated: total due INR 499; pay by 15 Nov 2026.
+REMINDER	Credit card statement generated: total due INR 740; pay by 10 Dec 2026.
+REMINDER	Credit card statement generated: total due INR 1021; pay by 05 Dec 2026.
+REMINDER	Credit card statement generated: total due INR 1650; pay by 28 Oct 2026.
+REMINDER	Credit card statement generated: total due INR 2020; pay by 02 Nov 2026.
+REMINDER	Credit card statement generated: total due INR 4875; pay by 30 Oct 2026.
+REMINDER	Credit card statement generated: total due INR 14999; pay by 01 Dec 2026.
+REMINDER	Minimum amount due on card 8899 is INR 49.
+REMINDER	Minimum amount due on card 5566 is INR 120.
+REMINDER	Minimum amount due on card 4536 is INR 275.
+REMINDER	Minimum amount due on card 7788 is INR 499.
+REMINDER	Minimum amount due on card 6677 is INR 740.
+REMINDER	Minimum amount due on card 4206 is INR 1021.
+REMINDER	Minimum amount due on card 7306 is INR 1650.
+REMINDER	Minimum amount due on card 5907 is INR 2020.
+REMINDER	Minimum amount due on card 9443 is INR 4875.
+REMINDER	Minimum amount due on card 1008 is INR 14999.
+REMINDER	Loan EMI of INR 49 is due on 04 Nov 2026.
+REMINDER	Loan EMI of INR 120 is due on 20 Nov 2026.
+REMINDER	Loan EMI of INR 275 is due on 12 Nov 2026.
+REMINDER	Loan EMI of INR 499 is due on 15 Nov 2026.
+REMINDER	Loan EMI of INR 740 is due on 10 Dec 2026.
+REMINDER	Loan EMI of INR 1021 is due on 05 Dec 2026.
+REMINDER	Loan EMI of INR 1650 is due on 28 Oct 2026.
+REMINDER	Loan EMI of INR 2020 is due on 02 Nov 2026.
+REMINDER	Loan EMI of INR 4875 is due on 30 Oct 2026.
+REMINDER	Loan EMI of INR 14999 is due on 01 Dec 2026.
+REMINDER	Electricity bill INR 49 is due soon; pay before deadline.
+REMINDER	Electricity bill INR 120 is due soon; pay before deadline.
+REMINDER	Electricity bill INR 275 is due soon; pay before deadline.
+REMINDER	Electricity bill INR 499 is due soon; pay before deadline.
+REMINDER	Electricity bill INR 740 is due soon; pay before deadline.
+REMINDER	Electricity bill INR 1021 is due soon; pay before deadline.
+REMINDER	Electricity bill INR 1650 is due soon; pay before deadline.
+REMINDER	Electricity bill INR 2020 is due soon; pay before deadline.
+REMINDER	Electricity bill INR 4875 is due soon; pay before deadline.
+REMINDER	Electricity bill INR 14999 is due soon; pay before deadline.
+REMINDER	Reminder: outstanding card balance INR 49; no new purchase reported.
+REMINDER	Reminder: outstanding card balance INR 120; no new purchase reported.
+REMINDER	Reminder: outstanding card balance INR 275; no new purchase reported.
+REMINDER	Reminder: outstanding card balance INR 499; no new purchase reported.
+REMINDER	Reminder: outstanding card balance INR 740; no new purchase reported.
+REMINDER	Reminder: outstanding card balance INR 1021; no new purchase reported.
+REMINDER	Reminder: outstanding card balance INR 1650; no new purchase reported.
+REMINDER	Reminder: outstanding card balance INR 2020; no new purchase reported.
+REMINDER	Reminder: outstanding card balance INR 4875; no new purchase reported.
+REMINDER	Reminder: outstanding card balance INR 14999; no new purchase reported.
+REMINDER	Subscription renewal scheduled for 04 Nov 2026.
+REMINDER	Subscription renewal scheduled for 20 Nov 2026.
+REMINDER	Subscription renewal scheduled for 12 Nov 2026.
+REMINDER	Subscription renewal scheduled for 15 Nov 2026.
+REMINDER	Subscription renewal scheduled for 10 Dec 2026.
+REMINDER	Subscription renewal scheduled for 05 Dec 2026.
+REMINDER	Subscription renewal scheduled for 28 Oct 2026.
+REMINDER	Subscription renewal scheduled for 02 Nov 2026.
+REMINDER	Subscription renewal scheduled for 30 Oct 2026.
+REMINDER	Subscription renewal scheduled for 01 Dec 2026.
+REMINDER	Insurance premium INR 49 due on 04 Nov 2026.
+REMINDER	Insurance premium INR 120 due on 20 Nov 2026.
+REMINDER	Insurance premium INR 275 due on 12 Nov 2026.
+REMINDER	Insurance premium INR 499 due on 15 Nov 2026.
+REMINDER	Insurance premium INR 740 due on 10 Dec 2026.
+REMINDER	Insurance premium INR 1021 due on 05 Dec 2026.
+REMINDER	Insurance premium INR 1650 due on 28 Oct 2026.
+REMINDER	Insurance premium INR 2020 due on 02 Nov 2026.
+REMINDER	Insurance premium INR 4875 due on 30 Oct 2026.
+REMINDER	Insurance premium INR 14999 due on 01 Dec 2026.
+REMINDER	Credit card payment due date is 04 Nov 2026; review statement.
+REMINDER	Credit card payment due date is 20 Nov 2026; review statement.
+REMINDER	Credit card payment due date is 12 Nov 2026; review statement.
+REMINDER	Credit card payment due date is 15 Nov 2026; review statement.
+REMINDER	Credit card payment due date is 10 Dec 2026; review statement.
+REMINDER	Credit card payment due date is 05 Dec 2026; review statement.
+REMINDER	Credit card payment due date is 28 Oct 2026; review statement.
+REMINDER	Credit card payment due date is 02 Nov 2026; review statement.
+REMINDER	Credit card payment due date is 30 Oct 2026; review statement.
+REMINDER	Credit card payment due date is 01 Dec 2026; review statement.
+REMINDER	Pay bill INR 49 before 04 Nov 2026.
+REMINDER	Pay bill INR 120 before 20 Nov 2026.
+REMINDER	Pay bill INR 275 before 12 Nov 2026.
+REMINDER	Pay bill INR 499 before 15 Nov 2026.
+REMINDER	Pay bill INR 740 before 10 Dec 2026.
+REMINDER	Pay bill INR 1021 before 05 Dec 2026.
+REMINDER	Pay bill INR 1650 before 28 Oct 2026.
+REMINDER	Pay bill INR 2020 before 02 Nov 2026.
+REMINDER	Pay bill INR 4875 before 30 Oct 2026.
+REMINDER	Pay bill INR 14999 before 01 Dec 2026.
+REMINDER	Scheduled EMI reminder: INR 49 due this month.
+REMINDER	Scheduled EMI reminder: INR 120 due this month.
+REMINDER	Scheduled EMI reminder: INR 275 due this month.
+REMINDER	Scheduled EMI reminder: INR 499 due this month.
+REMINDER	Scheduled EMI reminder: INR 740 due this month.
+REMINDER	Scheduled EMI reminder: INR 1021 due this month.
+REMINDER	Scheduled EMI reminder: INR 1650 due this month.
+REMINDER	Scheduled EMI reminder: INR 2020 due this month.
+REMINDER	Scheduled EMI reminder: INR 4875 due this month.
+REMINDER	Scheduled EMI reminder: INR 14999 due this month.
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Review using official channels. Ref TR0911
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Report activity you do not recognize. Ref TR0912
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Protect your account credentials. Ref TR0913
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Contact the bank through a verified channel. Ref TR0914
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Secure the account if this was not you. Ref TR0915
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Review using official channels. Ref TR0916
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Report activity you do not recognize. Ref TR0917
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Protect your account credentials. Ref TR0918
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Contact the bank through a verified channel. Ref TR0919
+SECURITY_ALERT	Security alert: suspicious login detected; contact bank if not you. Secure the account if this was not you. Ref TR0920
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Review using official channels. Ref TR0921
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Report activity you do not recognize. Ref TR0922
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Protect your account credentials. Ref TR0923
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Contact the bank through a verified channel. Ref TR0924
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Secure the account if this was not you. Ref TR0925
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Review using official channels. Ref TR0926
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Report activity you do not recognize. Ref TR0927
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Protect your account credentials. Ref TR0928
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Contact the bank through a verified channel. Ref TR0929
+SECURITY_ALERT	Fraud alert: unusual transaction attempt detected; verify it. Secure the account if this was not you. Ref TR0930
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Review using official channels. Ref TR0931
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Report activity you do not recognize. Ref TR0932
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Protect your account credentials. Ref TR0933
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Contact the bank through a verified channel. Ref TR0934
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Secure the account if this was not you. Ref TR0935
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Review using official channels. Ref TR0936
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Report activity you do not recognize. Ref TR0937
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Protect your account credentials. Ref TR0938
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Contact the bank through a verified channel. Ref TR0939
+SECURITY_ALERT	Banking profile accessed from a new device; review activity. Secure the account if this was not you. Ref TR0940
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Review using official channels. Ref TR0941
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Report activity you do not recognize. Ref TR0942
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Protect your account credentials. Ref TR0943
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Contact the bank through a verified channel. Ref TR0944
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Secure the account if this was not you. Ref TR0945
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Review using official channels. Ref TR0946
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Report activity you do not recognize. Ref TR0947
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Protect your account credentials. Ref TR0948
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Contact the bank through a verified channel. Ref TR0949
+SECURITY_ALERT	Suspicious activity detected; card temporarily restricted. Secure the account if this was not you. Ref TR0950
+SECURITY_ALERT	Security warning: never share PIN or OTP. Review using official channels. Ref TR0951
+SECURITY_ALERT	Security warning: never share PIN or OTP. Report activity you do not recognize. Ref TR0952
+SECURITY_ALERT	Security warning: never share PIN or OTP. Protect your account credentials. Ref TR0953
+SECURITY_ALERT	Security warning: never share PIN or OTP. Contact the bank through a verified channel. Ref TR0954
+SECURITY_ALERT	Security warning: never share PIN or OTP. Secure the account if this was not you. Ref TR0955
+SECURITY_ALERT	Security warning: never share PIN or OTP. Review using official channels. Ref TR0956
+SECURITY_ALERT	Security warning: never share PIN or OTP. Report activity you do not recognize. Ref TR0957
+SECURITY_ALERT	Security warning: never share PIN or OTP. Protect your account credentials. Ref TR0958
+SECURITY_ALERT	Security warning: never share PIN or OTP. Contact the bank through a verified channel. Ref TR0959
+SECURITY_ALERT	Security warning: never share PIN or OTP. Secure the account if this was not you. Ref TR0960
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Review using official channels. Ref TR0961
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Report activity you do not recognize. Ref TR0962
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Protect your account credentials. Ref TR0963
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Contact the bank through a verified channel. Ref TR0964
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Secure the account if this was not you. Ref TR0965
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Review using official channels. Ref TR0966
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Report activity you do not recognize. Ref TR0967
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Protect your account credentials. Ref TR0968
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Contact the bank through a verified channel. Ref TR0969
+SECURITY_ALERT	Did you attempt this login? If not, secure your account. Secure the account if this was not you. Ref TR0970
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Review using official channels. Ref TR0971
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Report activity you do not recognize. Ref TR0972
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Protect your account credentials. Ref TR0973
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Contact the bank through a verified channel. Ref TR0974
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Secure the account if this was not you. Ref TR0975
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Review using official channels. Ref TR0976
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Report activity you do not recognize. Ref TR0977
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Protect your account credentials. Ref TR0978
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Contact the bank through a verified channel. Ref TR0979
+SECURITY_ALERT	Unrecognized transaction attempt; contact fraud team. Secure the account if this was not you. Ref TR0980
+SECURITY_ALERT	Security settings changed; call bank if not requested. Review using official channels. Ref TR0981
+SECURITY_ALERT	Security settings changed; call bank if not requested. Report activity you do not recognize. Ref TR0982
+SECURITY_ALERT	Security settings changed; call bank if not requested. Protect your account credentials. Ref TR0983
+SECURITY_ALERT	Security settings changed; call bank if not requested. Contact the bank through a verified channel. Ref TR0984
+SECURITY_ALERT	Security settings changed; call bank if not requested. Secure the account if this was not you. Ref TR0985
+SECURITY_ALERT	Security settings changed; call bank if not requested. Review using official channels. Ref TR0986
+SECURITY_ALERT	Security settings changed; call bank if not requested. Report activity you do not recognize. Ref TR0987
+SECURITY_ALERT	Security settings changed; call bank if not requested. Protect your account credentials. Ref TR0988
+SECURITY_ALERT	Security settings changed; call bank if not requested. Contact the bank through a verified channel. Ref TR0989
+SECURITY_ALERT	Security settings changed; call bank if not requested. Secure the account if this was not you. Ref TR0990
+SECURITY_ALERT	Possible fraud on card 8899; verify through official channels.
+SECURITY_ALERT	Possible fraud on card 5566; verify through official channels.
+SECURITY_ALERT	Possible fraud on card 4536; verify through official channels.
+SECURITY_ALERT	Possible fraud on card 7788; verify through official channels.
+SECURITY_ALERT	Possible fraud on card 6677; verify through official channels.
+SECURITY_ALERT	Possible fraud on card 4206; verify through official channels.
+SECURITY_ALERT	Possible fraud on card 7306; verify through official channels.
+SECURITY_ALERT	Possible fraud on card 5907; verify through official channels.
+SECURITY_ALERT	Possible fraud on card 9443; verify through official channels.
+SECURITY_ALERT	Possible fraud on card 1008; verify through official channels.
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Review using official channels. Ref TR1001
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Report activity you do not recognize. Ref TR1002
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Protect your account credentials. Ref TR1003
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Contact the bank through a verified channel. Ref TR1004
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Secure the account if this was not you. Ref TR1005
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Review using official channels. Ref TR1006
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Report activity you do not recognize. Ref TR1007
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Protect your account credentials. Ref TR1008
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Contact the bank through a verified channel. Ref TR1009
+SECURITY_ALERT	New device enrollment request detected; deny if unauthorized. Secure the account if this was not you. Ref TR1010
+BALANCE	Remaining credit available on your card is INR 5400. This is unused credit, not a new charge.
+BALANCE	Credit remaining on the card is INR 5400. No purchase is reported.
+BALANCE	Your remaining card credit is INR 5400; this is a limit snapshot.
+BALANCE	Unused credit available for spending on card is INR 5400.
+BALANCE	Current remaining credit limit is INR 5400; no transaction is reported.
+BALANCE	Your card has a remaining credit limit of INR 5400.
+BALANCE	Available credit on card is INR 5400. This message is a balance summary.
+BALANCE	Credit limit remaining on the card is INR 5400.
+BALANCE	The unused credit amount on your card is INR 5400.
+BALANCE	Your card's available credit limit stands at INR 5400.
+OTHER	Your contact information update was completed in the customer profile.
+OTHER	Your account profile change has been completed successfully.
+OTHER	Customer address update completed; no payment action is required.
+OTHER	Your nominee details update is complete in the bank profile.
+OTHER	Profile information update completed for your customer account.
+OTHER	Your KYC profile details were updated successfully.
+OTHER	Account contact detail update completed in the service portal.
+OTHER	Your customer profile update has been processed successfully.
+OTHER	Service request for profile changes was completed.
+OTHER	Your registered address details have been updated.
+OTHER	Customer phone number update completed in your profile.
+OTHER	Your mailing address update was completed successfully.
+OTHER	Bank profile correction request has been completed.
+OTHER	Your nominee information was updated in the account profile.
+OTHER	Your email address update is complete; no money moved.
+OTHER	Customer preferences update completed in the service portal.
+OTHER	Your personal details have been updated successfully.
+OTHER	Profile update request has been completed by customer support.
+OTHER	Your contact preference change is now complete.
+OTHER	Account profile update completed; no financial transaction occurred.
+OTHER	Your service request to update personal details is complete.
+OTHER	Customer details were updated successfully in the bank records.
+OTHER	Your KYC address update has been completed.
+OTHER	Your profile change was processed without any payment.
+OTHER	Registered mobile number update completed in your account.
+OTHER	Customer information update has been completed successfully.
+OTHER	Your account profile details were changed and saved.
+OTHER	Address correction request completed in customer services.
+OTHER	Your profile data update is finished; check the official app.
+OTHER	Bank completed your request to update contact details.
+TRANSACTION	Google Pay: INR 129 debited for completed UPI payment to Green Basket.
+TRANSACTION	ICICI Bank: Your account was debited INR 1499 at Online Market; transaction successful.
+TRANSACTION	MobiKwik UPI via Kotak Bank: UPI transfer of Rs 875 to Travel Desk completed successfully.
+TRANSACTION	Paytm: Card purchase of INR 420 at City Fuel approved.
+TRANSACTION	Federal Bank: INR 88 credited to your account from Pharmacy Plus.
+TRANSACTION	PhonePe via HDFC Bank: NEFT credit of INR 119 from Electricity Board posted.
+TRANSACTION	Amazon Pay UPI: INR 7200 paid to Metro Store using your linked account.
+TRANSACTION	Kotak Bank: Debit card used for INR 245 at Rail Tickets.
+TRANSACTION	BHIM UPI via Bank of Baroda: Refund of INR 2300 from Water Services credited to your card.
+TRANSACTION	MobiKwik UPI: IMPS transfer of INR 512 to Fresh Mart is complete.
+TRANSACTION	HDFC Bank: UPI payment successful: INR 999 paid to Local Grocer.
+TRANSACTION	CRED UPI via ICICI Bank: Your account received INR 640 from Cinema Tickets; credit completed.
+TRANSACTION	PhonePe: Purchase approved for INR 1540 on your credit card at Book House.
+TRANSACTION	Bank of Baroda: ATM cash withdrawal of INR 199 completed.
+TRANSACTION	Google Pay via Federal Bank: Bill payment of INR 780 to Medical Store succeeded.
+TRANSACTION	BHIM UPI: Salary credit of INR 65 received from Utility Services.
+TRANSACTION	ICICI Bank: Wallet payment of INR 3199 at Hardware Shop completed.
+TRANSACTION	Paytm via Kotak Bank: INR 1750 transferred to Food Court; status successful.
+TRANSACTION	CRED UPI: Contactless card payment of INR 2800 approved at Cafe South.
+TRANSACTION	Federal Bank: Dividend of INR 360 credited to your bank account.
+AMBIGUOUS	PhonePe: Payment of INR 780 to Fresh Mart is processing; final status unavailable.
+AMBIGUOUS	Axis Bank: UPI request for Rs 65 at Local Grocer initiated; await confirmation.
+AMBIGUOUS	Google Pay via Canara Bank: Transfer for INR 3199 is pending verification.
+AMBIGUOUS	BHIM UPI: Checking your INR 1750 payment to Book House; outcome not confirmed.
+AMBIGUOUS	IndusInd Bank: Transaction reference for INR 2800 has no final status yet.
+AMBIGUOUS	Paytm via SBI: Payment attempt received for Medical Store, INR 360; wait for status.
+AMBIGUOUS	CRED UPI: Request to pay Utility Services INR 129 is under review.
+AMBIGUOUS	Canara Bank: Payment gateway accepted INR 1499 request but has not confirmed it.
+AMBIGUOUS	Amazon Pay UPI via IDFC FIRST Bank: UPI transfer INR 875 to Food Court awaits bank response.
+AMBIGUOUS	Google Pay: Status of your INR 420 transaction is temporarily unavailable.
+AMBIGUOUS	SBI: Mandate request for INR 88 submitted; result unstated.
+AMBIGUOUS	MobiKwik UPI via Axis Bank: INR 119 transaction appears in a pending queue.
+AMBIGUOUS	Paytm: Your transfer of INR 7200 may still be processing.
+AMBIGUOUS	IDFC FIRST Bank: Bank is checking payment request of INR 245.
+AMBIGUOUS	PhonePe via IndusInd Bank: Transaction details for INR 2300 are incomplete.
+AMBIGUOUS	Amazon Pay UPI: UPI payment to Pharmacy Plus for INR 512 has no confirmation.
+AMBIGUOUS	Axis Bank: INR 999 request is queued; no debit or credit confirmed.
+AMBIGUOUS	BHIM UPI via Canara Bank: Notice does not specify final status for INR 640 at Metro Store.
+AMBIGUOUS	MobiKwik UPI: Please wait while bank confirms INR 1540 to Rail Tickets.
+AMBIGUOUS	IndusInd Bank: INR 199 payment is being verified and may not be final.
+BALANCE	ICICI Bank alert: Available balance in your account is INR 2300.
+BALANCE	CRED UPI: Your current account balance is Rs 512.
+BALANCE	Bank of Baroda alert: Balance enquiry: INR 999 is available in your account.
+BALANCE	Amazon Pay UPI: Available credit limit on your card is INR 640.
+BALANCE	HDFC Bank alert: Your wallet balance is INR 1540; no transaction reported.
+BALANCE	BHIM UPI: Card statement total due is INR 199.
+BALANCE	Kotak Bank alert: Remaining credit limit: INR 780.
+BALANCE	Paytm: Account has closing balance of INR 65.
+BALANCE	Federal Bank alert: Your savings balance as of today is INR 3199.
+BALANCE	PhonePe: INR 1750 is available after latest balance update.
+BALANCE	ICICI Bank alert: Unutilized card limit is Rs 2800.
+BALANCE	Google Pay: Balance alert only: funds available INR 360.
+BALANCE	Bank of Baroda alert: Your account ledger balance is INR 129.
+BALANCE	MobiKwik UPI: Wallet available funds: Rs 1499.
+BALANCE	HDFC Bank alert: Outstanding card balance is INR 875.
+BALANCE	CRED UPI: Current balance for your account is Rs 420.
+BALANCE	Kotak Bank alert: Remaining credit INR 88; this is a limit summary.
+BALANCE	Amazon Pay UPI: Account balance alert: INR 119 available now.
+BALANCE	Federal Bank alert: Your statement balance is INR 7200.
+BALANCE	BHIM UPI: Available funds total INR 245; no debit was made.
+FAILED	BHIM UPI: UPI payment of INR 875 to Rail Tickets failed; no money transferred.
+FAILED	Canara Bank: Your card transaction of INR 420 at Water Services was declined.
+FAILED	Paytm via IDFC FIRST Bank: INR 88 payment to Fresh Mart could not be completed.
+FAILED	CRED UPI: Transfer failed for INR 119; retry later.
+FAILED	SBI: Payment unsuccessful: INR 7200 at Cinema Tickets.
+FAILED	Amazon Pay UPI via Axis Bank: Bank declined the INR 245 transaction.
+FAILED	Google Pay: INR 2300 debit attempt reversed after failure.
+FAILED	IDFC FIRST Bank: Payment of INR 512 to Medical Store was not successful.
+FAILED	MobiKwik UPI via IndusInd Bank: Card transaction at Utility Services, INR 999, declined.
+FAILED	Paytm: UPI transaction failed; INR 640 was not debited.
+FAILED	Axis Bank: Bill payment of INR 1540 failed due to bank response.
+FAILED	PhonePe via Canara Bank: INR 199 transfer to Cafe South failed and was reversed.
+FAILED	Amazon Pay UPI: Payment could not be processed for INR 780.
+FAILED	IndusInd Bank: Card payment at Green Basket for INR 65 was rejected.
+FAILED	BHIM UPI via SBI: INR 3199 transaction unsuccessful; funds were not moved.
+FAILED	MobiKwik UPI: Failed payment of INR 1750 to Travel Desk.
+FAILED	Canara Bank: Attempted INR 2800 charge was declined.
+FAILED	CRED UPI via IDFC FIRST Bank: UPI payment unsuccessful for Pharmacy Plus; amount INR 360.
+FAILED	PhonePe: INR 129 payment was cancelled before completion.
+FAILED	SBI: Transaction failed for INR 1499; no successful payment recorded.
+MARKETING	Kotak Bank alert: Special offer: get up to 3199% off at Hardware Shop. Terms apply.
+MARKETING	Google Pay: Limited-time reward points offer for your next purchase.
+MARKETING	Federal Bank alert: Upgrade your card to unlock exclusive benefits.
+MARKETING	MobiKwik UPI: Shop at Mobile Store and enjoy a promotional discount.
+MARKETING	ICICI Bank alert: You are pre-selected for a new credit card offer.
+MARKETING	CRED UPI: Earn bonus rewards when using your card this month.
+MARKETING	Bank of Baroda alert: Exclusive cashback offer available in the app. Conditions apply.
+MARKETING	Amazon Pay UPI: Invite friends and earn promotional rewards.
+MARKETING	HDFC Bank alert: A special shopping deal is waiting for you at Pharmacy Plus.
+MARKETING	BHIM UPI: Apply now for a personal loan offer.
+MARKETING	Kotak Bank alert: Enjoy partner discounts with your bank card.
+MARKETING	Paytm: Your festive offer is available for a limited time.
+MARKETING	Federal Bank alert: Get reward points on eligible purchases at Water Services.
+MARKETING	PhonePe: Pre-approved offer available; check official app.
+MARKETING	ICICI Bank alert: Save more with this week's merchant promotion.
+MARKETING	Google Pay: Activate your rewards offer before expiry.
+MARKETING	Bank of Baroda alert: Exclusive dining offer for cardholders at Book House.
+MARKETING	MobiKwik UPI: New customer offer: unlock benefits with the app.
+MARKETING	HDFC Bank alert: Your shopping voucher is ready to redeem.
+MARKETING	CRED UPI: Special cashback campaign announced; terms apply.
+OTHER	Canara Bank alert: Your KYC update request has been received; no payment information included.
+OTHER	PhonePe: Your registered email address was updated successfully.
+OTHER	IndusInd Bank alert: Account service request 1540 has been recorded.
+OTHER	Google Pay: Your new cheque book request is being processed.
+OTHER	Axis Bank alert: Nominee details were updated for your account.
+OTHER	MobiKwik UPI: Your statement is ready to download from the official app.
+OTHER	IDFC FIRST Bank alert: Customer service case for Cinema Tickets has been opened.
+OTHER	CRED UPI: Your address change request has been registered.
+OTHER	SBI alert: Bank holiday notice: branches may have revised timings.
+OTHER	Amazon Pay UPI: Your account profile was updated successfully.
+OTHER	Canara Bank alert: Your debit card delivery preference has been saved.
+OTHER	BHIM UPI: The service request for Hardware Shop has been completed.
+OTHER	IndusInd Bank alert: Your account is enabled for online statements.
+OTHER	Paytm: Terms of service have been updated; review official app.
+OTHER	Axis Bank alert: Your cheque book has been dispatched.
+OTHER	PhonePe: A new account-management feature is now available.
+OTHER	IDFC FIRST Bank alert: Your complaint reference has been created.
+OTHER	Google Pay: Your contact details were verified successfully.
+OTHER	SBI alert: Your bank scheduled routine mobile-app maintenance.
+OTHER	MobiKwik UPI: Your branch service request has been acknowledged.
+OTP	Bank of Baroda alert: Your one-time password is 420186; do not share it.
+OTP	Paytm: OTP 428105 requested for login; valid briefly.
+OTP	HDFC Bank alert: Use verification code 436024 to confirm sign-in.
+OTP	PhonePe: Your authentication code is 443943. Never disclose it.
+OTP	Kotak Bank alert: One-time code 451862 for transaction authentication.
+OTP	Google Pay: Enter 459781 to verify your registered mobile.
+OTP	Federal Bank alert: Login OTP generated; code 467700.
+OTP	MobiKwik UPI: Verification PIN 475619 expires shortly. Do not share.
+OTP	ICICI Bank alert: Your secure access code is 483538.
+OTP	CRED UPI: Use code 491457 to authorize banking-app access.
+OTP	Bank of Baroda alert: Do not share OTP 499376 with anyone.
+OTP	Amazon Pay UPI: Your one-time verification code 507295 was requested.
+OTP	HDFC Bank alert: Authentication OTP 515214 for account access.
+OTP	BHIM UPI: Code 523133 confirms identity; keep it private.
+OTP	Kotak Bank alert: OTP 531052 is valid for this login only.
+OTP	Paytm: Use 538971 as the verification code.
+OTP	Federal Bank alert: Security code 546890 must not be shared.
+OTP	PhonePe: One-time passcode 554809 for identity verification.
+OTP	ICICI Bank alert: Your requested OTP is 562728; never disclose it.
+OTP	Google Pay: Enter code 570647 to continue securely.
+REMINDER	IDFC FIRST Bank alert: Reminder: your card bill of INR 2800 is due soon.
+REMINDER	BHIM UPI: Your loan instalment of INR 360 is due on scheduled date.
+REMINDER	SBI alert: Pay the utility bill for Electricity Board before due date.
+REMINDER	Paytm: Your credit card payment is due; check official app.
+REMINDER	Canara Bank alert: Standing instruction for INR 875 is scheduled tomorrow.
+REMINDER	PhonePe: Reminder to review upcoming payment of INR 420.
+REMINDER	IndusInd Bank alert: Your recurring deposit instalment is due this week.
+REMINDER	Google Pay: Auto-debit mandate for Local Grocer is scheduled next cycle.
+REMINDER	Axis Bank alert: Please maintain sufficient balance for upcoming debit.
+REMINDER	MobiKwik UPI: Your card payment due date is approaching.
+REMINDER	IDFC FIRST Bank alert: Payment reminder for INR 2300 is available in account.
+REMINDER	CRED UPI: Your monthly loan repayment date is approaching.
+REMINDER	SBI alert: Upcoming bill of INR 999 for Utility Services; pay by due date.
+REMINDER	Amazon Pay UPI: Your scheduled transfer is due soon; review details.
+REMINDER	Canara Bank alert: Statement payment must be made before deadline.
+REMINDER	BHIM UPI: Your subscription renewal for Cafe South is coming up.
+REMINDER	IndusInd Bank alert: Keep funds available for scheduled mandate.
+REMINDER	Paytm: Your fixed deposit maturity date is approaching.
+REMINDER	Axis Bank alert: Please review upcoming EMI of INR 3199.
+REMINDER	PhonePe: Payment due notice: action may be needed before deadline.
+SECURITY_ALERT	Federal Bank alert: Security alert: unusual login detected; secure account in official app.
+SECURITY_ALERT	Amazon Pay UPI: Potential fraud detected; verify using official channels.
+SECURITY_ALERT	ICICI Bank alert: Your card was blocked due to suspicious activity.
+SECURITY_ALERT	BHIM UPI: A new device attempted to access your account.
+SECURITY_ALERT	Bank of Baroda alert: Warning: suspicious activity detected. Do not share OTP.
+SECURITY_ALERT	Paytm: Your UPI access was restricted after security check.
+SECURITY_ALERT	HDFC Bank alert: Unusual account access attempt detected.
+SECURITY_ALERT	PhonePe: Verify recent login activity in official app.
+SECURITY_ALERT	Kotak Bank alert: Possible unauthorized transaction activity detected.
+SECURITY_ALERT	Google Pay: Your account has been flagged for security review.
+SECURITY_ALERT	Federal Bank alert: A risky sign-in attempt was blocked.
+SECURITY_ALERT	MobiKwik UPI: Fraud prevention alert: confirm activity using official channels.
+SECURITY_ALERT	ICICI Bank alert: Your card has been locked for your protection.
+SECURITY_ALERT	CRED UPI: Suspicious device registration attempt detected.
+SECURITY_ALERT	Bank of Baroda alert: Security check found an unrecognized login attempt.
+SECURITY_ALERT	Amazon Pay UPI: Never share your PIN or one-time password.
+SECURITY_ALERT	HDFC Bank alert: Account access was paused due to security concern.
+SECURITY_ALERT	BHIM UPI: Unusual payment pattern triggered a security alert.
+SECURITY_ALERT	Kotak Bank alert: Potential account compromise detected; use verified bank app.
+SECURITY_ALERT	Paytm: Security notice: review profile for unauthorized access.

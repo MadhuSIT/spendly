@@ -1,0 +1,38 @@
+BALANCE	BOB Bank account ending 8800 available balance was INR 35000.00 on 01-09-2026.
+TRANSACTION	BOB Bank account ending 8800: INR 14700.00 debited for a TONBO IPO application on 02-09-2026. Application reference TONBOIPO01.
+OTHER	KFintech requested the bank to unblock INR 14700.00 for the TONBO IPO after non-allotment. Funds release is not yet confirmed. Application reference TONBOIPO01.
+TRANSACTION	BOB Bank account ending 8800: INR 1200.00 debited for UPI payment to Green Mart on 16-09-2026. UPI reference BOB880012345678.
+TRANSACTION	BOB Bank account ending 8800: INR 5000.00 credited as salary on 30-09-2026. Reference BOB880098765432.
+TRANSACTION	BOB Bank account ending 8800: INR 1000.00 withdrawn at ATM on 01-10-2026. Available balance INR 23100.00.
+BALANCE	BOB Bank account ending 8800 available balance is INR 23100.00 on 01-10-2026.
+TRANSACTION	BOBCARD ending 8899: INR 73.00 spent at L V Condiments on 09-09-2026. Current outstanding INR 2073.00.
+TRANSACTION	BOBCARD ending 8899: INR 245.00 spent at City Grocers on 10-09-2026. Current outstanding INR 2318.00.
+TRANSACTION	BOBCARD ending 8899: INR 300.00 spent at City Home on 12-09-2026. Current outstanding INR 2618.00.
+TRANSACTION	BOBCARD ending 8899: INR 300.00 refund for the City Home purchase credited to the card on 15-09-2026. Current outstanding INR 2318.00.
+REMINDER	BOBCARD ending 8899 statement generated on 20-09-2026. Total amount due INR 2318.00. Minimum amount due INR 150.00. Due date 05-10-2026.
+BALANCE	BOBCARD ending 8899 current outstanding is INR 2318.00. Available credit limit INR 147682.00.
+BALANCE	HDFC Bank account ending 1122 available balance was INR 25000.00 on 01-09-2026.
+TRANSACTION	HDFC Bank account ending 1122: INR 14892.00 debited for LCC Projects Limited IPO application on 15-09-2026. Application reference LCCIPO02.
+TRANSACTION	HDFC Bank account ending 1122: INR 300.00 debited for a purchase at City Home on 15-09-2026. Reference HDFC1122PUR300.
+TRANSACTION	HDFC Bank account ending 1122: INR 2400.00 debited for an online purchase on 17-09-2026. Reference HDFC1122PUR2400.
+TRANSACTION	HDFC Bank account ending 1122: INR 300.00 refund received from City Home on 18-09-2026. Reference HDFC1122REF300.
+TRANSACTION	HDFC Bank account ending 1122: INR 1650.00 debited as payment toward SBI Card ending 7788 on 20-10-2026. Reference HDFC1122SBI7788PAY01.
+TRANSACTION	HDFC Bank account ending 1122: INR 1.00 credited by UPI from sender1586@upi on 21-10-2026. UPI reference HDFC11220001.
+TRANSACTION	HDFC Bank account ending 1122: INR 30.00 sent by UPI on 22-10-2026. Reference HDFC11223001.
+BALANCE	HDFC Bank account ending 1122 available balance is INR 6029.00 after the listed transactions on 22-10-2026.
+TRANSACTION	SBI Card ending 7788: purchase of INR 1650.00 completed at Demo Electronics on 18-10-2026. Current outstanding INR 1650.00.
+FAILED	SBI Card ending 7788: transaction of INR 58.06 at ASSPL on 15-10-2026 was declined. No purchase completed.
+REMINDER	SBI Card ending 7788 statement generated on 19-10-2026. Total amount due INR 1650.00. Minimum due INR 100.00. Due date 04-11-2026.
+TRANSACTION	SBI Card ending 7788: payment of INR 1650.00 from HDFC Bank account ending 1122 was successfully applied on 20-10-2026. Reference HDFC1122SBI7788PAY01. Current outstanding INR 0.00.
+TRANSACTION	Axis Bank Credit Card ending 6677: INR 110.00 spent at E Gopal on 22-10-2026. Current outstanding INR 601.28.
+TRANSACTION	Axis Bank Credit Card ending 6677: INR 300.00 cashback reward applied to the card balance on 23-10-2026. Current outstanding INR 301.28.
+REMINDER	Axis Bank Credit Card ending 6677 statement generated on 24-10-2026. Total amount due INR 301.28. Minimum amount due INR 100.00. Due date 04-11-2026.
+BALANCE	Axis Bank Credit Card ending 6677 current outstanding is INR 301.28.
+TRANSACTION	HDFC Bank Credit Card ending 5566: INR 300.00 purchase at Canara Mart on 10-09-2026. Current outstanding INR 900.00.
+TRANSACTION	HDFC Bank Credit Card ending 5566: INR 300.00 refund from Canara Mart adjusted against the card on 15-09-2026. Current outstanding INR 600.00.
+REMINDER	HDFC Bank Credit Card ending 5566 statement generated on 20-09-2026. Total amount due INR 600.00. Minimum amount due INR 100.00. Due date 04-11-2026.
+MARKETING	Get 5 percent extra cashback at Monte Carlo with SBI Card. Minimum transaction INR 7500. Maximum cashback INR 1000. Offer valid until 29 November 2026.
+MARKETING	Up to INR 16000 instant discount at PAI International with SBI Card. Minimum transaction INR 20000. Terms apply.
+MARKETING	Up to INR 12500 instant discount at Bonito Designs with SBI Card. Minimum transaction INR 30000. Terms apply.
+MARKETING	First BigBasket order offer: get up to INR 125 off orders above INR 399 on Tata Neu. Terms apply.
+TRANSACTION	RWallet account: INR 20.00 debited on 11-10-2026. Available wallet balance INR 11.80.

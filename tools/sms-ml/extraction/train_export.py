@@ -84,6 +84,10 @@ def augment_with_existing_synthetic_corpus(train_rows, validation_rows, test_row
     seen = {normalize_text(row["text"]) for row in train_rows + validation_rows + test_rows}
     added = []
     for path in WEAK_CORPORA:
+        if not path.exists():
+            # Optional weak-label corpora; training is self-contained without them.
+            print(f"weak_corpus_skipped_missing={path.name}")
+            continue
         for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
             if not line.strip() or line.lstrip().startswith("#"):
                 continue
@@ -105,13 +109,39 @@ def generate_strong_synthetic_rows(existing_train_rows):
         if row.get("slots", {}).get("MERCHANT")
     }
     merchants.update({
-        "L V Condiments", "City Grocers", "City Home", "Green Mart", "Metro Mart",
-        "BigBasket", "Fuel Station", "Cafe South", "E Gopal", "City Pharmacy",
+        # Single-word (kept for balance)
         "Amazon", "Flipkart", "Swiggy", "Zomato", "Uber", "Rapido", "Zepto",
-        "Reliance Digital", "Reliance Fresh", "Indian Oil", "BESCOM", "IRCTC",
-        "Netflix", "Spotify", "Myntra", "Croma", "Decathlon", "Apollo Pharmacy",
-        "BookMyShow", "PVR Cinemas", "YouTube Premium", "Ola", "OYO",
-        "Green Mart Online", "Fresh Basket", "South Cafe", "City Utilities",
+        "Netflix", "Spotify", "Myntra", "Croma", "Decathlon", "Blinkit",
+        "Dunzo", "Nykaa", "Meesho", "IRCTC", "Ola", "OYO",
+        # Multiword retail / grocery
+        "Green Leaf Mart", "Fresh Basket Store", "Daily Needs Supermart",
+        "Big Bazaar", "Star Bazaar", "More Supermarket", "Nature's Basket",
+        "Spencer's Retail", "Easy Day Club", "City Grocers", "Metro Cash Carry",
+        # Multiword food / dining
+        "Cafe Coffee Day", "Barista Coffee", "The Chai Point", "Pizza Corner",
+        "Burger Junction", "Spice Garden Restaurant", "Royal Biryani House",
+        "Tandoori Nights", "South Cafe", "Cafe South",
+        # Health / clinics (same shape as unseen challenge clinics)
+        "City Care Pharmacy", "Wellness Forever", "Health First Clinic",
+        "Sunrise Diagnostics", "Westside Clinic", "Lakeview Hospital",
+        "Green Valley Clinic", "Sunshine Dental Care", "Apollo Pharmacy",
+        # Transport
+        "Blue Dart Express", "City Metro Rail", "Fast Track Cabs",
+        "Namma Auto Service", "Prasanna Travels",
+        # Utilities / ALLCAPS & abbreviations
+        "MSEDCL", "BWSSB", "KSEB", "TNEB", "HPCL", "IOCL", "BPCL", "DMRC",
+        "BMTC", "Tata Power Ltd", "Adani Electricity", "Mahanagar Gas",
+        "ACT Fibernet", "Hathway Broadband",
+        # Electronics / shopping
+        "Reliance Digital", "Reliance Fresh", "Vijay Sales", "Poorvika Mobiles",
+        "Sangeetha Mobiles", "Lotus Electronics", "Indian Oil",
+        # Hyphenated / brand-joined
+        "Uber-India", "Swiggy-Instamart", "Amazon-Pay", "Flipkart-Wholesale",
+        "Tata-Cliq", "D-Mart Ready",
+        # Ampersand
+        "Johnson & Johnson Store", "Marks & Spencer", "Bath & Body Works",
+        # Numeric suffixes
+        "Cafe 99", "Store 24", "A1 Electronics", "Shop No 7 Traders",
     })
     templates = [
         ("Rs {amount} debited from A/c XX{account} at {merchant} on {date}. UPI Ref {reference}",
@@ -122,13 +152,25 @@ def generate_strong_synthetic_rows(existing_train_rows):
          lambda a, ac, m, d, r: {"AMOUNT": a, "MERCHANT": m, "REFERENCE": r}),
         ("INR {amount} spent at {merchant} using card XX{account} on {date}",
          lambda a, ac, m, d, r: {"AMOUNT": a, "DIRECTION": "spent", "ACCOUNT_LAST4": ac, "MERCHANT": m, "DATE": d}),
+        ("Rs {amount} paid to {merchant} via UPI on {date}. Ref {reference}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "DIRECTION": "paid", "MERCHANT": m, "DATE": d, "REFERENCE": r}),
+        ("INR {amount} was charged by {merchant} on your card ending {account}. Txn {reference}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "DIRECTION": "charged", "MERCHANT": m, "ACCOUNT_LAST4": ac, "REFERENCE": r}),
+        ("Payment of Rs {amount} to {merchant} is successful. A/c XX{account}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "MERCHANT": m, "ACCOUNT_LAST4": ac}),
+        ("{merchant} debited Rs {amount} from account XX{account} on {date}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "DIRECTION": "debited", "MERCHANT": m, "ACCOUNT_LAST4": ac, "DATE": d}),
+        ("Transaction of INR {amount} at {merchant} approved. Card XX{account}. Ref {reference}",
+         lambda a, ac, m, d, r: {"AMOUNT": a, "MERCHANT": m, "ACCOUNT_LAST4": ac, "REFERENCE": r}),
     ]
     generated = []
     for i, merchant in enumerate(sorted(merchants, key=str.lower)):
         for j, (template, make_slots) in enumerate(templates):
-            amount = ["49.00", "120.50", "275.00", "499.00", "740.25", "1,650.00", "2,020.00", "4,875.00"][(i + j) % 8]
+            amount = ["49.00", "120.50", "275.00", "499.00", "740.25", "1,650.00",
+                      "2,020.00", "4,875.00", "318.90", "12,450.00"][(i * 3 + j) % 10]
             account = f"{((i * 37 + j * 101) % 9000) + 1000:04d}"
-            date = ["01-Sep-2026", "12-Sep-2026", "2026-10-04", "22/09/2026"][(i + j) % 4]
+            date = ["01-Sep-2026", "12-Sep-2026", "2026-10-04", "22/09/2026",
+                    "07-Aug-2026", "19/11/2026"][(i + j) % 6]
             reference = f"SPY{i:05d}{j:03d}"
             text = template.format(amount=amount, account=account, merchant=merchant, date=date, reference=reference)
             slots = make_slots(amount, account, merchant, date, reference)
