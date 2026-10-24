@@ -1,0 +1,315 @@
+TRANSACTION	Successful UPI purchase at E Gopal: INR 2020 charged to account 5521.
+TRANSACTION	Successful UPI purchase at City Pharmacy: INR 4875 charged to account 6608.
+TRANSACTION	Successful UPI purchase at Railway Catering: INR 14999 charged to account 3194.
+TRANSACTION	Successful UPI purchase at L V Condiments: INR 49 charged to account 8800.
+TRANSACTION	Successful UPI purchase at Metro Mart: INR 120 charged to account 1122.
+TRANSACTION	Account 4834 received a credit of INR 275 from employer payroll.
+TRANSACTION	Account 8464 received a credit of INR 499 from ACME Payroll.
+TRANSACTION	Account 2041 received a credit of INR 740 from business partner.
+TRANSACTION	Account 7765 received a credit of INR 1021 from another bank.
+TRANSACTION	Account 9130 received a credit of INR 1650 from a listed company.
+TRANSACTION	Card 5907 transaction approved for INR 2020 at E Gopal.
+TRANSACTION	Card 9443 transaction approved for INR 4875 at City Pharmacy.
+TRANSACTION	Card 1008 transaction approved for INR 14999 at Railway Catering.
+TRANSACTION	Card 8899 transaction approved for INR 49 at L V Condiments.
+TRANSACTION	Card 5566 transaction approved for INR 120 at Metro Mart.
+TRANSACTION	Completed NEFT transfer of INR 275 sent to saved contact.
+TRANSACTION	Completed NEFT transfer of INR 499 sent to Varshini.
+TRANSACTION	Completed NEFT transfer of INR 740 sent to utility provider.
+TRANSACTION	Completed NEFT transfer of INR 1021 sent to service provider.
+TRANSACTION	Completed NEFT transfer of INR 1650 sent to payment app.
+TRANSACTION	Wallet debit of INR 2020 recorded for E Gopal.
+TRANSACTION	Wallet debit of INR 4875 recorded for City Pharmacy.
+TRANSACTION	Wallet debit of INR 14999 recorded for Railway Catering.
+TRANSACTION	Wallet debit of INR 49 recorded for L V Condiments.
+TRANSACTION	Wallet debit of INR 120 recorded for Metro Mart.
+TRANSACTION	Merchant Online Store refund of INR 275 credited to card 4536.
+TRANSACTION	Merchant Utility Services refund of INR 499 credited to card 7788.
+TRANSACTION	Merchant BigBasket refund of INR 740 credited to card 6677.
+TRANSACTION	Merchant Fuel Station refund of INR 1021 credited to card 4206.
+TRANSACTION	Merchant Cafe South refund of INR 1650 credited to card 7306.
+TRANSACTION	ATM cash withdrawal of INR 2020 completed on card 5907.
+TRANSACTION	ATM cash withdrawal of INR 4875 completed on card 9443.
+TRANSACTION	ATM cash withdrawal of INR 14999 completed on card 1008.
+TRANSACTION	ATM cash withdrawal of INR 49 completed on card 8899.
+TRANSACTION	ATM cash withdrawal of INR 120 completed on card 5566.
+AMBIGUOUS	INR 2020 instruction is queued; success or failure is not confirmed.
+AMBIGUOUS	INR 4875 instruction is queued; success or failure is not confirmed.
+AMBIGUOUS	INR 14999 instruction is queued; success or failure is not confirmed.
+AMBIGUOUS	INR 49 instruction is queued; success or failure is not confirmed.
+AMBIGUOUS	INR 120 instruction is queued; success or failure is not confirmed.
+AMBIGUOUS	Bank is reviewing request for INR 275; final state is unclear.
+AMBIGUOUS	Bank is reviewing request for INR 499; final state is unclear.
+AMBIGUOUS	Bank is reviewing request for INR 740; final state is unclear.
+AMBIGUOUS	Bank is reviewing request for INR 1021; final state is unclear.
+AMBIGUOUS	Bank is reviewing request for INR 1650; final state is unclear.
+AMBIGUOUS	Reference generated for INR 2020, but fund movement is unconfirmed.
+AMBIGUOUS	Reference generated for INR 4875, but fund movement is unconfirmed.
+AMBIGUOUS	Reference generated for INR 14999, but fund movement is unconfirmed.
+AMBIGUOUS	Reference generated for INR 49, but fund movement is unconfirmed.
+AMBIGUOUS	Reference generated for INR 120, but fund movement is unconfirmed.
+AMBIGUOUS	Payment of INR 275 awaits final service response.
+AMBIGUOUS	Payment of INR 499 awaits final service response.
+AMBIGUOUS	Payment of INR 740 awaits final service response.
+AMBIGUOUS	Payment of INR 1021 awaits final service response.
+AMBIGUOUS	Payment of INR 1650 awaits final service response.
+AMBIGUOUS	Notice about INR 2020 lacks a completed or declined status.
+AMBIGUOUS	Notice about INR 4875 lacks a completed or declined status.
+AMBIGUOUS	Notice about INR 14999 lacks a completed or declined status.
+AMBIGUOUS	Notice about INR 49 lacks a completed or declined status.
+AMBIGUOUS	Notice about INR 120 lacks a completed or declined status.
+AMBIGUOUS	Transfer request for INR 275 has no final status.
+AMBIGUOUS	Transfer request for INR 499 has no final status.
+AMBIGUOUS	Transfer request for INR 740 has no final status.
+AMBIGUOUS	Transfer request for INR 1021 has no final status.
+AMBIGUOUS	Transfer request for INR 1650 has no final status.
+AMBIGUOUS	INR 2020 is pending; do not treat it as completed.
+AMBIGUOUS	INR 4875 is pending; do not treat it as completed.
+AMBIGUOUS	INR 14999 is pending; do not treat it as completed.
+AMBIGUOUS	INR 49 is pending; do not treat it as completed.
+AMBIGUOUS	INR 120 is pending; do not treat it as completed.
+BALANCE	Available funds for account 5521 are INR 6543.21.
+BALANCE	Available funds for account 6608 are INR 24750.00.
+BALANCE	Available funds for account 3194 are INR 812.80.
+BALANCE	Available funds for account 8800 are INR 84.50.
+BALANCE	Available funds for account 1122 are INR 760.25.
+BALANCE	Balance inquiry: card 4536 limit INR 4230.00.
+BALANCE	Balance inquiry: card 7788 limit INR 18765.40.
+BALANCE	Balance inquiry: card 6677 limit INR 50210.75.
+BALANCE	Balance inquiry: card 4206 limit INR 990.00.
+BALANCE	Balance inquiry: card 7306 limit INR 128.35.
+BALANCE	Wallet summary shows INR 6543.21 remaining.
+BALANCE	Wallet summary shows INR 24750.00 remaining.
+BALANCE	Wallet summary shows INR 812.80 remaining.
+BALANCE	Wallet summary shows INR 84.50 remaining.
+BALANCE	Wallet summary shows INR 760.25 remaining.
+BALANCE	Statement balance on card 4536 was INR 4230.00.
+BALANCE	Statement balance on card 7788 was INR 18765.40.
+BALANCE	Statement balance on card 6677 was INR 50210.75.
+BALANCE	Statement balance on card 4206 was INR 990.00.
+BALANCE	Statement balance on card 7306 was INR 128.35.
+BALANCE	Account 5521 balance snapshot INR 6543.21; no new movement reported.
+BALANCE	Account 6608 balance snapshot INR 24750.00; no new movement reported.
+BALANCE	Account 3194 balance snapshot INR 812.80; no new movement reported.
+BALANCE	Account 8800 balance snapshot INR 84.50; no new movement reported.
+BALANCE	Account 1122 balance snapshot INR 760.25; no new movement reported.
+BALANCE	Account available balance updated to INR 4230.00.
+BALANCE	Account available balance updated to INR 18765.40.
+BALANCE	Account available balance updated to INR 50210.75.
+BALANCE	Account available balance updated to INR 990.00.
+BALANCE	Account available balance updated to INR 128.35.
+BALANCE	Remaining credit on card 5907: INR 6543.21.
+BALANCE	Remaining credit on card 9443: INR 24750.00.
+BALANCE	Remaining credit on card 1008: INR 812.80.
+BALANCE	Remaining credit on card 8899: INR 84.50.
+BALANCE	Remaining credit on card 5566: INR 760.25.
+FAILED	Payment attempt INR 2020 declined; no money was taken.
+FAILED	Payment attempt INR 4875 declined; no money was taken.
+FAILED	Payment attempt INR 14999 declined; no money was taken.
+FAILED	Payment attempt INR 49 declined; no money was taken.
+FAILED	Payment attempt INR 120 declined; no money was taken.
+FAILED	Transfer for INR 275 could not be processed.
+FAILED	Transfer for INR 499 could not be processed.
+FAILED	Transfer for INR 740 could not be processed.
+FAILED	Transfer for INR 1021 could not be processed.
+FAILED	Transfer for INR 1650 could not be processed.
+FAILED	Purchase INR 2020 at E Gopal was not approved.
+FAILED	Purchase INR 4875 at City Pharmacy was not approved.
+FAILED	Purchase INR 14999 at Railway Catering was not approved.
+FAILED	Purchase INR 49 at L V Condiments was not approved.
+FAILED	Purchase INR 120 at Metro Mart was not approved.
+FAILED	Payment service reports failure for INR 275.
+FAILED	Payment service reports failure for INR 499.
+FAILED	Payment service reports failure for INR 740.
+FAILED	Payment service reports failure for INR 1021.
+FAILED	Payment service reports failure for INR 1650.
+FAILED	Bank rejected transaction INR 2020; unsuccessful.
+FAILED	Bank rejected transaction INR 4875; unsuccessful.
+FAILED	Bank rejected transaction INR 14999; unsuccessful.
+FAILED	Bank rejected transaction INR 49; unsuccessful.
+FAILED	Bank rejected transaction INR 120; unsuccessful.
+FAILED	Card 4536 charge INR 275 failed authorization.
+FAILED	Card 7788 charge INR 499 failed authorization.
+FAILED	Card 6677 charge INR 740 failed authorization.
+FAILED	Card 4206 charge INR 1021 failed authorization.
+FAILED	Card 7306 charge INR 1650 failed authorization.
+FAILED	UPI request INR 2020 failed; recipient was not paid.
+FAILED	UPI request INR 4875 failed; recipient was not paid.
+FAILED	UPI request INR 14999 failed; recipient was not paid.
+FAILED	UPI request INR 49 failed; recipient was not paid.
+FAILED	UPI request INR 120 failed; recipient was not paid.
+MARKETING	Limited-time discount at E Gopal on future orders.
+MARKETING	Limited-time discount at City Pharmacy on future orders.
+MARKETING	Limited-time discount at Railway Catering on future orders.
+MARKETING	Limited-time discount at L V Condiments on future orders.
+MARKETING	Limited-time discount at Metro Mart on future orders.
+MARKETING	Enroll in the Axis Bank rewards campaign.
+MARKETING	Enroll in the ICICI Bank rewards campaign.
+MARKETING	Enroll in the Canara Bank rewards campaign.
+MARKETING	Enroll in the BOB Bank rewards campaign.
+MARKETING	Enroll in the Kotak Bank rewards campaign.
+MARKETING	Shop this week and unlock 2020% off selected items.
+MARKETING	Shop this week and unlock 4875% off selected items.
+MARKETING	Shop this week and unlock 14999% off selected items.
+MARKETING	Shop this week and unlock 49% off selected items.
+MARKETING	Shop this week and unlock 120% off selected items.
+MARKETING	Promotional credit offer: review terms before applying.
+MARKETING	Promotional credit offer: review terms before applying.
+MARKETING	Promotional credit offer: review terms before applying.
+MARKETING	Promotional credit offer: review terms before applying.
+MARKETING	Promotional credit offer: review terms before applying.
+MARKETING	Earn points on qualifying future spends after activation.
+MARKETING	Earn points on qualifying future spends after activation.
+MARKETING	Earn points on qualifying future spends after activation.
+MARKETING	Earn points on qualifying future spends after activation.
+MARKETING	Earn points on qualifying future spends after activation.
+MARKETING	Sale alert: use code DEAL516 at checkout.
+MARKETING	Sale alert: use code DEAL529 at checkout.
+MARKETING	Sale alert: use code DEAL542 at checkout.
+MARKETING	Sale alert: use code DEAL555 at checkout.
+MARKETING	Sale alert: use code DEAL568 at checkout.
+MARKETING	Cashback is available on eligible future purchases; terms apply.
+MARKETING	Cashback is available on eligible future purchases; terms apply.
+MARKETING	Cashback is available on eligible future purchases; terms apply.
+MARKETING	Cashback is available on eligible future purchases; terms apply.
+MARKETING	Cashback is available on eligible future purchases; terms apply.
+OTHER	Profile update recorded; review account details.
+OTHER	Profile update recorded; review account details.
+OTHER	Profile update recorded; review account details.
+OTHER	Profile update recorded; review account details.
+OTHER	Profile update recorded; review account details.
+OTHER	Debit card renewal notice: request replacement before expiry.
+OTHER	Debit card renewal notice: request replacement before expiry.
+OTHER	Debit card renewal notice: request replacement before expiry.
+OTHER	Debit card renewal notice: request replacement before expiry.
+OTHER	Debit card renewal notice: request replacement before expiry.
+OTHER	Travel booking confirmed; itinerary is available.
+OTHER	Travel booking confirmed; itinerary is available.
+OTHER	Travel booking confirmed; itinerary is available.
+OTHER	Travel booking confirmed; itinerary is available.
+OTHER	Travel booking confirmed; itinerary is available.
+OTHER	Bank service request [REDACTED] registered successfully.
+OTHER	Bank service request [REDACTED] registered successfully.
+OTHER	Bank service request [REDACTED] registered successfully.
+OTHER	Bank service request [REDACTED] registered successfully.
+OTHER	Bank service request [REDACTED] registered successfully.
+OTHER	Monthly account statement document is ready.
+OTHER	Monthly account statement document is ready.
+OTHER	Monthly account statement document is ready.
+OTHER	Monthly account statement document is ready.
+OTHER	Monthly account statement document is ready.
+OTHER	Cheque book request accepted for processing.
+OTHER	Cheque book request accepted for processing.
+OTHER	Cheque book request accepted for processing.
+OTHER	Cheque book request accepted for processing.
+OTHER	Cheque book request accepted for processing.
+OTHER	Contact detail update completed on your profile.
+OTHER	Contact detail update completed on your profile.
+OTHER	Contact detail update completed on your profile.
+OTHER	Contact detail update completed on your profile.
+OTHER	Contact detail update completed on your profile.
+OTP	Use 155433 as the one-time password for login.
+OTP	Use 163352 as the one-time password for login.
+OTP	Use 171271 as the one-time password for login.
+OTP	Use 179190 as the one-time password for login.
+OTP	Use 187109 as the one-time password for login.
+OTP	Security code 195028 generated for identity verification.
+OTP	Security code 202947 generated for identity verification.
+OTP	Security code 210866 generated for identity verification.
+OTP	Security code 218785 generated for identity verification.
+OTP	Security code 226704 generated for identity verification.
+OTP	Temporary verification number 234623; never share it.
+OTP	Temporary verification number 242542; never share it.
+OTP	Temporary verification number 250461; never share it.
+OTP	Temporary verification number 258380; never share it.
+OTP	Temporary verification number 266299; never share it.
+OTP	OTP 274218 expires shortly and can be used once.
+OTP	OTP 282137 expires shortly and can be used once.
+OTP	OTP 290056 expires shortly and can be used once.
+OTP	OTP 297975 expires shortly and can be used once.
+OTP	OTP 305894 expires shortly and can be used once.
+OTP	Enter code 313813 to complete authentication.
+OTP	Enter code 321732 to complete authentication.
+OTP	Enter code 329651 to complete authentication.
+OTP	Enter code 337570 to complete authentication.
+OTP	Enter code 345489 to complete authentication.
+OTP	Verification passcode 353408 is for you only.
+OTP	Verification passcode 361327 is for you only.
+OTP	Verification passcode 369246 is for you only.
+OTP	Verification passcode 377165 is for you only.
+OTP	Verification passcode 385084 is for you only.
+OTP	One-time login token 393003 must not be shared.
+OTP	One-time login token 400922 must not be shared.
+OTP	One-time login token 408841 must not be shared.
+OTP	One-time login token 416760 must not be shared.
+OTP	One-time login token 424679 must not be shared.
+REMINDER	Card statement payable INR 2020, due 02 Nov 2026.
+REMINDER	Card statement payable INR 4875, due 30 Oct 2026.
+REMINDER	Card statement payable INR 14999, due 01 Dec 2026.
+REMINDER	Card statement payable INR 49, due 04 Nov 2026.
+REMINDER	Card statement payable INR 120, due 20 Nov 2026.
+REMINDER	Loan installment INR 275 scheduled for 12 Nov 2026.
+REMINDER	Loan installment INR 499 scheduled for 15 Nov 2026.
+REMINDER	Loan installment INR 740 scheduled for 10 Dec 2026.
+REMINDER	Loan installment INR 1021 scheduled for 05 Dec 2026.
+REMINDER	Loan installment INR 1650 scheduled for 28 Oct 2026.
+REMINDER	Monthly bill of INR 2020 must be paid by deadline.
+REMINDER	Monthly bill of INR 4875 must be paid by deadline.
+REMINDER	Monthly bill of INR 14999 must be paid by deadline.
+REMINDER	Monthly bill of INR 49 must be paid by deadline.
+REMINDER	Monthly bill of INR 120 must be paid by deadline.
+REMINDER	Statement reminder for card 4536: minimum INR 275.
+REMINDER	Statement reminder for card 7788: minimum INR 499.
+REMINDER	Statement reminder for card 6677: minimum INR 740.
+REMINDER	Statement reminder for card 4206: minimum INR 1021.
+REMINDER	Statement reminder for card 7306: minimum INR 1650.
+REMINDER	Subscription renewal date is 02 Nov 2026; check plan.
+REMINDER	Subscription renewal date is 30 Oct 2026; check plan.
+REMINDER	Subscription renewal date is 01 Dec 2026; check plan.
+REMINDER	Subscription renewal date is 04 Nov 2026; check plan.
+REMINDER	Subscription renewal date is 20 Nov 2026; check plan.
+REMINDER	EMI installment INR 275 is due this month.
+REMINDER	EMI installment INR 499 is due this month.
+REMINDER	EMI installment INR 740 is due this month.
+REMINDER	EMI installment INR 1021 is due this month.
+REMINDER	EMI installment INR 1650 is due this month.
+REMINDER	Payment deadline approaching for bill INR 2020.
+REMINDER	Payment deadline approaching for bill INR 4875.
+REMINDER	Payment deadline approaching for bill INR 14999.
+REMINDER	Payment deadline approaching for bill INR 49.
+REMINDER	Payment deadline approaching for bill INR 120.
+SECURITY_ALERT	Bank detected possible unauthorized login; check official app.
+SECURITY_ALERT	Bank detected possible unauthorized login; check official app.
+SECURITY_ALERT	Bank detected possible unauthorized login; check official app.
+SECURITY_ALERT	Bank detected possible unauthorized login; check official app.
+SECURITY_ALERT	Bank detected possible unauthorized login; check official app.
+SECURITY_ALERT	Suspicious access attempt; contact fraud support if needed.
+SECURITY_ALERT	Suspicious access attempt; contact fraud support if needed.
+SECURITY_ALERT	Suspicious access attempt; contact fraud support if needed.
+SECURITY_ALERT	Suspicious access attempt; contact fraud support if needed.
+SECURITY_ALERT	Suspicious access attempt; contact fraud support if needed.
+SECURITY_ALERT	Security alert for card 5907: unusual activity needs review.
+SECURITY_ALERT	Security alert for card 9443: unusual activity needs review.
+SECURITY_ALERT	Security alert for card 1008: unusual activity needs review.
+SECURITY_ALERT	Security alert for card 8899: unusual activity needs review.
+SECURITY_ALERT	Security alert for card 5566: unusual activity needs review.
+SECURITY_ALERT	Unknown device attempted to register for banking access.
+SECURITY_ALERT	Unknown device attempted to register for banking access.
+SECURITY_ALERT	Unknown device attempted to register for banking access.
+SECURITY_ALERT	Unknown device attempted to register for banking access.
+SECURITY_ALERT	Unknown device attempted to register for banking access.
+SECURITY_ALERT	If you did not request profile change, contact bank.
+SECURITY_ALERT	If you did not request profile change, contact bank.
+SECURITY_ALERT	If you did not request profile change, contact bank.
+SECURITY_ALERT	If you did not request profile change, contact bank.
+SECURITY_ALERT	If you did not request profile change, contact bank.
+SECURITY_ALERT	Potential fraud detected; verify using official channels.
+SECURITY_ALERT	Potential fraud detected; verify using official channels.
+SECURITY_ALERT	Potential fraud detected; verify using official channels.
+SECURITY_ALERT	Potential fraud detected; verify using official channels.
+SECURITY_ALERT	Potential fraud detected; verify using official channels.
+SECURITY_ALERT	Account security check found an unrecognized login attempt.
+SECURITY_ALERT	Account security check found an unrecognized login attempt.
+SECURITY_ALERT	Account security check found an unrecognized login attempt.
+SECURITY_ALERT	Account security check found an unrecognized login attempt.
+SECURITY_ALERT	Account security check found an unrecognized login attempt.
