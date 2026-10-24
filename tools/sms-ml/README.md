@@ -3,10 +3,12 @@
 ## Included files
 
 - `training_corpus.tsv`: 54 general synthetic examples across the existing message classes.
-- `linked_account_scenarios.tsv`: 38 synthetic examples with consistent bank-account/card identifiers, linked purchases and refunds, a matched bank-to-card payment, statements, balances, an IPO block/release, offers, and wallet activity. It uses the same `LABEL<TAB>SMS_TEXT` format.
-- `evaluation_corpus.tsv`: held-out synthetic examples that are not used for fitting weights.
+- `linked_account_scenarios.tsv`: 38 synthetic examples with consistent bank-account/card identifiers, linked purchases and refunds, a matched bank-to-card payment, statements, balances, an IPO block/release, offers, and wallet activity.
+- `field_regressions.tsv`: 12 sanitized, real-world-pattern examples based on messages reviewed during phone/inbox discussion. Account suffixes, recipient names, UTRs, references, and other identifiers are removed or replaced with `[REDACTED]`.
+- `evaluation_corpus.tsv`: the original held-out synthetic examples.
+- `field_evaluation.tsv`: 9 held-out paraphrases for dividend credits, NEFT/RTGS, card payments, failed bill payments, wallet activity, railway booking, and charges. These are not used to fit weights.
 
-The trainer combines the two training files (92 examples total); the evaluation corpus remains separate.
+The trainer combines the three training files (104 examples total); the two held-out evaluation files contain 28 examples total.
 - `train_sms_model.py`: deterministic Python-standard-library trainer; no network or real inbox access.
 - `app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt`: generated compact one-vs-rest log-odds weights used by Android.
 - `OnDeviceSmsClassifier`: local inference plus conservative safety overrides and confidence gates.
@@ -21,7 +23,18 @@ From the repository root:
 python3 tools/sms-ml/train_sms_model.py
 ```
 
-The script regenerates `SmsMlModelData.kt` deterministically and prints sample count, class count, selected feature count, generated source byte size and held-out evaluation accuracy. It uses only the Python standard library.
+The script regenerates `SmsMlModelData.kt` deterministically and prints sample counts, per-class counts, selected feature count, generated source byte size, overall held-out accuracy, and per-class results. It fails if held-out accuracy falls below 80% or the generated Kotlin source exceeds 25 KiB. The model retains 40 features per class (up from 14) to better represent real SMS phrasing.
+
+Run the independent ML checks with:
+
+```bash
+python3 tools/sms-ml/validate_sms_ml.py
+python3 tools/sms-ml/train_sms_model.py
+python3 tools/sms-ml/validate_sms_ml.py
+git diff --exit-code -- app/src/main/java/com/madhusit/spendly/domain/sms/SmsMlModelData.kt
+```
+
+`.github/workflows/sms-ml.yml` runs this fast pipeline independently from Android Gradle/unit/instrumentation tests. It triggers for ML corpus/trainer/model changes and supports manual dispatch.
 
 ## Runtime behavior
 
@@ -53,7 +66,7 @@ The model never writes to Room and never chooses a financial entity. It only gat
 
 ## Known limitations
 
-- The initial corpus is small and synthetic; real-world provider and language variation is not represented adequately.
+- The corpus remains small and the field examples are sanitized paraphrases, not raw inbox exports. Real-world provider and language variation is not represented adequately.
 - The evaluation set is small; its accuracy is directional, not a production quality guarantee.
 - This first slice adds ML to message classification only; it does not claim to solve semantic deduplication of different SMS wording.
 - A mixed security/transaction notification may be held out as a security alert when no explicit completed money-movement verb is present. Review ambiguous messages rather than guessing.
