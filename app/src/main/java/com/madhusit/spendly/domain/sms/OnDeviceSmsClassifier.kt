@@ -54,7 +54,8 @@ class OnDeviceSmsClassifier {
         val confirmedAction = hasConfirmedAction(text)
         if (listOf("transaction failed", "payment failed", "transaction declined", "payment declined",
                 "transaction unsuccessful", "insufficient funds", "insufficient balance",
-                "transaction rejected", "not debited", "no money deducted").any { it in text }) return "FAILED"
+                "transaction rejected", "not debited", "no money deducted", "did not go through",
+                "could not be processed", "was unsuccessful", "could not complete").any { it in text }) return "FAILED"
         val securityBoilerplate = listOf("fraud alert", "suspicious transaction", "suspicious activity",
             "security warning", "security alert", "if you did not", "if not you", "call bank fraud team")
             .any { it in text }
