@@ -55,7 +55,16 @@ def weak_slots(text, intent):
     if date:
         slots["DATE"] = date.group(0)
     if intent in {"TRANSACTION", "FAILED"}:
-        direction = re.search(r"\b(?:debited|credited|spent|withdrawn|refunded|reversed|charged|deducted|sent|transferred|received|paid|not\s+debited)\b", text, re.IGNORECASE)
+        # Negative status phrases are not evidence that money actually moved.
+        # Do not weak-label "not debited" as a positive debit cue.
+        negated_debit = re.search(
+            r"\\b(?:not|never|has not|was not|hasn't|wasn't)\\s+(?:been\\s+)?debited\\b",
+            text, re.IGNORECASE,
+        )
+        direction = None if negated_debit else re.search(
+            r"\\b(?:debited|credited|spent|withdrawn|refunded|reversed|charged|deducted|sent|transferred|received|paid)\\b",
+            text, re.IGNORECASE,
+        )
         if direction:
             slots["DIRECTION"] = direction.group(0)
     return slots
