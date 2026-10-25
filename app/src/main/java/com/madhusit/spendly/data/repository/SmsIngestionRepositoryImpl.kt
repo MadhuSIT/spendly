@@ -48,15 +48,16 @@ class SmsIngestionRepositoryImpl(
             return@withTransaction result
         }
 
-        val sourceEntity = resolveSourceEntity(normalized)
-        if (sourceEntity == null) {
-            eventDao.updateResult(fingerprint, null, SmsFailureReason.AMBIGUOUS_ENTITY.name)
-            return@withTransaction result.copy(failureReason = SmsFailureReason.AMBIGUOUS_ENTITY)
-        }
+        // Never silently drop a parseable financial SMS: if the source cannot be
+        // resolved, attach it to an "Unassigned" account and send it to review.
+        val resolvedSource = resolveSourceEntity(normalized)
+        val sourceEntity = resolvedSource ?: findOrCreateUnassigned()
+        val unresolvedSource = resolvedSource == null
 
         val destinationEntity = resolveDestinationEntity(normalized)
 
-        val needsReview = normalized.reviewRequired ||
+        val needsReview = unresolvedSource ||
+            normalized.reviewRequired ||
             normalized.type == TransactionType.TRANSFER ||
             normalized.type == TransactionType.CARD_PAYMENT ||
             normalized.type == TransactionType.REVERSAL
@@ -121,13 +122,18 @@ class SmsIngestionRepositoryImpl(
         }.singleOrNull()?.let { return it }
 
         // 3. A last-four identifies a specific account/card. Find or create a
-        //    dedicated entity for it rather than defaulting to the cash wallet,
-        //    so the user's accounts/cards are actually maintained.
+        //    dedicated entity for it rather than defaulting to the cash wallet.
         normalized.lastFour?.let { last4 ->
             return findOrCreateAccount(normalized.provider, last4, normalized.entityType)
         }
 
-        // 4. No account signal: fall back to a single non-merchant entity (cash).
+        // 4. Provider detected (e.g. HDFC) but no last-four: attach to that
+        //    provider's account (auto-created) so the debit is never dropped.
+        if (normalized.provider != null) {
+            return findOrCreateAccount(normalized.provider, null, normalized.entityType)
+        }
+
+        // 5. No account signal: fall back to a single non-merchant entity (cash).
         val nonMerchant = all.filter { it.type != FinancialEntityType.MERCHANT }
         if (nonMerchant.size == 1) return nonMerchant.single()
         return null
@@ -135,7 +141,7 @@ class SmsIngestionRepositoryImpl(
 
     private suspend fun findOrCreateAccount(
         provider: String?,
-        lastFour: String,
+        lastFour: String?,
         entityType: FinancialEntityType
     ): FinancialEntity {
         val type = when (entityType) {
@@ -150,17 +156,18 @@ class SmsIngestionRepositoryImpl(
         }
         if (existing != null) return existing
         val now = System.currentTimeMillis()
-        val label = (provider ?: when (type) {
+        val base = provider ?: when (type) {
             FinancialEntityType.CREDIT_CARD -> "Credit Card"
             FinancialEntityType.DEBIT_CARD -> "Debit Card"
             else -> "Account"
-        }) + " ••$lastFour"
+        }
+        val label = if (lastFour != null) "$base ••$lastFour" else "$base Account"
         val account = FinancialEntity(
             id = UUID.randomUUID().toString(),
             type = type,
             provider = provider,
             name = label,
-            maskedIdentifier = "XX$lastFour",
+            maskedIdentifier = lastFour?.let { "XX$it" },
             lastFour = lastFour,
             currency = "INR",
             active = true,
@@ -170,6 +177,30 @@ class SmsIngestionRepositoryImpl(
         ledgerRepository.createEntity(account)
         Log.i(TAG, "Auto-created account entity: $label")
         return account
+    }
+
+    /** Last-resort source so a parseable financial SMS is never silently dropped. */
+    private suspend fun findOrCreateUnassigned(): FinancialEntity {
+        val existing = ledgerRepository.observeEntities().first().firstOrNull {
+            it.type == FinancialEntityType.BANK_ACCOUNT && it.name == "Unassigned"
+        }
+        if (existing != null) return existing
+        val now = System.currentTimeMillis()
+        val entity = FinancialEntity(
+            id = UUID.randomUUID().toString(),
+            type = FinancialEntityType.BANK_ACCOUNT,
+            provider = null,
+            name = "Unassigned",
+            maskedIdentifier = null,
+            lastFour = null,
+            currency = "INR",
+            active = true,
+            createdAtEpochMillis = now,
+            updatedAtEpochMillis = now
+        )
+        ledgerRepository.createEntity(entity)
+        Log.i(TAG, "Auto-created Unassigned source entity")
+        return entity
     }
 
     private suspend fun resolveDestinationEntity(normalized: NormalizedSmsTransaction): FinancialEntity? {
