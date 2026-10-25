@@ -38,5 +38,7 @@ data class NormalizedSmsTransaction(
 data class SmsParseResult(
     val classification: SmsClassification,
     val normalized: NormalizedSmsTransaction? = null,
-    val failureReason: SmsFailureReason? = null
+    val failureReason: SmsFailureReason? = null,
+    /** True only when a ledger row was actually created and routed to the review queue. */
+    val routedToReview: Boolean = false
 )

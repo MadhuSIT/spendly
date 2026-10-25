@@ -94,9 +94,11 @@ private val UPI_VPA = Regex(
     """(?:vpa|merchant\s+vpa|upi\s+vpa)[:\s]+([A-Za-z0-9._\-]{2,30})@[A-Za-z0-9.\-]+""",
     RegexOption.IGNORE_CASE
 )
-// VPA in free text: word@upihandle — extract the local part if it looks like a merchant
+// VPA in free text: local@handle — always take the LOCAL part (before @) as the
+// merchant/counterparty, never the bank handle. A UPI handle has no dot after @
+// (distinguishes `abx@axl` from an email like `x@gmail.com`).
 private val VPA_FREETEXT = Regex(
-    """(?<![/@])([A-Za-z][A-Za-z0-9.\-]{1,20})@(?:oksbi|okhdfcbank|okicici|okaxis|ybl|upi|paytm|apl|jupiteraxis|freecharge|pockets|idfcbank|sbi|icici|hdfc|axis)\b""",
+    """(?<![/@\w])([A-Za-z0-9][A-Za-z0-9._\-]{1,20})@[A-Za-z]{2,15}\b(?!\.)""",
     RegexOption.IGNORE_CASE
 )
 // Axis/IDFC style: "to MERCHANT NAME" at end of transaction description

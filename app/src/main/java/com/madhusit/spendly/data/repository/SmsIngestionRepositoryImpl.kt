@@ -76,7 +76,7 @@ class SmsIngestionRepositoryImpl(
             )
             ledgerRepository.createTransaction(reviewTxn)
             eventDao.updateResult(fingerprint, reviewId, "REVIEW_PENDING")
-            return@withTransaction result
+            return@withTransaction result.copy(routedToReview = true)
         }
 
         val status = if (Regex("failed|declined|rejected", RegexOption.IGNORE_CASE).containsMatchIn(message.body))
@@ -272,8 +272,12 @@ class SmsIngestionRepositoryImpl(
                 try {
                     val result = process(SmsMessage(sender, body, date))
                     Log.i(TAG, "Inbox[$total]: from=$sender cls=${result.classification} fail=${result.failureReason}")
-                    if (result.failureReason == null && result.normalized != null) saved++
-                    if (result.normalized?.reviewRequired == true) review++
+                    when {
+                        // A row was actually created and sent to the review queue.
+                        result.routedToReview -> review++
+                        // A confirmed ledger row was created.
+                        result.failureReason == null && result.normalized != null -> saved++
+                    }
                 } catch (e: Exception) {
                     Log.e(TAG, "Inbox[$total]: process threw for $sender: ${e.message}", e)
                 }
