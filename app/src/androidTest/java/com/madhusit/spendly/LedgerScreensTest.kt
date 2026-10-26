@@ -96,6 +96,7 @@ class LedgerScreensTest {
             parserVersion = "v1",
             confidence = 0.93,
             reviewRequired = false,
+            category = null,
             createdAtEpochMillis = 1_000L,
             updatedAtEpochMillis = 1_000L
         )
@@ -140,6 +141,7 @@ class LedgerScreensTest {
             parserVersion = null,
             confidence = null,
             reviewRequired = false,
+            category = null,
             createdAtEpochMillis = 1_000L,
             updatedAtEpochMillis = 1_000L
         )
