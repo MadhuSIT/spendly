@@ -226,6 +226,7 @@ class LedgerRepositoryInvariantTest {
         parserVersion = null,
         confidence = 1.0,
         reviewRequired = false,
+        category = null,
         createdAtEpochMillis = 1,
         updatedAtEpochMillis = 1
     )
